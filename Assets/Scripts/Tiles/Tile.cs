@@ -21,8 +21,12 @@ public abstract class Tile : MonoBehaviour
         GridManager.instance.SelectHoveredTile(this);
     }
     public void OnHover(){
-        if (UnitManager.instance.selectedUnit != null && !isValidMove){
-            return;
+        //if a unit is selected
+        if (UnitManager.instance.selectedUnit != null){
+            if (!isValidMove) {
+                return;
+            }
+            ToggleLinePoint();
         }
         MenuManager.instance.EnableHighlight(this);
     }
@@ -51,11 +55,12 @@ public abstract class Tile : MonoBehaviour
             //current unit is a hero, set as selected
             if (occupiedUnit.faction == UnitFaction.Hero){
                 UnitManager.instance.SetSeclectedUnit(occupiedUnit);
+                return;
             }
             //current unit is enemy, AND selected is enemy,
             else if (occupiedUnit.faction == UnitFaction.Enemy){
                 if (UnitManager.instance.selectedUnit == null){
-                    return;
+                  
                 }
                 if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero){
                     //move hero to enemy, kill enemy
@@ -69,6 +74,7 @@ public abstract class Tile : MonoBehaviour
                 MoveToSelectedTile();
             }
         }
+        PathLine.instance.Reset();
     }
     public void MoveToSelectedTile(){
         SetUnit(UnitManager.instance.selectedUnit);
@@ -106,5 +112,14 @@ public abstract class Tile : MonoBehaviour
         }
         return newTiles;
 
+    }
+
+    private void ToggleLinePoint(){
+        bool onPath = PathLine.instance.IsOnPath(this);
+        if (!onPath){
+            PathLine.instance.AddTile(this);
+        }else{
+            PathLine.instance.RemoveTile(this);
+        }
     }
 }

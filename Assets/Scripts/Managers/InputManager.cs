@@ -17,7 +17,6 @@ public class InputManager : MonoBehaviour
     private void FixedUpdate() {
         if (!CanMove()){
             currentMoveFrameDelay--;
-            Debug.Log(currentMoveFrameDelay);
         }
     }
     private void OnEnable() {

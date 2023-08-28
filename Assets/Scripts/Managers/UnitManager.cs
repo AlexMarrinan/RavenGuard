@@ -21,6 +21,9 @@ public class UnitManager : MonoBehaviour
             var spawnedHero = Instantiate(randomPrefab);
             var randomSpawnTile = GridManager.instance.GetHeroSpawnTile();
             randomSpawnTile.SetUnit(spawnedHero);
+            
+            //TODO: REMOVE AFTER PROVING LINE SHOWS UP
+            //PathLine.instance.AddTile(randomSpawnTile);
         }
         GameManager.instance.ChangeState(GameState.SpawnEnemies);
     }
@@ -51,6 +54,8 @@ public class UnitManager : MonoBehaviour
         selectedUnit = unit;
         RemoveAllValidMoves();
         SetValidMovesBetter(unit);
+        PathLine.instance.Reset();
+        PathLine.instance.AddTile(unit.occupiedTile);
         //MenuManager.instance.ShowSelectedUnit(unit);
     }
 

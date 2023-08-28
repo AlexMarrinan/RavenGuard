@@ -34,7 +34,7 @@ public class BaseUnit : MonoBehaviour
         selectedTile.SetUnit(UnitManager.instance.selectedUnit);
     }
     public void MoveToClosestTile(Tile selectedTile){
-        Tile adjTile = GridManager.instance.GetAdjacentValidTile(occupiedTile.coordiantes, selectedTile.coordiantes);
+        Tile adjTile = PathLine.instance.GetSecondLastTile();
         adjTile.SetUnit(UnitManager.instance.selectedUnit);
     }
 }

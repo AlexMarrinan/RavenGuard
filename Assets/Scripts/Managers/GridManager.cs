@@ -129,6 +129,9 @@ public class GridManager : MonoBehaviour
                 if (newTile == null){
                     return;
                 }
+                //remove hovered tile from path
+                PathLine.instance.Reset();
+                PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
             }else{
                 return;
             }
