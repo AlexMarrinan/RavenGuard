@@ -43,6 +43,7 @@ public class UnitManager : MonoBehaviour
     }
     public void DeleteUnit(BaseUnit unit){
         Debug.Log("Deleted " + unit);
+        Object.Destroy(unit.healthBar.gameObject);
         Object.Destroy(unit.gameObject);
     }
     public void SetSeclectedUnit(BaseUnit unit){

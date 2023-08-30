@@ -9,16 +9,16 @@ public class BaseUnit : MonoBehaviour
     public UnitFaction faction;
     public int moveAmount;
     public int health;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int maxHealth;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public UnitHealthBar healthBar;
+
+    void Awake(){
+        var prefab = Resources.Load("HealthBar");
+        var go = (GameObject)Instantiate(prefab);
+        ((GameObject)go).transform.SetParent(GameManager.instance.mainCanvas.transform);
+        healthBar = go.GetComponent<UnitHealthBar>();
+        healthBar.SetAttachedUnit(this);
     }
 
     public virtual void Attack(BaseUnit otherUnit){
@@ -29,12 +29,15 @@ public class BaseUnit : MonoBehaviour
     }
     public void ReceiveDamage(int damage){
         health -= damage;
+        healthBar.RenderHealth();
     }
     public void MoveToSelectedTile(Tile selectedTile){
         selectedTile.SetUnit(UnitManager.instance.selectedUnit);
+        healthBar.RenderHealth();
     }
     public void MoveToClosestTile(Tile selectedTile){
         Tile adjTile = PathLine.instance.GetSecondLastTile();
         adjTile.SetUnit(UnitManager.instance.selectedUnit);
+        healthBar.RenderHealth();
     }
 }

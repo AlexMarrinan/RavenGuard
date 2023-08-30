@@ -19,9 +19,7 @@ public class Hero1 : BaseHero
     }
 
     public override void Attack(BaseUnit otherUnit){
-        Debug.Log("Attacked!!!");
         otherUnit.ReceiveDamage(damage);
-        Debug.Log(otherUnit.health);
         if (otherUnit.health <= 0){
             UnitManager.instance.DeleteUnit(otherUnit);
             MoveToSelectedTile(otherUnit.occupiedTile);

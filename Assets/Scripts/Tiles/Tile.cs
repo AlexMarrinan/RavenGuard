@@ -87,6 +87,7 @@ public abstract class Tile : MonoBehaviour
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
+        unit.healthBar.RenderHealth();
     }
 
     public void SetPossibleMove(bool valid){

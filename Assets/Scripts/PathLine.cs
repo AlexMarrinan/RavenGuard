@@ -49,7 +49,6 @@ public class PathLine : MonoBehaviour
         return GetPathTile(tiles.Count() - 2);
     }
     public Tile GetPathTile(int index){
-        Debug.Log("GetPathTile: " + index);
         return tiles[index];
     }
     //TODO: MAKE IT CHANGE TO THE ACTUAL PATH OF HOVERED TILE, NOT JUST THE DIRECTION THE PLAYER MOVED IT !!!
@@ -61,6 +60,5 @@ public class PathLine : MonoBehaviour
         }
         line.positionCount = vectors.Count();
         line.SetPositions(vectors.ToArray());
-        Debug.Log(vectors.Count());
     }
 }

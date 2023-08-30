@@ -102,3 +102,5 @@ MonoBehaviour:
   faction: 1
   moveAmount: 4
   health: 3
+  maxHealth: 3
+  healthBar: {fileID: 0}
