@@ -10,6 +10,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Tile grassTile, mountainTile;
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, Tile> tiles;
+    private float[,] noiseMap;
     public Tile hoveredTile;
 
     void Awake(){
@@ -30,11 +31,20 @@ public class GridManager : MonoBehaviour
     //Generates a grid of width x height of the tilePrefab
     public void GenerateGrid(){
         tiles = new Dictionary<Vector2, Tile>();
+        this.noiseMap = GenerateNoiseMap(200, 200, 8.0f);
+
+        var startX = Random.Range(0, 200-width);
+        var startY = Random.Range(0, 200-height);
+
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
-
-                //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
-                var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
+                
+                Tile randomTile = grassTile;
+                if (noiseMap[x+startX, y+startY] > 0.6f){
+                    randomTile = mountainTile;
+                }
+                // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
+                // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
 
                 var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
                 newTile.name = $"Tile {x} {y}";
@@ -51,6 +61,7 @@ public class GridManager : MonoBehaviour
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
 
+    
     public Tile GetTileAtPosition(Vector2 pos){
         if (tiles.TryGetValue(pos, out var tile)){
             return tile;
@@ -145,4 +156,22 @@ public class GridManager : MonoBehaviour
     public void SelectHoveredTile(){
         hoveredTile.OnSelectTile();
     }
+
+
+
+  public float[,] GenerateNoiseMap(int mapDepth, int mapWidth, float scale) {
+                // create an empty noise map with the mapDepth and mapWidth coordinates
+    float[,] noiseMap = new float[mapDepth, mapWidth];
+    for (int zIndex = 0; zIndex < mapDepth; zIndex ++) {
+      for (int xIndex = 0; xIndex < mapWidth; xIndex++) {
+                                // calculate sample indices based on the coordinates and the scale
+        float sampleX = xIndex / scale;
+        float sampleZ = zIndex / scale;
+                                // generate noise value using PerlinNoise
+        float noise = Mathf.PerlinNoise (sampleX, sampleZ);
+        noiseMap [zIndex, xIndex] = noise;
+      }
+    }
+    return noiseMap;
+  }
 }

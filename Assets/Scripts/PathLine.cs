@@ -6,7 +6,6 @@ using System;
 
 public class PathLine : MonoBehaviour
 {
-    
     private LineRenderer line;
     private List<Tile> tiles = new List<Tile>();
     public float lineWidth;
