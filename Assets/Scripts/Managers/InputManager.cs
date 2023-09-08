@@ -29,6 +29,9 @@ public class InputManager : MonoBehaviour
 
         input.Player.Back.performed += OnBackPerformed;
         input.Player.Back.canceled += OnBackCancled;
+
+        input.Player.Pause.performed += OnPausePerformed;
+        input.Player.Pause.canceled += OnPauseCanceled;
     }
     private void OnDisable() {
         input.Disable();
@@ -40,6 +43,9 @@ public class InputManager : MonoBehaviour
 
         input.Player.Back.performed -= OnBackPerformed;
         input.Player.Back.canceled -= OnBackCancled;
+
+        input.Player.Pause.performed -= OnPausePerformed;
+        input.Player.Pause.canceled -= OnPauseCanceled;
     }
     private void OnMovePerformed(InputAction.CallbackContext value){
 
@@ -82,5 +88,14 @@ public class InputManager : MonoBehaviour
 
     private bool CanMove(){
         return currentMoveFrameDelay <= 0;
+    }
+
+    private void OnPausePerformed(InputAction.CallbackContext value){
+        if (GameManager.instance.gameState == GameState.EnemiesTurn){
+            GameManager.instance.ChangeState(GameState.HeroesTurn);
+        }
+    }
+    private void OnPauseCanceled(InputAction.CallbackContext value){
+
     }
 }

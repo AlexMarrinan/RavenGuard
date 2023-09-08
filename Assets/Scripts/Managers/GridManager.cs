@@ -57,7 +57,6 @@ public class GridManager : MonoBehaviour
         }
 
         cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
-        SelectHoveredTile(GetTileAtPosition(0,0));
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
 
@@ -118,10 +117,11 @@ public class GridManager : MonoBehaviour
     }
     
 
-    public void SelectHoveredTile(Tile newTile){
+    public void SetHoveredTile(Tile newTile){
         hoveredTile = newTile;
         hoveredTile.OnHover();
     }
+
     public void MoveHoveredTile(Vector2 direction){
         if (hoveredTile == null){
             return;
@@ -130,17 +130,20 @@ public class GridManager : MonoBehaviour
         if (newTile == null){
             return;
         }
+        MoveHoveredTile(newTile);
+    }
+    public void MoveHoveredTile(Tile newTile){
+        
         BaseUnit sUnit = UnitManager.instance.selectedUnit;
-
         //if a unit is selected, dont move to tiles that arent valid moves
         if (sUnit != null && !newTile.isValidMove){
             //if the next tile is the tile occupied by the selected unit, move one past it
             if (newTile.occupiedUnit == sUnit){
-                newTile = GetTileAtPosition(newTile.coordiantes + direction);
-                if (newTile == null){
-                    return;
-                }
-                //remove hovered tile from path
+                // newTile = GetTileAtPosition(newTile.coordiantes + direction);
+                // if (newTile == null){
+                //     return;
+                // }
+                // //remove hovered tile from path
                 PathLine.instance.Reset();
                 PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
             }else{
@@ -151,7 +154,7 @@ public class GridManager : MonoBehaviour
         if (!newTile.isTerrainWalkable()){
             return;
         }
-        SelectHoveredTile(newTile);
+        SetHoveredTile(newTile);
     }
     public void SelectHoveredTile(){
         hoveredTile.OnSelectTile();

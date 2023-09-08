@@ -12,12 +12,14 @@ public class GameManager : MonoBehaviour
     {
         instance = this;
         gameState = GameState.GenerateGrid;
+        ChangeState(gameState);
     }
 
     // Update is called once per frame
     void Update()
     {
-        ChangeState(gameState);
+        //TODO: why this was here in the first place !!!
+        //ChangeState(gameState);
     }
 
     public void ChangeState(GameState newState){
@@ -33,8 +35,10 @@ public class GameManager : MonoBehaviour
                 UnitManager.instance.SpawnEnemies();
                 break;
             case GameState.HeroesTurn:
+                TurnManager.instance.BeginHeroTurn();
                 break;
             case GameState.EnemiesTurn:
+                TurnManager.instance.BeginEnemyTurn();
                 break;
             default:
                 break;

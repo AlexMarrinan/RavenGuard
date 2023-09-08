@@ -12,13 +12,15 @@ public abstract class Tile : MonoBehaviour
     public BaseUnit occupiedUnit;
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Enemy);
     public bool isValidMove = false;
+    public int depth = 0;
+    public List<Tile> validPath = null;
     public Vector2 coordiantes;
     public virtual void Init(int x, int y){
 
     }
     private void OnMouseEnter() {
         OnHover();
-        GridManager.instance.SelectHoveredTile(this);
+        GridManager.instance.SetHoveredTile(this);
     }
     public void OnHover(){
         //if a unit is selected
@@ -52,6 +54,10 @@ public abstract class Tile : MonoBehaviour
 
         //current pressed tile is occupied
         if (occupiedUnit != null){
+            //if the unit is out of movment, do not allow selection
+            if (occupiedUnit.moveAmount <= 1){
+                return;
+            }
             //current unit is a hero, set as selected
             if (occupiedUnit.faction == UnitFaction.Hero){
                 UnitManager.instance.SetSeclectedUnit(occupiedUnit);
@@ -60,7 +66,7 @@ public abstract class Tile : MonoBehaviour
             //current unit is enemy, AND selected is enemy,
             else if (occupiedUnit.faction == UnitFaction.Enemy){
                 if (UnitManager.instance.selectedUnit == null){
-                  
+                  return;
                 }
                 if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero){
                     //move hero to enemy, kill enemy
@@ -77,24 +83,47 @@ public abstract class Tile : MonoBehaviour
         PathLine.instance.Reset();
     }
     public void MoveToSelectedTile(){
-        SetUnit(UnitManager.instance.selectedUnit);
+        BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
         UnitManager.instance.SetSeclectedUnit(null);
+        SetUnit(oldSelectedUnit);
     }
     public void SetUnit(BaseUnit unit){
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
+        unit.moveAmount -= depth;
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
         unit.healthBar.RenderHealth();
+
+        if (unit.moveAmount <= 1){
+            TurnManager.instance.GetNextHero(unit);
+        }
     }
 
-    public void SetPossibleMove(bool valid){
+    public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);
         isValidMove = valid;
+        if (startPos == null){
+            validPath = null;
+        }else{
+            validPath = GetPathFrom(startPos);
+        }
+        
     }
+    private List<Tile> GetPathFrom(Tile startPos){
+        List<Tile> path = new List<Tile>();
+        var startCoordiantes = startPos.coordiantes;
+        int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
+        int y = (int)Mathf.Abs(startCoordiantes.y - coordiantes.y);
 
+        //TODO: THIS MAY TAKE PATHS THROUGH WALLS MAKE BETTER !!!!!
+        depth = x + y;
+
+        //TOOD: actually make the path for drawing the line
+        return path;
+    }
     public List<Tile> GetAdjacentCoords(){
         int left = (int)coordiantes.x - 1;
         int right = (int)coordiantes.x + 1;
