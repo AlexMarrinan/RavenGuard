@@ -75,7 +75,7 @@ public class GridManager : MonoBehaviour
         List<Tile> tiles = GetAdjacentTiles(endPos);
         Tile bestTile = null;
         foreach (Tile t in tiles){
-            if (t.isValidMove){
+            if (t.moveType != TileMoveType.NotValid){
                 bestTile = t;
             }
             if (t.coordiantes.Equals(startPos)){
@@ -136,7 +136,7 @@ public class GridManager : MonoBehaviour
         
         BaseUnit sUnit = UnitManager.instance.selectedUnit;
         //if a unit is selected, dont move to tiles that arent valid moves
-        if (sUnit != null && !newTile.isValidMove){
+        if (sUnit != null && newTile.moveType == TileMoveType.NotValid){
             //if the next tile is the tile occupied by the selected unit, move one past it
             if (newTile.occupiedUnit == sUnit){
                 // newTile = GetTileAtPosition(newTile.coordiantes + direction);

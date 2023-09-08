@@ -25,6 +25,9 @@ public class PathLine : MonoBehaviour
     }
 
     public void AddTile(Tile tile){
+        if (tile.moveType != TileMoveType.Move && tile != UnitManager.instance.selectedUnit.occupiedTile){
+            return;
+        }
         tiles.Add(tile);
         RenderLine();
     }

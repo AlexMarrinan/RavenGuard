@@ -93,6 +93,8 @@ public class InputManager : MonoBehaviour
     private void OnPausePerformed(InputAction.CallbackContext value){
         if (GameManager.instance.gameState == GameState.EnemiesTurn){
             GameManager.instance.ChangeState(GameState.HeroesTurn);
+        }else{
+            GameManager.instance.ChangeState(GameState.EnemiesTurn);
         }
     }
     private void OnPauseCanceled(InputAction.CallbackContext value){

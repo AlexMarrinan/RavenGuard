@@ -5,13 +5,13 @@ using System.Linq;
 
 public abstract class Tile : MonoBehaviour
 {
-    [SerializeField] protected SpriteRenderer renderer;
+    [SerializeField] protected SpriteRenderer renderer; 
     [SerializeField] private GameObject validMoveHighlight;
     [SerializeField] private bool isWalkable;
     
     public BaseUnit occupiedUnit;
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Enemy);
-    public bool isValidMove = false;
+    public TileMoveType moveType = TileMoveType.NotValid;
     public int depth = 0;
     public List<Tile> validPath = null;
     public Vector2 coordiantes;
@@ -25,7 +25,7 @@ public abstract class Tile : MonoBehaviour
     public void OnHover(){
         //if a unit is selected
         if (UnitManager.instance.selectedUnit != null){
-            if (!isValidMove) {
+            if (moveType == TileMoveType.NotValid) {
                 return;
             }
             ToggleLinePoint();
@@ -48,7 +48,7 @@ public abstract class Tile : MonoBehaviour
         if (!isTerrainWalkable()){
             return;
         }
-        if (UnitManager.instance.selectedUnit != null && !isValidMove){
+        if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){
             return;
         }
 
@@ -98,13 +98,30 @@ public abstract class Tile : MonoBehaviour
         unit.healthBar.RenderHealth();
 
         if (unit.moveAmount <= 1){
-            TurnManager.instance.GetNextHero(unit);
+            occupiedUnit.OnExhaustMovment();
         }
     }
 
     public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);
-        isValidMove = valid;
+        if (valid){
+            //determine if attack or move
+            moveType = startPos.occupiedUnit.GetMoveTypeAt(this);
+        
+            //set color if attack or move
+            var highlightSprite = validMoveHighlight.GetComponent<SpriteRenderer>();
+            if (moveType == TileMoveType.Attack){
+                highlightSprite.color = MenuManager.instance.attackColor;
+            }else if (moveType == TileMoveType.Move){
+                highlightSprite.color = MenuManager.instance.moveColor;
+            } else if (moveType == TileMoveType.InAttackRange){
+                highlightSprite.color = MenuManager.instance.inRangeColor;
+            } else if (moveType == TileMoveType.Support){
+                highlightSprite.color = MenuManager.instance.supportColor;
+            }
+        }else{
+            moveType = TileMoveType.NotValid;
+        }
         if (startPos == null){
             validPath = null;
         }else{
@@ -112,7 +129,7 @@ public abstract class Tile : MonoBehaviour
         }
         
     }
-    private List<Tile> GetPathFrom(Tile startPos){
+    public List<Tile> GetPathFrom(Tile startPos){
         List<Tile> path = new List<Tile>();
         var startCoordiantes = startPos.coordiantes;
         int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
@@ -120,9 +137,21 @@ public abstract class Tile : MonoBehaviour
 
         //TODO: THIS MAY TAKE PATHS THROUGH WALLS MAKE BETTER !!!!!
         depth = x + y;
-
+        
         //TOOD: actually make the path for drawing the line
         return path;
+    }
+     public int GetPathLengthFrom(Tile startPos){
+        List<Tile> path = new List<Tile>();
+        var startCoordiantes = startPos.coordiantes;
+        int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
+        int y = (int)Mathf.Abs(startCoordiantes.y - coordiantes.y);
+
+        //TODO: THIS MAY TAKE PATHS THROUGH WALLS MAKE BETTER !!!!!
+        depth = x + y;
+        
+        //TOOD: actually make the path for drawing the line
+        return depth;
     }
     public List<Tile> GetAdjacentCoords(){
         int left = (int)coordiantes.x - 1;
@@ -152,4 +181,13 @@ public abstract class Tile : MonoBehaviour
             PathLine.instance.RemoveTile(this);
         }
     }
+}
+
+
+public enum TileMoveType {
+    NotValid,
+    Move,
+    Attack,
+    InAttackRange,
+    Support
 }

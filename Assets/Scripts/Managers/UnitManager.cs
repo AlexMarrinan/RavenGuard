@@ -69,6 +69,7 @@ public class UnitManager : MonoBehaviour
     public void UnselectUnit(){
         MenuManager.instance.UnselectTile();
         selectedUnit = null;
+        PathLine.instance.Reset();
         RemoveAllValidMoves();
     }
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
@@ -81,30 +82,32 @@ public class UnitManager : MonoBehaviour
         return GetAllUnitsOfFaction(UnitFaction.Enemy);
     }
     public void SetValidMovesBetter(BaseUnit unit){
-        int move = unit.moveAmount;
+        int max = unit.MaxTileRange();
         Tile tile = unit.occupiedTile;
         var visited = new Dictionary<Tile, int>();
-        var next = tile.GetAdjacentCoords();   
-        next.ForEach(t => SVMHelper(1, move, t, visited));
+        var next = tile.GetAdjacentCoords();
+        next.ForEach(t => SVMHelper(1, max, t, visited, t));
         visited.Keys.ToList().ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
     }
 
-    private void SVMHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited){
-
+    private void SVMHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile){
+        if (depth >= max ){
+            return;
+        }
         //enemy's are valid moves but block movement
         if (tile != null && tile.occupiedUnit != null && tile.occupiedUnit.faction == UnitFaction.Enemy){
             visited[tile] = depth;
             return;
         }
         //if tile is not valid, continue
-        if (tile == null || !tile.walkable || depth >= max || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
             return;
         }
 
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
         var next = tile.GetAdjacentCoords();   
-        next.ForEach(t => SVMHelper(depth + 1, max, t, visited));
+        next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile));
         return;
     }
 

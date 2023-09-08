@@ -7,6 +7,8 @@ public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
     [SerializeField] private GameObject highlightObject, selectedObject;
+
+    public Color moveColor, attackColor, inRangeColor, supportColor;
     public void Awake(){
         instance = this;
     }

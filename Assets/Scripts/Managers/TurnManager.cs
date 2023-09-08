@@ -27,7 +27,6 @@ public class TurnManager : MonoBehaviour
 
     public void GetNextHero(BaseUnit previous){
         unitsAwaitingOrders.Remove(previous);
-        previous.OnExhaustMovment();
 
         //if no units left to move, go onto the enemies turn
         if (unitsAwaitingOrders.Count == 0){
@@ -35,22 +34,6 @@ public class TurnManager : MonoBehaviour
             return;
         }
         GridManager.instance.SetHoveredTile(unitsAwaitingOrders[0].occupiedTile);
-        
-        //TODO: figure out why SetHoverTile does not update visually without another input !!!
-        //ALSO GET RID OF THIS HACK GARBAGE:
-        // GridManager.instance.MoveHoveredTile(new Vector2(0, 1));
-        // GridManager.instance.MoveHoveredTile(new Vector2(0, -1));
-
-        // GridManager.instance.MoveHoveredTile(new Vector2(0, -1));
-        // GridManager.instance.MoveHoveredTile(new Vector2(0, 1));
-
-        // GridManager.instance.MoveHoveredTile(new Vector2(1, 0));
-        // GridManager.instance.MoveHoveredTile(new Vector2(-1, 0));
-
-        // GridManager.instance.MoveHoveredTile(new Vector2(-1, 0));
-        // GridManager.instance.MoveHoveredTile(new Vector2(1, 0));
-        //^^ THIS FUCKING SUCKS ^^
-
-        GridManager.instance.SelectHoveredTile();
+        //GridManager.instance.SelectHoveredTile();
     }
 }

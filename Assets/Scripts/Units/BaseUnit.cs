@@ -22,6 +22,9 @@ public class BaseUnit : MonoBehaviour
         InitializeFaction();
         CreateHealthbar();
     }
+    public virtual int MaxTileRange(){
+        return 0;
+    }
     private void InitializeFaction(){
         if (this.faction == UnitFaction.Hero){
             spriteRenderer.color = Color.cyan;
@@ -62,6 +65,16 @@ public class BaseUnit : MonoBehaviour
     }
 
     public void OnExhaustMovment(){
-        spriteRenderer.color += new Color(0.7f, 0.7f, 0.7f);
+        moveAmount = 0;
+        spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        UnitManager.instance.SetSeclectedUnit(null);
+        TurnManager.instance.GetNextHero(this);
+    }
+
+    public virtual TileMoveType GetMoveTypeAt(Tile otherTile){
+        return TileMoveType.NotValid;
     }
 }
+
+
+
