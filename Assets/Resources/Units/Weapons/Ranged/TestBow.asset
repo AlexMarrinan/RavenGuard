@@ -15,5 +15,5 @@ MonoBehaviour:
   weaponName: Test Bow
   weaponDescription: 
   damage: 5
-  minRange: 2
-  maxRange: 4
+  minRange: 3
+  maxRange: 6
