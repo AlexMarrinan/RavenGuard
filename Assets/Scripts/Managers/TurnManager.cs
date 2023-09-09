@@ -22,6 +22,7 @@ public class TurnManager : MonoBehaviour
 
     public void BeginEnemyTurn(){
         currentFaction = UnitFaction.Enemy;
+        UnitManager.instance.ResetUnitMovment();
         Debug.Log("enemies turn!");
     }
 

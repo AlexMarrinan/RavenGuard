@@ -54,11 +54,15 @@ public class BaseUnit : MonoBehaviour
         healthBar.RenderHealth();
     }
     public void MoveToClosestTile(Tile selectedTile){
-        Tile adjTile = PathLine.instance.GetSecondLastTile();
+        Tile adjTile = PathLine.instance.GetLastTile();
         adjTile.SetUnit(UnitManager.instance.selectedUnit);
         healthBar.RenderHealth();
     }
-
+    public void MoveToTileAtDistance(int distance){
+        Tile adjTile = PathLine.instance.GetPathTile(distance-1);
+        adjTile.SetUnit(UnitManager.instance.selectedUnit);
+        healthBar.RenderHealth();
+    }
     public void ResetMovment(){
         InitializeFaction();
         moveAmount = maxMoveAmount;

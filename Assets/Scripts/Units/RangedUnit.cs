@@ -27,11 +27,13 @@ public class RangedUnit : BaseUnit
     }
     public override void Attack(BaseUnit otherUnit){
         otherUnit.ReceiveDamage(weapon.damage);
+        int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);
+
         if (otherUnit.health <= 0){
             UnitManager.instance.DeleteUnit(otherUnit);
-            MoveToSelectedTile(otherUnit.occupiedTile);
-        }else{
-            MoveToClosestTile(otherUnit.occupiedTile);
+        }
+        if (distance > base.moveAmount){
+            base.MoveToTileAtDistance(base.moveAmount);
         }
         OnExhaustMovment();
         UnitManager.instance.SetSeclectedUnit(null);

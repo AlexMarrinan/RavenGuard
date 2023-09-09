@@ -46,7 +46,9 @@ public class PathLine : MonoBehaviour
     public bool IsOnPath(Tile tile){
         return tiles.Contains(tile);
     }
-
+    public Tile GetLastTile(){
+        return GetPathTile(tiles.Count() - 1);
+    }
     public Tile GetSecondLastTile(){
         return GetPathTile(tiles.Count() - 2);
     }
