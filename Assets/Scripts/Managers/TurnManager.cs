@@ -14,7 +14,7 @@ public class TurnManager : MonoBehaviour
 
     public void BeginHeroTurn(){
         currentFaction = UnitFaction.Hero;
-        Debug.Log("hero turn!");
+        MenuManager.instance.ShowStartText("Your turn!");
         UnitManager.instance.ResetUnitMovment();
         unitsAwaitingOrders = UnitManager.instance.GetAllHeroes();
         BaseUnit firstHero = unitsAwaitingOrders[0];
@@ -23,8 +23,8 @@ public class TurnManager : MonoBehaviour
 
     public void BeginEnemyTurn(){
         currentFaction = UnitFaction.Enemy;
+        MenuManager.instance.ShowStartText("Enemie's turn!");
         UnitManager.instance.ResetUnitMovment();
-        Debug.Log("enemies turn!");
     }
     public void GoToNextUnit(){
         GoToUnit(+1);

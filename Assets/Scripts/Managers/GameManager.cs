@@ -70,6 +70,13 @@ public class GameManager : MonoBehaviour
            PanCamera(highlightObject.transform.position);
         }
     }
+
+    public void ZoomCamera(int amount){
+        mainCamera.orthographicSize += amount;
+        if (mainCamera.orthographicSize <= 2 || mainCamera.orthographicSize >= 12){
+            mainCamera.orthographicSize -= amount;
+        }
+    }
 }
 
 public enum GameState{

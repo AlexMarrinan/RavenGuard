@@ -42,9 +42,13 @@ public class InputManager : MonoBehaviour
 
         input.Player.Next.performed += OnNextPerformed;
         input.Player.Next.canceled += OnNextCanceled;
+
+        input.Player.ZoomIn.performed += OnZoomInPerformed;
+        input.Player.ZoomIn.canceled += OnZoomInCanceled;
+
+        input.Player.ZoomOut.performed += OnZoomOutPerformed;
+        input.Player.ZoomOut.canceled += OnZoomOutCanceled;
     }
-
-
 
     private void OnDisable() {
         input.Disable();
@@ -151,5 +155,27 @@ public class InputManager : MonoBehaviour
     private void OnNextCanceled(InputAction.CallbackContext context)
     {
         
+    }
+
+
+    
+    private void OnZoomOutCanceled(InputAction.CallbackContext context)
+    {
+
+    }
+
+    private void OnZoomOutPerformed(InputAction.CallbackContext context)
+    {
+        GameManager.instance.ZoomCamera(+1);
+    }
+
+    private void OnZoomInCanceled(InputAction.CallbackContext context)
+    {
+
+    }
+
+    private void OnZoomInPerformed(InputAction.CallbackContext context)
+    {
+        GameManager.instance.ZoomCamera(-1);
     }
 }
