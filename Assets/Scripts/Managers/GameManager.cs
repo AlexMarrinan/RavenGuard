@@ -7,19 +7,27 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     public GameState gameState;
     public Canvas mainCanvas;
+    public Camera mainCamera;
+    private Vector3 newCameraPos;
+    public float camAutoSpeed = 8f;
+    public float cameraSensitivity = 2f;
+    private bool usingMouse = false;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
         gameState = GameState.GenerateGrid;
+        newCameraPos = mainCamera.transform.position;
         ChangeState(gameState);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //TODO: why this was here in the first place !!!
-        //ChangeState(gameState);
+        if (newCameraPos != mainCamera.transform.position){
+            var trans = mainCamera.transform;
+            trans.position = Vector3.Lerp(trans.position, newCameraPos, camAutoSpeed * Time.deltaTime);
+        }
     }
 
     public void ChangeState(GameState newState){
@@ -42,6 +50,24 @@ public class GameManager : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+
+    public void SetUsingMouse(bool usingMouseNew){
+        usingMouse = usingMouseNew;
+    }
+
+    public void PanCamera(Vector2 v){
+        newCameraPos = (Vector3)v + new Vector3(0, 0, -10);
+    }
+    public void PanCameraInDirection(Vector2 v){
+        newCameraPos = (Vector3)v*cameraSensitivity + mainCamera.transform.position;
+    }
+
+    public void LookCameraAtHighlight(){
+        GameObject highlightObject = MenuManager.instance.highlightObject.gameObject;
+        if (highlightObject.activeSelf && !usingMouse ){
+           PanCamera(highlightObject.transform.position);
         }
     }
 }

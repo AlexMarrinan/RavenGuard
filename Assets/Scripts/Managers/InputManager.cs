@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,7 +33,19 @@ public class InputManager : MonoBehaviour
 
         input.Player.Pause.performed += OnPausePerformed;
         input.Player.Pause.canceled += OnPauseCanceled;
+
+        input.Player.PanCamera.performed += OnPanCameraPerformed;
+        input.Player.PanCamera.canceled += OnPanCameraCanceled;
+        
+        input.Player.Previous.performed += OnPreviousPerformed;
+        input.Player.Previous.canceled += OnPreviousCanceled;
+
+        input.Player.Next.performed += OnNextPerformed;
+        input.Player.Next.canceled += OnNextCanceled;
     }
+
+
+
     private void OnDisable() {
         input.Disable();
         input.Player.Move.performed -= OnMovePerformed;
@@ -46,9 +59,18 @@ public class InputManager : MonoBehaviour
 
         input.Player.Pause.performed -= OnPausePerformed;
         input.Player.Pause.canceled -= OnPauseCanceled;
+
+        input.Player.PanCamera.performed -= OnPanCameraPerformed;
+        input.Player.PanCamera.canceled -= OnPanCameraCanceled;
+
+        input.Player.Previous.performed -= OnPreviousPerformed;
+        input.Player.Previous.canceled -= OnPreviousCanceled;
+
+        input.Player.Next.performed -= OnNextPerformed;
+        input.Player.Next.canceled -= OnNextCanceled;
     }
     private void OnMovePerformed(InputAction.CallbackContext value){
-
+        GameManager.instance.SetUsingMouse(false);
         //TODO: FIX CHOPPY ANALOGUE STICK MOVEMENT !!!
         if (!CanMove()){
             return;
@@ -63,12 +85,14 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnSelectPerformed(InputAction.CallbackContext value){
+        GameManager.instance.SetUsingMouse(false);
         GridManager.instance.SelectHoveredTile();
     }
     private void OnSelectCancled(InputAction.CallbackContext value){
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        GameManager.instance.SetUsingMouse(false);
         UnitManager.instance.UnselectUnit();
     }
     private void OnBackCancled(InputAction.CallbackContext value){
@@ -91,6 +115,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        GameManager.instance.SetUsingMouse(false);
         if (GameManager.instance.gameState == GameState.EnemiesTurn){
             GameManager.instance.ChangeState(GameState.HeroesTurn);
         }else{
@@ -99,5 +124,32 @@ public class InputManager : MonoBehaviour
     }
     private void OnPauseCanceled(InputAction.CallbackContext value){
 
+    }
+
+    private void OnPanCameraPerformed(InputAction.CallbackContext value){
+        GameManager.instance.SetUsingMouse(false);
+        var panVector = value.ReadValue<Vector2>();
+        GameManager.instance.PanCameraInDirection(panVector);
+    }
+    private void OnPanCameraCanceled(InputAction.CallbackContext value){
+
+    }
+
+    
+    private void OnPreviousPerformed(InputAction.CallbackContext value)
+    {
+        TurnManager.instance.GoToPreviousUnit();
+    }
+    private void OnPreviousCanceled(InputAction.CallbackContext context)
+    {
+        
+    }
+    private void OnNextPerformed(InputAction.CallbackContext value)
+    {
+        TurnManager.instance.GoToNextUnit();
+    }
+    private void OnNextCanceled(InputAction.CallbackContext context)
+    {
+        
     }
 }

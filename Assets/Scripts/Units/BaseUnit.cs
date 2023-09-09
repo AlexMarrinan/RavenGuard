@@ -12,10 +12,14 @@ public class BaseUnit : MonoBehaviour
     // [HideInInspector]
     public int health;
     public int maxHealth;
+    private int agility;
+    private int defense;
+
     // [HideInInspector]
     public bool awaitingOrders;
     public UnitHealthBar healthBar;
     private SpriteRenderer spriteRenderer;
+    private BaseSkill equippedSkill;
 
     void Awake(){
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -47,21 +51,21 @@ public class BaseUnit : MonoBehaviour
     }
     public void ReceiveDamage(int damage){
         health -= damage;
-        healthBar.RenderHealth();
+        //healthBar.RenderHealth();
     }
     public void MoveToSelectedTile(Tile selectedTile){
         selectedTile.SetUnit(UnitManager.instance.selectedUnit);
-        healthBar.RenderHealth();
+        //healthBar.RenderHealth();
     }
     public void MoveToClosestTile(Tile selectedTile){
         Tile adjTile = PathLine.instance.GetLastTile();
         adjTile.SetUnit(UnitManager.instance.selectedUnit);
-        healthBar.RenderHealth();
+        //healthBar.RenderHealth();
     }
     public void MoveToTileAtDistance(int distance){
-        Tile adjTile = PathLine.instance.GetPathTile(distance-1);
+        Tile adjTile = PathLine.instance.GetPathTile(distance);
         adjTile.SetUnit(UnitManager.instance.selectedUnit);
-        healthBar.RenderHealth();
+        //healthBar.RenderHealth();
     }
     public void ResetMovment(){
         InitializeFaction();
@@ -72,13 +76,41 @@ public class BaseUnit : MonoBehaviour
         moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
         UnitManager.instance.SetSeclectedUnit(null);
-        TurnManager.instance.GetNextHero(this);
+        TurnManager.instance.OnUnitDone(this);
     }
 
     public virtual TileMoveType GetMoveTypeAt(Tile otherTile){
         return TileMoveType.NotValid;
     }
+
+    public int GetAgility(){
+        return agility; //TODO: ADD STAT BONUS CALCULATIONS
+    }
+    public int GetDefense(){
+        return defense; //TODO: ADD STAT BONUS CALCULATIONS
+    }
+
+
+    public void EquipSkill(BaseSkill newSkill){
+        equippedSkill = newSkill;
+    }
+    public BaseSkill GetEquipedSkill(){
+        return equippedSkill;
+    }
+    public void UnequipSkill(){
+        equippedSkill = null;
+    }
 }
-
-
-
+public enum UnitStatType {
+    Health,
+    Attack,
+    Defense,
+    Agility,
+    Attunment,
+    Foresight,
+    Luck,
+}
+public enum UnitClassType {
+    Melee,
+    Ranged,
+}

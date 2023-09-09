@@ -22,6 +22,7 @@ public class UnitHealthBar : MonoBehaviour
         this.attachedUnit = attachedUnit;
     }
     private void Update(){
+        RenderHealth();
     }
 
     public void RenderHealth(){

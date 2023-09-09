@@ -13,8 +13,7 @@ public class RangedUnit : BaseUnit
     public override TileMoveType GetMoveTypeAt(Tile otherTile)
     {
         int distance = otherTile.GetPathLengthFrom(base.occupiedTile);
-        Debug.Log(distance);
-        var tempType = TileMoveType.Move;
+        TileMoveType tempType;
         if (distance < base.moveAmount){
             tempType = TileMoveType.Move;
         }else{
@@ -32,8 +31,8 @@ public class RangedUnit : BaseUnit
         if (otherUnit.health <= 0){
             UnitManager.instance.DeleteUnit(otherUnit);
         }
-        if (distance > base.moveAmount){
-            base.MoveToTileAtDistance(base.moveAmount);
+        if (distance >= base.moveAmount){
+            base.MoveToTileAtDistance(distance - base.moveAmount);
         }
         OnExhaustMovment();
         UnitManager.instance.SetSeclectedUnit(null);

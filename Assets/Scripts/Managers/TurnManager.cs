@@ -7,6 +7,7 @@ public class TurnManager : MonoBehaviour
     public static TurnManager instance;
     public UnitFaction currentFaction;
     public List<BaseUnit> unitsAwaitingOrders;
+    private BaseUnit previousUnit;
     void Awake(){
         instance = this;
     }
@@ -25,8 +26,26 @@ public class TurnManager : MonoBehaviour
         UnitManager.instance.ResetUnitMovment();
         Debug.Log("enemies turn!");
     }
-
-    public void GetNextHero(BaseUnit previous){
+    public void GoToNextUnit(){
+        GoToUnit(+1);
+    }
+    public void GoToPreviousUnit(){
+        GoToUnit(-1);
+    }
+    private void GoToUnit(int offset){
+        if (GameManager.instance.gameState != GameState.HeroesTurn){
+            return;
+        }
+        var index = unitsAwaitingOrders.IndexOf(previousUnit);
+        index += offset;
+        if (index < 0){
+            index = unitsAwaitingOrders.Count - 1;
+        }else if (index >= unitsAwaitingOrders.Count){
+            index = 0;
+        }
+        GridManager.instance.SetHoveredTile(unitsAwaitingOrders[index].occupiedTile);
+    }
+    public void OnUnitDone(BaseUnit previous){
         unitsAwaitingOrders.Remove(previous);
 
         //if no units left to move, go onto the enemies turn
@@ -34,7 +53,12 @@ public class TurnManager : MonoBehaviour
             GameManager.instance.ChangeState(GameState.EnemiesTurn);
             return;
         }
+        previousUnit = unitsAwaitingOrders[0];
         GridManager.instance.SetHoveredTile(unitsAwaitingOrders[0].occupiedTile);
         //GridManager.instance.SelectHoveredTile();
+    }
+
+    public void SetPreviousUnit(BaseUnit u){
+        previousUnit = u;
     }
 }

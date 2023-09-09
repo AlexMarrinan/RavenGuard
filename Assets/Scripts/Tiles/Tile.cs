@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Unity.VisualScripting;
 
 public abstract class Tile : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public abstract class Tile : MonoBehaviour
 
     }
     private void OnMouseEnter() {
+        GameManager.instance.SetUsingMouse(true);
         OnHover();
         GridManager.instance.SetHoveredTile(this);
     }
@@ -30,10 +32,13 @@ public abstract class Tile : MonoBehaviour
             }
             ToggleLinePoint();
         }
-        MenuManager.instance.EnableHighlight(this);
+        if (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit)){
+            TurnManager.instance.SetPreviousUnit(occupiedUnit);
+        }
+        MenuManager.instance.HighlightTile(this);
     }
     private void OnMouseExit() {
-        MenuManager.instance.DisableHighlight();
+        MenuManager.instance.UnhighlightTile();
     }
     public bool isTerrainWalkable(){
         return isWalkable;
@@ -95,7 +100,7 @@ public abstract class Tile : MonoBehaviour
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
-        unit.healthBar.RenderHealth();
+        //unit.healthBar.RenderHealth();
 
         if (unit.moveAmount <= 1){
             occupiedUnit.OnExhaustMovment();

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
-    [SerializeField] private GameObject highlightObject, selectedObject;
+    [SerializeField] public GameObject highlightObject, selectedObject;
 
     public Color moveColor, attackColor, inRangeColor, supportColor;
     public void Awake(){
@@ -25,15 +25,19 @@ public class MenuManager : MonoBehaviour
     //     selectedHeroObject.GetComponentInChildren<Text>().text = unit.unitName;
     //     selectedHeroObject.SetActive(true);
     // }
-    public void EnableHighlight(Tile tile){
+    public void HighlightTile(Tile tile){
         if (!tile.isTerrainWalkable()){
-            DisableHighlight();
+            UnhighlightTile();
             return;
         }
         highlightObject.transform.position = tile.transform.position;        
         highlightObject.SetActive(true);
+        
+        if (UnitManager.instance.selectedUnit == null){
+            GameManager.instance.LookCameraAtHighlight();
+        }
     }
-    public void DisableHighlight(){
+    public void UnhighlightTile(){
         highlightObject.SetActive(false);
     }
 

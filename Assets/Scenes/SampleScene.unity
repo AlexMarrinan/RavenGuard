@@ -297,6 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameState: 0
   mainCanvas: {fileID: 1892320689}
+  mainCamera: {fileID: 519420031}
+  CamMoveSpeed: 8
 --- !u!4 &369367361
 Transform:
   m_ObjectHideFlags: 0
