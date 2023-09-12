@@ -1,5 +1,5 @@
 # RavenGuard
-A tactical RPG roguelike developed in Unity
+A tactical RPG roguelike developed in Unity.
 Created for a Computer Science/Interactive Media and Game Design MQP for WPI 2024
 
 ## Credits:
@@ -16,3 +16,6 @@ Created for a Computer Science/Interactive Media and Game Design MQP for WPI 202
 - Michael Weidman
 - Griffin Bowers
 - Alex Marrinan
+### MQP Advisors:
+- Walt Yarborough
+- Michael Engling
