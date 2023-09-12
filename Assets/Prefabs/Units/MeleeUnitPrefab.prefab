@@ -106,4 +106,7 @@ MonoBehaviour:
   maxHealth: 10
   awaitingOrders: 0
   healthBar: {fileID: 0}
+  activeSkill: {fileID: 11400000, guid: ccc323ffe6bdcf944a3b8dbf00b20c30, type: 2}
+  universalPassiveSkill: {fileID: 0}
+  classPassiveSkill: {fileID: 0}
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}

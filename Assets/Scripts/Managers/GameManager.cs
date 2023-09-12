@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ZoomCamera(int amount){
+    public void ZoomCamera(float amount){
         mainCamera.orthographicSize += amount;
         if (mainCamera.orthographicSize <= 2 || mainCamera.orthographicSize >= 12){
             mainCamera.orthographicSize -= amount;

@@ -107,6 +107,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UnitMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""a224d792-4505-4a7b-bf08-e4a20918068a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -406,6 +415,28 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""ZoomOut"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1c263b0-a1bc-400f-a15a-ab0d1df27727"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UnitMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5888e7bd-dfa4-4a01-b679-9c68fa07855b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UnitMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -423,6 +454,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_Next = m_Player.FindAction("Next", throwIfNotFound: true);
         m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
+        m_Player_UnitMenu = m_Player.FindAction("UnitMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -491,6 +523,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Next;
     private readonly InputAction m_Player_ZoomIn;
     private readonly InputAction m_Player_ZoomOut;
+    private readonly InputAction m_Player_UnitMenu;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -504,6 +537,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @Next => m_Wrapper.m_Player_Next;
         public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
         public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
+        public InputAction @UnitMenu => m_Wrapper.m_Player_UnitMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -540,6 +574,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @ZoomOut.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
                 @ZoomOut.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
                 @ZoomOut.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnZoomOut;
+                @UnitMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnitMenu;
+                @UnitMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnitMenu;
+                @UnitMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnitMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -571,6 +608,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @ZoomOut.started += instance.OnZoomOut;
                 @ZoomOut.performed += instance.OnZoomOut;
                 @ZoomOut.canceled += instance.OnZoomOut;
+                @UnitMenu.started += instance.OnUnitMenu;
+                @UnitMenu.performed += instance.OnUnitMenu;
+                @UnitMenu.canceled += instance.OnUnitMenu;
             }
         }
     }
@@ -586,5 +626,6 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnNext(InputAction.CallbackContext context);
         void OnZoomIn(InputAction.CallbackContext context);
         void OnZoomOut(InputAction.CallbackContext context);
+        void OnUnitMenu(InputAction.CallbackContext context);
     }
 }

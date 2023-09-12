@@ -19,7 +19,9 @@ public class BaseUnit : MonoBehaviour
     public bool awaitingOrders;
     public UnitHealthBar healthBar;
     private SpriteRenderer spriteRenderer;
-    private BaseSkill equippedSkill;
+    public ActiveSkill activeSkill = null;
+    public PassiveSkill universalPassiveSkill = null;
+    public PassiveSkill classPassiveSkill = null;
 
     void Awake(){
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -91,15 +93,15 @@ public class BaseUnit : MonoBehaviour
     }
 
 
-    public void EquipSkill(BaseSkill newSkill){
-        equippedSkill = newSkill;
-    }
-    public BaseSkill GetEquipedSkill(){
-        return equippedSkill;
-    }
-    public void UnequipSkill(){
-        equippedSkill = null;
-    }
+    // public void EquipSkill(BaseSkill newSkill){
+    //     equippedSkill = newSkill;
+    // }
+    // public BaseSkill GetEquipedSkill(){
+    //     return equippedSkill;
+    // }
+    // public void UnequipSkill(){
+    //     equippedSkill = null;
+    // }
 }
 public enum UnitStatType {
     Health,

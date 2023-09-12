@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,11 +10,12 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
     [SerializeField] public GameObject highlightObject, selectedObject;
     public TextMeshProUGUI turnStartText;
+    public UnitActionMenu unitActionMenu;
+    public bool inUnitMenu = false;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
     public int textFramesMax = 120;
     public Color moveColor, attackColor, inRangeColor, supportColor;
-
     public void Awake(){
         instance = this;
     }
@@ -70,5 +72,31 @@ public class MenuManager : MonoBehaviour
         turnStartText.alpha = 1.0f;
         textFrames = textFramesMax;
         turnStartText.transform.SetAsLastSibling();
+    }
+
+    public void ToggleUnitMenu(){
+        if (inUnitMenu){
+            unitActionMenu.gameObject.SetActive(false);
+            inUnitMenu = false;
+            return;
+        }
+        if (UnitManager.instance.selectedUnit == null){
+            return;
+        }
+        unitActionMenu.Reset();
+        unitActionMenu.gameObject.SetActive(true);
+        inUnitMenu = true;
+    }
+
+    public void Move(Vector2 direction){
+        if (!inUnitMenu){
+            return;
+        }
+        unitActionMenu.Move(direction);
+    }
+
+    internal void SelectUnitMenuButton()
+    {
+        unitActionMenu.Select();
     }
 }

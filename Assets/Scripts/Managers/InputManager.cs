@@ -19,6 +19,11 @@ public class InputManager : MonoBehaviour
         if (!CanMove()){
             currentMoveFrameDelay--;
         }
+        if (input.Player.ZoomIn.IsPressed()){
+            GameManager.instance.ZoomCamera(-0.1f);
+        }else if (input.Player.ZoomOut.IsPressed()){
+            GameManager.instance.ZoomCamera(0.1f);
+        }
     }
     private void OnEnable() {
         input.Enable();
@@ -43,11 +48,8 @@ public class InputManager : MonoBehaviour
         input.Player.Next.performed += OnNextPerformed;
         input.Player.Next.canceled += OnNextCanceled;
 
-        input.Player.ZoomIn.performed += OnZoomInPerformed;
-        input.Player.ZoomIn.canceled += OnZoomInCanceled;
-
-        input.Player.ZoomOut.performed += OnZoomOutPerformed;
-        input.Player.ZoomOut.canceled += OnZoomOutCanceled;
+        input.Player.UnitMenu.performed += OnUnitMenuPerformed;
+        input.Player.UnitMenu.canceled += OnUnitMenuCanceled;
     }
 
     private void OnDisable() {
@@ -72,6 +74,9 @@ public class InputManager : MonoBehaviour
 
         input.Player.Next.performed -= OnNextPerformed;
         input.Player.Next.canceled -= OnNextCanceled;
+        
+        input.Player.UnitMenu.performed -= OnUnitMenuPerformed;
+        input.Player.UnitMenu.canceled -= OnUnitMenuCanceled;
     }
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
@@ -81,7 +86,11 @@ public class InputManager : MonoBehaviour
         }
         currentMoveFrameDelay = moveFrameDelays;
         moveVector = value.ReadValue<Vector2>();
-        FixMoveVector();       
+        FixMoveVector();
+        if (MenuManager.instance.inUnitMenu){
+            MenuManager.instance.Move(moveVector);
+            return;
+        }
         GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnMoveCanceled(InputAction.CallbackContext value){
@@ -89,6 +98,10 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnSelectPerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.inUnitMenu){
+            MenuManager.instance.SelectUnitMenuButton();
+            return;
+        }
         GameManager.instance.SetUsingMouse(false);
         GridManager.instance.SelectHoveredTile();
     }
@@ -96,6 +109,10 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.inUnitMenu){
+            MenuManager.instance.ToggleUnitMenu();
+            return;
+        }
         GameManager.instance.SetUsingMouse(false);
         UnitManager.instance.UnselectUnit();
     }
@@ -158,24 +175,12 @@ public class InputManager : MonoBehaviour
     }
 
 
-    
-    private void OnZoomOutCanceled(InputAction.CallbackContext context)
+    private void OnUnitMenuPerformed(InputAction.CallbackContext context)
     {
-
+        MenuManager.instance.ToggleUnitMenu();
     }
-
-    private void OnZoomOutPerformed(InputAction.CallbackContext context)
-    {
-        GameManager.instance.ZoomCamera(+1);
-    }
-
-    private void OnZoomInCanceled(InputAction.CallbackContext context)
+    private void OnUnitMenuCanceled(InputAction.CallbackContext context)
     {
 
-    }
-
-    private void OnZoomInPerformed(InputAction.CallbackContext context)
-    {
-        GameManager.instance.ZoomCamera(-1);
     }
 }
