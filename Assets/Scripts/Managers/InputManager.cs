@@ -87,7 +87,7 @@ public class InputManager : MonoBehaviour
         currentMoveFrameDelay = moveFrameDelays;
         moveVector = value.ReadValue<Vector2>();
         FixMoveVector();
-        if (MenuManager.instance.inUnitMenu){
+        if (MenuManager.instance.InMenu()){
             MenuManager.instance.Move(moveVector);
             return;
         }
@@ -98,8 +98,8 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnSelectPerformed(InputAction.CallbackContext value){
-        if (MenuManager.instance.inUnitMenu){
-            MenuManager.instance.SelectUnitMenuButton();
+        if (MenuManager.instance.InMenu()){
+            MenuManager.instance.Select();
             return;
         }
         GameManager.instance.SetUsingMouse(false);
@@ -109,8 +109,8 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
-        if (MenuManager.instance.inUnitMenu){
-            MenuManager.instance.ToggleUnitMenu();
+        if (MenuManager.instance.InMenu()){
+            MenuManager.instance.CloseMenus();
             return;
         }
         GameManager.instance.SetUsingMouse(false);
@@ -137,11 +137,7 @@ public class InputManager : MonoBehaviour
 
     private void OnPausePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
-        if (GameManager.instance.gameState == GameState.EnemiesTurn){
-            GameManager.instance.ChangeState(GameState.HeroesTurn);
-        }else{
-            GameManager.instance.ChangeState(GameState.EnemiesTurn);
-        }
+        MenuManager.instance.TogglePauseMenu();
     }
     private void OnPauseCanceled(InputAction.CallbackContext value){
 

@@ -58,9 +58,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void PanCamera(Vector2 v){
+        if (MenuManager.instance.InPauseMenu()){
+            return;
+        }
         newCameraPos = (Vector3)v + new Vector3(0, 0, -10);
     }
     public void PanCameraInDirection(Vector2 v){
+        if (MenuManager.instance.InPauseMenu()){
+            return;
+        }
         newCameraPos = (Vector3)v*cameraSensitivity + mainCamera.transform.position;
     }
 

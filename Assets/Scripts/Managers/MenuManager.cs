@@ -2,16 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
     public static MenuManager instance;
+    public MenuState menuState;
     [SerializeField] public GameObject highlightObject, selectedObject;
     public TextMeshProUGUI turnStartText;
     public UnitActionMenu unitActionMenu;
-    public bool inUnitMenu = false;
+    public PauseMenu pauseMenu;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
     public int textFramesMax = 120;
@@ -75,9 +77,8 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ToggleUnitMenu(){
-        if (inUnitMenu){
-            unitActionMenu.gameObject.SetActive(false);
-            inUnitMenu = false;
+        if (menuState == MenuState.UnitActionMenu){
+            CloseMenus();
             return;
         }
         if (UnitManager.instance.selectedUnit == null){
@@ -85,18 +86,66 @@ public class MenuManager : MonoBehaviour
         }
         unitActionMenu.Reset();
         unitActionMenu.gameObject.SetActive(true);
-        inUnitMenu = true;
+        unitActionMenu.transform.SetAsLastSibling();
+        menuState = MenuState.UnitActionMenu;
     }
-
-    public void Move(Vector2 direction){
-        if (!inUnitMenu){
+    public void TogglePauseMenu(){
+        if (menuState == MenuState.PauseMenu){
+            CloseMenus();
             return;
         }
-        unitActionMenu.Move(direction);
+        pauseMenu.Reset();
+        //if the unit action menu is shown, hide it
+        unitActionMenu.gameObject.SetActive(false);
+        
+        pauseMenu.gameObject.SetActive(true);
+        pauseMenu.transform.SetAsLastSibling();
+        menuState = MenuState.PauseMenu;
     }
 
-    internal void SelectUnitMenuButton()
-    {
-        unitActionMenu.Select();
+    public void CloseMenus(){
+        unitActionMenu.gameObject.SetActive(false);
+        pauseMenu.gameObject.SetActive(false);
+        menuState = MenuState.None;
     }
+    public void Move(Vector2 direction){
+        switch (menuState){
+            case MenuState.None:
+                break;
+            case MenuState.PauseMenu:
+                pauseMenu.Move(direction);
+                break;
+            case MenuState.UnitActionMenu:
+                unitActionMenu.Move(direction);
+                break;
+        }
+    }
+    public bool InMenu(){
+        return menuState != MenuState.None;
+    }
+    public void Select()
+    {
+        switch (menuState){
+            case MenuState.None:
+                break;
+            case MenuState.PauseMenu:
+                pauseMenu.Select();
+                break;
+            case MenuState.UnitActionMenu:
+                unitActionMenu.Select();
+                break;
+        }    
+    }
+
+    public bool InPauseMenu()
+    {
+        return menuState == MenuState.PauseMenu;
+    }
+}
+
+
+public enum MenuState{
+    None,
+    PauseMenu,
+    UnitActionMenu
 }

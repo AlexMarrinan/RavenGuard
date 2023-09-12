@@ -11,7 +11,7 @@ public class BaseMenu : MonoBehaviour
     public Image highlighImage;
     public virtual void Move(Vector2 direction){
         if (menuDirection == MenuDirection.Vertical){
-            buttonIndex += (int)direction.y;
+            buttonIndex -= (int)direction.y;
         }else if (menuDirection == MenuDirection.Horizontal){
             buttonIndex += (int)direction.x;
         }
