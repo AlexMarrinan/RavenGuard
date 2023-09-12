@@ -21,19 +21,6 @@ public class MenuManager : MonoBehaviour
     public void Awake(){
         instance = this;
     }
-    // public void ShowSelectedUnit(BaseUnit unit){
-    //     if (unit == null){
-    //         selectedHeroObject.SetActive(false);
-    //         return;
-    //     }
-    //     selectedHeroObject.GetComponentInChildren<Text>().text = unit.unitName;
-    //     selectedHeroObject.SetActive(true);
-    // }
-
-    // public void ShowTileInfo(Tile tile){
-    //     selectedHeroObject.GetComponentInChildren<Text>().text = unit.unitName;
-    //     selectedHeroObject.SetActive(true);
-    // }
    private void FixedUpdate() {
         if (textFrames <= 0){
             turnStartText.alpha -= 0.05f;
@@ -97,7 +84,7 @@ public class MenuManager : MonoBehaviour
         pauseMenu.Reset();
         //if the unit action menu is shown, hide it
         unitActionMenu.gameObject.SetActive(false);
-        
+
         pauseMenu.gameObject.SetActive(true);
         pauseMenu.transform.SetAsLastSibling();
         menuState = MenuState.PauseMenu;
@@ -123,8 +110,7 @@ public class MenuManager : MonoBehaviour
     public bool InMenu(){
         return menuState != MenuState.None;
     }
-    public void Select()
-    {
+    public void Select(){
         switch (menuState){
             case MenuState.None:
                 break;
@@ -134,11 +120,10 @@ public class MenuManager : MonoBehaviour
             case MenuState.UnitActionMenu:
                 unitActionMenu.Select();
                 break;
-        }    
+        }
     }
 
-    public bool InPauseMenu()
-    {
+    public bool InPauseMenu(){
         return menuState == MenuState.PauseMenu;
     }
 }

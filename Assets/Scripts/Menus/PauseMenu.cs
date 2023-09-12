@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : BaseMenu
 {
@@ -27,6 +28,6 @@ public class PauseMenu : BaseMenu
     private void Quit(){
         Debug.Log("Quitting...");
         //TODO: MAKE MAIN MENU SCENE !!!
-        Application.Quit();
+        SceneManager.LoadScene("MainMenu");
     }
 }

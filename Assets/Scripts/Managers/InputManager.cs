@@ -81,12 +81,17 @@ public class InputManager : MonoBehaviour
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
         //TODO: FIX CHOPPY ANALOGUE STICK MOVEMENT !!!
+
         if (!CanMove()){
             return;
         }
         currentMoveFrameDelay = moveFrameDelays;
         moveVector = value.ReadValue<Vector2>();
         FixMoveVector();
+        if (GameManager.instance.gameState == GameState.MainMenu){
+            MainMenuManager.instance.Move(moveVector);
+            return;
+        }
         if (MenuManager.instance.InMenu()){
             MenuManager.instance.Move(moveVector);
             return;
@@ -98,6 +103,10 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnSelectPerformed(InputAction.CallbackContext value){
+        if (GameManager.instance.gameState == GameState.MainMenu){
+            MainMenuManager.instance.Select();
+            return;
+        }
         if (MenuManager.instance.InMenu()){
             MenuManager.instance.Select();
             return;

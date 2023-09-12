@@ -12,11 +12,12 @@ public class GameManager : MonoBehaviour
     public float camAutoSpeed = 8f;
     public float cameraSensitivity = 2f;
     private bool usingMouse = false;
+    public GameState startState;
     // Start is called before the first frame update
     void Start()
     {
         instance = this;
-        gameState = GameState.GenerateGrid;
+        gameState = startState;
         newCameraPos = mainCamera.transform.position;
         ChangeState(gameState);
     }
@@ -32,7 +33,10 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState){
         gameState = newState;
+        Debug.Log(newState);
         switch(newState){
+            case GameState.MainMenu:
+                break;
             case GameState.GenerateGrid:
                 GridManager.instance.GenerateGrid();
                 break;
@@ -86,6 +90,7 @@ public class GameManager : MonoBehaviour
 }
 
 public enum GameState{
+    MainMenu,
     GenerateGrid,
     SapwnHeroes,
     SpawnEnemies,
