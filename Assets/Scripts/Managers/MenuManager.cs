@@ -29,7 +29,7 @@ public class MenuManager : MonoBehaviour
         textFrames--;
     }
     public void HighlightTile(Tile tile){
-        if (!tile.isTerrainWalkable()){
+        if (!tile.isTileSelectable()){
             UnhighlightTile();
             return;
         }
@@ -45,7 +45,7 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SelectTile(Tile tile){
-        if (!tile.isTerrainWalkable()){
+        if (!tile.isTileSelectable()){
             UnselectTile();
             return;
         }

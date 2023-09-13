@@ -7,11 +7,12 @@ public class GridManager : MonoBehaviour
 {
     public static GridManager instance;
     [SerializeField] private int width, height;
-    [SerializeField] private Tile grassTile, mountainTile;
+    [SerializeField] private TileSet tileSet;
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, Tile> tiles;
     private float[,] noiseMap;
     public Tile hoveredTile;
+    private const int NOUSE_MAP_SIZE = 500;
 
     void Awake(){
         instance = this;
@@ -31,18 +32,28 @@ public class GridManager : MonoBehaviour
     //Generates a grid of width x height of the tilePrefab
     public void GenerateGrid(){
         tiles = new Dictionary<Vector2, Tile>();
-        this.noiseMap = GenerateNoiseMap(200, 200, 8.0f);
+        this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
 
-        var startX = Random.Range(0, 200-width);
-        var startY = Random.Range(0, 200-height);
+        var startX = Random.Range(0, NOUSE_MAP_SIZE-width);
+        var startY = Random.Range(0, NOUSE_MAP_SIZE-height);
 
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
                 
-                Tile randomTile = grassTile;
+                //TODO: GET ANY FLOOR/WALL
+                Tile randomTile = tileSet.floors[0];
                 if (noiseMap[x+startX, y+startY] > 0.6f){
-                    randomTile = mountainTile;
+                    randomTile = tileSet.walls[0];
                 }
+                if (randomTile is FloorTile){
+                    int idk = Random.Range(0, 50);
+                    if (idk == 0){
+                        randomTile = tileSet.pits[0];
+                    }else if (idk == 1){
+                        randomTile = tileSet.fences[0];
+                    }
+                }                
+                
                 // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
                 // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
 
@@ -151,7 +162,7 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        if (!newTile.isTerrainWalkable()){
+        if (!newTile.isTileSelectable()){
             return;
         }
         SetHoveredTile(newTile);

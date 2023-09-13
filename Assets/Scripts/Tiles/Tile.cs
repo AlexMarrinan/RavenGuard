@@ -8,8 +8,11 @@ public abstract class Tile : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer renderer; 
     [SerializeField] private GameObject validMoveHighlight;
-    [SerializeField] private bool isWalkable;
-    
+
+    //Can a unit walk onto this tile
+    protected bool isWalkable;
+    //Can a unit shoot past this tile
+    protected bool isShootable;
     public BaseUnit occupiedUnit;
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Enemy);
     public TileMoveType moveType = TileMoveType.NotValid;
@@ -40,8 +43,8 @@ public abstract class Tile : MonoBehaviour
     private void OnMouseExit() {
         MenuManager.instance.UnhighlightTile();
     }
-    public bool isTerrainWalkable(){
-        return isWalkable;
+    public bool isTileSelectable(){
+        return isWalkable || isShootable;
     }
     private void OnMouseDown(){
         OnSelectTile();
@@ -50,7 +53,7 @@ public abstract class Tile : MonoBehaviour
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }
-        if (!isTerrainWalkable()){
+        if (!isTileSelectable()){
             return;
         }
         if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){

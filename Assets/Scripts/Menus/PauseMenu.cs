@@ -27,7 +27,6 @@ public class PauseMenu : BaseMenu
     }
     private void Quit(){
         Debug.Log("Quitting...");
-        //TODO: MAKE MAIN MENU SCENE !!!
         SceneManager.LoadScene("MainMenu");
     }
 }

@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
 
     public void ChangeState(GameState newState){
         gameState = newState;
-        Debug.Log(newState);
         switch(newState){
             case GameState.MainMenu:
                 break;

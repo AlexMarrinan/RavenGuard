@@ -2,9 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GrassTile : Tile
+public class FloorTile : Tile
 {
     [SerializeField] private Color baseColor, offsetColor;
+    private void Awake(){
+        isWalkable = true;
+        isShootable = true;
+    }
     public override void Init(int x, int y)
     {
         renderer.color = IsOffset(x, y) ? offsetColor : baseColor;

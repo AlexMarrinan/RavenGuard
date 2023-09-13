@@ -1524,8 +1524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 25
   height: 15
-  grassTile: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
-  mountainTile: {fileID: 1682275154842417547, guid: d258b296c79ea8c47b92c7a5ac33fad4, type: 3}
+  tileSet: {fileID: 11400000, guid: 528ee551749d1d3479cb036ffe604345, type: 2}
   cam: {fileID: 519420032}
   hoveredTile: {fileID: 0}
 --- !u!4 &816562101
