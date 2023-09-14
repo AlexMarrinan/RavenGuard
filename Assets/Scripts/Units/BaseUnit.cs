@@ -18,13 +18,14 @@ public class BaseUnit : MonoBehaviour
     // [HideInInspector]
     public bool awaitingOrders;
     public UnitHealthBar healthBar;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     public ActiveSkill activeSkill = null;
     public PassiveSkill universalPassiveSkill = null;
     public PassiveSkill classPassiveSkill = null;
 
-    void Awake(){
-        spriteRenderer = GetComponent<SpriteRenderer>();
+    [HideInInspector]
+    public BaseWeapon weapon;
+    void Start(){
         InitializeFaction();
         CreateHealthbar();
     }
@@ -92,7 +93,12 @@ public class BaseUnit : MonoBehaviour
         return defense; //TODO: ADD STAT BONUS CALCULATIONS
     }
 
-
+    public Sprite GetSprite(){
+        return spriteRenderer.sprite;
+    }
+    public Color GetColor(){
+        return spriteRenderer.color;
+    }
     // public void EquipSkill(BaseSkill newSkill){
     //     equippedSkill = newSkill;
     // }
@@ -115,4 +121,10 @@ public enum UnitStatType {
 public enum UnitClassType {
     Melee,
     Ranged,
+}
+
+public enum ArmorType {
+    Light,
+    Medium,
+    Heavy
 }

@@ -50,6 +50,9 @@ public class InputManager : MonoBehaviour
 
         input.Player.UnitMenu.performed += OnUnitMenuPerformed;
         input.Player.UnitMenu.canceled += OnUnitMenuCanceled;
+
+        input.Player.InventoryMenu.performed += OnInventoryMenuPerformed;
+        input.Player.InventoryMenu.canceled += OnInventoryMenuCanceled;
     }
 
     private void OnDisable() {
@@ -77,6 +80,9 @@ public class InputManager : MonoBehaviour
         
         input.Player.UnitMenu.performed -= OnUnitMenuPerformed;
         input.Player.UnitMenu.canceled -= OnUnitMenuCanceled;
+
+        input.Player.InventoryMenu.performed -= OnInventoryMenuPerformed;
+        input.Player.InventoryMenu.canceled -= OnInventoryMenuCanceled;
     }
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
@@ -187,5 +193,14 @@ public class InputManager : MonoBehaviour
     private void OnUnitMenuCanceled(InputAction.CallbackContext context)
     {
 
+    }
+    private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
+    {
+        MenuManager.instance.ToggleInventoryMenu();
+    }
+
+    private void OnInventoryMenuCanceled(InputAction.CallbackContext context)
+    {
+        
     }
 }

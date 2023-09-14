@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseWeapon : ScriptableObject {
+public class BaseWeapon : BaseItem {
     public string weaponName; 
     public string weaponDescription;
     public int damage;

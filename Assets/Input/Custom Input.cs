@@ -116,6 +116,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InventoryMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""caf8473e-1418-4b0a-a31c-39df1223dfaa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -437,6 +446,28 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""UnitMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7fb0f357-3de7-475b-9407-39b61cb1eaeb"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0da809c5-6847-4f20-9d26-944654795cfb"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InventoryMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -455,6 +486,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_ZoomIn = m_Player.FindAction("ZoomIn", throwIfNotFound: true);
         m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
         m_Player_UnitMenu = m_Player.FindAction("UnitMenu", throwIfNotFound: true);
+        m_Player_InventoryMenu = m_Player.FindAction("InventoryMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -524,6 +556,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ZoomIn;
     private readonly InputAction m_Player_ZoomOut;
     private readonly InputAction m_Player_UnitMenu;
+    private readonly InputAction m_Player_InventoryMenu;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -538,6 +571,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @ZoomIn => m_Wrapper.m_Player_ZoomIn;
         public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
         public InputAction @UnitMenu => m_Wrapper.m_Player_UnitMenu;
+        public InputAction @InventoryMenu => m_Wrapper.m_Player_InventoryMenu;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -577,6 +611,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @UnitMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnitMenu;
                 @UnitMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnitMenu;
                 @UnitMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUnitMenu;
+                @InventoryMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryMenu;
+                @InventoryMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryMenu;
+                @InventoryMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryMenu;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -611,6 +648,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @UnitMenu.started += instance.OnUnitMenu;
                 @UnitMenu.performed += instance.OnUnitMenu;
                 @UnitMenu.canceled += instance.OnUnitMenu;
+                @InventoryMenu.started += instance.OnInventoryMenu;
+                @InventoryMenu.performed += instance.OnInventoryMenu;
+                @InventoryMenu.canceled += instance.OnInventoryMenu;
             }
         }
     }
@@ -627,5 +667,6 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnZoomIn(InputAction.CallbackContext context);
         void OnZoomOut(InputAction.CallbackContext context);
         void OnUnitMenu(InputAction.CallbackContext context);
+        void OnInventoryMenu(InputAction.CallbackContext context);
     }
 }

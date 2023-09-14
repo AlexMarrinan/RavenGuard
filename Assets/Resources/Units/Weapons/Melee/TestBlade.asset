@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef68f334eb3dac8409453a85786d21d5, type: 3}
   m_Name: TestBlade
   m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 650675344f40d6f41a8ef61353a6aeb8, type: 3}
   weaponName: Test Blade
   weaponDescription: 
   damage: 7

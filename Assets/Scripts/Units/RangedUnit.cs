@@ -5,10 +5,13 @@ using UnityEngine;
 public class RangedUnit : BaseUnit
 {
 
-    public RangedWeapon weapon;
+    public RangedWeapon rangedWeapon;
 
+    private void Awake() {
+        base.weapon = rangedWeapon;
+    }
     public override int MaxTileRange(){
-        return  weapon.maxRange - (base.maxMoveAmount - base.moveAmount);
+        return  rangedWeapon.maxRange - (base.maxMoveAmount - base.moveAmount);
     }
     public override TileMoveType GetMoveTypeAt(Tile otherTile)
     {

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class MeleeUnit : BaseUnit
 {
-    public MeleeWeapon weapon;
+    public MeleeWeapon meleeWeapon;
+
+    private void Awake() {
+        base.weapon = meleeWeapon;
+    }
     public override int MaxTileRange(){
         return base.moveAmount;
     }

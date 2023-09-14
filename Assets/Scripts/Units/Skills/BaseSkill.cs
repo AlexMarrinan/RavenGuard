@@ -5,8 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
 
-public class BaseSkill : ScriptableObject {
-    public Sprite sprite;
+public class BaseSkill : BaseItem {
     public string skillName;
     public string description;
     public List<UnitClassType> validClasses = ((UnitClassType[])Enum.GetValues(typeof(UnitClassType))).ToList();
