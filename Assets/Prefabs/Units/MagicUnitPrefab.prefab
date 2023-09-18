@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6896802453669631958}
   - component: {fileID: 7322970729228887396}
   m_Layer: 0
-  m_Name: RamgedUnitPrefab
+  m_Name: MagicUnitPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: d9ad86aa802f55f42beb4b8016249d38, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4ea9d8a2a4a8d744927ec9cef59843d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,10 +100,17 @@ MonoBehaviour:
   unitName: 
   occupiedTile: {fileID: 0}
   faction: 1
+  unitClass: 3
   moveAmount: 4
   maxMoveAmount: 4
   health: 6
   maxHealth: 6
+  attack: 0
+  defense: 0
+  agility: 0
+  attunment: 0
+  foresight: 0
+  luck: 0
   awaitingOrders: 0
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
@@ -111,4 +118,6 @@ MonoBehaviour:
   universalPassiveSkill: {fileID: 0}
   classPassiveSkill: {fileID: 0}
   weapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
-  rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
+  weaponClass: 0
+  rangedWeapon: {fileID: 11400000, guid: 9691b7e7173e0de4b84a95993c6ff933, type: 2}
+  rangedWeaponClass: 1

@@ -7,12 +7,15 @@ using UnityEngine.UI;
 public class UnitSummaryMenu : BaseMenu
 {
     public Image unitIcon, healthBarTop, healthBarBottom;
-    public TextMeshProUGUI healthText;
+    public TextMeshProUGUI healthText, weaponClassText, unitClassText;
     public void Init(BaseUnit unit){
         unitIcon.sprite = unit.GetSprite();
         unitIcon.color = unit.GetColor();
         healthBarTop.fillAmount = (float)unit.health / (float)unit.maxHealth;
         healthText.text = unit.health + " / " + unit.maxHealth;
+        weaponClassText.text = unit.weaponClass.ToString();
+        unitClassText.text = unit.unitClass.ToString();
+
         if (unit.weapon != null){
             buttons[0].image.sprite = unit.weapon.sprite;
         }

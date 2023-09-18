@@ -18,12 +18,6 @@ public class PathLine : MonoBehaviour
         line.SetWidth(lineWidth, lineWidth);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void AddTile(Tile tile){
         if (tile.moveType != TileMoveType.Move && tile != UnitManager.instance.selectedUnit.occupiedTile){
             return;

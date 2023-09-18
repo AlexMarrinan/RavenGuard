@@ -8,11 +8,14 @@ using System.Linq;
 public class BaseSkill : BaseItem {
     public string skillName;
     public string description;
-    public List<UnitClassType> validClasses = ((UnitClassType[])Enum.GetValues(typeof(UnitClassType))).ToList();
+    public UnitClass validClass;
+    // public List<WeaponAttackMethod> validClasses = ((WeaponAttackMethod[])Enum.GetValues(typeof(WeaponAttackMethod))).ToList();
 }
 
 
 public enum SkillType {
     Active,
-    Passive,
+    UniversalPassive,
+    ClassPassive,
+    WeaponPassive,
 }

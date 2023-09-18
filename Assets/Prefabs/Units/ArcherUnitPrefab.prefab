@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: 2450522220589349630}
+  - component: {fileID: 7322970729228887396}
   m_Layer: 0
-  m_Name: MeleeUnitPrefab
+  m_Name: ArcherUnitPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: 650675344f40d6f41a8ef61353a6aeb8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9ad86aa802f55f42beb4b8016249d38, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2450522220589349630
+--- !u!114 &7322970729228887396
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,21 +94,30 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746290447937580278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 436e64aeb3c27a94cbab0f0e7f16f915, type: 3}
+  m_Script: {fileID: 11500000, guid: dcf1f64db6caed948acc337443f5e6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: 
   occupiedTile: {fileID: 0}
   faction: 1
+  unitClass: 2
   moveAmount: 4
   maxMoveAmount: 4
-  health: 10
-  maxHealth: 10
+  health: 6
+  maxHealth: 6
+  attack: 0
+  defense: 0
+  agility: 0
+  attunment: 0
+  foresight: 0
+  luck: 0
   awaitingOrders: 0
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
-  activeSkill: {fileID: 11400000, guid: ccc323ffe6bdcf944a3b8dbf00b20c30, type: 2}
+  activeSkill: {fileID: 0}
   universalPassiveSkill: {fileID: 0}
   classPassiveSkill: {fileID: 0}
-  weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
-  meleeWeapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
+  weapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
+  weaponClass: 0
+  rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
+  rangedWeaponClass: 0

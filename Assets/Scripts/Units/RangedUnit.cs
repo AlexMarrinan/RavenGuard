@@ -4,11 +4,15 @@ using UnityEngine;
 
 public class RangedUnit : BaseUnit
 {
-
     public RangedWeapon rangedWeapon;
-
+    [SerializeField] private WeaponRangedClasss rangedWeaponClass;
     private void Awake() {
         base.weapon = rangedWeapon;
+        if (rangedWeaponClass == WeaponRangedClasss.Archer){
+            base.weaponClass = WeaponClass.Archer;
+        }else{
+            base.weaponClass = WeaponClass.Magic;
+        }
     }
     public override int MaxTileRange(){
         return  rangedWeapon.maxRange - (base.maxMoveAmount - base.moveAmount);
@@ -28,7 +32,7 @@ public class RangedUnit : BaseUnit
         return tempType;
     }
     public override void Attack(BaseUnit otherUnit){
-        otherUnit.ReceiveDamage(weapon.damage);
+        otherUnit.ReceiveDamage(this);
         int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);
 
         if (otherUnit.health <= 0){

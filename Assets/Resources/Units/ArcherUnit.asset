@@ -9,12 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef68f334eb3dac8409453a85786d21d5, type: 3}
-  m_Name: TestBlade
+  m_Script: {fileID: 11500000, guid: 39a2a7d5cac74594e9a13bd08365b04f, type: 3}
+  m_Name: ArcherUnit
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 650675344f40d6f41a8ef61353a6aeb8, type: 3}
-  weaponName: Test Blade
-  weaponDescription: 
-  damage: 7
-  weaponClass: 0
-  meleeWeaponClass: 1
+  faction: 0
+  unitPrefab: {fileID: 7322970729228887396, guid: c8a0aa80830274d4dadbfe8d6f6d1904, type: 3}

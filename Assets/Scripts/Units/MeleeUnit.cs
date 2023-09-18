@@ -5,9 +5,14 @@ using UnityEngine;
 public class MeleeUnit : BaseUnit
 {
     public MeleeWeapon meleeWeapon;
-
+    [SerializeField] private WeaponMeleeClass meleeWeaponClass;
     private void Awake() {
         base.weapon = meleeWeapon;
+        if (meleeWeaponClass == WeaponMeleeClass.SideArms){
+            base.weaponClass = WeaponClass.SideArms;
+        }else{
+            base.weaponClass = WeaponClass.LongArms;
+        }
     }
     public override int MaxTileRange(){
         return base.moveAmount;
@@ -23,7 +28,7 @@ public class MeleeUnit : BaseUnit
 
     
     public override void Attack(BaseUnit otherUnit){
-        otherUnit.ReceiveDamage(weapon.damage);
+        otherUnit.ReceiveDamage(this);
         if (otherUnit.health <= 0){
             UnitManager.instance.DeleteUnit(otherUnit);
             MoveToSelectedTile(otherUnit.occupiedTile);
