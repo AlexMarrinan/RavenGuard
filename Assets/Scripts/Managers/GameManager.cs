@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
             trans.position = Vector3.Lerp(trans.position, newCameraPos, camAutoSpeed * Time.deltaTime);
         }
     }
-
+    
+    //Change game state
     public void ChangeState(GameState newState){
         gameState = newState;
         switch(newState){
@@ -50,6 +51,9 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.EnemiesTurn:
                 TurnManager.instance.BeginEnemyTurn();
+                break;
+            case GameState.BattleScene:
+                BattleSceneManager.instance.StartBattle();
                 break;
             default:
                 break;
@@ -94,5 +98,6 @@ public enum GameState{
     SapwnHeroes,
     SpawnEnemies,
     HeroesTurn,
-    EnemiesTurn
+    EnemiesTurn,
+    BattleScene    
 }

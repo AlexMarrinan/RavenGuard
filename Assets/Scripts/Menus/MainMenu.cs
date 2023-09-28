@@ -18,7 +18,7 @@ public class MainMenu : BaseMenu
         SceneManager.LoadScene("SampleScene");
     }
     private void Options(){
-        Debug.Log("Options!");
+        SceneManager.LoadScene("BattleScene");
     }
     private void Quit(){
         Debug.Log("Quitting...");

@@ -15,6 +15,7 @@ public class MenuManager : MonoBehaviour
     public UnitActionMenu unitActionMenu;
     public InventoryMenu inventoryMenu;
     public PauseMenu pauseMenu;
+    public BattleMenu battleMenu;
     private Dictionary<MenuState, BaseMenu> menuMap;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
@@ -29,6 +30,7 @@ public class MenuManager : MonoBehaviour
         menuMap.Add(MenuState.Pause, pauseMenu);
         menuMap.Add(MenuState.Inventory, inventoryMenu);
         menuMap.Add(MenuState.UnitAction, unitActionMenu);
+        menuMap.Add(MenuState.Battle, battleMenu);
     }
     private void FixedUpdate() {
         if (textFrames <= 0){
@@ -147,4 +149,5 @@ public enum MenuState{
     Pause,
     UnitAction,
     Inventory,
+    Battle,
 }
