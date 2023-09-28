@@ -1615,6 +1615,7 @@ MonoBehaviour:
   unitActionMenu: {fileID: 2106963952}
   inventoryMenu: {fileID: 1909758493}
   pauseMenu: {fileID: 1952246864}
+  battleMenu: {fileID: 0}
   textFramesMax: 50
   moveColor: {r: 0.2962442, g: 0.41731423, b: 0.8396226, a: 0.78431374}
   attackColor: {r: 0.754717, g: 0.30188677, b: 0.30188677, a: 0.78431374}
@@ -3199,6 +3200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveFrameDelays: 6
+  enableMouse: 0
 --- !u!4 &938220101
 Transform:
   m_ObjectHideFlags: 0

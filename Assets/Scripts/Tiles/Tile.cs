@@ -23,6 +23,9 @@ public abstract class Tile : MonoBehaviour
 
     }
     private void OnMouseEnter() {
+        if (!InputManager.instance.enableMouse){
+            return;
+        }
         GameManager.instance.SetUsingMouse(true);
         OnHover();
         GridManager.instance.SetHoveredTile(this);
@@ -41,12 +44,18 @@ public abstract class Tile : MonoBehaviour
         MenuManager.instance.HighlightTile(this);
     }
     private void OnMouseExit() {
+        if (!InputManager.instance.enableMouse){
+            return;
+        }
         MenuManager.instance.UnhighlightTile();
     }
     public bool isTileSelectable(){
         return isWalkable || isShootable;
     }
     private void OnMouseDown(){
+        if (!InputManager.instance.enableMouse){
+            return;
+        }
         OnSelectTile();
     }
     public void OnSelectTile(){

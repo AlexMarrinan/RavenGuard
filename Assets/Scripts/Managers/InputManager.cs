@@ -10,9 +10,11 @@ public class InputManager : MonoBehaviour
     private CustomInput input = null;
     public int moveFrameDelays = 5;
     private int currentMoveFrameDelay = 0;
-
+    public bool enableMouse = true;
+    public static InputManager instance;
     void Awake()
     {
+        instance = this;        
         input = new CustomInput();
     }
     private void FixedUpdate() {

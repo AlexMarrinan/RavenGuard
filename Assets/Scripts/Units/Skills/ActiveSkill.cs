@@ -9,13 +9,13 @@ public class ActiveSkill : BaseSkill {
     public delegate void UseDelegate();
     UseDelegate useDelegate;
     private void Awake(){
-        var mng = SkillManager.instance;
-        switch(base.skillName){
-            case "EarthQuake":
-                useDelegate = mng.EarthQuake;
-                break;
-        }
-        Debug.Log(useDelegate);
+        // var mng = SkillManager.instance;
+        // switch(base.skillName){
+        //     case "EarthQuake":
+        //         useDelegate = mng.EarthQuake;
+        //         break;
+        // }
+        // Debug.Log(useDelegate);
     }
     public void OnUse(BaseUnit user){
         useDelegate();

@@ -3651,6 +3651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveFrameDelays: 6
+  enableMouse: 0
 --- !u!4 &938220101
 Transform:
   m_ObjectHideFlags: 0
