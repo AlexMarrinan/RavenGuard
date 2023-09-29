@@ -23,7 +23,7 @@ public class TurnManager : MonoBehaviour
 
     public void BeginEnemyTurn(){
         currentFaction = UnitFaction.Enemy;
-        MenuManager.instance.ShowStartText("Enemie's turn!");
+        MenuManager.instance.ShowStartText("Enemy's turn!");
         UnitManager.instance.ResetUnitMovment();
     }
     public void GoToNextUnit(){

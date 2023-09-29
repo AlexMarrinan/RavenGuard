@@ -7,13 +7,18 @@ public class MeleeUnit : BaseUnit
     public MeleeWeapon meleeWeapon;
     [SerializeField] private WeaponMeleeClass meleeWeaponClass;
     private void Awake() {
-        base.weapon = meleeWeapon;
+        ApplyWeapon();
         if (meleeWeaponClass == WeaponMeleeClass.SideArms){
             base.weaponClass = WeaponClass.SideArms;
         }else{
             base.weaponClass = WeaponClass.LongArms;
         }
     }
+    public override void ApplyWeapon()
+    {
+        base.weapon = meleeWeapon;
+    }
+
     public override int MaxTileRange(){
         return base.moveAmount;
     }

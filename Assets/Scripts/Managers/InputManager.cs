@@ -190,6 +190,7 @@ public class InputManager : MonoBehaviour
 
     private void OnUnitMenuPerformed(InputAction.CallbackContext context)
     {
+        return;
         MenuManager.instance.ToggleUnitMenu();
     }
     private void OnUnitMenuCanceled(InputAction.CallbackContext context)
@@ -198,6 +199,7 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
+        return;
         MenuManager.instance.ToggleInventoryMenu();
     }
 

@@ -10,7 +10,8 @@ public class MenuButton : MonoBehaviour
     public string buttonDescription;
     [HideInInspector]
     public string bonusText = "";
+    public SpriteRenderer spriteRenderer;
     private void Awake() {
-
+        
     }
 }

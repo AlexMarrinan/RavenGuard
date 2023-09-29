@@ -44,6 +44,10 @@ public class BaseUnit : MonoBehaviour
         var random = new System.Random();
         unitClass = (UnitClass)values.GetValue(random.Next(values.Length));
     }
+
+    public virtual void ApplyWeapon(){
+
+    }
     private void InitializeUnitClass()
     {
         switch (unitClass){

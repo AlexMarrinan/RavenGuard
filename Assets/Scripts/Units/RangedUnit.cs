@@ -7,12 +7,17 @@ public class RangedUnit : BaseUnit
     public RangedWeapon rangedWeapon;
     [SerializeField] private WeaponRangedClasss rangedWeaponClass;
     private void Awake() {
+        this.ApplyWeapon();
         base.weapon = rangedWeapon;
         if (rangedWeaponClass == WeaponRangedClasss.Archer){
             base.weaponClass = WeaponClass.Archer;
         }else{
             base.weaponClass = WeaponClass.Magic;
         }
+    }
+    public override void ApplyWeapon()
+    {
+        base.weapon = rangedWeapon;
     }
     public override int MaxTileRange(){
         return  rangedWeapon.maxRange - (base.maxMoveAmount - base.moveAmount);

@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -371, y: 376.3}
-  m_SizeDelta: {x: 234.9916, y: 52.0393}
+  m_AnchoredPosition: {x: -373.6252, y: 376.3}
+  m_SizeDelta: {x: 240.242, y: 52.0393}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7850349115635876581
 CanvasRenderer:
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -55.133423, y: 0, z: 55.133423, w: 0}
+  m_margin: {x: -7.879883, y: 0, z: -37.273697, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -480,6 +480,8 @@ MonoBehaviour:
   unitIcon: {fileID: 7850349117713822618}
   healthBarTop: {fileID: 7850349117682748075}
   healthBarBottom: {fileID: 7850349115908661925}
+  faceDirection: 0
+  faction: 0
   weaponImage: {fileID: 7850349117190408877}
   unitNameText: {fileID: 7850349117772289540}
   weaponText: {fileID: 7850349116982021114}
@@ -2315,6 +2317,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!1 &7850349117242508393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2985,8 +2988,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -271.1, y: 415.1}
-  m_SizeDelta: {x: 234.9916, y: 52.0393}
+  m_AnchoredPosition: {x: -266.4, y: 416.4}
+  m_SizeDelta: {x: 376.7525, y: 53.6144}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7850349117772289547
 CanvasRenderer:
