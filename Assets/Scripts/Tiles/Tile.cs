@@ -49,7 +49,7 @@ public abstract class Tile : MonoBehaviour
         }
         MenuManager.instance.UnhighlightTile();
     }
-    public bool isTileSelectable(){
+    public bool IsTileSelectable(){
         return isWalkable || isShootable;
     }
     private void OnMouseDown(){
@@ -62,7 +62,7 @@ public abstract class Tile : MonoBehaviour
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }
-        if (!isTileSelectable()){
+        if (!IsTileSelectable()){
             return;
         }
         if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){

@@ -17,12 +17,6 @@ public class GridManager : MonoBehaviour
     void Awake(){
         instance = this;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }  
-
     public int getWidth(){
         return width;
     }
@@ -45,14 +39,14 @@ public class GridManager : MonoBehaviour
                 if (noiseMap[x+startX, y+startY] > 0.6f){
                     randomTile = tileSet.walls[0];
                 }
-                if (randomTile is FloorTile){
-                    int idk = Random.Range(0, 50);
-                    if (idk == 0){
-                        randomTile = tileSet.pits[0];
-                    }else if (idk == 1){
-                        randomTile = tileSet.fences[0];
-                    }
-                }                
+                // if (randomTile is FloorTile){
+                //     int idk = Random.Range(0, 50);
+                //     if (idk == 0){
+                //         randomTile = tileSet.pits[0];
+                //     }else if (idk == 1){
+                //         randomTile = tileSet.fences[0];
+                //     }
+                // }                
                 
                 // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
                 // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
@@ -162,7 +156,7 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        if (!newTile.isTileSelectable()){
+        if (!newTile.IsTileSelectable()){
             return;
         }
         SetHoveredTile(newTile);

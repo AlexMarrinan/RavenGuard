@@ -40,7 +40,7 @@ public class MenuManager : MonoBehaviour
         textFrames--;
     }
     public void HighlightTile(Tile tile){
-        if (!tile.isTileSelectable()){
+        if (!tile.IsTileSelectable()){
             UnhighlightTile();
             return;
         }
@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
     }
 
     public void SelectTile(Tile tile){
-        if (!tile.isTileSelectable()){
+        if (!tile.IsTileSelectable()){
             UnselectTile();
             return;
         }

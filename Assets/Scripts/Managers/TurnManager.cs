@@ -25,6 +25,50 @@ public class TurnManager : MonoBehaviour
         currentFaction = UnitFaction.Enemy;
         MenuManager.instance.ShowStartText("Enemy's turn!");
         UnitManager.instance.ResetUnitMovment();
+        MoveEnemy(UnitManager.instance.GetAllEnemies());
+        
+    }
+    void MoveEnemy(List<BaseUnit> list){
+        var enemy = list[0];
+        int maxMove = enemy.maxMoveAmount;
+        int chosenMoveAmount = Random.Range(1, maxMove);
+        int dir = Random.Range(0,4);
+        Vector2 direction;
+        switch(dir){
+            case 0:
+                direction = new Vector2(1, 0);
+                break;
+            case 1:
+                direction = new Vector2(-1, 0);
+                break;
+            case 2:
+                direction = new Vector2(0, 1);
+                break;
+            case 3:
+                direction = new Vector2(0, -1);
+                break;
+            default:
+                direction = new Vector2(0, 0);
+                break;
+        }
+        Vector2 curr = enemy.occupiedTile.coordiantes;
+        Tile currTile = enemy.occupiedTile;
+        for (int i = 0; i < chosenMoveAmount; i++){
+            curr += direction;
+            Tile nextTile = GridManager.instance.GetTileAtPosition(curr);
+            if (nextTile == null || !nextTile.walkable){
+                break;
+            }
+            currTile = nextTile;
+        }
+        currTile.SetUnit(enemy);
+        list.RemoveAt(0);
+        if (list.Count > 0){
+            Debug.Log(list.Count);
+            MoveEnemy(list);
+        }else{
+            GameManager.instance.ChangeState(GameState.HeroesTurn);
+        }
     }
     public void GoToNextUnit(){
         GoToUnit(+1);

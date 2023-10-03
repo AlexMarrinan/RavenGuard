@@ -103,8 +103,8 @@ MonoBehaviour:
   unitClass: 5
   moveAmount: 4
   maxMoveAmount: 4
-  health: 10
-  maxHealth: 10
+  health: 14
+  maxHealth: 14
   attack: 0
   defense: 0
   agility: 0
@@ -119,5 +119,7 @@ MonoBehaviour:
   classPassiveSkill: {fileID: 0}
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0
+  attackAnim: {fileID: 0}
+  attackAnimRight: {fileID: 0}
   meleeWeapon: {fileID: 11400000, guid: 4ff9351776674c740b0728d5a29b7ec6, type: 2}
   meleeWeaponClass: 0
