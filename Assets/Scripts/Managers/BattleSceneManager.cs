@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,14 +16,16 @@ public class BattleSceneManager : MonoBehaviour
     private Vector3 leftNewPos;
     private Vector3 rightNewPos;
     public float hitMoveSpeed = 10f;
+    private BattleUnit attacker;
+    [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
     void Awake()
     {
         instance = this;
     }
 
     void FixedUpdate(){
-        leftBU.transform.position = Vector3.Lerp(leftBU.transform.position, leftNewPos, hitMoveSpeed * Time.deltaTime);
-        rightBU.transform.position = Vector3.Lerp(rightBU.transform.position, rightNewPos, hitMoveSpeed * Time.deltaTime);
+        rightBU.animator.transform.position = Vector3.Lerp(rightBU.transform.position, rightNewPos, hitMoveSpeed * Time.deltaTime);
+        leftBU.animator.transform.position = Vector3.Lerp(leftBU.transform.position, leftNewPos, hitMoveSpeed * Time.deltaTime);
     }
 
     //TODO: Find better name
@@ -41,9 +44,12 @@ public class BattleSceneManager : MonoBehaviour
         leftBU.SetUnit(first);
         rightBU.SetUnit(second);
         leftBU.Attack();
-        //StartCoroutine();
+        state = BattleSceneState.FirstAttack;
     }
-
+    public void SetAttacker(BattleUnit unit){
+        attacker = unit;
+        Debug.Log(attacker);
+    }
     public void DisplayUnits(){
 
     }
@@ -57,7 +63,7 @@ public class BattleSceneManager : MonoBehaviour
         int newHealth = damaged.assignedUnit.health;
         if (newHealth == health){
             //No damage done
-            HitRecoil(damaged, 0.25f);
+            HitRecoil(damaged, 0.5f);
         }
         else if (newHealth <= 0){
             //fatal blow
@@ -100,9 +106,38 @@ public class BattleSceneManager : MonoBehaviour
             StartCoroutine(EndAnimationDeath(damaged, 1.5f));
             return;
         }
-        StartCoroutine(EndAnaimtionWait(1.5f));
+        StartCoroutine(NextAttack(hitter, damaged));
     }
-
+    IEnumerator NextAttack(BattleUnit hitter, BattleUnit damaged){
+        ResetBattleUnitsPos();
+        yield return new WaitForSeconds(0.4f);
+        if (state == BattleSceneState.FirstAttack && ((hitter.assignedUnit is RangedUnit && damaged.assignedUnit is RangedUnit) || 
+            (hitter.assignedUnit is MeleeUnit && damaged.assignedUnit is MeleeUnit))){
+                state = BattleSceneState.CounterAttack;
+                damaged.Attack();
+                yield return null;
+        }
+        else if (state == BattleSceneState.FirstAttack && (hitter.assignedUnit.GetAgility() >= damaged.assignedUnit.GetAgility() + 5)) {
+            state = BattleSceneState.SecondAttack;
+            hitter.Attack();
+            yield return null;
+        }
+        else if (state == BattleSceneState.CounterAttack) {
+            if (damaged.assignedUnit.GetAgility() >= hitter.assignedUnit.GetAgility() + 5) {
+                state = BattleSceneState.SecondAttack;
+                damaged.Attack();
+                yield return null;
+            }else if (hitter.assignedUnit.GetAgility() >= damaged.assignedUnit.GetAgility() + 5) {
+                state = BattleSceneState.SecondAttack;
+                hitter.Attack();
+                yield return null;
+            }else{
+                yield return EndAnaimtionWait(1.0f);
+            }
+        }else {
+            yield return EndAnaimtionWait(1.5f);
+        }
+    }
     IEnumerator EndAnimationDeath(BattleUnit killed, float v){
         //TODO: ACTUAL KILL ANIMATION
         killed.Hide();        
@@ -115,13 +150,23 @@ public class BattleSceneManager : MonoBehaviour
         Reset();
     }
     private void Reset(){
-        leftNewPos = leftStartPos;
-        rightNewPos = rightStartPos;
+        ResetBattleUnitsPos();
         leftBU.spriteRenderer.color = Color.white;
         rightBU.spriteRenderer.color = Color.white;
+        state = BattleSceneState.FirstAttack;        
         leftBU.Hide();
         rightBU.Hide();
         battleMenu.gameObject.SetActive(true);
         battleMenu.SetRandomEnemy();
     }
+    private void ResetBattleUnitsPos(){
+        leftNewPos = leftStartPos;
+        rightNewPos = rightStartPos;
+    }
+}
+
+public enum BattleSceneState{
+    FirstAttack,
+    CounterAttack,
+    SecondAttack,
 }

@@ -120,5 +120,6 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   weaponClass: 0
   attackAnim: {fileID: 9100000, guid: 32e9fd32a4fd94c4597c5c655ba5911f, type: 2}
+  attackAnimRight: {fileID: 9100000, guid: c82bba4dea9aa8b4ab9ff4fb8b4c34db, type: 2}
   rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   rangedWeaponClass: 0

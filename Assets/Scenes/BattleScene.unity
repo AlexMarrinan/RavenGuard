@@ -1714,8 +1714,8 @@ MonoBehaviour:
   highlighImage: {fileID: 1993279720}
   units:
   - {fileID: 2450522220589349630, guid: 45bd7e7e9ba04d446888d534d800109e, type: 3}
-  - {fileID: 2450522220589349630, guid: b1bc1ff7809bd88448ff037d667a007d, type: 3}
   - {fileID: -3642861134224457236, guid: 07ccb06ba3707af46b2d5e5ca4489a66, type: 3}
+  - {fileID: 2450522220589349630, guid: b1bc1ff7809bd88448ff037d667a007d, type: 3}
   - {fileID: -3642861134224457236, guid: f74d3c4073cd188479ca7ee27f9928e5, type: 3}
   heroStats: {fileID: 321225744}
   enemyStats: {fileID: 1106277600}
@@ -4553,6 +4553,7 @@ MonoBehaviour:
   leftBU: {fileID: 693235398}
   rightBU: {fileID: 1119002907}
   hitMoveSpeed: 10
+  state: 0
 --- !u!4 &1214829595
 Transform:
   m_ObjectHideFlags: 0
@@ -5641,13 +5642,21 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8494311217907253898, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8494311217907253899, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_RootOrder
       value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8494311217907253899, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 8.914783
+      objectReference: {fileID: 0}
+    - target: {fileID: 8494311217907253899, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.78
+      value: 3.87
       objectReference: {fileID: 0}
     - target: {fileID: 8494311217907253899, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_LocalPosition.y
@@ -7019,6 +7028,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 297758921}
+    - target: {fileID: 8494311217907253897, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8494311217907253897, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_Controller
       value: 

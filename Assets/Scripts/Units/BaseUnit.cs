@@ -32,7 +32,7 @@ public class BaseUnit : MonoBehaviour
 
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
-    public RuntimeAnimatorController attackAnim;
+    public RuntimeAnimatorController attackAnim, attackAnimRight;
     void Start(){
         RandomizeUnitClass();
         InitializeUnitClass();
