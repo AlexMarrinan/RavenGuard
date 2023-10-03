@@ -178,6 +178,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &10845413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,6 +407,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &71037919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -612,6 +614,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &159556117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -705,6 +708,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &190693957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -941,6 +945,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &204015215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1170,6 +1175,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &254342340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,6 +1269,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &330952472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1541,6 +1548,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &379363627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,7 +1817,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.15122817, g: 0.4528302, b: 0.27626744, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1957,6 +1965,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &614282525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2051,6 +2060,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &622269461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2220,6 +2230,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &663580296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2314,6 +2325,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &695038441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2407,6 +2419,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &771083459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2500,6 +2513,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &772217664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2804,6 +2818,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &801523493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2897,6 +2912,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &802340914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3039,6 +3055,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &844439201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3132,6 +3149,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &854724165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3468,6 +3486,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1151022667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3561,6 +3580,7 @@ MonoBehaviour:
   buttonName: Universal Skill
   buttonDescription: Use your universal passive skil
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1157317901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3779,6 +3799,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1241715861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3872,6 +3893,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1290765153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3965,6 +3987,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1298780961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4525,6 +4548,7 @@ MonoBehaviour:
   buttonName: Active Skill
   buttonDescription: Use your active skil
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1661756370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4964,6 +4988,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1764472183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5057,6 +5082,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1803746876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5150,6 +5176,7 @@ MonoBehaviour:
   buttonName: Class Skill
   buttonDescription: Use your class passive skill
   bonusText: 
+  spriteRenderer: {fileID: 0}
 --- !u!114 &1805715446
 MonoBehaviour:
   m_ObjectHideFlags: 0

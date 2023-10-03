@@ -32,7 +32,7 @@ public class BaseUnit : MonoBehaviour
 
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
-
+    public RuntimeAnimatorController attackAnim;
     void Start(){
         RandomizeUnitClass();
         InitializeUnitClass();
@@ -99,8 +99,11 @@ public class BaseUnit : MonoBehaviour
         return;
     }
     public void ReceiveDamage(BaseUnit otherUnit){
-        Debug.Log(armorType);
-        health -= otherUnit.GetAttack();
+        int damage = otherUnit.GetAttack() - this.GetDefense();
+        if (damage <= 0){
+            return;
+        }
+        health -= damage;
         //healthBar.RenderHealth();
     }
     public void MoveToSelectedTile(Tile selectedTile){
@@ -138,7 +141,7 @@ public class BaseUnit : MonoBehaviour
     // TODO: ADD STAT BONUS CALCULATIONS !!!
     // XP, LEVELUPS, SKILLS, ETC.
     public int GetAttack(){
-        return attack + weapon.damage; 
+        return attack; //+ weapon.damage; 
     }
     public int GetDefense(){
         return defense;

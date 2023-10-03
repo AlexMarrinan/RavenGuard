@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300000, guid: d9ad86aa802f55f42beb4b8016249d38, type: 3}
+  m_Sprite: {fileID: 1865143392, guid: e728f6bf4c84fb14c865da352667c2f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -119,5 +119,6 @@ MonoBehaviour:
   classPassiveSkill: {fileID: 0}
   weapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   weaponClass: 0
+  attackAnim: {fileID: 9100000, guid: 32e9fd32a4fd94c4597c5c655ba5911f, type: 2}
   rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   rangedWeaponClass: 0

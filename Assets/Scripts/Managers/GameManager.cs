@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
                 TurnManager.instance.BeginEnemyTurn();
                 break;
             case GameState.BattleScene:
-                BattleSceneManager.instance.StartBattle();
+                BattleSceneManager.instance.StartBattleOld();
                 break;
             default:
                 break;
@@ -65,13 +65,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void PanCamera(Vector2 v){
-        if (MenuManager.instance.InPauseMenu()){
+        if (MenuManager.instance.InPauseMenu() || gameState == GameState.BattleScene){
             return;
         }
         newCameraPos = (Vector3)v + new Vector3(0, 0, -10);
     }
     public void PanCameraInDirection(Vector2 v){
-        if (MenuManager.instance.InPauseMenu()){
+        if (MenuManager.instance.InPauseMenu() || gameState == GameState.BattleScene){
             return;
         }
         newCameraPos = (Vector3)v*cameraSensitivity + mainCamera.transform.position;
@@ -85,6 +85,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void ZoomCamera(float amount){
+        if (MenuManager.instance.InPauseMenu() || gameState == GameState.BattleScene){
+            return;
+        }
         mainCamera.orthographicSize += amount;
         if (mainCamera.orthographicSize <= 2 || mainCamera.orthographicSize >= 12){
             mainCamera.orthographicSize -= amount;

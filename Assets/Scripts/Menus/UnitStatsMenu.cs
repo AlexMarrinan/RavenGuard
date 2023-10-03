@@ -8,12 +8,13 @@ using Unity.VisualScripting;
 public class UnitStatsMenu : BaseMenu
 {
     private BaseUnit unit;
-    public Image unitIcon, healthBarTop, healthBarBottom;
+    public Image unitIcon;
     public FaceDirection faceDirection;
     public UnitFaction faction;
     public Image weaponImage;
     public TextMeshProUGUI unitNameText, weaponText, attackText, defenseText, agilityText, attunementText, forsightText, luckText;
-    public TextMeshProUGUI healthText, weaponClassText, unitClassText;
+    public TextMeshProUGUI weaponClassText, unitClassText;
+    public HealthBarMenu healthBar;
     public void Start(){
         if (faceDirection == FaceDirection.Left){
             unitIcon.transform.localScale = new Vector3(-1, 1, 1);
@@ -37,6 +38,8 @@ public class UnitStatsMenu : BaseMenu
         weaponText.text = unit.weapon.weaponName;
         weaponClassText.text = unit.weapon.weaponClass.ToString();
         
+        healthBar.SetUnit(unit);
+
         attackText.text = unit.GetAttack().ToString();
         defenseText.text = unit.GetDefense().ToString();
         agilityText.text = unit.GetAgility().ToString();
