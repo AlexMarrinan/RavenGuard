@@ -25,12 +25,13 @@ public class TurnManager : MonoBehaviour
         currentFaction = UnitFaction.Enemy;
         MenuManager.instance.ShowStartText("Enemy's turn!");
         UnitManager.instance.ResetUnitMovment();
-        MoveEnemy(UnitManager.instance.GetAllEnemies());
-        
+        StartCoroutine(MoveEnemy(UnitManager.instance.GetAllEnemies()));
     }
-    void MoveEnemy(List<BaseUnit> list){
+    IEnumerator MoveEnemy(List<BaseUnit> list){
         var enemy = list[0];
         int maxMove = enemy.maxMoveAmount;
+        GameManager.instance.PanCamera(enemy.transform.position);
+        yield return new WaitForSeconds(1.0f);
         int chosenMoveAmount = Random.Range(1, maxMove);
         int dir = Random.Range(0,4);
         Vector2 direction;
@@ -62,13 +63,15 @@ public class TurnManager : MonoBehaviour
             currTile = nextTile;
         }
         currTile.SetUnit(enemy);
+        yield return new WaitForSeconds(0.5f);
         list.RemoveAt(0);
         if (list.Count > 0){
             Debug.Log(list.Count);
-            MoveEnemy(list);
+            yield return MoveEnemy(list);
         }else{
             GameManager.instance.ChangeState(GameState.HeroesTurn);
         }
+        yield return null;
     }
     public void GoToNextUnit(){
         GoToUnit(+1);
@@ -91,7 +94,7 @@ public class TurnManager : MonoBehaviour
     }
     public void OnUnitDone(BaseUnit previous){
         unitsAwaitingOrders.Remove(previous);
-
+        
         //if no units left to move, go onto the enemies turn
         if (unitsAwaitingOrders.Count == 0){
             GameManager.instance.ChangeState(GameState.EnemiesTurn);
