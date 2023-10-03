@@ -24,9 +24,7 @@ public class BattleMenu : BaseMenu
         SetHeroStats();
     }
     public void SetRandomEnemy(){
-        enemyIndex = Random.Range(1, 3);
-        enemyIndex *= 2;
-        enemyIndex -= 1;
+        enemyIndex = Random.Range(0, 4);
         SetEnemyStats(units[enemyIndex]);
     }
     private void SetHeroStats(){

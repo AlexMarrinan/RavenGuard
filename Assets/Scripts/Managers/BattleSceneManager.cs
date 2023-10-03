@@ -62,14 +62,17 @@ public class BattleSceneManager : MonoBehaviour
         else if (newHealth <= 0){
             //fatal blow
             HitRecoil(damaged, 4f);
+            damaged.spriteRenderer.color = new Color(1f, 0.15f, 0.15f);
         }
         else if (newHealth < health){
-            if (newHealth*2 < health){
+            if (newHealth*1.5 < health){
                 //Big Hit
                 HitRecoil(damaged, 2f);
+                StartCoroutine(HitColor(damaged, 2.5f));
             }else{
                 //Normal hit
                 HitRecoil(damaged, 1f);
+                StartCoroutine(HitColor(damaged, 1.25f));
             }
         }
     }
@@ -80,6 +83,14 @@ public class BattleSceneManager : MonoBehaviour
             leftNewPos = damaged.transform.position + new Vector3(amount*-1, 0, 0);
         }
     }
+
+    IEnumerator HitColor(BattleUnit unit, float damage)
+    {
+        unit.spriteRenderer.color = new Color(1f, 0.65f, 0.65f);
+        yield return new WaitForSeconds(damage * 0.1f);
+        unit.spriteRenderer.color = Color.white;
+    }
+
     public void OnEnd(BattleUnit hitter){
         var damaged = leftBU;
         if (hitter == leftBU){
@@ -106,6 +117,8 @@ public class BattleSceneManager : MonoBehaviour
     private void Reset(){
         leftNewPos = leftStartPos;
         rightNewPos = rightStartPos;
+        leftBU.spriteRenderer.color = Color.white;
+        rightBU.spriteRenderer.color = Color.white;
         leftBU.Hide();
         rightBU.Hide();
         battleMenu.gameObject.SetActive(true);

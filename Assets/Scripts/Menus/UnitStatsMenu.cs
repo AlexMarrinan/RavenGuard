@@ -20,7 +20,7 @@ public class UnitStatsMenu : BaseMenu
             unitIcon.transform.localScale = new Vector3(-1, 1, 1);
         }
         if (this.faction == UnitFaction.Hero){
-            unitIcon.color = Color.cyan;
+            unitIcon.color = Color.white;
         }else{
             unitIcon.color = Color.red;
         }
