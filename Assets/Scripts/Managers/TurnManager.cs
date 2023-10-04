@@ -102,6 +102,9 @@ public class TurnManager : MonoBehaviour
         GridManager.instance.SetHoveredTile(unitsAwaitingOrders[index].occupiedTile);
     }
     public void OnUnitDone(BaseUnit previous){
+        if (previous.faction == UnitFaction.Enemy){
+            return;
+        }
         unitsAwaitingOrders.Remove(previous);
         
         //if no units left to move, go onto the enemies turn

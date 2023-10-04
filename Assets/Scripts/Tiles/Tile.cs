@@ -120,11 +120,8 @@ public abstract class Tile : MonoBehaviour
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
-        if (unit.faction == UnitFaction.Hero){
-            unit.moveAmount = 0;
-        }else{
-            unit.moveAmount -= depth;
-        }
+        unit.moveAmount = 0;
+
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
