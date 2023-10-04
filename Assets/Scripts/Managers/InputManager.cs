@@ -19,9 +19,20 @@ public class InputManager : MonoBehaviour
         input = new CustomInput();
     }
     private void FixedUpdate() {
-        if (!CanMove()){
-            currentMoveFrameDelay--;
+        Debug.Log(moveVector);
+        if (input.Player.Move.IsPressed() && CanMove()){
+            currentMoveFrameDelay = moveFrameDelays;
+            if (GameManager.instance.gameState == GameState.MainMenu){
+                MainMenuManager.instance.Move(moveVector);
+                return;
+            }
+            if (MenuManager.instance.InMenu()){
+                MenuManager.instance.Move(moveVector);
+                return;
+            }
+            GridManager.instance.MoveHoveredTile(moveVector);
         }
+        currentMoveFrameDelay--;
         if (input.Player.ZoomIn.IsPressed()){
             GameManager.instance.ZoomCamera(-0.1f);
         }else if (input.Player.ZoomOut.IsPressed()){
@@ -90,22 +101,8 @@ public class InputManager : MonoBehaviour
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
         //TODO: FIX CHOPPY ANALOGUE STICK MOVEMENT !!!
-
-        if (!CanMove()){
-            return;
-        }
-        currentMoveFrameDelay = moveFrameDelays;
         moveVector = value.ReadValue<Vector2>();
         FixMoveVector();
-        if (GameManager.instance.gameState == GameState.MainMenu){
-            MainMenuManager.instance.Move(moveVector);
-            return;
-        }
-        if (MenuManager.instance.InMenu()){
-            MenuManager.instance.Move(moveVector);
-            return;
-        }
-        GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnMoveCanceled(InputAction.CallbackContext value){
         moveVector = Vector2.zero;
@@ -139,18 +136,35 @@ public class InputManager : MonoBehaviour
     }
 
     private void FixMoveVector(){
-        if (Mathf.Abs(moveVector.x) > Mathf.Abs(moveVector.y)){
-            moveVector.x = 1*Mathf.Sign(moveVector.x);
+
+        if (moveVector.x > 0.4){
+            moveVector.x = 1;
+        }
+        else if (moveVector.x < -0.4){
+            moveVector.x = -1;
+        }else {
+            moveVector.x = 0;
+        }
+        if (moveVector.y > 0.4){
+            moveVector.y = 1;
+        }
+        else if (moveVector.y < -0.4){
+            moveVector.y = -1;
+        }else {
             moveVector.y = 0;
         }
-        else if (Mathf.Abs(moveVector.x) < Mathf.Abs(moveVector.y)){
-            moveVector.x = 0;
-            moveVector.y = 1*Mathf.Sign(moveVector.y);
-        }
+        // if (Mathf.Abs(moveVector.x) > Mathf.Abs(moveVector.y)){
+        //     moveVector.x = 1*Mathf.Sign(moveVector.x);
+        //     moveVector.y = 0;
+        // }
+        // else if (Mathf.Abs(moveVector.x) < Mathf.Abs(moveVector.y)){
+        //     moveVector.x = 0;
+        //     moveVector.y = 1*Mathf.Sign(moveVector.y);
+        // }
     }
 
     private bool CanMove(){
-        return currentMoveFrameDelay <= 0;
+        return currentMoveFrameDelay < 0;
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
