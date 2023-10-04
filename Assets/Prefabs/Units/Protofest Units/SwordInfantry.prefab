@@ -105,9 +105,9 @@ MonoBehaviour:
   maxMoveAmount: 4
   health: 18
   maxHealth: 18
-  attack: 15
-  defense: 10
-  agility: 20
+  attack: 18
+  defense: 12
+  agility: 21
   attunment: 6
   foresight: 9
   luck: 3

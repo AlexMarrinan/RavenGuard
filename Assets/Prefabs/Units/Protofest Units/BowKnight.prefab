@@ -100,13 +100,13 @@ MonoBehaviour:
   unitName: Knight w/Bow
   occupiedTile: {fileID: 0}
   faction: 0
-  unitClass: 0
+  unitClass: 1
   moveAmount: 4
   maxMoveAmount: 4
-  health: 25
-  maxHealth: 25
-  attack: 40
-  defense: 12
+  health: 20
+  maxHealth: 20
+  attack: 25
+  defense: 13
   agility: 2
   attunment: 5
   foresight: 3
