@@ -125,6 +125,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SkipTurn"",
+                    ""type"": ""Button"",
+                    ""id"": ""01cc2879-cd9d-42e5-afa2-c69754cd4cde"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -468,6 +477,17 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""InventoryMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""898f19e5-1eee-4a72-90a8-cfb2e45d7810"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SkipTurn"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -487,6 +507,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_ZoomOut = m_Player.FindAction("ZoomOut", throwIfNotFound: true);
         m_Player_UnitMenu = m_Player.FindAction("UnitMenu", throwIfNotFound: true);
         m_Player_InventoryMenu = m_Player.FindAction("InventoryMenu", throwIfNotFound: true);
+        m_Player_SkipTurn = m_Player.FindAction("SkipTurn", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -557,6 +578,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_ZoomOut;
     private readonly InputAction m_Player_UnitMenu;
     private readonly InputAction m_Player_InventoryMenu;
+    private readonly InputAction m_Player_SkipTurn;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -572,6 +594,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @ZoomOut => m_Wrapper.m_Player_ZoomOut;
         public InputAction @UnitMenu => m_Wrapper.m_Player_UnitMenu;
         public InputAction @InventoryMenu => m_Wrapper.m_Player_InventoryMenu;
+        public InputAction @SkipTurn => m_Wrapper.m_Player_SkipTurn;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -614,6 +637,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @InventoryMenu.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryMenu;
                 @InventoryMenu.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryMenu;
                 @InventoryMenu.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInventoryMenu;
+                @SkipTurn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkipTurn;
+                @SkipTurn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkipTurn;
+                @SkipTurn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkipTurn;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -651,6 +677,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @InventoryMenu.started += instance.OnInventoryMenu;
                 @InventoryMenu.performed += instance.OnInventoryMenu;
                 @InventoryMenu.canceled += instance.OnInventoryMenu;
+                @SkipTurn.started += instance.OnSkipTurn;
+                @SkipTurn.performed += instance.OnSkipTurn;
+                @SkipTurn.canceled += instance.OnSkipTurn;
             }
         }
     }
@@ -668,5 +697,6 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnZoomOut(InputAction.CallbackContext context);
         void OnUnitMenu(InputAction.CallbackContext context);
         void OnInventoryMenu(InputAction.CallbackContext context);
+        void OnSkipTurn(InputAction.CallbackContext context);
     }
 }

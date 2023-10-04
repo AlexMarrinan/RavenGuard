@@ -50,6 +50,14 @@ public class UnitManager : MonoBehaviour
         units.Remove(unit);
         Object.Destroy(unit.healthBar.gameObject);
         Object.Destroy(unit.gameObject);
+        if (GetAllEnemies().Count <= 0){
+            MenuManager.instance.ShowStartText("YOU WIN!", true);
+            return;
+        }
+        if (GetAllHeroes().Count <= 0){
+            MenuManager.instance.ShowStartText("GAME OVER", true);
+            return;
+        }
     }
     public void SetSeclectedUnit(BaseUnit unit){
         if (unit == null){
@@ -59,7 +67,7 @@ public class UnitManager : MonoBehaviour
         MenuManager.instance.SelectTile(unit.occupiedTile);
         selectedUnit = unit;
         RemoveAllValidMoves();
-        SetValidMovesBetter(unit);
+        SetValidMoves(unit);
         PathLine.instance.Reset();
         PathLine.instance.AddTile(unit.occupiedTile);
         //MenuManager.instance.ShowSelectedUnit(unit);
@@ -80,21 +88,23 @@ public class UnitManager : MonoBehaviour
     public List<BaseUnit> GetAllEnemies(){
         return GetAllUnitsOfFaction(UnitFaction.Enemy);
     }
-    public void SetValidMovesBetter(BaseUnit unit){
+    public List<Tile> SetValidMoves(BaseUnit unit){
         int max = unit.MaxTileRange();
         Tile tile = unit.occupiedTile;
         var visited = new Dictionary<Tile, int>();
         var next = tile.GetAdjacentCoords();
-        next.ForEach(t => SVMHelper(1, max, t, visited, t));
-        visited.Keys.ToList().ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
+        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        var validMoves = visited.Keys.ToList();
+        validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
+        return validMoves;
     }
 
-    private void SVMHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile){
+    private void SVMHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile, BaseUnit startUnit){
         if (depth >= max ){
             return;
         }
         //enemy's are valid moves but block movement
-        if (tile != null && tile.occupiedUnit != null && tile.occupiedUnit.faction == UnitFaction.Enemy){
+        if (tile != null && tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
             visited[tile] = depth;
             return;
         }
@@ -106,7 +116,7 @@ public class UnitManager : MonoBehaviour
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
         var next = tile.GetAdjacentCoords();   
-        next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile));
+        next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
     }
 

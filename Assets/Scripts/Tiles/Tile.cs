@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
+using System;
 
 public abstract class Tile : MonoBehaviour
 {
@@ -14,13 +15,24 @@ public abstract class Tile : MonoBehaviour
     //Can a unit shoot past this tile
     protected bool isShootable;
     public BaseUnit occupiedUnit;
-    public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Enemy);
+    public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == OtherFaction());
+
+
+
     public TileMoveType moveType = TileMoveType.NotValid;
     public int depth = 0;
     public List<Tile> validPath = null;
     public Vector2 coordiantes;
     public virtual void Init(int x, int y){
 
+    }
+
+    private UnitFaction OtherFaction()
+    {
+        if (this.occupiedUnit.faction == UnitFaction.Hero){
+            return UnitFaction.Enemy;
+        }
+        return UnitFaction.Hero;
     }
     private void OnMouseEnter() {
         if (!InputManager.instance.enableMouse){

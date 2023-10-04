@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class TurnManager : MonoBehaviour
@@ -12,11 +13,22 @@ public class TurnManager : MonoBehaviour
         instance = this;
     }
 
+    public void SkipTurn(){
+        if (currentFaction == UnitFaction.Hero){
+            GameManager.instance.ChangeState(GameState.EnemiesTurn);
+        }else{
+            GameManager.instance.ChangeState(GameState.HeroesTurn);
+        }
+    }
     public void BeginHeroTurn(){
         currentFaction = UnitFaction.Hero;
-        MenuManager.instance.ShowStartText("Your turn!");
+        MenuManager.instance.ShowStartText("Your turn!", false);
         UnitManager.instance.ResetUnitMovment();
         unitsAwaitingOrders = UnitManager.instance.GetAllHeroes();
+        if (unitsAwaitingOrders.Count <= 0){
+            MenuManager.instance.ShowStartText("GAME OVER", true);
+            return;
+        }
         BaseUnit firstHero = unitsAwaitingOrders[0];
         GridManager.instance.SetHoveredTile(firstHero.occupiedTile);
     }
@@ -24,13 +36,57 @@ public class TurnManager : MonoBehaviour
     public void BeginEnemyTurn(){
         currentFaction = UnitFaction.Enemy;
         if (UnitManager.instance.GetAllEnemies().Count <= 0){
-            MenuManager.instance.ShowStartText("YOU WIN!");
+            MenuManager.instance.ShowStartText("YOU WIN!", true);
+            return;
         }
-        MenuManager.instance.ShowStartText("Enemy's turn!");
+        MenuManager.instance.ShowStartText("Enemy's turn!", false);
         UnitManager.instance.ResetUnitMovment();
-        StartCoroutine(MoveEnemy(UnitManager.instance.GetAllEnemies(), 0));
+        StartCoroutine(MoveEnemies(UnitManager.instance.GetAllEnemies()));
     }
-    IEnumerator MoveEnemy(List<BaseUnit> list, int attemptNumber){
+    IEnumerator MoveEnemies(List<BaseUnit> list){
+        BaseUnit enemy = list[0];
+        GameManager.instance.PanCamera(enemy.transform.position);
+        List<Tile> validMoves = UnitManager.instance.SetValidMoves(enemy);
+        yield return new WaitForSeconds(0.8f);
+        Tile final = null;
+        foreach (Tile t in validMoves){
+            if (t.occupiedUnit != null && t.occupiedUnit.faction == UnitFaction.Hero){
+                var adjTiles = GridManager.instance.GetAdjacentTiles(t.coordiantes);
+                foreach (Tile t2 in adjTiles){
+                    if (validMoves.Contains(t2)){
+                        final = t2;
+
+                        //TODO: MAKE ENEMIES DO DAMAGE
+                        // t.occupiedUnit.ReceiveDamage(enemy);
+                        // if (t.occupiedUnit.health <= 0){
+                        //     UnitManager.instance.DeleteUnit(t.occupiedUnit);
+                        //     final = t;
+                        // }
+                        break;
+                    }
+                }
+                if (final != null){
+                    break;
+                }
+            }
+        }
+        if (final == null){
+            int tileIndex = Random.Range(0, validMoves.Count);
+            final = validMoves[tileIndex];
+        }
+        final.SetUnit(enemy);
+        yield return new WaitForSeconds(0.35f);
+        list.RemoveAt(0);
+        if (list.Count > 0){
+            yield return MoveEnemies(list);
+        }else{
+            GameManager.instance.ChangeState(GameState.HeroesTurn);
+        }
+        yield return null;
+    }
+
+
+    IEnumerator MoveEnemyOld(List<BaseUnit> list, int attemptNumber){
         var enemy = list[0];
         int maxMove = enemy.maxMoveAmount;
         GameManager.instance.PanCamera(enemy.transform.position);
@@ -39,24 +95,16 @@ public class TurnManager : MonoBehaviour
         }
         int chosenMoveAmount = Random.Range(1, maxMove);
         int dir = Random.Range(0,4);
-        Vector2 direction;
-        switch(dir){
-            case 0:
-                direction = new Vector2(1, 0);
-                break;
-            case 1:
-                direction = new Vector2(-1, 0);
-                break;
-            case 2:
-                direction = new Vector2(0, 1);
-                break;
-            case 3:
-                direction = new Vector2(0, -1);
-                break;
-            default:
-                direction = new Vector2(0, 0);
-                break;
-        }
+
+        var direction = dir switch
+        {
+            0 => new Vector2(1, 0),
+            1 => new Vector2(-1, 0),
+            2 => new Vector2(0, 1),
+            3 => new Vector2(0, -1),
+            _ => new Vector2(0, 0),
+        };
+
         Vector2 curr = enemy.occupiedTile.coordiantes;
         Tile currTile = enemy.occupiedTile;
         for (int i = 0; i < chosenMoveAmount; i++){
@@ -68,14 +116,14 @@ public class TurnManager : MonoBehaviour
             currTile = nextTile;
         }
         if (currTile == enemy.occupiedTile || attemptNumber == 3){
-            yield return MoveEnemy(list, attemptNumber + 1);
+            yield return MoveEnemyOld(list, attemptNumber + 1);
         }else{
             currTile.SetUnit(enemy);
             yield return new WaitForSeconds(0.35f);
             list.RemoveAt(0);
             if (list.Count > 0){
                 Debug.Log(list.Count);
-                yield return MoveEnemy(list, 0);
+                yield return MoveEnemyOld(list, 0);
             }else{
                 GameManager.instance.ChangeState(GameState.HeroesTurn);
             }

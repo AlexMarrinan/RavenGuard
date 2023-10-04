@@ -67,9 +67,12 @@ public class MenuManager : MonoBehaviour
         selectedObject.SetActive(false);
     }
 
-    public void ShowStartText(string text){
+    public void ShowStartText(string text, bool forever){
         turnStartText.text = text;
         turnStartText.alpha = 1.0f;
+        if (forever){
+            textFrames = 10000;
+        }
         textFrames = textFramesMax;
         turnStartText.transform.SetAsLastSibling();
     }

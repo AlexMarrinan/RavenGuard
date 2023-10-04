@@ -69,6 +69,9 @@ public class InputManager : MonoBehaviour
 
         input.Player.InventoryMenu.performed += OnInventoryMenuPerformed;
         input.Player.InventoryMenu.canceled += OnInventoryMenuCanceled;
+
+        input.Player.SkipTurn.performed += OnSkipTurnPerformed;
+        input.Player.SkipTurn.canceled += OnSkipTurnCanceled;
     }
 
     private void OnDisable() {
@@ -99,7 +102,21 @@ public class InputManager : MonoBehaviour
 
         input.Player.InventoryMenu.performed -= OnInventoryMenuPerformed;
         input.Player.InventoryMenu.canceled -= OnInventoryMenuCanceled;
+
+        input.Player.SkipTurn.performed -= OnSkipTurnPerformed;
+        input.Player.SkipTurn.canceled -= OnSkipTurnCanceled;
     }
+
+    private void OnSkipTurnCanceled(InputAction.CallbackContext context)
+    {
+        TurnManager.instance.SkipTurn();
+    }
+
+    private void OnSkipTurnPerformed(InputAction.CallbackContext context)
+    {
+
+    }
+
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
         //TODO: FIX CHOPPY ANALOGUE STICK MOVEMENT !!!
