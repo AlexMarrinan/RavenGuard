@@ -19,18 +19,8 @@ public class InputManager : MonoBehaviour
         input = new CustomInput();
     }
     private void FixedUpdate() {
-        Debug.Log(moveVector);
         if (input.Player.Move.IsPressed() && CanMove()){
-            currentMoveFrameDelay = moveFrameDelays;
-            if (GameManager.instance.gameState == GameState.MainMenu){
-                MainMenuManager.instance.Move(moveVector);
-                return;
-            }
-            if (MenuManager.instance.InMenu()){
-                MenuManager.instance.Move(moveVector);
-                return;
-            }
-            GridManager.instance.MoveHoveredTile(moveVector);
+            Move();
         }
         currentMoveFrameDelay--;
         if (input.Player.ZoomIn.IsPressed()){
@@ -38,6 +28,18 @@ public class InputManager : MonoBehaviour
         }else if (input.Player.ZoomOut.IsPressed()){
             GameManager.instance.ZoomCamera(0.1f);
         }
+    }
+    private void Move(){
+        currentMoveFrameDelay = moveFrameDelays;
+        if (GameManager.instance.gameState == GameState.MainMenu){
+            MainMenuManager.instance.Move(moveVector);
+            return;
+        }
+        if (MenuManager.instance.InMenu()){
+            MenuManager.instance.Move(moveVector);
+            return;
+        }
+        GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnEnable() {
         input.Enable();

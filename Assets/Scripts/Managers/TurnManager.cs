@@ -23,15 +23,20 @@ public class TurnManager : MonoBehaviour
 
     public void BeginEnemyTurn(){
         currentFaction = UnitFaction.Enemy;
+        if (UnitManager.instance.GetAllEnemies().Count <= 0){
+            MenuManager.instance.ShowStartText("YOU WIN!");
+        }
         MenuManager.instance.ShowStartText("Enemy's turn!");
         UnitManager.instance.ResetUnitMovment();
-        StartCoroutine(MoveEnemy(UnitManager.instance.GetAllEnemies()));
+        StartCoroutine(MoveEnemy(UnitManager.instance.GetAllEnemies(), 0));
     }
-    IEnumerator MoveEnemy(List<BaseUnit> list){
+    IEnumerator MoveEnemy(List<BaseUnit> list, int attemptNumber){
         var enemy = list[0];
         int maxMove = enemy.maxMoveAmount;
         GameManager.instance.PanCamera(enemy.transform.position);
-        yield return new WaitForSeconds(1.0f);
+        if (attemptNumber == 0){
+            yield return new WaitForSeconds(0.8f);
+        }
         int chosenMoveAmount = Random.Range(1, maxMove);
         int dir = Random.Range(0,4);
         Vector2 direction;
@@ -57,21 +62,25 @@ public class TurnManager : MonoBehaviour
         for (int i = 0; i < chosenMoveAmount; i++){
             curr += direction;
             Tile nextTile = GridManager.instance.GetTileAtPosition(curr);
-            if (nextTile == null || !nextTile.walkable){
+            if (nextTile == null || !nextTile.walkable || nextTile.occupiedUnit != null){
                 break;
             }
             currTile = nextTile;
         }
-        currTile.SetUnit(enemy);
-        yield return new WaitForSeconds(0.5f);
-        list.RemoveAt(0);
-        if (list.Count > 0){
-            Debug.Log(list.Count);
-            yield return MoveEnemy(list);
+        if (currTile == enemy.occupiedTile || attemptNumber == 3){
+            yield return MoveEnemy(list, attemptNumber + 1);
         }else{
-            GameManager.instance.ChangeState(GameState.HeroesTurn);
+            currTile.SetUnit(enemy);
+            yield return new WaitForSeconds(0.35f);
+            list.RemoveAt(0);
+            if (list.Count > 0){
+                Debug.Log(list.Count);
+                yield return MoveEnemy(list, 0);
+            }else{
+                GameManager.instance.ChangeState(GameState.HeroesTurn);
+            }
+            yield return null;
         }
-        yield return null;
     }
     public void GoToNextUnit(){
         GoToUnit(+1);

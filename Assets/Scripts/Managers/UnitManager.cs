@@ -22,7 +22,7 @@ public class UnitManager : MonoBehaviour
             var spawnedHero = Instantiate(randomPrefab);
             units.Add(spawnedHero);
             var randomSpawnTile = GridManager.instance.GetHeroSpawnTile();
-            randomSpawnTile.SetUnit(spawnedHero);
+            randomSpawnTile.SetUnitStart(spawnedHero);
             
             //TODO: REMOVE AFTER PROVING LINE SHOWS UP
             //PathLine.instance.AddTile(randomSpawnTile);
@@ -37,7 +37,7 @@ public class UnitManager : MonoBehaviour
             var spawnedEnemy = Instantiate(randomPrefab);
             units.Add(spawnedEnemy);
             var randomSpawnTile = GridManager.instance.GetEnemySpawnTile();
-            randomSpawnTile.SetUnit(spawnedEnemy);
+            randomSpawnTile.SetUnitStart(spawnedEnemy);
         }
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }

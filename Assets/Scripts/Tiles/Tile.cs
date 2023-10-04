@@ -104,11 +104,27 @@ public abstract class Tile : MonoBehaviour
         UnitManager.instance.SetSeclectedUnit(null);
         SetUnit(oldSelectedUnit);
     }
-    public void SetUnit(BaseUnit unit){
+    public void SetUnitStart(BaseUnit unit){
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
+        unit.transform.position = this.transform.position;
+        this.occupiedUnit = unit;
+        unit.occupiedTile = this;
         unit.moveAmount -= depth;
+    }
+    public void SetUnit(BaseUnit unit){
+        SetUnit(unit, false);
+    }
+    public void SetUnit(BaseUnit unit, bool turnOver){
+        if (unit.occupiedTile != null){
+            unit.occupiedTile.occupiedUnit = null;
+        }
+        if (unit.faction == UnitFaction.Hero){
+            unit.moveAmount = 0;
+        }else{
+            unit.moveAmount -= depth;
+        }
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
