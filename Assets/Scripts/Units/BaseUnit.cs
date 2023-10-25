@@ -29,10 +29,10 @@ public class BaseUnit : MonoBehaviour
     public ActiveSkill activeSkill = null;
     public PassiveSkill universalPassiveSkill = null;
     public PassiveSkill classPassiveSkill = null;
-
+ 
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
-    public RuntimeAnimatorController attackAnim, attackAnimRight;
+    public RuntimeAnimatorController animatorController;
     void Start(){
         RandomizeUnitClass();
         InitializeUnitClass();

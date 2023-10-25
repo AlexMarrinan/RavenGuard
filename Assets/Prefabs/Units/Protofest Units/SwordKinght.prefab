@@ -119,7 +119,6 @@ MonoBehaviour:
   classPassiveSkill: {fileID: 0}
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0
-  attackAnim: {fileID: 9100000, guid: 8e438a9b80bbf3c408ea544578412969, type: 2}
-  attackAnimRight: {fileID: 9100000, guid: 3b748f43679e1ae43ade250f548e792d, type: 2}
+  animatorController: {fileID: 9100000, guid: 3b748f43679e1ae43ade250f548e792d, type: 2}
   meleeWeapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   meleeWeaponClass: 1

@@ -10,10 +10,10 @@ public class BattleUnit : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public FaceDirection faceDirection = FaceDirection.Right;
     public HealthBarMenu healthBar;
-
+    public Transform parentTrans;
     public void Start(){
         if (faceDirection == FaceDirection.Left){
-            this.transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+            parentTrans.localScale = new Vector3(parentTrans.localScale.x * -1, parentTrans.localScale.y, parentTrans.localScale.z);
         }
     }
 
@@ -32,11 +32,7 @@ public class BattleUnit : MonoBehaviour
         animator.speed = 1.0f;
     }
     private void SetAnimator(){
-        if (faceDirection == FaceDirection.Right){
-            animator.runtimeAnimatorController = assignedUnit.attackAnimRight;
-        }else{
-            animator.runtimeAnimatorController = assignedUnit.attackAnim;
-        }
+        animator.runtimeAnimatorController = assignedUnit.animatorController;
     }
     public void OnHit(){
         BattleSceneManager.instance.OnHit(this);
