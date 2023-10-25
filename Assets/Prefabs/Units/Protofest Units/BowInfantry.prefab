@@ -119,6 +119,6 @@ MonoBehaviour:
   classPassiveSkill: {fileID: 0}
   weapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: 672c3bb2628361c449c32604b53c38a5, type: 2}
+  animatorController: {fileID: 9100000, guid: e3e01948576e05446a195d034afba95f, type: 2}
   rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   rangedWeaponClass: 0
