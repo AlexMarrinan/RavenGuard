@@ -8,7 +8,10 @@ public class SkillManager : MonoBehaviour
     public void Awake(){
         instance = this;
     }
-    public void EarthQuake(){
-
+    public void EarthQuakeAS(BaseUnit u){
+        Debug.Log("Used Earthquake...");
+    }
+    public void GhostShieldAS(BaseUnit u){
+        Debug.Log("Used Ghost Shield...");
     }
 }

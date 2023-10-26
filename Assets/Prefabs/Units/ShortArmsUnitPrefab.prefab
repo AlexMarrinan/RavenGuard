@@ -114,12 +114,11 @@ MonoBehaviour:
   awaitingOrders: 0
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
-  activeSkill: {fileID: 11400000, guid: ccc323ffe6bdcf944a3b8dbf00b20c30, type: 2}
-  universalPassiveSkill: {fileID: 0}
-  classPassiveSkill: {fileID: 0}
+  skills:
+  - {fileID: 11400000, guid: ccc323ffe6bdcf944a3b8dbf00b20c30, type: 2}
+  - {fileID: 11400000, guid: 84694f621f493cf4abb33735cad7ff7f, type: 2}
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0
-  attackAnim: {fileID: 0}
-  attackAnimRight: {fileID: 0}
+  animatorController: {fileID: 0}
   meleeWeapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   meleeWeaponClass: 1

@@ -1,23 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Active", menuName = "Skill/Active", order = 0)]
+[CreateAssetMenu(fileName = "[Name]AS", menuName = "Skill/Active", order = 0)]
 public class ActiveSkill : BaseSkill {
-    public int cooldown = 0;    
-    public delegate void UseDelegate();
-    UseDelegate useDelegate;
-    private void Awake(){
-        // var mng = SkillManager.instance;
-        // switch(base.skillName){
-        //     case "EarthQuake":
-        //         useDelegate = mng.EarthQuake;
-        //         break;
-        // }
-        // Debug.Log(useDelegate);
+    public int cooldown = 0;
+    public ActiveSkillType activeSkillType;
+    public override void SetMethod(){
+        var mng = SkillManager.instance;
+        var type = mng.GetType();
+        Debug.Log(type);
+        methodInfo = type.GetMethod(base.skillName + "AS");
+        Debug.Log(methodInfo);
     }
-    public void OnUse(BaseUnit user){
-        useDelegate();
-    }
+}
+
+public enum ActiveSkillType {
+    OnSelf
 }

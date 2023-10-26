@@ -13,6 +13,7 @@ public enum WeaponAttackMethod {
     Ranged,
 }
 public enum WeaponClass {
+    None,
     LongArms,
     SideArms,
     Archer,

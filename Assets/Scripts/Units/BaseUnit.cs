@@ -26,10 +26,7 @@ public class BaseUnit : MonoBehaviour
     public bool awaitingOrders;
     public UnitHealthBar healthBar;
     public SpriteRenderer spriteRenderer;
-    public ActiveSkill activeSkill = null;
-    public PassiveSkill universalPassiveSkill = null;
-    public PassiveSkill classPassiveSkill = null;
- 
+    public List<BaseSkill> skills;
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
@@ -44,7 +41,9 @@ public class BaseUnit : MonoBehaviour
         var random = new System.Random();
         unitClass = (UnitClass)values.GetValue(random.Next(values.Length));
     }
-
+    public BaseSkill GetBoringSkill(){
+        return null;
+    }
     public virtual void ApplyWeapon(){
 
     }
@@ -167,6 +166,14 @@ public class BaseUnit : MonoBehaviour
     public Color GetColor(){
         return spriteRenderer.color;
     }
+
+    internal BaseSkill GetSkill(int v)
+    {
+        if (v >= skills.Count){
+            return null;
+        }
+        return skills[v];
+    }
     // public void EquipSkill(BaseSkill newSkill){
     //     equippedSkill = newSkill;
     // }
@@ -177,6 +184,11 @@ public class BaseUnit : MonoBehaviour
     //     equippedSkill = null;
     // }
 }
+
+public class List : List<BaseSkill>
+{
+}
+
 public enum UnitStatType {
     Health,
     Attack,
@@ -188,6 +200,7 @@ public enum UnitStatType {
 }
 
 public enum UnitClass {
+    None,
     Infantry,
     Knight,
     Assassin,
