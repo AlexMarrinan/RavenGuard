@@ -96,7 +96,7 @@ public abstract class Tile : MonoBehaviour
                 }
                 if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero){
                     //move hero to enemy, kill enemy
-                    UnitManager.instance.selectedUnit.Attack(occupiedUnit);
+                    BattleSceneManager.instance.StartBattle(UnitManager.instance.selectedUnit, occupiedUnit);
                 }
             }
         

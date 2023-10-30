@@ -24,8 +24,10 @@ public class InputManager : MonoBehaviour
         }
         currentMoveFrameDelay--;
         if (input.Player.ZoomIn.IsPressed()){
+            return;
             GameManager.instance.ZoomCamera(-0.1f);
         }else if (input.Player.ZoomOut.IsPressed()){
+            return;
             GameManager.instance.ZoomCamera(0.1f);
         }
     }

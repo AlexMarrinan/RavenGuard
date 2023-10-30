@@ -150,6 +150,7 @@ public class TurnManager : MonoBehaviour
         GridManager.instance.SetHoveredTile(unitsAwaitingOrders[index].occupiedTile);
     }
     public void OnUnitDone(BaseUnit previous){
+        MenuManager.instance.menuState = MenuState.None;
         if (previous.faction == UnitFaction.Enemy){
             return;
         }

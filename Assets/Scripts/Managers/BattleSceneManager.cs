@@ -17,6 +17,9 @@ public class BattleSceneManager : MonoBehaviour
     private Vector3 rightNewPos;
     public float hitMoveSpeed = 10f;
     private BattleUnit attacker;
+    private BaseUnit startingUnit;
+    public CombatOrder combatOrder;
+    public GameObject sceneBackground;
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
     void Awake()
     {
@@ -26,22 +29,38 @@ public class BattleSceneManager : MonoBehaviour
     void FixedUpdate(){
         rightBU.animator.transform.position = Vector3.Lerp(rightBU.transform.position, rightNewPos, hitMoveSpeed * Time.deltaTime);
         leftBU.animator.transform.position = Vector3.Lerp(leftBU.transform.position, leftNewPos, hitMoveSpeed * Time.deltaTime);
+        // leftBU.transform.position = new Vector3(0,0,0);
+        // rightBU.transform.position = new Vector3(0,0,0);
     }
 
-    //TODO: Find better name
-    public void StartBattleOld(){
-        MenuManager.instance.menuState = MenuState.Battle;
-        leftStartPos = leftBU.transform.position;
-        leftNewPos = leftStartPos;
-        rightStartPos = rightBU.transform.position;
-        rightNewPos = rightStartPos;
-    }
+    // //TODO: Find better name
+    // public void StartBattleOld(){
+    //     Debug.Log("started battle old!");
+    //     MenuManager.instance.menuState = MenuState.Battle;
+    //     leftStartPos = leftBU.transform.position;
+    //     leftNewPos = leftStartPos;
+    //     rightStartPos = rightBU.transform.position;
+    //     rightNewPos = rightStartPos;
+    // }
 
     public void StartBattle(BaseUnit first, BaseUnit second){
         MenuManager.instance.menuState = MenuState.Battle;
+        UnitManager.instance.ShowUnitHealthbars(false);
+
+        sceneBackground.SetActive(true);
         leftBU.gameObject.SetActive(true);
         rightBU.gameObject.SetActive(true);
+
+        leftStartPos = leftBU.parentTrans.position;
+        leftNewPos = leftStartPos;
+        leftBU.transform.position = leftStartPos;
+
+        rightStartPos = rightBU.parentTrans.position;
+        rightNewPos = rightStartPos;
+        rightBU.transform.position = rightStartPos;
+        
         leftBU.SetUnit(first);
+        startingUnit = first;
         rightBU.SetUnit(second);
         leftBU.Attack();
         state = BattleSceneState.FirstAttack;
@@ -142,6 +161,7 @@ public class BattleSceneManager : MonoBehaviour
         //TODO: ACTUAL KILL ANIMATION
         killed.Hide();        
         yield return new WaitForSeconds(v);
+        UnitManager.instance.DeleteUnit(killed.assignedUnit);
         Reset();
     }   
 
@@ -150,14 +170,23 @@ public class BattleSceneManager : MonoBehaviour
         Reset();
     }
     private void Reset(){
+        MenuManager.instance.menuState = MenuState.None;
+        if (startingUnit != null){
+            startingUnit.OnExhaustMovment();
+        }else{
+            TurnManager.instance.GoToNextUnit();
+        }
+        UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();
         leftBU.spriteRenderer.color = Color.white;
         rightBU.spriteRenderer.color = Color.white;
         state = BattleSceneState.FirstAttack;        
         leftBU.Hide();
         rightBU.Hide();
-        battleMenu.gameObject.SetActive(true);
-        battleMenu.SetRandomEnemy();
+        sceneBackground.SetActive(false);
+        UnitManager.instance.UnselectUnit();
+        //battleMenu.gameObject.SetActive(true);
+        //battleMenu.SetRandomEnemy();
     }
     private void ResetBattleUnitsPos(){
         leftNewPos = leftStartPos;

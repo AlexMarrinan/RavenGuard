@@ -21,5 +21,8 @@ public class PassiveSkill : BaseSkill {
 }
 
 public enum PassiveSkillType {
-    StatChange
+    Buff,
+    BeforeCombat,
+    DuringCombat,
+    OnMovement,
 }

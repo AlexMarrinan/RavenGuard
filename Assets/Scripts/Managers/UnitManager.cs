@@ -82,6 +82,11 @@ public class UnitManager : MonoBehaviour
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         return units.Where(u => u.faction == faction).ToList();
     }
+    public List<BaseUnit> GetAllUnits(){
+        var heroes = GetAllHeroes();
+        var enemies = GetAllEnemies();
+        return heroes.Concat(enemies).ToList();
+    }
     public List<BaseUnit> GetAllHeroes(){
         return GetAllUnitsOfFaction(UnitFaction.Hero);
     }
@@ -127,6 +132,12 @@ public class UnitManager : MonoBehaviour
     public void ResetUnitMovment(){
         foreach (BaseUnit unit in units){
             unit.ResetMovment();
+        }
+    }
+
+    public void ShowUnitHealthbars(bool show){
+        foreach (BaseUnit u in GetAllUnits()){
+            u.healthBar.gameObject.SetActive(show);
         }
     }
 }

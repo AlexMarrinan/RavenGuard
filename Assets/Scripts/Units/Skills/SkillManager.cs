@@ -39,9 +39,23 @@ public class SkillManager : MonoBehaviour
         }
     }
     
+    
+    public void RushdownPS(BaseUnit u){
+        int damage = 3;
+        Debug.Log("Used Earthquake...");
+        var tiles = SkillManager.instance.currentTiles;
+        foreach (Tile tile in tiles){
+            BaseUnit unit = tile.occupiedUnit;
+            if (unit != null && unit.faction == UnitFaction.Enemy){
+                unit.ReceiveDamage(damage);
+            }
+        }
+    }
     public void GhostShieldAS(BaseUnit u){
         Debug.Log("Used Ghost Shield...");
     }
+
+
 
     internal void Move(Vector2 moveVector)
     {
