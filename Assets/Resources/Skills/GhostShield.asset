@@ -17,5 +17,9 @@ MonoBehaviour:
   description: Increase Defense by 5 next turn
   unitClass: 0
   weaponClass: 0
+  centered: 0
+  shape: 2
+  range1: 3
+  range2: 1
   cooldown: 0
-  activeSkillType: 0
+  activeSkillType: 4

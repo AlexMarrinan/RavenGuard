@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class GridManager : MonoBehaviour
 {
@@ -28,8 +29,8 @@ public class GridManager : MonoBehaviour
         tiles = new Dictionary<Vector2, Tile>();
         this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
 
-        var startX = Random.Range(0, NOUSE_MAP_SIZE-width);
-        var startY = Random.Range(0, NOUSE_MAP_SIZE-height);
+        var startX = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-width);
+        var startY = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-height);
 
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
@@ -111,11 +112,11 @@ public class GridManager : MonoBehaviour
     }
     
     public Tile GetHeroSpawnTile(){
-        return tiles.Where(t => t.Key.x < width/2 && t.Value.walkable).OrderBy(t => Random.value).First().Value;
+        return tiles.Where(t => t.Key.x < width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
     }
 
     public Tile GetEnemySpawnTile(){
-        return tiles.Where(t => t.Key.x > width/2 && t.Value.walkable).OrderBy(t => Random.value).First().Value;
+        return tiles.Where(t => t.Key.x > width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
     }
     public List<Tile> GetAllTiles(){
         return tiles.Values.ToList();
@@ -165,7 +166,72 @@ public class GridManager : MonoBehaviour
         hoveredTile.OnSelectTile();
     }
 
+    public List<Tile> GetRectangleTiles(Tile t, int maxX, int maxY){
+        List<Tile> validTiles = new List<Tile>();
+        Vector2 start = t.coordiantes;
+        Vector2 direction = new (SkillManager.instance.useDirection.x, SkillManager.instance.useDirection.y);
+        if (SkillManager.instance.useDirection == Vector2.up || SkillManager.instance.useDirection == Vector2.down){
+            int temp = maxX;
+            maxX = maxY;
+            maxY = temp;
+        }
 
+        Vector2 topLeft = new((int)Math.Round(start.x - (maxX/2)), (int)Math.Round(start.y - maxY/2));
+        // Debug.Log(t.coordiantes);
+        // Debug.Log(topLeft);
+        // bool notValid = true;
+        // while (notValid){
+        //     notValid = false;
+            for (int x = 0; x < maxX; x++){
+                // if (notValid){
+                //     break;
+                // }
+                for (int y = 0; y < maxY; y++){
+                    Tile tile = GetTileAtPosition(topLeft + new Vector2(x, y));
+                    if (tile == null){
+                        continue;
+                    }
+                    // if (tile == UnitManager.instance.selectedUnit.occupiedTile){
+                    //     direction = new (0,0);
+                    //     notValid = true;
+                    //     break;
+                    // }
+                    validTiles.Add(tile);
+                }
+            }
+        // }
+        Debug.Log(validTiles.Count);
+        return validTiles;
+    }
+    public List<Tile> GetRadiusTiles(Tile t, int maxDepth){
+        var visited = new Dictionary<Tile, int>();
+        visited[t] = 0;
+        var next = t.GetAdjacentCoords();
+        next.ForEach(t => GetRadiusTilesHelper(1, maxDepth, t, visited, t));
+        var validMoves = visited.Keys.ToList();
+        return validMoves;
+    }
+
+    private void GetRadiusTilesHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile){
+        if (depth >= max ){
+            return;
+        }
+        //enemy's are valid moves but block movement
+        if (tile != null && tile.occupiedUnit != null){
+            visited[tile] = depth;
+            return;
+        }
+        //if tile is not valid, continue
+        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+            return;
+        }
+
+        //if tile is valid, add it to the list of visited tiles and continue
+        visited[tile] = depth;
+        var next = tile.GetAdjacentCoords();   
+        next.ForEach(t => GetRadiusTilesHelper(depth + 1, max, t, visited, startTile));
+        return;
+    }
 
   public float[,] GenerateNoiseMap(int mapDepth, int mapWidth, float scale) {
                 // create an empty noise map with the mapDepth and mapWidth coordinates

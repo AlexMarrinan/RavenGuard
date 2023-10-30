@@ -35,10 +35,17 @@ public class InputManager : MonoBehaviour
             MainMenuManager.instance.Move(moveVector);
             return;
         }
+        if (SkillManager.instance.selectingSkill){
+            //Debug.Log("moving skill");
+            SkillManager.instance.Move(moveVector);
+            return;
+        }
         if (MenuManager.instance.InMenu()){
+            //Debug.Log("moving menu");
             MenuManager.instance.Move(moveVector);
             return;
         }
+        //Debug.Log("moving units");
         GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnEnable() {
@@ -132,6 +139,10 @@ public class InputManager : MonoBehaviour
             MainMenuManager.instance.Select();
             return;
         }
+        if (SkillManager.instance.selectingSkill){
+            SkillManager.instance.Select();
+            return;
+        }
         if (MenuManager.instance.InMenu()){
             MenuManager.instance.Select();
             return;
@@ -143,6 +154,10 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        if (SkillManager.instance.selectingSkill){
+            SkillManager.instance.OnSkilEnd();
+            return;
+        }
         if (MenuManager.instance.InMenu()){
             MenuManager.instance.CloseMenus();
             return;
@@ -153,9 +168,7 @@ public class InputManager : MonoBehaviour
     private void OnBackCancled(InputAction.CallbackContext value){
     
     }
-
     private void FixMoveVector(){
-
         if (moveVector.x > 0.4){
             moveVector.x = 1;
         }
@@ -172,14 +185,6 @@ public class InputManager : MonoBehaviour
         }else {
             moveVector.y = 0;
         }
-        // if (Mathf.Abs(moveVector.x) > Mathf.Abs(moveVector.y)){
-        //     moveVector.x = 1*Mathf.Sign(moveVector.x);
-        //     moveVector.y = 0;
-        // }
-        // else if (Mathf.Abs(moveVector.x) < Mathf.Abs(moveVector.y)){
-        //     moveVector.x = 0;
-        //     moveVector.y = 1*Mathf.Sign(moveVector.y);
-        // }
     }
 
     private bool CanMove(){

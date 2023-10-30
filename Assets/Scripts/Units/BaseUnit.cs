@@ -103,7 +103,9 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         health -= damage;
-        //healthBar.RenderHealth();
+    }
+    public void ReceiveDamage(int damage){
+        health -= damage;
     }
     public void MoveToSelectedTile(Tile selectedTile){
         selectedTile.SetUnit(UnitManager.instance.selectedUnit);
@@ -187,6 +189,10 @@ public class BaseUnit : MonoBehaviour
 
 public class List : List<BaseSkill>
 {
+    public static implicit operator List<object>(List v)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 public enum UnitStatType {

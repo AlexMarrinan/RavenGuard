@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
-  m_Name: EarthQuake
+  m_Name: GhostShield2
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 18185d473c7ab664e8636af88f9d347d, type: 3}
-  skillName: EarthQuake
-  description: Damage all enemies by 2
+  sprite: {fileID: 21300000, guid: b4d826a65573ac44d9e7c95e557498cc, type: 3}
+  skillName: GhostShield
+  description: Increase Defense by 5 next turn
   unitClass: 0
   weaponClass: 0
   centered: 0
-  shape: 1
-  range1: 2
-  range2: 2
+  shape: 2
+  range1: 3
+  range2: 3
   cooldown: 0
   activeSkillType: 4

@@ -16,9 +16,6 @@ public abstract class Tile : MonoBehaviour
     protected bool isShootable;
     public BaseUnit occupiedUnit;
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == OtherFaction());
-
-
-
     public TileMoveType moveType = TileMoveType.NotValid;
     public int depth = 0;
     public List<Tile> validPath = null;
@@ -62,7 +59,7 @@ public abstract class Tile : MonoBehaviour
         MenuManager.instance.UnhighlightTile();
     }
     public bool IsTileSelectable(){
-        return isWalkable || isShootable;
+        return true;//isWalkable || isShootable;
     }
     private void OnMouseDown(){
         if (!InputManager.instance.enableMouse){
@@ -143,7 +140,6 @@ public abstract class Tile : MonoBehaviour
             occupiedUnit.OnExhaustMovment();
         }
     }
-
     public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);
         if (valid){

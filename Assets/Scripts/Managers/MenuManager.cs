@@ -83,7 +83,12 @@ public class MenuManager : MonoBehaviour
             return;
         }
         if (UnitManager.instance.selectedUnit == null){
-            return;
+            var temp = GridManager.instance.hoveredTile.occupiedUnit;
+            if (temp != null){
+                UnitManager.instance.SetSeclectedUnit(temp);
+            }else{
+                return;
+            }
         }
         unitActionMenu.Reset();
         unitActionMenu.gameObject.SetActive(true);
@@ -123,6 +128,7 @@ public class MenuManager : MonoBehaviour
         unitActionMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
         inventoryMenu.gameObject.SetActive(false);
+        UnitManager.instance.UnselectUnit();
         menuState = MenuState.None;
     }
     public void Move(Vector2 direction){
