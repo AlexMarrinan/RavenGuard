@@ -129,16 +129,12 @@ public abstract class Tile : MonoBehaviour
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
-        unit.moveAmount = 0;
-
+        unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
+        Debug.Log(unit.moveAmount);
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
-        //unit.healthBar.RenderHealth();
-
-        if (unit.moveAmount <= 1){
-            occupiedUnit.OnExhaustMovment();
-        }
+        occupiedUnit.OnExhaustMovment();
     }
     public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);

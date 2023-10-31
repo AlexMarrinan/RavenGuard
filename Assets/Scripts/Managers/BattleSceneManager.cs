@@ -136,17 +136,17 @@ public class BattleSceneManager : MonoBehaviour
                 damaged.Attack();
                 yield return null;
         }
-        else if (state == BattleSceneState.FirstAttack && (hitter.assignedUnit.GetAgility() >= damaged.assignedUnit.GetAgility() + 5)) {
+        else if (state == BattleSceneState.FirstAttack && (hitter.assignedUnit.GetAgility().total >= damaged.assignedUnit.GetAgility().total + 5)) {
             state = BattleSceneState.SecondAttack;
             hitter.Attack();
             yield return null;
         }
         else if (state == BattleSceneState.CounterAttack) {
-            if (damaged.assignedUnit.GetAgility() >= hitter.assignedUnit.GetAgility() + 5) {
+            if (damaged.assignedUnit.GetAgility().total >= hitter.assignedUnit.GetAgility().total + 5) {
                 state = BattleSceneState.SecondAttack;
                 damaged.Attack();
                 yield return null;
-            }else if (hitter.assignedUnit.GetAgility() >= damaged.assignedUnit.GetAgility() + 5) {
+            }else if (hitter.assignedUnit.GetAgility().total >= damaged.assignedUnit.GetAgility().total + 5) {
                 state = BattleSceneState.SecondAttack;
                 hitter.Attack();
                 yield return null;

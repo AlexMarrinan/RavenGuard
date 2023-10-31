@@ -21,6 +21,8 @@ public class BaseUnit : MonoBehaviour
     [SerializeField] private int attunment;
     [SerializeField] private int foresight;
     [SerializeField] private int luck;
+    [HideInInspector]
+    public Dictionary<string, SkillStatChange> skillStatChanges = new();
 
     // [HideInInspector]
     public bool awaitingOrders;
@@ -31,10 +33,17 @@ public class BaseUnit : MonoBehaviour
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
     void Start(){
-        RandomizeUnitClass();
+        //RandomizeUnitClass();
         InitializeUnitClass();
         InitializeFaction();
         CreateHealthbar();
+        SetSkillMethods();
+    }
+    private void SetSkillMethods(){
+        //TODO: ONLY SET SKILL METHODS ON GAME STARTUP
+        foreach (var skill in skills){
+            skill.SetMethod();
+        }
     }
     private void RandomizeUnitClass(){
         Array values = Enum.GetValues(typeof(UnitClass));
@@ -98,7 +107,7 @@ public class BaseUnit : MonoBehaviour
         return;
     }
     public void ReceiveDamage(BaseUnit otherUnit){
-        int damage = otherUnit.GetAttack() - this.GetDefense();
+        int damage = otherUnit.GetAttack().total - this.GetDefense().total;
         if (damage <= 0){
             return;
         }
@@ -127,10 +136,21 @@ public class BaseUnit : MonoBehaviour
     }
 
     public void OnExhaustMovment(){
-        moveAmount = 0;
+        // moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        OnMovementSkill();
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
+    }
+
+    private void OnMovementSkill()
+    {
+        var pSkills = GetPassiveSkills();
+        foreach (PassiveSkill p in pSkills){
+            if (p.passiveSkillType == PassiveSkillType.OnMovement){
+                p.OnUse(this);
+            }
+        }
     }
 
     public virtual TileMoveType GetMoveTypeAt(Tile otherTile){
@@ -141,23 +161,25 @@ public class BaseUnit : MonoBehaviour
 
     // TODO: ADD STAT BONUS CALCULATIONS !!!
     // XP, LEVELUPS, SKILLS, ETC.
-    public int GetAttack(){
-        return attack; //+ weapon.damage; 
+    public UnitStat GetAttack(){
+        //TODO: ADD WEAPON DAMAGE
+        return new UnitStat(UnitStatType.Attack, attack, GetStatChangeOfType(UnitStatType.Attack));
     }
-    public int GetDefense(){
-        return defense;
+    public UnitStat GetDefense(){
+        return new UnitStat(UnitStatType.Defense, defense, GetStatChangeOfType(UnitStatType.Defense));
     }
-    public int GetAgility(){
-        return agility;
+    public UnitStat GetAgility(){
+        return new UnitStat(UnitStatType.Agility, agility, GetStatChangeOfType(UnitStatType.Agility));
     }
-    public int GetAttuenment(){
-        return attunment + weapon.damage; 
+    public UnitStat GetAttuenment(){
+        //TODO: ADD WEAPON DAMAGE
+        return new UnitStat(UnitStatType.Attunment, attunment, GetStatChangeOfType(UnitStatType.Attunment));
     }
-    public int GetForesight(){
-        return foresight; 
+    public UnitStat GetForesight(){
+        return new UnitStat(UnitStatType.Foresight, foresight, GetStatChangeOfType(UnitStatType.Foresight));
     }
-    public int GetLuck(){
-        return luck; 
+    public UnitStat GetLuck(){
+        return new UnitStat(UnitStatType.Luck, luck, GetStatChangeOfType(UnitStatType.Luck));
     }
     #endregion
 
@@ -185,15 +207,67 @@ public class BaseUnit : MonoBehaviour
     // public void UnequipSkill(){
     //     equippedSkill = null;
     // }
-}
-
-public class List : List<BaseSkill>
-{
-    public static implicit operator List<object>(List v)
-    {
-        throw new NotImplementedException();
+    private int GetStatChangeOfType(UnitStatType type){
+        int newAmount = 0;
+        foreach (var change in skillStatChanges.Values){
+            if (change.statType == type){
+                newAmount += change.currentAmount;
+            }
+        }
+        return newAmount;
+    }
+    public SkillStatChange GetStatChange(string name){
+        if (skillStatChanges.ContainsKey(name)){
+            return skillStatChanges[name];
+        }
+        return null;
+    }
+    public void AddStatsChange(string name, UnitStatType type, int startAmount, int minAmount, int maxAmount){
+        if (GetStatChange(name) == null){
+            var newStats = new SkillStatChange(type, startAmount, minAmount, maxAmount);
+            skillStatChanges.Add(name, newStats);
+        }
+    }
+    public void IncrementStatsChange(string name, int amount){
+        var stats = GetStatChange(name);
+        if (stats == null){
+            return;
+        }
+        stats.currentAmount += amount;
+        if (stats.currentAmount > stats.maxAmount){
+            stats.currentAmount = stats.maxAmount;
+        }
+    }
+    public void SetStatChange(string name, int amount){
+        var stats = GetStatChange(name);
+        if (stats == null){
+            return;
+        }
+        if (amount > stats.maxAmount || amount < stats.minAmount){
+            return;
+        }
+        stats.currentAmount = amount;
+    }
+    public List<ActiveSkill> GetActiveSkills(){
+        List<ActiveSkill> aSkills = new();
+        foreach (BaseSkill s in skills){
+            if (s is ActiveSkill){
+                aSkills.Add(s as ActiveSkill);
+            }
+        }
+        return aSkills;
+    }
+    public List<PassiveSkill> GetPassiveSkills(){
+        List<PassiveSkill> pSkills = new();
+        foreach (BaseSkill s in skills){
+            if (s is PassiveSkill){
+                pSkills.Add(s as PassiveSkill);
+            }
+        }
+        return pSkills;
     }
 }
+
 
 public enum UnitStatType {
     Health,

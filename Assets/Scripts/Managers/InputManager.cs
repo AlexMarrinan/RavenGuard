@@ -206,6 +206,7 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPanCameraPerformed(InputAction.CallbackContext value){
+        return;
         GameManager.instance.SetUsingMouse(false);
         var panVector = value.ReadValue<Vector2>();
         GameManager.instance.PanCameraInDirection(panVector);

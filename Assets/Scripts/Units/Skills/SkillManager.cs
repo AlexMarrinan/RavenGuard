@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SkillManager : MonoBehaviour
@@ -55,6 +56,23 @@ public class SkillManager : MonoBehaviour
         Debug.Log("Used Ghost Shield...");
     }
 
+    //If unit moves 0 or 1 spaces, unit gains +2 defense and +1 attack during combat.
+    //This effect stack for each consecutive turn in a row, up to three turns. 
+    //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.
+    public void HunkerDownPS(BaseUnit u){
+        //Called After Movment
+        var stats = u.GetStatChange("HunkerDown");
+        if (stats == null){
+            u.AddStatsChange("HunkerDown", UnitStatType.Defense, 0, 0, 3);
+        }
+        if (u.moveAmount <= 1){
+            Debug.Log("hunkering down...");
+            u.IncrementStatsChange("HunkerDown", + 1);
+        }else{
+            Debug.Log("hunker down reset!!");
+            u.SetStatChange("HunkerDown", 0);
+        }
+    }   
 
 
     internal void Move(Vector2 moveVector)

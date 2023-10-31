@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     public PauseMenu pauseMenu;
     public BattleMenu battleMenu;
     private Dictionary<MenuState, BaseMenu> menuMap;
+    public UnitStatsMenu unitStatsMenu;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
     public int textFramesMax = 120;
@@ -47,6 +48,13 @@ public class MenuManager : MonoBehaviour
         highlightObject.transform.position = tile.transform.position;        
         highlightObject.SetActive(true);
         
+        if (tile.occupiedUnit != null){
+            MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
+            MenuManager.instance.unitStatsMenu.SetUnit(tile.occupiedUnit);
+        }else{
+            MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+        }
+
         if (UnitManager.instance.selectedUnit == null){
             GameManager.instance.LookCameraAtHighlight();
         }

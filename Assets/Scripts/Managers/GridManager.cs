@@ -232,6 +232,14 @@ public class GridManager : MonoBehaviour
         next.ForEach(t => GetRadiusTilesHelper(depth + 1, max, t, visited, startTile));
         return;
     }
+    public int Distance(Tile t1, Tile t2){
+        return Distance(t1.coordiantes, t2.coordiantes);
+    }
+    public int Distance (Vector2 v1, Vector2 v2){
+        int x = (int)Math.Abs(v1.x - v2.x);
+        int y = (int)Math.Abs(v1.y - v2.y);
+        return x + y;
+    }
 
   public float[,] GenerateNoiseMap(int mapDepth, int mapWidth, float scale) {
                 // create an empty noise map with the mapDepth and mapWidth coordinates

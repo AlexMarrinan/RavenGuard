@@ -158,6 +158,7 @@ public class TurnManager : MonoBehaviour
         
         //if no units left to move, go onto the enemies turn
         if (unitsAwaitingOrders.Count == 0){
+            UnitManager.instance.OnTurnEndSkills(previous);
             GameManager.instance.ChangeState(GameState.EnemiesTurn);
             return;
         }
