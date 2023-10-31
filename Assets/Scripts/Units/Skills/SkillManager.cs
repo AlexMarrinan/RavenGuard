@@ -66,10 +66,8 @@ public class SkillManager : MonoBehaviour
             u.AddStatsChange("HunkerDown", UnitStatType.Defense, 0, 0, 3);
         }
         if (u.moveAmount <= 1){
-            Debug.Log("hunkering down...");
             u.IncrementStatsChange("HunkerDown", + 1);
         }else{
-            Debug.Log("hunker down reset!!");
             u.SetStatChange("HunkerDown", 0);
         }
     }   

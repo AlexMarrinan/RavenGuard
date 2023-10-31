@@ -91,6 +91,7 @@ public class BaseUnit : MonoBehaviour
             spriteRenderer.color = Color.cyan;
         }else{
             spriteRenderer.color = Color.red;
+            spriteRenderer.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
     private void CreateHealthbar(){
@@ -120,9 +121,11 @@ public class BaseUnit : MonoBehaviour
         selectedTile.SetUnit(UnitManager.instance.selectedUnit);
         //healthBar.RenderHealth();
     }
-    public void MoveToClosestTile(Tile selectedTile){
+    public void MoveToAttackTile(){
         Tile adjTile = PathLine.instance.GetLastTile();
-        adjTile.SetUnit(UnitManager.instance.selectedUnit);
+        //GameManager.instance.PanCamera(adjTile.transform.position);
+        UnitManager.instance.RemoveAllValidMoves();
+        adjTile.SetUnit(UnitManager.instance.selectedUnit, false);
         //healthBar.RenderHealth();
     }
     public void MoveToTileAtDistance(int distance){

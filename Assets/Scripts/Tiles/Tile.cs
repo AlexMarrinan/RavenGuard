@@ -96,7 +96,7 @@ public abstract class Tile : MonoBehaviour
                 }
                 if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero){
                     //move hero to enemy, kill enemy
-                    BattleSceneManager.instance.StartBattle(UnitManager.instance.selectedUnit, occupiedUnit);
+                    UnitManager.instance.selectedUnit.Attack(occupiedUnit);
                 }
             }
         
@@ -123,18 +123,19 @@ public abstract class Tile : MonoBehaviour
         unit.moveAmount -= depth;
     }
     public void SetUnit(BaseUnit unit){
-        SetUnit(unit, false);
+        SetUnit(unit, true);
     }
     public void SetUnit(BaseUnit unit, bool turnOver){
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
         unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
-        Debug.Log(unit.moveAmount);
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
-        occupiedUnit.OnExhaustMovment();
+        if (turnOver){
+            occupiedUnit.OnExhaustMovment();
+        }
     }
     public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);

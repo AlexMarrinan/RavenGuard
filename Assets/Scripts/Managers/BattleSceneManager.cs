@@ -45,6 +45,10 @@ public class BattleSceneManager : MonoBehaviour
 
     public void StartBattle(BaseUnit first, BaseUnit second){
         MenuManager.instance.menuState = MenuState.Battle;
+        MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+        MenuManager.instance.highlightObject.SetActive(false);
+        MenuManager.instance.selectedObject.SetActive(false);
+
         UnitManager.instance.ShowUnitHealthbars(false);
 
         sceneBackground.SetActive(true);
@@ -67,7 +71,6 @@ public class BattleSceneManager : MonoBehaviour
     }
     public void SetAttacker(BattleUnit unit){
         attacker = unit;
-        Debug.Log(attacker);
     }
     public void DisplayUnits(){
 
@@ -172,6 +175,7 @@ public class BattleSceneManager : MonoBehaviour
     private void Reset(){
         MenuManager.instance.menuState = MenuState.None;
         if (startingUnit != null){
+            //startingUnit.moveAmount = 0;
             startingUnit.OnExhaustMovment();
         }else{
             TurnManager.instance.GoToNextUnit();
@@ -185,6 +189,7 @@ public class BattleSceneManager : MonoBehaviour
         rightBU.Hide();
         sceneBackground.SetActive(false);
         UnitManager.instance.UnselectUnit();
+        MenuManager.instance.highlightObject.SetActive(true);
         //battleMenu.gameObject.SetActive(true);
         //battleMenu.SetRandomEnemy();
     }
