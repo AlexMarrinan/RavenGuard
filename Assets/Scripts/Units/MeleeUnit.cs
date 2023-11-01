@@ -35,6 +35,5 @@ public class MeleeUnit : BaseUnit
     public override void Attack(BaseUnit otherUnit){
         MoveToAttackTile();
         BattleSceneManager.instance.StartBattle(this, otherUnit);
-
     }
 }

@@ -48,5 +48,6 @@ public class RangedUnit : BaseUnit
         }
         OnExhaustMovment();
         UnitManager.instance.SetSeclectedUnit(null);
+        // yield return null;
     }
 }

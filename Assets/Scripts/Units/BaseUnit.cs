@@ -122,6 +122,9 @@ public class BaseUnit : MonoBehaviour
         //healthBar.RenderHealth();
     }
     public void MoveToAttackTile(){
+        if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
+            return;
+        }
         Tile adjTile = PathLine.instance.GetLastTile();
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
