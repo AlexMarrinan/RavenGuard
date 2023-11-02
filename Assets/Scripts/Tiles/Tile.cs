@@ -81,7 +81,7 @@ public abstract class Tile : MonoBehaviour
         //current pressed tile is occupied
         if (occupiedUnit != null){
             //if the unit is out of movment, do not allow selection
-            if (occupiedUnit.moveAmount <= 1){
+            if (!TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit) && occupiedUnit.faction == TurnManager.instance.currentFaction){
                 return;
             }
             //current unit is a hero, set as selected

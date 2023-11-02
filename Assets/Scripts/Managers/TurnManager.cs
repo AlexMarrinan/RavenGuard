@@ -47,6 +47,7 @@ public class TurnManager : MonoBehaviour
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
         BaseUnit enemy = list[0];
+        MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
         MenuManager.instance.unitStatsMenu.SetUnit(enemy);
         GameManager.instance.PanCamera(enemy.transform.position);
         List<Tile> validMoves = UnitManager.instance.SetValidMoves(enemy);
@@ -63,7 +64,7 @@ public class TurnManager : MonoBehaviour
                     break;
                 }
                 foreach (Tile t2 in adjTiles){
-                    if (validMoves.Contains(t2)){
+                    if (validMoves.Contains(t2) && t2.occupiedUnit == null){
                         final = t2;
                         heroToAttack = t.occupiedUnit;
                         break;
