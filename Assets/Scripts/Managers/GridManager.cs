@@ -150,8 +150,8 @@ public class GridManager : MonoBehaviour
                 //     return;
                 // }
                 // //remove hovered tile from path
-                PathLine.instance.Reset();
-                PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
+                // PathLine.instance.Reset();
+                // PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
             }else{
                 return;
             }
@@ -206,7 +206,7 @@ public class GridManager : MonoBehaviour
     public List<Tile> GetRadiusTiles(Tile t, int maxDepth){
         var visited = new Dictionary<Tile, int>();
         visited[t] = 0;
-        var next = t.GetAdjacentCoords();
+        var next = t.GetAdjacentTiles();
         next.ForEach(t => GetRadiusTilesHelper(1, maxDepth, t, visited, t));
         var validMoves = visited.Keys.ToList();
         return validMoves;
@@ -228,14 +228,14 @@ public class GridManager : MonoBehaviour
 
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
-        var next = tile.GetAdjacentCoords();   
+        var next = tile.GetAdjacentTiles();   
         next.ForEach(t => GetRadiusTilesHelper(depth + 1, max, t, visited, startTile));
         return;
     }
     public int Distance(Tile t1, Tile t2){
         return Distance(t1.coordiantes, t2.coordiantes);
     }
-    public int Distance (Vector2 v1, Vector2 v2){
+    public int Distance(Vector2 v1, Vector2 v2){
         int x = (int)Math.Abs(v1.x - v2.x);
         int y = (int)Math.Abs(v1.y - v2.y);
         return x + y;
@@ -255,5 +255,49 @@ public class GridManager : MonoBehaviour
       }
     }
     return noiseMap;
+  }
+
+  public List<Tile> ShortestPathBetweenTiles(Tile start, Tile end){
+    if (start == end){
+        return new List<Tile>{start};
+    }
+    List<Tile> visited = new();
+    Queue<Tile> toVisit = new();
+    Dictionary<Tile, Tile> previousTiles = new();
+    Tile current = start;
+    previousTiles.Add(current, null);
+    do {
+        var adjTiles = current.GetAdjacentTiles();
+        Debug.Log(adjTiles.Count);
+        foreach (Tile tile in adjTiles){
+            if (tile == null){
+                continue;
+            }
+            if (visited.Contains(tile)){
+                continue;
+            }
+            if (tile.moveType == TileMoveType.NotValid){
+                continue;
+            }
+            visited.Add(tile);
+            toVisit.Enqueue(tile);
+            previousTiles.Add(tile, current);
+        }
+        current = toVisit.Dequeue();
+        if (current == end){
+            List<Tile> finalTiles = new();
+            var finalCurr = current;
+            while (finalCurr != null){
+                if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){
+                    //ONLY add tile if its MOVE type;
+                    //if its start space, also add
+                    finalTiles.Add(finalCurr);
+                }
+                finalCurr = previousTiles[finalCurr];
+            }
+            return finalTiles;
+        }
+    } while (toVisit.Count > 0);
+    return null;
   }
 }

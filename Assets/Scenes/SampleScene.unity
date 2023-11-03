@@ -3536,8 +3536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e7208373f751d4d9d2d3143c302385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 12
-  height: 9
+  width: 20
+  height: 15
   tileSet: {fileID: 11400000, guid: 528ee551749d1d3479cb036ffe604345, type: 2}
   cam: {fileID: 519420032}
   hoveredTile: {fileID: 0}

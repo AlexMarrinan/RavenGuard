@@ -69,7 +69,6 @@ public class UnitManager : MonoBehaviour
         RemoveAllValidMoves();
         SetValidMoves(unit);
         PathLine.instance.Reset();
-        PathLine.instance.AddTile(unit.occupiedTile);
         //MenuManager.instance.ShowSelectedUnit(unit);
     }
 
@@ -97,7 +96,7 @@ public class UnitManager : MonoBehaviour
         int max = unit.MaxTileRange();
         Tile tile = unit.occupiedTile;
         var visited = new Dictionary<Tile, int>();
-        var next = tile.GetAdjacentCoords();
+        var next = tile.GetAdjacentTiles();
         next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
         validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
@@ -120,7 +119,7 @@ public class UnitManager : MonoBehaviour
 
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
-        var next = tile.GetAdjacentCoords();   
+        var next = tile.GetAdjacentTiles();   
         next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
     }

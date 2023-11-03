@@ -47,7 +47,7 @@ public class InputManager : MonoBehaviour
             MenuManager.instance.Move(moveVector);
             return;
         }
-        //Debug.Log("moving units");
+
         GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnEnable() {
