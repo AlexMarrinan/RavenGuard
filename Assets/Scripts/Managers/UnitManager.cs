@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> unitPrefabs;
     private List<BaseUnit> units;
     public BaseUnit selectedUnit;
+    public float unitMoveSpeed = .1f;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
@@ -139,6 +141,29 @@ public class UnitManager : MonoBehaviour
             u.healthBar.gameObject.SetActive(show);
         }
     }
+    public IEnumerator AnimateUnitMove(BaseUnit unit, List<Tile> path, bool turnOver){
+        Debug.Log(path.Count);
+        Tile nextTile = path[0];
+        Vector3 nextPos = nextTile.transform.position;
+        float elapsedTime = 0;
+        while (unit.transform.position != nextPos){
+            unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        path.RemoveAt(0);
+        if (path.Count > 0){
+            yield return AnimateUnitMove(unit, path, turnOver);
+        }else{
+            nextTile.occupiedUnit = unit;
+            unit.occupiedTile = nextTile;
+            if (turnOver){
+                unit.OnExhaustMovment();
+            }
+            yield return new WaitForSeconds(0.45f);
+        }
+    }
+
 
     internal void OnTurnEndSkills(BaseUnit unit){
         var units = GetAllUnitsOfFaction(unit.faction);

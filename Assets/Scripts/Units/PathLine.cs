@@ -18,6 +18,9 @@ public class PathLine : MonoBehaviour
         line.SetWidth(lineWidth, lineWidth);
     }
 
+    public List<Tile> GetPath(){
+        return tiles;
+    }
     public void AddTile(Tile tile){
         if (tile.moveType != TileMoveType.Move && tile != UnitManager.instance.selectedUnit.occupiedTile){
             return;
@@ -51,7 +54,7 @@ public class PathLine : MonoBehaviour
     //TODO: MAKE IT CHANGE TO THE ACTUAL PATH OF HOVERED TILE, NOT JUST THE DIRECTION THE PLAYER MOVED IT !!!
     public void RenderLine(Tile start, Tile end){
         //Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
-        tiles = GridManager.instance.ShortestPathBetweenTiles(start, end);
+        tiles = GridManager.instance.ShortestPathBetweenTiles(start, end, true);
         Debug.Log(tiles);
         Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
 

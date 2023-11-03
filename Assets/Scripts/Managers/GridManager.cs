@@ -257,7 +257,7 @@ public class GridManager : MonoBehaviour
     return noiseMap;
   }
 
-  public List<Tile> ShortestPathBetweenTiles(Tile start, Tile end){
+  public List<Tile> ShortestPathBetweenTiles(Tile start, Tile end, bool withPathLine){
     if (start == end){
         return new List<Tile>{start};
     }
@@ -268,7 +268,7 @@ public class GridManager : MonoBehaviour
     previousTiles.Add(current, null);
     do {
         var adjTiles = current.GetAdjacentTiles();
-        Debug.Log(adjTiles.Count);
+//        Debug.Log(adjTiles.Count);
         foreach (Tile tile in adjTiles){
             if (tile == null){
                 continue;
@@ -276,15 +276,24 @@ public class GridManager : MonoBehaviour
             if (visited.Contains(tile)){
                 continue;
             }
-            if (tile.moveType == TileMoveType.NotValid){
-                continue;
+            if (withPathLine){
+                if (tile.moveType == TileMoveType.NotValid || tile.moveType == TileMoveType.Attack){
+                    continue;
+                }
+            }else{
+                if (tile is WallTile || tile.occupiedUnit != null){
+                    continue;
+                }
             }
+            Debug.Log(tile);
             visited.Add(tile);
             toVisit.Enqueue(tile);
             previousTiles.Add(tile, current);
         }
-        current = toVisit.Dequeue();
-        if (current == end){
+        if (toVisit.Count > 0){
+            current = toVisit.Dequeue();
+        }
+        if (current == end || toVisit.Count == 0){
             List<Tile> finalTiles = new();
             var finalCurr = current;
             while (finalCurr != null){

@@ -117,10 +117,6 @@ public class BaseUnit : MonoBehaviour
     public void ReceiveDamage(int damage){
         health -= damage;
     }
-    public void MoveToSelectedTile(Tile selectedTile){
-        selectedTile.SetUnit(UnitManager.instance.selectedUnit);
-        //healthBar.RenderHealth();
-    }
     public void MoveToAttackTile(){
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
@@ -128,12 +124,12 @@ public class BaseUnit : MonoBehaviour
         Tile adjTile = PathLine.instance.GetLastTile();
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
-        adjTile.SetUnit(UnitManager.instance.selectedUnit, false);
+        adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
         //healthBar.RenderHealth();
     }
     public void MoveToTileAtDistance(int distance){
         Tile adjTile = PathLine.instance.GetPathTile(distance);
-        adjTile.SetUnit(UnitManager.instance.selectedUnit);
+        adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit);
         //healthBar.RenderHealth();
     }
     public void ResetMovment(){

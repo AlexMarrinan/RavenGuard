@@ -20,7 +20,7 @@ public abstract class Tile : MonoBehaviour
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == OtherFaction());
     public TileMoveType moveType = TileMoveType.NotValid;
     public int depth = 0;
-    public List<Tile> validPath = null;
+    public List<Tile> validPath;
     public TMP_Text depthText;
     public Vector2 coordiantes;
     private void FixedUpdate(){
@@ -117,7 +117,7 @@ public abstract class Tile : MonoBehaviour
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
         UnitManager.instance.SetSeclectedUnit(null);
-        SetUnit(oldSelectedUnit);
+        MoveUnitToTile(oldSelectedUnit);
     }
     public void SetUnitStart(BaseUnit unit){
         if (unit.occupiedTile != null){
@@ -128,20 +128,20 @@ public abstract class Tile : MonoBehaviour
         unit.occupiedTile = this;
         unit.moveAmount -= depth;
     }
-    public void SetUnit(BaseUnit unit){
-        SetUnit(unit, true);
+    public void MoveUnitToTile(BaseUnit unit){
+        MoveUnitToTile(unit, true);
     }
-    public void SetUnit(BaseUnit unit, bool turnOver){
+    public void MoveUnitToTile(BaseUnit unit, bool turnOver){
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
         unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
-        unit.transform.position = this.transform.position;
-        this.occupiedUnit = unit;
-        unit.occupiedTile = this;
-        if (turnOver){
-            occupiedUnit.OnExhaustMovment();
-        }
+
+        //TODO: ANIMATE UNIT
+        //var path = GridManager.instance.ShortestPathBetweenTiles(unit.occupiedTile, this, false);
+        var path = PathLine.instance.GetPath();
+        Debug.Log(path);
+        StartCoroutine(UnitManager.instance.AnimateUnitMove(unit, path, turnOver));
     }
     public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);
@@ -178,7 +178,7 @@ public abstract class Tile : MonoBehaviour
 
         //TODO: THIS MAY TAKE PATHS THROUGH WALLS MAKE BETTER !!!!!
         depth = 111;
-        validPath = GridManager.instance.ShortestPathBetweenTiles(startPos, this);
+        validPath = GridManager.instance.ShortestPathBetweenTiles(startPos, this, true);
         if (validPath != null){
             depth = validPath.Count;
         }
@@ -219,7 +219,11 @@ public abstract class Tile : MonoBehaviour
     }
 
     private void ToggleLinePoint(){
+        if (this.moveType != TileMoveType.Move){
+            return;
+        }
         PathLine.instance.RenderLine(UnitManager.instance.selectedUnit.occupiedTile, this);
+        validPath = PathLine.instance.GetPath();
     }
 }
 

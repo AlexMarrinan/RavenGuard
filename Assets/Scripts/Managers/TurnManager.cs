@@ -80,7 +80,10 @@ public class TurnManager : MonoBehaviour
             final = validMoves[tileIndex];
         }
         if (final != enemy.occupiedTile){
-            final.SetUnit(enemy);
+            PathLine.instance.RenderLine(enemy.occupiedTile, final);
+            yield return new WaitForSeconds(0.1f);
+            final.MoveUnitToTile(enemy);
+
         }else{
             UnitManager.instance.RemoveAllValidMoves();
         }
@@ -100,52 +103,7 @@ public class TurnManager : MonoBehaviour
         }
         yield return null;
     }
-
-
-    IEnumerator MoveEnemyOld(List<BaseUnit> list, int attemptNumber){
-        var enemy = list[0];
-        int maxMove = enemy.maxMoveAmount;
-        GameManager.instance.PanCamera(enemy.transform.position);
-        if (attemptNumber == 0){
-            yield return new WaitForSeconds(0.8f);
-        }
-        int chosenMoveAmount = Random.Range(1, maxMove);
-        int dir = Random.Range(0,4);
-
-        var direction = dir switch
-        {
-            0 => new Vector2(1, 0),
-            1 => new Vector2(-1, 0),
-            2 => new Vector2(0, 1),
-            3 => new Vector2(0, -1),
-            _ => new Vector2(0, 0),
-        };
-
-        Vector2 curr = enemy.occupiedTile.coordiantes;
-        Tile currTile = enemy.occupiedTile;
-        for (int i = 0; i < chosenMoveAmount; i++){
-            curr += direction;
-            Tile nextTile = GridManager.instance.GetTileAtPosition(curr);
-            if (nextTile == null || !nextTile.walkable || nextTile.occupiedUnit != null){
-                break;
-            }
-            currTile = nextTile;
-        }
-        if (currTile == enemy.occupiedTile || attemptNumber == 3){
-            yield return MoveEnemyOld(list, attemptNumber + 1);
-        }else{
-            currTile.SetUnit(enemy);
-            yield return new WaitForSeconds(0.35f);
-            list.RemoveAt(0);
-            if (list.Count > 0){
-                Debug.Log(list.Count);
-                yield return MoveEnemyOld(list, 0);
-            }else{
-                GameManager.instance.ChangeState(GameState.HeroesTurn);
-            }
-            yield return null;
-        }
-    }
+    
     public void GoToNextUnit(){
         GoToUnit(+1);
     }

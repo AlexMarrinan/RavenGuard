@@ -1664,7 +1664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &360535913
 Transform:
   m_ObjectHideFlags: 0
@@ -2172,6 +2172,7 @@ MonoBehaviour:
   inventoryMenu: {fileID: 1909758493}
   pauseMenu: {fileID: 1952246864}
   battleMenu: {fileID: 360535914}
+  unitStatsMenu: {fileID: 0}
   textFramesMax: 50
   moveColor: {r: 0.2962442, g: 0.41731423, b: 0.8396226, a: 0.78431374}
   attackColor: {r: 0.754717, g: 0.30188677, b: 0.30188677, a: 0.78431374}
@@ -4553,6 +4554,7 @@ MonoBehaviour:
   leftBU: {fileID: 830942522}
   rightBU: {fileID: 969186805}
   hitMoveSpeed: 10
+  sceneBackground: {fileID: 0}
   state: 0
 --- !u!4 &1214829595
 Transform:
@@ -7111,10 +7113,10 @@ PrefabInstance:
     - target: {fileID: 1738224353833515261, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 69ea6c06fe889d64387070423334d347, type: 2}
     - target: {fileID: 4445687810862586525, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7592093497319357810, guid: 400c3d7ad7ff8d84b8a2b02e17e30825, type: 3}
       propertyPath: m_LocalScale.x
