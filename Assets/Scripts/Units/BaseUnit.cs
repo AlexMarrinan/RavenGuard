@@ -264,6 +264,15 @@ public class BaseUnit : MonoBehaviour
         return pSkills;
     }
 
+    public void UseActiveSkill(ActiveSkillType type){
+        var aSkills = GetActiveSkills();
+        foreach (ActiveSkill aSkill in aSkills){
+            if (aSkill.activeSkillType == type){
+                aSkill.OnUse(this);
+            }
+        }
+    }
+
     public void UsePassiveSkills(PassiveSkillType type){
         var pSkills = GetPassiveSkills();
         foreach (PassiveSkill pSkill in pSkills){
@@ -271,6 +280,24 @@ public class BaseUnit : MonoBehaviour
                 pSkill.OnUse(this);
             }
         }
+    }
+    public List<BaseUnit> GetAdjacentUnits(){
+        return GetAdjacentUnitsOfFaction(this.faction);
+    }
+    public List<BaseUnit> GetAdjacentUnitsOfFaction(UnitFaction faction){
+        var tiles = GridManager.instance.GetAdjacentTiles(this.occupiedTile.coordiantes);
+        List<BaseUnit> adjUnits = new();
+        foreach (Tile tile in tiles){
+            if (tile != null && tile.occupiedUnit != null && (tile.occupiedUnit.faction == faction || faction == UnitFaction.Both)){
+                adjUnits.Add(tile.occupiedUnit);
+            }
+        }
+        return adjUnits;
+    }
+    public void Cleanse(){
+
+        //TODO: MAKE ACTUALLY REMOVE DEBUFFS !!!
+        Debug.Log(this + " cleansed!");
     }
 }
 

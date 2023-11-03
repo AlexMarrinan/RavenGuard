@@ -285,7 +285,6 @@ public class GridManager : MonoBehaviour
                     continue;
                 }
             }
-            Debug.Log(tile);
             visited.Add(tile);
             toVisit.Enqueue(tile);
             previousTiles.Add(tile, current);

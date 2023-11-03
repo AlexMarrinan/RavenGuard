@@ -40,20 +40,10 @@ public class SkillManager : MonoBehaviour
         }
     }
     
-    
-    public void RushdownPS(BaseUnit u){
-        int damage = 3;
-        Debug.Log("Used Earthquake...");
-        var tiles = SkillManager.instance.currentTiles;
-        foreach (Tile tile in tiles){
-            BaseUnit unit = tile.occupiedUnit;
-            if (unit != null && unit.faction == UnitFaction.Enemy){
-                unit.ReceiveDamage(damage);
-            }
-        }
-    }
-    public void GhostShieldAS(BaseUnit u){
-        Debug.Log("Used Ghost Shield...");
+    //Upon ending unit's action or end of combat, adjacent allies are cleansed of all clearable debuffs.
+    public void CleansePS(BaseUnit u){
+        u.Cleanse();
+        u.GetAdjacentUnits().ForEach(u => u.Cleanse());
     }
 
     //If unit moves 0 or 1 spaces, unit gains +2 defense and +1 attack during combat.
