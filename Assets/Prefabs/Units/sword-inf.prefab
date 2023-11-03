@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6896802453669631958}
   - component: {fileID: 2450522220589349630}
   m_Layer: 0
-  m_Name: ShortArmsUnitPrefab
+  m_Name: sword-inf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

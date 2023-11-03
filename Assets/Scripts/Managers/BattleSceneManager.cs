@@ -75,6 +75,15 @@ public class BattleSceneManager : MonoBehaviour
     public void DisplayUnits(){
 
     }
+    public bool UnitAttacked(BaseUnit unit){
+        if (unit == leftBU.assignedUnit){
+            return leftBU.attacked;
+        }
+        if (unit == rightBU.assignedUnit){
+            return rightBU.attacked;
+        }
+        return false;
+    }
     public void OnHit(BattleUnit hitter){
         var damaged = leftBU;
         if (hitter == leftBU){
@@ -165,20 +174,26 @@ public class BattleSceneManager : MonoBehaviour
         killed.Hide();        
         yield return new WaitForSeconds(v);
         UnitManager.instance.DeleteUnit(killed.assignedUnit);
-        Reset();
+        OnBattlEnd();
     }   
-
+    
     IEnumerator EndAnaimtionWait(float secs){
         yield return new WaitForSeconds(secs);
-        Reset();
+        OnBattlEnd();
     }
-    private void Reset(){
+    private void OnBattlEnd(){
         MenuManager.instance.menuState = MenuState.None;
         if (startingUnit != null){
             //startingUnit.moveAmount = 0;
             startingUnit.OnExhaustMovment();
         }else{
             TurnManager.instance.GoToNextUnit();
+        }
+        if (leftBU.assignedUnit != null){
+            leftBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
+        }
+        if (rightBU.assignedUnit != null){
+            rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
         UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();

@@ -23,6 +23,7 @@ public enum PassiveSkillType {
     Buff,
     BeforeCombat,
     DuringCombat,
+    AfterCombat,
     OnMovement,
     OnTurnEnd,
 }

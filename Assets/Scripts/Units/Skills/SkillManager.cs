@@ -61,17 +61,33 @@ public class SkillManager : MonoBehaviour
     //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.
     public void HunkerDownPS(BaseUnit u){
         //Called After Movment
-        var stats = u.GetStatChange("HunkerDown");
-        if (stats == null){
-            u.AddStatsChange("HunkerDown", UnitStatType.Defense, 0, 0, 3);
+        var defStats = u.GetStatChange("HunkerDownDef");
+        if (defStats == null){
+            u.AddStatsChange("HunkerDownDef", UnitStatType.Defense, 0, 0, 6);
+        }
+        var atkStats = u.GetStatChange("HunkerDownAttack");
+        if (atkStats == null){
+            u.AddStatsChange("HunkerDownAttack", UnitStatType.Attack, 0, 0, 3);
         }
         if (u.moveAmount <= 1){
-            u.IncrementStatsChange("HunkerDown", + 1);
+            u.IncrementStatsChange("HunkerDownDef", + 2);
+            u.IncrementStatsChange("HunkerDownAttack", + 1);
         }else{
-            u.SetStatChange("HunkerDown", 0);
+            u.SetStatChange("HunkerDownDef", 0);
+            u.SetStatChange("HunkerDownAttack", 0);
+
         }
     }   
 
+
+    //Unit heals 7 HP after combat if unit attacked.
+    public void RecoveryPS(BaseUnit u){
+        int healing = 7;
+        //Called After Movment
+        if (BattleSceneManager.instance.UnitAttacked(u)){
+            u.RecoverHealth(healing);
+        }
+    }   
 
     internal void Move(Vector2 moveVector)
     {

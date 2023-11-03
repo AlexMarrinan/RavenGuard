@@ -117,6 +117,12 @@ public class BaseUnit : MonoBehaviour
     public void ReceiveDamage(int damage){
         health -= damage;
     }
+    public void RecoverHealth(int healing){
+        health += healing;
+        if (health > maxHealth){
+            health = maxHealth;
+        }
+    }
     public void MoveToAttackTile(){
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
@@ -140,21 +146,10 @@ public class BaseUnit : MonoBehaviour
     public void OnExhaustMovment(){
         // moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
-        OnMovementSkill();
+        UsePassiveSkills(PassiveSkillType.OnMovement);
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
     }
-
-    private void OnMovementSkill()
-    {
-        var pSkills = GetPassiveSkills();
-        foreach (PassiveSkill p in pSkills){
-            if (p.passiveSkillType == PassiveSkillType.OnMovement){
-                p.OnUse(this);
-            }
-        }
-    }
-
     public virtual TileMoveType GetMoveTypeAt(Tile otherTile){
         return TileMoveType.NotValid;
     }  
@@ -267,6 +262,15 @@ public class BaseUnit : MonoBehaviour
             }
         }
         return pSkills;
+    }
+
+    public void UsePassiveSkills(PassiveSkillType type){
+        var pSkills = GetPassiveSkills();
+        foreach (PassiveSkill pSkill in pSkills){
+            if (pSkill.passiveSkillType == type){
+                pSkill.OnUse(this);
+            }
+        }
     }
 }
 

@@ -168,11 +168,7 @@ public class UnitManager : MonoBehaviour
     internal void OnTurnEndSkills(BaseUnit unit){
         var units = GetAllUnitsOfFaction(unit.faction);
         foreach (BaseUnit u in units){
-            foreach (PassiveSkill s in u.GetPassiveSkills()){
-                if (s.passiveSkillType == PassiveSkillType.OnTurnEnd){
-                    s.OnUse(unit);
-                }
-            }
+            u.UsePassiveSkills(PassiveSkillType.OnTurnEnd);
         }
     }
 }
