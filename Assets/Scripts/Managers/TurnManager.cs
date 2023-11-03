@@ -30,6 +30,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
         BaseUnit firstHero = unitsAwaitingOrders[0];
+        MenuManager.instance.highlightObject.SetActive(true);
         GridManager.instance.SetHoveredTile(firstHero.occupiedTile);
     }
 
@@ -41,27 +42,31 @@ public class TurnManager : MonoBehaviour
         }
         MenuManager.instance.ShowStartText("Enemy's turn!", false);
         UnitManager.instance.ResetUnitMovment();
+        MenuManager.instance.highlightObject.SetActive(false);
         StartCoroutine(MoveEnemies(UnitManager.instance.GetAllEnemies()));
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
         BaseUnit enemy = list[0];
+        MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
+        MenuManager.instance.unitStatsMenu.SetUnit(enemy);
         GameManager.instance.PanCamera(enemy.transform.position);
         List<Tile> validMoves = UnitManager.instance.SetValidMoves(enemy);
         yield return new WaitForSeconds(0.8f);
+        //yield return MoveWithAnimation(unit);
+        BaseUnit heroToAttack = null;
         Tile final = null;
         foreach (Tile t in validMoves){
             if (t.occupiedUnit != null && t.occupiedUnit.faction == UnitFaction.Hero){
                 var adjTiles = GridManager.instance.GetAdjacentTiles(t.coordiantes);
+                if (adjTiles.Contains(enemy.occupiedTile)){
+                    final = enemy.occupiedTile;
+                    heroToAttack = t.occupiedUnit;
+                    break;
+                }
                 foreach (Tile t2 in adjTiles){
-                    if (validMoves.Contains(t2)){
+                    if (validMoves.Contains(t2) && t2.occupiedUnit == null){
                         final = t2;
-
-                        //TODO: MAKE ENEMIES DO DAMAGE
-                        // t.occupiedUnit.ReceiveDamage(enemy);
-                        // if (t.occupiedUnit.health <= 0){
-                        //     UnitManager.instance.DeleteUnit(t.occupiedUnit);
-                        //     final = t;
-                        // }
+                        heroToAttack = t.occupiedUnit;
                         break;
                     }
                 }
@@ -74,9 +79,20 @@ public class TurnManager : MonoBehaviour
             int tileIndex = Random.Range(0, validMoves.Count);
             final = validMoves[tileIndex];
         }
-        final.SetUnit(enemy);
+        if (final != enemy.occupiedTile){
+            final.SetUnit(enemy);
+        }else{
+            UnitManager.instance.RemoveAllValidMoves();
+        }
         yield return new WaitForSeconds(0.35f);
         list.RemoveAt(0);
+        if (heroToAttack != null){
+            enemy.Attack(heroToAttack);
+            while (MenuManager.instance.menuState == MenuState.Battle){
+                yield return null;
+            }
+            yield return new WaitForSeconds(0.35f);
+        }
         if (list.Count > 0){
             yield return MoveEnemies(list);
         }else{
@@ -150,6 +166,7 @@ public class TurnManager : MonoBehaviour
         GridManager.instance.SetHoveredTile(unitsAwaitingOrders[index].occupiedTile);
     }
     public void OnUnitDone(BaseUnit previous){
+        MenuManager.instance.menuState = MenuState.None;
         if (previous.faction == UnitFaction.Enemy){
             return;
         }
@@ -157,6 +174,7 @@ public class TurnManager : MonoBehaviour
         
         //if no units left to move, go onto the enemies turn
         if (unitsAwaitingOrders.Count == 0){
+            UnitManager.instance.OnTurnEndSkills(previous);
             GameManager.instance.ChangeState(GameState.EnemiesTurn);
             return;
         }

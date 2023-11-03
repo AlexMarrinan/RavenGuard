@@ -10,10 +10,19 @@ public class PassiveSkill : BaseSkill {
     public override void SetMethod(){
         var mng = SkillManager.instance;
         methodInfo = mng.GetType().GetMethod(base.skillName + "PS");
-        Debug.Log(methodInfo);
+    }
+    public override void OnUse(BaseUnit user){
+        var mng = SkillManager.instance;
+        var param = new object[1];
+        param[0] = user;
+        methodInfo.Invoke(mng, param);
     }
 }
 
 public enum PassiveSkillType {
-    StatChange
+    Buff,
+    BeforeCombat,
+    DuringCombat,
+    OnMovement,
+    OnTurnEnd,
 }

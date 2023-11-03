@@ -69,7 +69,6 @@ public class UnitManager : MonoBehaviour
         RemoveAllValidMoves();
         SetValidMoves(unit);
         PathLine.instance.Reset();
-        PathLine.instance.AddTile(unit.occupiedTile);
         //MenuManager.instance.ShowSelectedUnit(unit);
     }
 
@@ -82,6 +81,11 @@ public class UnitManager : MonoBehaviour
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         return units.Where(u => u.faction == faction).ToList();
     }
+    public List<BaseUnit> GetAllUnits(){
+        var heroes = GetAllHeroes();
+        var enemies = GetAllEnemies();
+        return heroes.Concat(enemies).ToList();
+    }
     public List<BaseUnit> GetAllHeroes(){
         return GetAllUnitsOfFaction(UnitFaction.Hero);
     }
@@ -92,7 +96,7 @@ public class UnitManager : MonoBehaviour
         int max = unit.MaxTileRange();
         Tile tile = unit.occupiedTile;
         var visited = new Dictionary<Tile, int>();
-        var next = tile.GetAdjacentCoords();
+        var next = tile.GetAdjacentTiles();
         next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
         validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
@@ -115,7 +119,7 @@ public class UnitManager : MonoBehaviour
 
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
-        var next = tile.GetAdjacentCoords();   
+        var next = tile.GetAdjacentTiles();   
         next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
     }
@@ -127,6 +131,23 @@ public class UnitManager : MonoBehaviour
     public void ResetUnitMovment(){
         foreach (BaseUnit unit in units){
             unit.ResetMovment();
+        }
+    }
+
+    public void ShowUnitHealthbars(bool show){
+        foreach (BaseUnit u in GetAllUnits()){
+            u.healthBar.gameObject.SetActive(show);
+        }
+    }
+
+    internal void OnTurnEndSkills(BaseUnit unit){
+        var units = GetAllUnitsOfFaction(unit.faction);
+        foreach (BaseUnit u in units){
+            foreach (PassiveSkill s in u.GetPassiveSkills()){
+                if (s.passiveSkillType == PassiveSkillType.OnTurnEnd){
+                    s.OnUse(unit);
+                }
+            }
         }
     }
 }

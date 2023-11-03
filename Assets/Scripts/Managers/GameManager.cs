@@ -52,9 +52,6 @@ public class GameManager : MonoBehaviour
             case GameState.EnemiesTurn:
                 TurnManager.instance.BeginEnemyTurn();
                 break;
-            case GameState.BattleScene:
-                BattleSceneManager.instance.StartBattleOld();
-                break;
             default:
                 break;
         }
@@ -65,13 +62,13 @@ public class GameManager : MonoBehaviour
     }
 
     public void PanCamera(Vector2 v){
-        if (MenuManager.instance.InPauseMenu() || gameState == GameState.BattleScene){
+        if (MenuManager.instance.InPauseMenu() || MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
         newCameraPos = (Vector3)v + new Vector3(0, 0, -10);
     }
     public void PanCameraInDirection(Vector2 v){
-        if (MenuManager.instance.InPauseMenu() || gameState == GameState.BattleScene){
+        if (MenuManager.instance.InPauseMenu() || MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
         newCameraPos = (Vector3)v*cameraSensitivity + mainCamera.transform.position;

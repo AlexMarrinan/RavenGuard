@@ -11,12 +11,27 @@ public class ActiveSkill : BaseSkill {
     public override void SetMethod(){
         var mng = SkillManager.instance;
         var type = mng.GetType();
-        Debug.Log(type);
         methodInfo = type.GetMethod(base.skillName + "AS");
-        Debug.Log(methodInfo);
+    }
+     public override void OnSelect(BaseUnit user){
+        MenuManager.instance.ToggleUnitMenu();
+        SkillManager.instance.currentSkill = this;
+        SkillManager.instance.user = user;
+        SkillManager.instance.ShowSkillPreview();
+    }
+    public override void OnUse(BaseUnit user){
+        var mng = SkillManager.instance;
+        var param = new object[1];
+        param[0] = user;
+        methodInfo.Invoke(mng, param);
+        SkillManager.instance.OnSkilEnd();
     }
 }
 
 public enum ActiveSkillType {
-    OnSelf
+    OnSelf,
+    OnUnit,
+    OnHero,
+    OnEnemy,
+    OnTile,
 }

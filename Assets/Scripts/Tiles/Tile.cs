@@ -4,6 +4,8 @@ using UnityEngine;
 using System.Linq;
 using Unity.VisualScripting;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public abstract class Tile : MonoBehaviour
 {
@@ -16,13 +18,14 @@ public abstract class Tile : MonoBehaviour
     protected bool isShootable;
     public BaseUnit occupiedUnit;
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == OtherFaction());
-
-
-
     public TileMoveType moveType = TileMoveType.NotValid;
     public int depth = 0;
     public List<Tile> validPath = null;
+    public TMP_Text depthText;
     public Vector2 coordiantes;
+    private void FixedUpdate(){
+        depthText.text = moveType.ToString();
+    }
     public virtual void Init(int x, int y){
 
     }
@@ -45,7 +48,7 @@ public abstract class Tile : MonoBehaviour
     public void OnHover(){
         //if a unit is selected
         if (UnitManager.instance.selectedUnit != null){
-            if (moveType == TileMoveType.NotValid) {
+            if (moveType == TileMoveType.NotValid && UnitManager.instance.selectedUnit.occupiedTile != this) {
                 return;
             }
             ToggleLinePoint();
@@ -62,7 +65,7 @@ public abstract class Tile : MonoBehaviour
         MenuManager.instance.UnhighlightTile();
     }
     public bool IsTileSelectable(){
-        return isWalkable || isShootable;
+        return true;//isWalkable || isShootable;
     }
     private void OnMouseDown(){
         if (!InputManager.instance.enableMouse){
@@ -84,7 +87,7 @@ public abstract class Tile : MonoBehaviour
         //current pressed tile is occupied
         if (occupiedUnit != null){
             //if the unit is out of movment, do not allow selection
-            if (occupiedUnit.moveAmount <= 1){
+            if (!TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit) && occupiedUnit.faction == TurnManager.instance.currentFaction){
                 return;
             }
             //current unit is a hero, set as selected
@@ -126,24 +129,20 @@ public abstract class Tile : MonoBehaviour
         unit.moveAmount -= depth;
     }
     public void SetUnit(BaseUnit unit){
-        SetUnit(unit, false);
+        SetUnit(unit, true);
     }
     public void SetUnit(BaseUnit unit, bool turnOver){
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
-        unit.moveAmount = 0;
-
+        unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
         unit.transform.position = this.transform.position;
         this.occupiedUnit = unit;
         unit.occupiedTile = this;
-        //unit.healthBar.RenderHealth();
-
-        if (unit.moveAmount <= 1){
+        if (turnOver){
             occupiedUnit.OnExhaustMovment();
         }
     }
-
     public void SetPossibleMove(bool valid, Tile startPos){
         validMoveHighlight.SetActive(valid);
         if (valid){
@@ -169,7 +168,6 @@ public abstract class Tile : MonoBehaviour
         }else{
             validPath = GetPathFrom(startPos);
         }
-        
     }
     public List<Tile> GetPathFrom(Tile startPos){
         List<Tile> path = new List<Tile>();
@@ -177,9 +175,14 @@ public abstract class Tile : MonoBehaviour
         int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
         int y = (int)Mathf.Abs(startCoordiantes.y - coordiantes.y);
 
+
         //TODO: THIS MAY TAKE PATHS THROUGH WALLS MAKE BETTER !!!!!
-        depth = x + y;
-        
+        depth = 111;
+        validPath = GridManager.instance.ShortestPathBetweenTiles(startPos, this);
+        if (validPath != null){
+            depth = validPath.Count;
+        }
+        //Debug.Log(depth);
         //TOOD: actually make the path for drawing the line
         return path;
     }
@@ -195,7 +198,7 @@ public abstract class Tile : MonoBehaviour
         //TOOD: actually make the path for drawing the line
         return depth;
     }
-    public List<Tile> GetAdjacentCoords(){
+    public List<Tile> GetAdjacentTiles(){
         int left = (int)coordiantes.x - 1;
         int right = (int)coordiantes.x + 1;
         int up = (int)coordiantes.y - 1;
@@ -216,12 +219,7 @@ public abstract class Tile : MonoBehaviour
     }
 
     private void ToggleLinePoint(){
-        bool onPath = PathLine.instance.IsOnPath(this);
-        if (!onPath){
-            PathLine.instance.AddTile(this);
-        }else{
-            PathLine.instance.RemoveTile(this);
-        }
+        PathLine.instance.RenderLine(UnitManager.instance.selectedUnit.occupiedTile, this);
     }
 }
 

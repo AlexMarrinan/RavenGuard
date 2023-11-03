@@ -69,6 +69,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+--- !u!114 &1385709282632256636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5072820903183053868, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+  m_PrefabInstance: {fileID: 6151144118042441808}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4736167691970411538 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1506312857278792770, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
@@ -98,5 +109,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderer: {fileID: 6518886129962722372}
   validMoveHighlight: {fileID: 4736167691970411538}
-  isWalkable: 0
   occupiedUnit: {fileID: 0}
+  moveType: 0
+  depth: 0
+  validPath: []
+  depthText: {fileID: 1385709282632256636}
+  coordiantes: {x: 0, y: 0}
