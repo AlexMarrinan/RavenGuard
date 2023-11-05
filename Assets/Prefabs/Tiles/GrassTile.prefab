@@ -11,6 +11,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1092963596830317588, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_Size.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092963596830317588, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_Size.y
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092963596830317588, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 113592878, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
     - target: {fileID: 1092963596830317589, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
       propertyPath: m_Name
       value: GrassTile
@@ -59,6 +71,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2067356132654554052, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2067356132654554052, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2067356132654554052, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2067356132654554052, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.16
+      objectReference: {fileID: 0}
     - target: {fileID: 5072820903183053868, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
       propertyPath: m_fontSize
       value: 2
@@ -67,6 +95,10 @@ PrefabInstance:
       propertyPath: m_fontSizeBase
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5084094000523550533, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 914515312, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
 --- !u!1 &535260081285696764 stripped
@@ -86,34 +118,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff3d2b7330b5d747a1bb0dea773c705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 535260081285696765}
+  renderer: {fileID: 5677077747585552300}
   validMoveHighlight: {fileID: 2062687372496000171}
   occupiedUnit: {fileID: 0}
   moveType: 0
   depth: 0
   validPath: []
-  depthText: {fileID: 5629810766964909253}
+  depthText: {fileID: 0}
   coordiantes: {x: 0, y: 0}
-  baseColor: {r: 0.454902, g: 0.8666667, b: 0.29803923, a: 1}
-  offsetColor: {r: 0.6292871, g: 0.9150943, b: 0.4437344, a: 1}
---- !u!212 &535260081285696765 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1092963596830317588, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
-  m_PrefabInstance: {fileID: 596547371651436777}
-  m_PrefabAsset: {fileID: 0}
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  offsetColor: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
 --- !u!1 &2062687372496000171 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1506312857278792770, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
   m_PrefabInstance: {fileID: 596547371651436777}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5629810766964909253 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5072820903183053868, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+--- !u!212 &5677077747585552300 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5084094000523550533, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
   m_PrefabInstance: {fileID: 596547371651436777}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

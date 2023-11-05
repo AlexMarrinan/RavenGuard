@@ -24,7 +24,7 @@ public abstract class Tile : MonoBehaviour
     public TMP_Text depthText;
     public Vector2 coordiantes;
     private void FixedUpdate(){
-        depthText.text = moveType.ToString();
+        //depthText.text = moveType.ToString();
     }
     public virtual void Init(int x, int y){
 
@@ -224,6 +224,10 @@ public abstract class Tile : MonoBehaviour
         }
         PathLine.instance.RenderLine(UnitManager.instance.selectedUnit.occupiedTile, this);
         validPath = PathLine.instance.GetPath();
+    }
+
+    public void SetSprite(Sprite s){
+        renderer.sprite = s;
     }
 }
 

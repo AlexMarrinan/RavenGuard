@@ -9,6 +9,11 @@ public class GridManager : MonoBehaviour
     public static GridManager instance;
     [SerializeField] private int width, height;
     [SerializeField] private TileSet tileSet;
+
+    //Predabs
+    [SerializeField] private FloorTile floorPrefab;
+    [SerializeField] private WallTile wallPrefab;
+
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, Tile> tiles;
     private float[,] noiseMap;
@@ -34,12 +39,21 @@ public class GridManager : MonoBehaviour
 
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++){
-                
+                // float scale = 1f;//0.16f;
+                // float actualX = (float)(x * scale);
+                // float actualY = (float)(y * scale);
+
                 //TODO: GET ANY FLOOR/WALL
-                Tile randomTile = tileSet.floors[0];
+                Tile randomTile = floorPrefab;
+                randomTile.SetSprite(tileSet.GetRandomFloor());
+
                 if (noiseMap[x+startX, y+startY] > 0.6f){
-                    randomTile = tileSet.walls[0];
+                    randomTile = wallPrefab;
+                    randomTile.SetSprite(tileSet.walls[0]);
                 }
+
+
+                
                 // if (randomTile is FloorTile){
                 //     int idk = Random.Range(0, 50);
                 //     if (idk == 0){
@@ -51,7 +65,7 @@ public class GridManager : MonoBehaviour
                 
                 // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
                 // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
-
+                
                 var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
                 newTile.name = $"Tile {x} {y}";
                 
@@ -62,11 +76,172 @@ public class GridManager : MonoBehaviour
             }
         }
 
+        foreach (Tile t in tiles.Values){
+            if (t is FloorTile){
+                SetFloorTileSprite(t as FloorTile);
+            }else if (t is WallTile){
+                SetWallTileSprite(t as WallTile);
+            }
+        }
         cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
 
-    
+
+
+    private void SetFloorTileSprite(FloorTile ft){
+        int idx = GetFloorTileIndex(ft);
+        if (idx == -1){
+            ft.SetSprite(tileSet.GetRandomFloor());
+        }else{
+            ft.SetSprite(tileSet.floorXWalls[idx]);
+        }
+    }
+
+    private int GetFloorTileIndex(FloorTile wt){
+        Vector2 pos = wt.coordiantes;
+        var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
+        var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
+        var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
+        var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
+
+        var u = up != null && up is WallTile;
+        var d = down != null && down is WallTile;
+        var l = left != null && left is WallTile;
+        var r = right != null && right is WallTile;
+
+        //Single direction walls
+        if (u && !d && !l && !r){
+            return 7;
+        }
+        if (!u && d && !l && !r){
+            return 1;
+        }
+        if (!u && !d && l && !r){
+            return 5;
+        }
+        if (!u && !d && !l && r){
+            return 3;
+        }
+
+        //UP and 
+        if (u && d && !l && !r){
+            return 18;
+        }
+        if (u && !d && l && !r){
+            return 9;
+        }
+        if (u && !d && !l && r){
+            return 10;
+        }
+        //DOWN and 
+        if (!u && d && l && !r){
+            return 12;
+        }
+        if (!u && d && !l && r){
+            return 13;
+        }
+        //LEFT and RIGHT
+        if (!u && !d && l && r){
+            return 14;
+        }
+
+        //NOTS
+        if (!u && d && l && r){
+            return 17;
+        }
+        if (u && !d && l && r){
+            return 11;
+        }
+        if (u && d && !l && r){
+            return 16;
+        }
+        if (u && d && l && !r){
+            return 15;
+        }
+
+        var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
+        var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
+        var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
+        var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
+
+        var ul = upleft != null && upleft is WallTile;
+        var dl = downleft != null && downleft is WallTile;
+        var ur = upright != null && upright is WallTile;
+        var dr = downright != null && downright is WallTile;
+
+        //single walls
+        if (ul && !dl && !ur && !dr){
+            return 8;
+        }
+        if (!ul && dl && !ur && !dr){
+            return 2;
+        }
+        if (!ul && !dl && ur && !dr){
+            return 6;
+        }
+        if (!ul && !dl && !ur && dr){
+            return 0;
+        }
+        
+        if (ul && dl && !ur && !dr){
+            return 26;
+        }
+        if (ul && !dl && ur && !dr){
+            return 19;
+        }
+        if (ul && !dl && !ur && dr){
+            return 24;
+        }
+        if (!ul && dl && ur && !dr){
+            return 21;
+        }
+        if (!ul && dl && !ur && dr){
+            return 27;
+        }
+        if (!ul && !dl && ur && dr){
+            return 23;
+        }
+        if (ul && dl && ur && !dr){
+            return 20;
+        }
+        if (ul && dl && !ur && dr){
+            return 28;
+        }
+        if (ul && !dl && ur && dr){
+            return 25;
+        }
+        if (!ul && dl && ur && dr){
+            return 29;
+        }
+        if (ul && dl && ur && dr){
+            return 22;
+        }
+        return -1;
+    }
+    private void SetWallTileSprite(WallTile wt) {
+        wt.SetSprite(tileSet.walls[0]);
+    }
+    // private int GetWallTileIndex(WallTile wt){
+    //     Vector2 pos = wt.coordiantes;
+    //     var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
+    //     var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
+    //     var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
+    //     var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
+
+    //     var u = up != null && up is WallTile;
+    //     var d = down != null && down is WallTile;
+    //     var l = left != null && left is WallTile;
+    //     var r = right != null && right is WallTile;
+
+    //     if (!u && !d && !l && !r){
+    //         return 5;
+    //     }
+    //     if (u && !d && !l && !r){
+    //         return 4;
+    //     }
+    //     return 0;
+    // }
     public Tile GetTileAtPosition(Vector2 pos){
         if (tiles.TryGetValue(pos, out var tile)){
             return tile;
@@ -100,15 +275,15 @@ public class GridManager : MonoBehaviour
         GetAdjecentTile(x, y, -1, 0, tiles);
         GetAdjecentTile(x, y, 0, 1, tiles);
         GetAdjecentTile(x, y, 0, -1, tiles);
-
         return tiles;
     }
 
-    private void GetAdjecentTile(int x, int y, int xOff, int yOff, List<Tile> tiles=null){
+    private Tile GetAdjecentTile(int x, int y, int xOff, int yOff, List<Tile> tiles=null){
         var t = GetTileAtPosition(x+xOff, y+yOff);
         if (tiles != null && t != null){
             tiles.Add(t);
         }
+        return t;
     }
     
     public Tile GetHeroSpawnTile(){
