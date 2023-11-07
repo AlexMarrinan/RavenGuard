@@ -95,13 +95,19 @@ public class UnitManager : MonoBehaviour
         return GetAllUnitsOfFaction(UnitFaction.Enemy);
     }
     public List<Tile> SetValidMoves(BaseUnit unit){
+        var validMoves = GetValidMoves(unit);
+        validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
+        return validMoves;
+    }
+    public List<Tile> GetValidMoves(BaseUnit unit){
         int max = unit.MaxTileRange();
         Tile tile = unit.occupiedTile;
         var visited = new Dictionary<Tile, int>();
+
+        //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = tile.GetAdjacentTiles();
         next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
-        validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
         return validMoves;
     }
 

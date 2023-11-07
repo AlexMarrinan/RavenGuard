@@ -32,6 +32,7 @@ public class BaseUnit : MonoBehaviour
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
+    private bool isAggroed = false;
     void Start(){
         //RandomizeUnitClass();
         InitializeUnitClass();
@@ -298,6 +299,41 @@ public class BaseUnit : MonoBehaviour
 
         //TODO: MAKE ACTUALLY REMOVE DEBUFFS !!!
         Debug.Log(this + " cleansed!");
+    }
+
+    public bool IsInjured(){
+        return health <= maxHealth * 0.2;
+    }
+
+    public bool IsAggroed(){
+        return isAggroed;
+    }
+    public void SetAggro(bool b){
+        isAggroed = b;
+    }
+
+    public UnitFaction GetOtherFaction(){
+        if (faction == UnitFaction.Hero){
+            return UnitFaction.Enemy;
+        }
+        return UnitFaction.Hero;
+
+    }
+    internal bool AlliesInRange() {
+        return UnitsInRange(faction);
+    }
+    internal bool OpponentInRange() {
+        return UnitsInRange(GetOtherFaction());
+    }
+
+    public bool UnitsInRange(UnitFaction f){
+        var tiles = GridManager.instance.GetRadiusTiles(this.occupiedTile, maxMoveAmount);
+        foreach (Tile t in tiles){
+            if (t.occupiedUnit != null && t.occupiedUnit.faction == f){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

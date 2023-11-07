@@ -46,6 +46,83 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(MoveEnemies(UnitManager.instance.GetAllEnemies()));
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
+        foreach (BaseUnit unit in list){
+            if (unit.IsInjured()){
+                MoveInjuredEnemy(unit);
+            } else if (unit.IsAggroed() || unit.OpponentInRange()){
+                if (unit.OpponentInRange()){
+                    RateAttacks(unit);
+                    break;
+                }
+                if (unit.AlliesInRange()){
+                    RateSupports(unit);
+                    break;
+                }
+            }
+        }
+        yield return null;
+    }
+
+    private void MoveInjuredEnemy(BaseUnit unit) {
+        Debug.Log("Moving injured enemy!!!!");
+    }
+
+    private List<AIAttack> RateAttacks(BaseUnit unit){
+        List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
+        List<BaseUnit> unitsInRandge = new();
+        foreach (BaseUnit opp in UnitManager.instance.GetAllHeroes()){
+            if (moves.Contains(opp.occupiedTile)){
+                unitsInRandge.Add(opp);
+            }
+        }
+
+        List<AIAttack> possibleAttacks = new();
+        foreach (BaseUnit opp in unitsInRandge){
+            foreach (Tile adjTile in opp.occupiedTile.GetAdjacentTiles()){
+                if (/*adjTile.moveType == TileMoveType.Move &&*/ moves.Contains(adjTile)){
+                    possibleAttacks.Add(new(adjTile, opp.occupiedTile));
+                }
+            }
+        }
+        foreach (AIAttack atk in possibleAttacks){
+            RateAttack(atk);
+        }
+        return possibleAttacks;
+    }
+
+    private void RateAttack(AIAttack atk){
+        atk.rating = 10;
+    }
+
+    private List<AISupport> RateSupports(BaseUnit unit){
+        List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
+        List<BaseUnit> unitsInRandge = new();
+        foreach (BaseUnit opp in UnitManager.instance.GetAllEnemies()){
+            if (moves.Contains(opp.occupiedTile)){
+                unitsInRandge.Add(opp);
+            }
+        }
+
+        List<AISupport> possibleSupports = new();
+        foreach (BaseUnit opp in unitsInRandge){
+            foreach (Tile adjTile in opp.occupiedTile.GetAdjacentTiles()){
+                if (/*adjTile.moveType == TileMoveType.Move &&*/ moves.Contains(adjTile)){
+                    possibleSupports.Add(new(adjTile, opp.occupiedTile));
+                }
+            }
+        }
+        foreach (AISupport sup in possibleSupports){
+            RateSupport(sup);
+        }
+        return possibleSupports;
+    }
+
+    private void RateSupport(AISupport sup){
+        sup.rating = 10;
+    }
+
+
+    IEnumerator MoveEnemiesOLD(List<BaseUnit> list){
         BaseUnit enemy = list[0];
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
         MenuManager.instance.unitStatsMenu.SetUnit(enemy);
@@ -143,5 +220,45 @@ public class TurnManager : MonoBehaviour
 
     public void SetPreviousUnit(BaseUnit u){
         previousUnit = u;
+    }
+}
+
+internal class AIMove {
+    public int rating;
+    public Tile moveTile;
+}
+internal class AIAttack : AIMove{
+    public Tile attackTile;
+    public ActiveSkill activeSkill;
+
+    public AIAttack (Tile moveTile, Tile attackTile){
+        rating = 0;
+        this.moveTile = moveTile;
+        this.attackTile = attackTile;
+        this.activeSkill = null;
+    }
+    public AIAttack (Tile moveTile, Tile attackTile, ActiveSkill activeSkill){
+        rating = 0;
+        this.moveTile = moveTile;
+        this.attackTile = attackTile;
+        this.activeSkill = activeSkill;
+    }
+}
+
+internal class AISupport : AIMove{
+    public Tile supporTile;
+    public ActiveSkill activeSkill;
+
+    public AISupport (Tile moveTile, Tile attackTile){
+        rating = 0;
+        this.moveTile = moveTile;
+        this.supporTile = attackTile;
+        this.activeSkill = null;
+    }
+    public AISupport (Tile moveTile, Tile attackTile, ActiveSkill activeSkill){
+        rating = 0;
+        this.moveTile = moveTile;
+        this.supporTile = attackTile;
+        this.activeSkill = activeSkill;
     }
 }
