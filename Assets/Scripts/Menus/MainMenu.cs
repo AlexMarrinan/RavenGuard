@@ -10,9 +10,8 @@ public class MainMenu : BaseMenu
     {
         switch(buttonIndex){
             case 0: Play(); break;
-            case 1: Options(); break;
-            case 2: Quit(); break;
-        }
+            case 1: Quit(); break;
+       }
     }
     private void Play(){
         SceneManager.LoadScene("SampleScene");
