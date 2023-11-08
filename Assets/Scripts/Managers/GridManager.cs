@@ -98,6 +98,7 @@ public class GridManager : MonoBehaviour
         }
     }
 
+    //TODO: MAKE NOT ASS HOLY SHIT
     private int GetFloorTileIndex(FloorTile wt){
         Vector2 pos = wt.coordiantes;
         var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
