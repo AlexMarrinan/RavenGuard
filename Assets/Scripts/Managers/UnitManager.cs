@@ -148,7 +148,6 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<Tile> path, bool turnOver){
-        Debug.Log(path.Count);
         if (path.Count > 0){
             Tile nextTile = path[0];
             Vector3 nextPos = nextTile.transform.position;

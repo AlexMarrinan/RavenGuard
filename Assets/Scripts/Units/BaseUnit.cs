@@ -340,6 +340,16 @@ public class BaseUnit : MonoBehaviour
         }
         return false;
     }
+
+    public bool UnitInRange(BaseUnit unitToFind){
+        var tiles = GridManager.instance.GetRadiusTiles(this.occupiedTile, maxMoveAmount);
+        foreach (Tile t in tiles){
+            if (t.occupiedUnit != null && t.occupiedUnit == unitToFind){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 

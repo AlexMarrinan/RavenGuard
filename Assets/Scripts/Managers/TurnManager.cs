@@ -50,14 +50,12 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(MoveEnemies(UnitManager.instance.GetAllEnemies()));
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
-        Debug.Log("Moving enemies with AI");
         BaseUnit unit = list[0];
-        Debug.Log(unit);
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
         MenuManager.instance.unitStatsMenu.SetUnit(unit);
         GameManager.instance.PanCamera(unit.transform.position);
         List<Tile> validMoves = UnitManager.instance.SetValidMoves(unit);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.35f);
         if (unit.IsInjured()){
             MoveInjuredEnemy(unit);
         } else if (unit.IsAggroed() || unit.OpponentInRange()){
@@ -68,23 +66,30 @@ public class TurnManager : MonoBehaviour
             if (unit.AlliesInRange()){
                 moves = moves.Concat(RateSupports(unit)).ToList();
             }
-            AIMove currentMove = null;
-            Debug.Log(moves.Count);
+            List<AIMove> currentMoves = null;
+            //Debug.Log(moves.Count);
             foreach (AIMove move in moves){
-                if (currentMove == null){
-                    currentMove = move;
+                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
+                if (currentMoves == null){
+                    currentMoves = new(){move};
                 }
-                if (move.rating > currentMove.rating){
-                    currentMove = move;
+                if (move.rating == currentMoves[0].rating){
+                    currentMoves.Add(move);
+                }
+                if (move.rating > currentMoves[0].rating){
+                    currentMoves.Clear();
+                    currentMoves.Add(move);
                 }
             }
-            if (currentMove != null){
+            if (currentMoves != null){
+                int moveIdx = Random.Range(0, currentMoves.Count);
+                var currentMove = currentMoves[moveIdx];
                 Debug.Log(currentMove.moveTile);
                 Debug.Log(currentMove.rating);
                 PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
                 yield return new WaitForSeconds(0.5f);
                 currentMove.moveTile.MoveUnitToTile(unit);
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(0.5f);
                 if (currentMove is AIAttack){
                     unit.Attack((currentMove as AIAttack).attackTile.occupiedUnit);
                     while (MenuManager.instance.menuState == MenuState.Battle){
@@ -96,7 +101,7 @@ public class TurnManager : MonoBehaviour
             }
         }
         list.RemoveAt(0);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         UnitManager.instance.RemoveAllValidMoves();
         if (list.Count > 0){
             yield return MoveEnemies(list);
@@ -130,7 +135,7 @@ public class TurnManager : MonoBehaviour
         foreach (AIAttack atk in possibleAttacks){
             RateAttack(unit, atk);
         }
-        Debug.Log("Possible attacks count: " + possibleAttacks.Count);
+        //Debug.Log("Possible attacks count: " + possibleAttacks.Count);
         return possibleAttacks;
     }
 
@@ -147,7 +152,7 @@ public class TurnManager : MonoBehaviour
             atk.rating += (defender.health - prediction.defHealth)/2;
         }
         //rating based on players remaining HP;
-        int playerHealthPoints = (20 - prediction.defHealth);
+        int playerHealthPoints = 20 - prediction.defHealth;
         if (playerHealthPoints < 0){
             playerHealthPoints = 0;
         }
@@ -165,12 +170,17 @@ public class TurnManager : MonoBehaviour
             }else{
                 atk.rating -= (unit.health - prediction.atkHealth)/2;
             }
-        }else{
-            atk.rating += 15;
         }
 
         //rating based on AI's remaining HP;
         atk.rating -= (unit.health - prediction.atkHealth)/2;
+        
+        //remove points based on number of enemeies targeting
+        foreach (BaseUnit hero in UnitManager.instance.GetAllHeroes()){
+            if (hero.UnitInRange(unit)){
+                atk.rating -= hero.GetAttack().total - unit.GetDefense().total;
+            }
+        }
     }
 
     private void RateActiveAttack(AIAttack atk){
@@ -178,20 +188,9 @@ public class TurnManager : MonoBehaviour
     }
     private List<AISupport> RateSupports(BaseUnit unit){
         List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
-        List<BaseUnit> unitsInRandge = new();
-        foreach (BaseUnit opp in UnitManager.instance.GetAllEnemies()){
-            if (moves.Contains(opp.occupiedTile)){
-                unitsInRandge.Add(opp);
-            }
-        }
-
         List<AISupport> possibleSupports = new();
-        foreach (BaseUnit opp in unitsInRandge){
-            foreach (Tile adjTile in opp.occupiedTile.GetAdjacentTiles()){
-                if (/*adjTile.moveType == TileMoveType.Move &&*/ moves.Contains(adjTile)){
-                    possibleSupports.Add(new(adjTile, opp.occupiedTile));
-                }
-            }
+        foreach (Tile tile in moves){
+            possibleSupports.Add(new(tile, tile));
         }
         foreach (AISupport sup in possibleSupports){
             RateSupport(unit, sup);
@@ -200,7 +199,15 @@ public class TurnManager : MonoBehaviour
     }
 
     private void RateSupport(BaseUnit unit, AISupport sup){
-        sup.rating = 10;
+        foreach (Tile t in GridManager.instance.GetRadiusTiles(sup.moveTile, unit.maxMoveAmount)){
+            if (t.occupiedUnit != null){
+                if (t.occupiedUnit.faction == UnitFaction.Hero){
+                    sup.rating -= 20;
+                }else{
+                    sup.rating += 20;
+                }
+            }
+        }
     }
 
 

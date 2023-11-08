@@ -132,6 +132,9 @@ public abstract class Tile : MonoBehaviour
         MoveUnitToTile(unit, true);
     }
     public void MoveUnitToTile(BaseUnit unit, bool turnOver){
+        if (unit == this.occupiedUnit){
+            return;
+        }
         if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
