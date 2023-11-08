@@ -2120,7 +2120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedUnit: {fileID: 0}
-  unitMoveSpeed: 0.5
+  unitMoveSpeed: 0.15
 --- !u!4 &560670129
 Transform:
   m_ObjectHideFlags: 0

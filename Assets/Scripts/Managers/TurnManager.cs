@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class TurnManager : MonoBehaviour
     public UnitFaction currentFaction;
     public List<BaseUnit> unitsAwaitingOrders;
     private BaseUnit previousUnit;
+    public int lethalBonus = 50;
+    public int turnNumber = 0;
     void Awake(){
         instance = this;
     }
@@ -21,6 +24,7 @@ public class TurnManager : MonoBehaviour
         }
     }
     public void BeginHeroTurn(){
+        turnNumber++;
         currentFaction = UnitFaction.Hero;
         MenuManager.instance.ShowStartText("Your turn!", false);
         UnitManager.instance.ResetUnitMovment();
@@ -46,19 +50,58 @@ public class TurnManager : MonoBehaviour
         StartCoroutine(MoveEnemies(UnitManager.instance.GetAllEnemies()));
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
-        foreach (BaseUnit unit in list){
-            if (unit.IsInjured()){
-                MoveInjuredEnemy(unit);
-            } else if (unit.IsAggroed() || unit.OpponentInRange()){
-                if (unit.OpponentInRange()){
-                    RateAttacks(unit);
-                    break;
+        Debug.Log("Moving enemies with AI");
+        BaseUnit unit = list[0];
+        Debug.Log(unit);
+        MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
+        MenuManager.instance.unitStatsMenu.SetUnit(unit);
+        GameManager.instance.PanCamera(unit.transform.position);
+        List<Tile> validMoves = UnitManager.instance.SetValidMoves(unit);
+        yield return new WaitForSeconds(0.8f);
+        if (unit.IsInjured()){
+            MoveInjuredEnemy(unit);
+        } else if (unit.IsAggroed() || unit.OpponentInRange()){
+            List<AIMove> moves = new();
+            if (unit.OpponentInRange()){
+                 moves = moves.Concat(RateAttacks(unit)).ToList();
+            }
+            if (unit.AlliesInRange()){
+                moves = moves.Concat(RateSupports(unit)).ToList();
+            }
+            AIMove currentMove = null;
+            Debug.Log(moves.Count);
+            foreach (AIMove move in moves){
+                if (currentMove == null){
+                    currentMove = move;
                 }
-                if (unit.AlliesInRange()){
-                    RateSupports(unit);
-                    break;
+                if (move.rating > currentMove.rating){
+                    currentMove = move;
                 }
             }
+            if (currentMove != null){
+                Debug.Log(currentMove.moveTile);
+                Debug.Log(currentMove.rating);
+                PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
+                yield return new WaitForSeconds(0.5f);
+                currentMove.moveTile.MoveUnitToTile(unit);
+                yield return new WaitForSeconds(1f);
+                if (currentMove is AIAttack){
+                    unit.Attack((currentMove as AIAttack).attackTile.occupiedUnit);
+                    while (MenuManager.instance.menuState == MenuState.Battle){
+                        yield return null;
+                    }                
+                }
+            }else{
+                Debug.Log("not moving!");
+            }
+        }
+        list.RemoveAt(0);
+        yield return new WaitForSeconds(0.5f);
+        UnitManager.instance.RemoveAllValidMoves();
+        if (list.Count > 0){
+            yield return MoveEnemies(list);
+        }else{
+            GameManager.instance.ChangeState(GameState.HeroesTurn);
         }
         yield return null;
     }
@@ -85,15 +128,54 @@ public class TurnManager : MonoBehaviour
             }
         }
         foreach (AIAttack atk in possibleAttacks){
-            RateAttack(atk);
+            RateAttack(unit, atk);
         }
+        Debug.Log("Possible attacks count: " + possibleAttacks.Count);
         return possibleAttacks;
     }
 
-    private void RateAttack(AIAttack atk){
-        atk.rating = 10;
+    private void RateAttack(BaseUnit unit, AIAttack atk){
+        if (atk.activeSkill != null){
+            RateActiveAttack(atk);
+        }
+        BattlePrediction prediction = new(unit, atk.attackTile.occupiedUnit);
+        BaseUnit defender = prediction.defender;
+        //if damage will be lethal
+        if (prediction.defHealth <= 0){
+            atk.rating += lethalBonus;
+        }else{
+            atk.rating += (defender.health - prediction.defHealth)/2;
+        }
+        //rating based on players remaining HP;
+        int playerHealthPoints = (20 - prediction.defHealth);
+        if (playerHealthPoints < 0){
+            playerHealthPoints = 0;
+        }
+        atk.rating += playerHealthPoints;
+    
+        //rating from turn count
+        atk.rating += turnNumber;
+
+        //TODO: add points based on alies in range;
+
+        //if the player unit can counterattack...
+        if (prediction.defenderCounterAttack){
+            if (prediction.atkHealth <= 0){
+                atk.rating -= lethalBonus;
+            }else{
+                atk.rating -= (unit.health - prediction.atkHealth)/2;
+            }
+        }else{
+            atk.rating += 15;
+        }
+
+        //rating based on AI's remaining HP;
+        atk.rating -= (unit.health - prediction.atkHealth)/2;
     }
 
+    private void RateActiveAttack(AIAttack atk){
+        atk.rating += 0;
+    }
     private List<AISupport> RateSupports(BaseUnit unit){
         List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
         List<BaseUnit> unitsInRandge = new();
@@ -112,12 +194,12 @@ public class TurnManager : MonoBehaviour
             }
         }
         foreach (AISupport sup in possibleSupports){
-            RateSupport(sup);
+            RateSupport(unit, sup);
         }
         return possibleSupports;
     }
 
-    private void RateSupport(AISupport sup){
+    private void RateSupport(BaseUnit unit, AISupport sup){
         sup.rating = 10;
     }
 

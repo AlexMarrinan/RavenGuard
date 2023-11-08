@@ -149,24 +149,26 @@ public class UnitManager : MonoBehaviour
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<Tile> path, bool turnOver){
         Debug.Log(path.Count);
-        Tile nextTile = path[0];
-        Vector3 nextPos = nextTile.transform.position;
-        float elapsedTime = 0;
-        while (unit.transform.position != nextPos){
-            unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        path.RemoveAt(0);
         if (path.Count > 0){
-            yield return AnimateUnitMove(unit, path, turnOver);
-        }else{
-            nextTile.occupiedUnit = unit;
-            unit.occupiedTile = nextTile;
-            if (turnOver){
-                unit.OnExhaustMovment();
+            Tile nextTile = path[0];
+            Vector3 nextPos = nextTile.transform.position;
+            float elapsedTime = 0;
+            while (unit.transform.position != nextPos){
+                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
-            yield return new WaitForSeconds(0.45f);
+            path.RemoveAt(0);
+            if (path.Count > 0){
+                yield return AnimateUnitMove(unit, path, turnOver);
+            }else{
+                nextTile.occupiedUnit = unit;
+                unit.occupiedTile = nextTile;
+                if (turnOver){
+                    unit.OnExhaustMovment();
+                }
+                yield return new WaitForSeconds(0.45f);
+            }
         }
     }
 

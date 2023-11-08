@@ -108,6 +108,9 @@ public class BaseUnit : MonoBehaviour
     public virtual void Heal(BaseUnit otherUnit){
         return;
     }
+    public int GetDamage(BaseUnit otherUnit){
+        return this.GetAttack().total - otherUnit.GetDefense().total;
+    }
     public void ReceiveDamage(BaseUnit otherUnit){
         int damage = otherUnit.GetAttack().total - this.GetDefense().total;
         if (damage <= 0){
@@ -302,10 +305,12 @@ public class BaseUnit : MonoBehaviour
     }
 
     public bool IsInjured(){
+        return false;
         return health <= maxHealth * 0.2;
     }
 
     public bool IsAggroed(){
+        return true;
         return isAggroed;
     }
     public void SetAggro(bool b){
