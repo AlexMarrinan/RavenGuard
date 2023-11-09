@@ -3537,8 +3537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e7208373f751d4d9d2d3143c302385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 25
-  height: 15
+  width: 12
+  height: 9
   tileSet: {fileID: 11400000, guid: 528ee551749d1d3479cb036ffe604345, type: 2}
   floorPrefab: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
   wallPrefab: {fileID: 1682275154842417547, guid: d258b296c79ea8c47b92c7a5ac33fad4, type: 3}
@@ -4083,7 +4083,7 @@ Transform:
   m_GameObject: {fileID: 1127351660}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -90.846, y: -136.454, z: 1.697082}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 426753145}
@@ -4131,7 +4131,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: d7791836a8b6f1f448efa69c0ae26ef3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.4745098}
+  m_Color: {r: 1, g: 0.7921569, b: 0.15686275, a: 0.4745098}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -4930,7 +4930,7 @@ Transform:
   m_GameObject: {fileID: 1374746464}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -91.44, y: -138.117, z: 1.697082}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 3.5, y: 3.5, z: 3.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 426753145}
@@ -4978,7 +4978,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 5
   m_Sprite: {fileID: 21300000, guid: d7791836a8b6f1f448efa69c0ae26ef3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.7915227, b: 0.15686274, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
