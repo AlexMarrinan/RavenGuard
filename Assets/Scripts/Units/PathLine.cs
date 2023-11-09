@@ -44,6 +44,9 @@ public class PathLine : MonoBehaviour
         return tiles.Contains(tile);
     }
     public Tile GetLastTile(){
+        if (tiles.Count == 0){
+            return null;
+        }
         return GetPathTile(tiles.Count() - 1);
     }
     public Tile GetPathTile(int index){

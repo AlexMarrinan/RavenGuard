@@ -66,6 +66,7 @@ public class TurnManager : MonoBehaviour
             if (unit.AlliesInRange()){
                 moves = moves.Concat(RateSupports(unit)).ToList();
             }
+            moves = moves.Concat(RateStandardMoves(unit)).ToList();
             List<AIMove> currentMoves = null;
             //Debug.Log(moves.Count);
             foreach (AIMove move in moves){
@@ -199,17 +200,73 @@ public class TurnManager : MonoBehaviour
     }
 
     private void RateSupport(BaseUnit unit, AISupport sup){
-        foreach (Tile t in GridManager.instance.GetRadiusTiles(sup.moveTile, unit.maxMoveAmount)){
-            if (t.occupiedUnit != null){
-                if (t.occupiedUnit.faction == UnitFaction.Hero){
-                    sup.rating -= 20;
-                }else{
-                    sup.rating += 20;
-                }
-            }
-        }
+        // foreach (Tile t in GridManager.instance.GetRadiusTiles(sup.moveTile, unit.maxMoveAmount)){
+        //     if (t.occupiedUnit != null){
+        //         if (t.occupiedUnit.faction == UnitFaction.Hero){
+        //             sup.rating -= 20;
+        //         }else{
+        //             sup.rating += 20;
+        //         }
+        //     }
+        // }
+        sup.rating = -100;
     }
 
+    private List<AISupport> RateStandardMoves(BaseUnit unit){
+        List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
+        List<AISupport> possibleMoves = new();
+        foreach (Tile tile in moves){
+            possibleMoves.Add(new(tile, tile));
+        }
+        foreach (AIMove move in possibleMoves){
+            RateMove(unit, move);
+        }
+        return possibleMoves;
+    }
+
+    private void RateMove(BaseUnit unit, AIMove move){
+        //moving points based on distance
+        move.rating += GridManager.instance.Distance(unit.occupiedTile, move.moveTile)*2;
+
+        //TODO: ADD DIFFERENT TILE TYPES TO USE DIFF POINTS !!!
+
+        var rangeTiles = UnitManager.instance.GetPotentialValidMoves(unit, move.moveTile);
+
+        //add points based on nearby allies
+        var allies = UnitManager.instance.GetAllEnemies();
+        foreach (BaseUnit ally in allies){
+            if (rangeTiles.Contains(ally.occupiedTile)){
+                int distance = GridManager.instance.Distance(ally.occupiedTile, move.moveTile);
+                int ratingChnage = 6 - (2*(distance-1));
+                if (ratingChnage < 0){
+                    ratingChnage = 0;
+                }
+                move.rating += ratingChnage;
+            }
+        }
+
+        //add points based on nearby oponents
+        var opps = UnitManager.instance.GetAllEnemies();
+        foreach (BaseUnit opp in opps){
+            if (rangeTiles.Contains(opp.occupiedTile)){
+                int distance = GridManager.instance.Distance(opp.occupiedTile, move.moveTile);
+                int ratingChnage = 6 - (2*(distance-1));
+                if (ratingChnage < 0){
+                    ratingChnage = 0;
+                }
+
+                //remove points based on distance of enemy
+                move.rating -= ratingChnage;
+
+                //remove points based on attack power of enemy
+                move.rating -= opp.GetAttack().total*2;
+            }
+        }
+
+        //TODO: 
+        //compare the closest player before the move to the closest player after the move
+
+    }
 
     IEnumerator MoveEnemiesOLD(List<BaseUnit> list){
         BaseUnit enemy = list[0];

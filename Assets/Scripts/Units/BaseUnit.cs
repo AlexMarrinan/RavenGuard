@@ -131,10 +131,12 @@ public class BaseUnit : MonoBehaviour
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
-        Tile adjTile = PathLine.instance.GetLastTile();
+        Tile lastTile = PathLine.instance.GetLastTile();
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
-        adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
+        if (lastTile != null){
+            lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
+        }
         //healthBar.RenderHealth();
     }
     public void MoveToTileAtDistance(int distance){
