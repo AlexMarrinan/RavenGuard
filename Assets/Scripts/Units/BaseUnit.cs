@@ -275,6 +275,7 @@ public class BaseUnit : MonoBehaviour
 
     public void UsePassiveSkills(PassiveSkillType type){
         var pSkills = GetPassiveSkills();
+        Debug.Log(type);
         foreach (PassiveSkill pSkill in pSkills){
             if (pSkill.passiveSkillType == type){
                 pSkill.OnUse(this);

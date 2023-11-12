@@ -51,6 +51,7 @@ public class SkillManager : MonoBehaviour
     //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.
     public void HunkerDownPS(BaseUnit u){
         //Called After Movment
+        Debug.Log("hunkering down...");
         var defStats = u.GetStatChange("HunkerDownDef");
         if (defStats == null){
             u.AddStatsChange("HunkerDownDef", UnitStatType.Defense, 0, 0, 6);
