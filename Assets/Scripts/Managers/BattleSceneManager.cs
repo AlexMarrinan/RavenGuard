@@ -33,16 +33,6 @@ public class BattleSceneManager : MonoBehaviour
         // rightBU.transform.position = new Vector3(0,0,0);
     }
 
-    // //TODO: Find better name
-    // public void StartBattleOld(){
-    //     Debug.Log("started battle old!");
-    //     MenuManager.instance.menuState = MenuState.Battle;
-    //     leftStartPos = leftBU.transform.position;
-    //     leftNewPos = leftStartPos;
-    //     rightStartPos = rightBU.transform.position;
-    //     rightNewPos = rightStartPos;
-    // }
-
     public void StartBattle(BaseUnit first, BaseUnit second){
         MenuManager.instance.menuState = MenuState.Battle;
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);

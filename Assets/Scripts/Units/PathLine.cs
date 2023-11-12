@@ -44,6 +44,9 @@ public class PathLine : MonoBehaviour
         return tiles.Contains(tile);
     }
     public Tile GetLastTile(){
+        if (tiles.Count == 0){
+            return null;
+        }
         return GetPathTile(tiles.Count() - 1);
     }
     public Tile GetPathTile(int index){
@@ -55,7 +58,6 @@ public class PathLine : MonoBehaviour
     public void RenderLine(Tile start, Tile end){
         //Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
         tiles = GridManager.instance.ShortestPathBetweenTiles(start, end, true);
-        // Debug.Log(tiles);
         Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
 
         for (int i  = 0; i < vectors.Count(); i++){

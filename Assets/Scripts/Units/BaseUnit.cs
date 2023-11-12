@@ -32,6 +32,7 @@ public class BaseUnit : MonoBehaviour
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
+    private bool isAggroed = false;
     void Start(){
         //RandomizeUnitClass();
         InitializeUnitClass();
@@ -107,6 +108,9 @@ public class BaseUnit : MonoBehaviour
     public virtual void Heal(BaseUnit otherUnit){
         return;
     }
+    public int GetDamage(BaseUnit otherUnit){
+        return this.GetAttack().total - otherUnit.GetDefense().total;
+    }
     public void ReceiveDamage(BaseUnit otherUnit){
         int damage = otherUnit.GetAttack().total - this.GetDefense().total;
         if (damage <= 0){
@@ -127,10 +131,12 @@ public class BaseUnit : MonoBehaviour
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
-        Tile adjTile = PathLine.instance.GetLastTile();
+        Tile lastTile = PathLine.instance.GetLastTile();
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
-        adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
+        if (lastTile != null){
+            lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
+        }
         //healthBar.RenderHealth();
     }
     public void MoveToTileAtDistance(int distance){
@@ -299,6 +305,53 @@ public class BaseUnit : MonoBehaviour
 
         //TODO: MAKE ACTUALLY REMOVE DEBUFFS !!!
         Debug.Log(this + " cleansed!");
+    }
+
+    public bool IsInjured(){
+        return false;
+        return health <= maxHealth * 0.2;
+    }
+
+    public bool IsAggroed(){
+        return true;
+        return isAggroed;
+    }
+    public void SetAggro(bool b){
+        isAggroed = b;
+    }
+
+    public UnitFaction GetOtherFaction(){
+        if (faction == UnitFaction.Hero){
+            return UnitFaction.Enemy;
+        }
+        return UnitFaction.Hero;
+
+    }
+    internal bool AlliesInRange() {
+        return UnitsInRange(faction);
+    }
+    internal bool OpponentInRange() {
+        return UnitsInRange(GetOtherFaction());
+    }
+
+    public bool UnitsInRange(UnitFaction f){
+        var tiles = GridManager.instance.GetRadiusTiles(this.occupiedTile, maxMoveAmount);
+        foreach (Tile t in tiles){
+            if (t.occupiedUnit != null && t.occupiedUnit.faction == f){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public bool UnitInRange(BaseUnit unitToFind){
+        var tiles = GridManager.instance.GetRadiusTiles(this.occupiedTile, maxMoveAmount);
+        foreach (Tile t in tiles){
+            if (t.occupiedUnit != null && t.occupiedUnit == unitToFind){
+                return true;
+            }
+        }
+        return false;
     }
 }
 

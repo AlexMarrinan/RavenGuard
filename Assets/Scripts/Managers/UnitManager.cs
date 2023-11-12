@@ -95,13 +95,29 @@ public class UnitManager : MonoBehaviour
         return GetAllUnitsOfFaction(UnitFaction.Enemy);
     }
     public List<Tile> SetValidMoves(BaseUnit unit){
+        var validMoves = GetValidMoves(unit);
+        validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
+        return validMoves;
+    }
+    public List<Tile> GetPotentialValidMoves(BaseUnit unit,Tile newTile){
+        int max = unit.MaxTileRange();
+        var visited = new Dictionary<Tile, int>();
+
+        //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
+        var next = newTile.GetAdjacentTiles();
+        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        var validMoves = visited.Keys.ToList();
+        return validMoves;
+    }
+    public List<Tile> GetValidMoves(BaseUnit unit){
         int max = unit.MaxTileRange();
         Tile tile = unit.occupiedTile;
         var visited = new Dictionary<Tile, int>();
+
+        //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = tile.GetAdjacentTiles();
         next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
-        validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
         return validMoves;
     }
 
@@ -142,24 +158,26 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<Tile> path, bool turnOver){
-        Tile nextTile = path[0];
-        Vector3 nextPos = nextTile.transform.position;
-        float elapsedTime = 0;
-        while (unit.transform.position != nextPos){
-            unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        path.RemoveAt(0);
         if (path.Count > 0){
-            yield return AnimateUnitMove(unit, path, turnOver);
-        }else{
-            nextTile.occupiedUnit = unit;
-            unit.occupiedTile = nextTile;
-            if (turnOver){
-                unit.OnExhaustMovment();
+            Tile nextTile = path[0];
+            Vector3 nextPos = nextTile.transform.position;
+            float elapsedTime = 0;
+            while (unit.transform.position != nextPos){
+                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
+                elapsedTime += Time.deltaTime;
+                yield return null;
             }
-            yield return new WaitForSeconds(0.45f);
+            path.RemoveAt(0);
+            if (path.Count > 0){
+                yield return AnimateUnitMove(unit, path, turnOver);
+            }else{
+                nextTile.occupiedUnit = unit;
+                unit.occupiedTile = nextTile;
+                if (turnOver){
+                    unit.OnExhaustMovment();
+                }
+                yield return new WaitForSeconds(0.45f);
+            }
         }
     }
 
