@@ -16,11 +16,11 @@ public class BattleSceneManager : MonoBehaviour
     private Vector3 leftNewPos;
     private Vector3 rightNewPos;
     public float hitMoveSpeed = 10f;
-    private BattleUnit attacker;
     private BaseUnit startingUnit;
     public CombatOrder combatOrder;
     public GameObject sceneBackground;
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
+    private BattlePrediction prediction;
     void Awake()
     {
         instance = this;
@@ -40,7 +40,7 @@ public class BattleSceneManager : MonoBehaviour
         MenuManager.instance.selectedObject.SetActive(false);
 
         UnitManager.instance.ShowUnitHealthbars(false);
-
+        
         sceneBackground.SetActive(true);
         leftBU.gameObject.SetActive(true);
         rightBU.gameObject.SetActive(true);
@@ -54,13 +54,23 @@ public class BattleSceneManager : MonoBehaviour
         rightBU.transform.position = rightStartPos;
         
         leftBU.SetUnit(first);
-        startingUnit = first;
         rightBU.SetUnit(second);
-        leftBU.Attack();
+        prediction = new BattlePrediction(first, second);
+        Debug.Log("Prediction counter: " + prediction.defenderCounterAttack);
+        Debug.Log("Prediction atk followup: " + prediction.attackerSecondAttack);
+        Debug.Log("Prediction def followup: " + prediction.defenderSecondAttack);
+        Debug.Log("Prediction swapped: " + prediction.swappedAttackers);
+        Debug.Log("Prediction Attacker: " + prediction.attacker.unitClass);
+        if (leftBU.assignedUnit == prediction.attacker){
+            Debug.Log("Left starting...");
+            leftBU.Attack();
+            startingUnit = first;
+        }else{
+            Debug.Log("Right starting...");
+            rightBU.Attack();
+            startingUnit = second;
+        }
         state = BattleSceneState.FirstAttack;
-    }
-    public void SetAttacker(BattleUnit unit){
-        attacker = unit;
     }
     public void DisplayUnits(){
 
@@ -132,23 +142,26 @@ public class BattleSceneManager : MonoBehaviour
     IEnumerator NextAttack(BattleUnit hitter, BattleUnit damaged){
         ResetBattleUnitsPos();
         yield return new WaitForSeconds(0.4f);
-        if (state == BattleSceneState.FirstAttack && ((hitter.assignedUnit is RangedUnit && damaged.assignedUnit is RangedUnit) || 
-            (hitter.assignedUnit is MeleeUnit && damaged.assignedUnit is MeleeUnit))){
-                state = BattleSceneState.CounterAttack;
-                damaged.Attack();
-                yield return null;
+        if (state == BattleSceneState.FirstAttack && prediction.defenderCounterAttack){
+            Debug.Log("counter attack!");
+            state = BattleSceneState.CounterAttack;
+            damaged.Attack();
+            yield return null;
         }
-        else if (state == BattleSceneState.FirstAttack && (hitter.assignedUnit.GetAgility().total >= damaged.assignedUnit.GetAgility().total + 5)) {
+        else if (state == BattleSceneState.FirstAttack && prediction.attackerSecondAttack){
+            Debug.Log("attacker second attack!");
             state = BattleSceneState.SecondAttack;
             hitter.Attack();
             yield return null;
         }
         else if (state == BattleSceneState.CounterAttack) {
-            if (damaged.assignedUnit.GetAgility().total >= hitter.assignedUnit.GetAgility().total + 5) {
+            if (prediction.attackerSecondAttack) {
+                Debug.Log("attacker second attack!");
                 state = BattleSceneState.SecondAttack;
                 damaged.Attack();
                 yield return null;
-            }else if (hitter.assignedUnit.GetAgility().total >= damaged.assignedUnit.GetAgility().total + 5) {
+            }else if (prediction.defenderSecondAttack) {
+                Debug.Log("defender second attack!");
                 state = BattleSceneState.SecondAttack;
                 hitter.Attack();
                 yield return null;

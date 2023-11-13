@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
-  m_Name: TurnaboutPS
+  m_Name: PatiencePS
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 0779ad3feec52124e97114bcbb12ef13, type: 3}
-  skillName: Turnabout
-  description: When unit is attacked and HP is below 65%, unit attacks first.
+  skillName: Patience
+  description: Unit cannot make a follow-up attack, foe cannot counterattack during
+    combat.  When attacked, unit cannot counterattack.
   unitClass: 0
   weaponClass: 0
   centered: 0
@@ -24,9 +25,30 @@ MonoBehaviour:
   passiveSkillType: 1
   atributes:
   - condition:
-      conditions: 0
-      comparator: 2
-      value: 0.65
+      variable: 15
+      comparator: 0
+      value: 0
     action:
-      type: 0
+      type: 2
+      value: 0
+  - condition:
+      variable: 15
+      comparator: 0
+      value: 0
+    action:
+      type: 4
+      value: 0
+  - condition:
+      variable: 15
+      comparator: 0
+      value: 0
+    action:
+      type: 3
+      value: 0
+  - condition:
+      variable: 14
+      comparator: 0
       value: 1
+    action:
+      type: 5
+      value: 0

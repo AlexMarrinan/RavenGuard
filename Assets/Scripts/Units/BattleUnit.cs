@@ -28,7 +28,6 @@ public class BattleUnit : MonoBehaviour
     }
     public void Attack(){
         attacked = true;
-        BattleSceneManager.instance.SetAttacker(this);
         SetAnimator();
         animator.Rebind();
         animator.speed = 1.0f;

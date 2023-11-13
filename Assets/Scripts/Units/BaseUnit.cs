@@ -270,6 +270,16 @@ public class BaseUnit : MonoBehaviour
         return pSkills;
     }
 
+
+    public List<CombatPassiveSkill> GetBattleSkills(){
+        List<CombatPassiveSkill> pSkills = new();
+        foreach (BaseSkill s in skills){
+            if (s is CombatPassiveSkill){
+                pSkills.Add(s as CombatPassiveSkill);
+            }
+        }
+        return pSkills;
+    }
     public void UseActiveSkill(ActiveSkillType type){
         var aSkills = GetActiveSkills();
         foreach (ActiveSkill aSkill in aSkills){
@@ -281,8 +291,10 @@ public class BaseUnit : MonoBehaviour
 
     public void UsePassiveSkills(PassiveSkillType type){
         var pSkills = GetPassiveSkills();
-        Debug.Log(type);
         foreach (PassiveSkill pSkill in pSkills){
+            if (pSkill is CombatPassiveSkill){
+                continue;
+            }
             if (pSkill.passiveSkillType == type){
                 pSkill.OnUse(this);
             }
@@ -352,6 +364,11 @@ public class BaseUnit : MonoBehaviour
             }
         }
         return false;
+    }
+
+    public void ReverseBuffs()
+    {
+        Debug.Log("reversed buffs");
     }
 }
 

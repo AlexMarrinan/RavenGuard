@@ -22,7 +22,7 @@ public class CombatPSAtribute
 [Serializable]
 public class CombatPSCondition
 {
-    public CombatPSVariable conditions;
+    public CombatPSVariable variable;
     public Comparator comparator;
     public float value;
 }
@@ -61,6 +61,8 @@ public enum CombatPSVariable {
     OppForesight,
     OppLuck,
 
+    AttackFirst,
+    
     AlwaysTrue,
     AlwaysFalse
 }

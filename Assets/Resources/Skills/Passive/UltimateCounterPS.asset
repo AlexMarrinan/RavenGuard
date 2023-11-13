@@ -21,8 +21,12 @@ MonoBehaviour:
   shape: 0
   range1: 1
   range2: 1
-  atribute:
-    condition:
-      conditions: 14
+  passiveSkillType: 0
+  atributes:
+  - condition:
+      variable: 15
       comparator: 0
       value: 0
+    action:
+      type: 2
+      value: 1

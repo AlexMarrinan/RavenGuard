@@ -145,15 +145,22 @@ public class TurnManager : MonoBehaviour
             RateActiveAttack(atk);
         }
         BattlePrediction prediction = new(unit, atk.attackTile.occupiedUnit);
-        BaseUnit defender = prediction.defender;
+        BaseUnit otherUnit = prediction.defender;
+        int otherUnitHP = prediction.defHealth;
+        int unitHP = prediction.atkHealth;
+        if (prediction.defender == unit){
+            otherUnit = prediction.attacker;
+            otherUnitHP = prediction.atkHealth;
+            unitHP = prediction.defHealth;
+        }
         //if damage will be lethal
         if (prediction.defHealth <= 0){
             atk.rating += lethalBonus;
         }else{
-            atk.rating += (defender.health - prediction.defHealth)/2;
+            atk.rating += (otherUnit.health - otherUnitHP)/2;
         }
         //rating based on players remaining HP;
-        int playerHealthPoints = 20 - prediction.defHealth;
+        int playerHealthPoints = 20 - otherUnitHP;
         if (playerHealthPoints < 0){
             playerHealthPoints = 0;
         }
@@ -165,16 +172,22 @@ public class TurnManager : MonoBehaviour
         //TODO: add points based on alies in range;
 
         //if the player unit can counterattack...
-        if (prediction.defenderCounterAttack){
+        if (prediction.defenderCounterAttack && prediction.defender == otherUnit){
             if (prediction.atkHealth <= 0){
                 atk.rating -= lethalBonus;
             }else{
                 atk.rating -= (unit.health - prediction.atkHealth)/2;
             }
+        }else if (prediction.defenderCounterAttack && prediction.defender == unit){
+            if (prediction.atkHealth <= 0){
+                atk.rating += lethalBonus;
+            }else{
+                atk.rating += (unit.health - prediction.atkHealth)/2;
+            }
         }
 
         //rating based on AI's remaining HP;
-        atk.rating -= (unit.health - prediction.atkHealth)/2;
+        atk.rating -= (unit.health - unitHP)/2;
         
         //remove points based on number of enemeies targeting
         foreach (BaseUnit hero in UnitManager.instance.GetAllHeroes()){
