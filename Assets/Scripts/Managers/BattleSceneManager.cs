@@ -86,6 +86,7 @@ public class BattleSceneManager : MonoBehaviour
         }
         return false;
     }
+
     public void OnHit(BattleUnit hitter){
         var damaged = leftBU;
         if (hitter == leftBU){
@@ -187,6 +188,9 @@ public class BattleSceneManager : MonoBehaviour
         OnBattlEnd();
     }
     private void OnBattlEnd(){
+        leftBU.assignedUnit.tempStatChanges = null;
+        rightBU.assignedUnit.tempStatChanges = null;
+
         MenuManager.instance.menuState = MenuState.None;
         if (startingUnit != null){
             //startingUnit.moveAmount = 0;

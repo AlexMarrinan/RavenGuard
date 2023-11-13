@@ -21,11 +21,15 @@ public class BattlePrediction
 
     public bool attackerSecondAttack = false;
     private bool attackerSAttackLocked = false;
+    List<UnitStatMultiplier> attackerStatChanges;
+    List<UnitStatMultiplier> defenderStatChanges;
+
 
     public BattlePrediction(BaseUnit start, BaseUnit def){
         this.attacker = start;
         this.defender = def;
-
+        attackerStatChanges = new();
+        defenderStatChanges = new();
         do {
             //attacker.UsePassiveSkills(PassiveSkillType.BeforeCombat);
             var atkBattleSkills = this.attacker.GetBattleSkills();
@@ -41,6 +45,8 @@ public class BattlePrediction
 
             Debug.Log(this.attacker.unitClass.ToString() + " " + this.defender.unitClass.ToString());
             if (tempAttacker == null || tempAttacker == attacker || swappedAttackers){
+                attacker.tempStatChanges = attackerStatChanges;
+                defender.tempStatChanges = defenderStatChanges;
                 break;
             }
             swappedAttackers = true;
@@ -52,13 +58,18 @@ public class BattlePrediction
             attackerSAttackLocked = false;
             defenderCAttackLocked = false;
             tempAttacker = null;
+            attackerStatChanges.Clear();
+            defenderStatChanges.Clear();
+
         }while (true);
 
         //var defBattleSkills = attacker.GetBattleSkills();
+        float attackMult = GetAttackMultiplier(attacker);
+        float defMult = GetAttackMultiplier(defender);
 
         attackerSecondAttack = !attackerSAttackLocked && (attacker.GetAgility().total >= defender.GetAgility().total + 5);
 
-        defHealth = defender.health - attacker.GetDamage(defender);
+        defHealth = defender.health - (int)((float)attacker.GetDamage(defender) * attackMult);
         if (defHealth <= 0){
             return;
         }
@@ -69,13 +80,13 @@ public class BattlePrediction
         defenderSecondAttack = !defenderSAttackLocked && (defender.GetAgility().total >= attacker.GetAgility().total + 5) && defenderCounterAttack;
 
         if (defenderCounterAttack){
-            atkHealth = attacker.health - defender.GetDamage(attacker);
+            atkHealth = attacker.health - (int)((float)attacker.GetDamage(defender) * attackMult);
             if (atkHealth <= 0){
                 return;
             }
         }
         if (attackerSecondAttack){
-            defHealth -= attacker.GetDamage(defender);
+            atkHealth -= (int)((float)attacker.GetDamage(defender) * attackMult);
             if (defHealth <= 0){
                 return;
             }
@@ -83,11 +94,25 @@ public class BattlePrediction
 
         //TODO: ADD BACK ONCE AI IS FIGURED OUT BETTER OHNO !!!
         else if (defenderSecondAttack){
-            atkHealth -= defender.GetDamage(attacker);
+            atkHealth -= (int)((float)defender.GetDamage(attacker) * defMult);
             if (atkHealth <= 0){
                 return;
             }
         }
+    }
+
+    public float GetAttackMultiplier(BaseUnit unit){
+        var list = attackerStatChanges;
+        float tmep = 1;
+        if (unit == defender){
+            list = defenderStatChanges;
+        }
+        foreach (var stat in list){
+            if (stat.statType == UnitStatType.Attack){
+                tmep *= stat.multiplier;
+            }
+        }
+        return tmep;
     }
 
     private void CheckBattleSkill(CombatPassiveSkill battleSkill, BaseUnit unit){
@@ -206,6 +231,23 @@ public class BattlePrediction
             case CombatPSActionType.OppReverseDebuffs:
                 otherUnit.ReverseBuffs();
                 break;
+            case CombatPSActionType.DamageMultiplier:
+                int damage = unit.GetAttack().total;
+                var stat = new UnitStatMultiplier(UnitStatType.Attack, 1.5f);
+                if (unit == attacker){
+                    attackerStatChanges.Add(stat);
+                }else{
+                    defenderStatChanges.Add(stat);
+                }
+                break;
+            case CombatPSActionType.OppDamageMultiplier:
+                stat = new UnitStatMultiplier(UnitStatType.Attack, 1.5f);
+                if (otherUnit == attacker){
+                    attackerStatChanges.Add(stat);
+                }else{
+                    defenderStatChanges.Add(stat);
+                }
+                break; 
         }
     }
 }

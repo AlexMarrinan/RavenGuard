@@ -33,6 +33,8 @@ public class BaseUnit : MonoBehaviour
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
     private bool isAggroed = false;
+    public List<UnitStatMultiplier> tempStatChanges;
+
     void Start(){
         //RandomizeUnitClass();
         InitializeUnitClass();
@@ -109,14 +111,21 @@ public class BaseUnit : MonoBehaviour
         return;
     }
     public int GetDamage(BaseUnit otherUnit){
-        return this.GetAttack().total - otherUnit.GetDefense().total;
+        int damage = otherUnit.GetAttack().total - otherUnit.GetDefense().total;
+        if (damage <= 0){
+            return 0;
+        }
+        if (tempStatChanges != null){
+            foreach (UnitStatMultiplier mult in tempStatChanges){
+                if (mult.statType == UnitStatType.Attack){
+                    damage = (int)((float)damage * mult.multiplier);
+                }
+            }
+        }
+        return damage;
     }
     public void ReceiveDamage(BaseUnit otherUnit){
-        int damage = otherUnit.GetAttack().total - this.GetDefense().total;
-        if (damage <= 0){
-            return;
-        }
-        health -= damage;
+        health -= otherUnit.GetDamage(this);;
     }
     public void ReceiveDamage(int damage){
         health -= damage;
