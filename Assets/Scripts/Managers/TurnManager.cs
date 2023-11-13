@@ -54,7 +54,7 @@ public class TurnManager : MonoBehaviour
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
         MenuManager.instance.unitStatsMenu.SetUnit(unit);
         GameManager.instance.PanCamera(unit.transform.position);
-        List<Tile> validMoves = UnitManager.instance.SetValidMoves(unit);
+        List<BaseTile> validMoves = UnitManager.instance.SetValidMoves(unit);
         yield return new WaitForSeconds(0.35f);
         if (unit.IsInjured()){
             MoveInjuredEnemy(unit);
@@ -117,7 +117,7 @@ public class TurnManager : MonoBehaviour
     }
 
     private List<AIAttack> RateAttacks(BaseUnit unit){
-        List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
+        List<BaseTile> moves = UnitManager.instance.GetValidMoves(unit);
         List<BaseUnit> unitsInRandge = new();
         foreach (BaseUnit opp in UnitManager.instance.GetAllHeroes()){
             if (moves.Contains(opp.occupiedTile)){
@@ -127,7 +127,7 @@ public class TurnManager : MonoBehaviour
 
         List<AIAttack> possibleAttacks = new();
         foreach (BaseUnit opp in unitsInRandge){
-            foreach (Tile adjTile in opp.occupiedTile.GetAdjacentTiles()){
+            foreach (BaseTile adjTile in opp.occupiedTile.GetAdjacentTiles()){
                 if (/*adjTile.moveType == TileMoveType.Move &&*/ moves.Contains(adjTile)){
                     possibleAttacks.Add(new(adjTile, opp.occupiedTile));
                 }
@@ -201,9 +201,9 @@ public class TurnManager : MonoBehaviour
         atk.rating += 0;
     }
     private List<AISupport> RateSupports(BaseUnit unit){
-        List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
+        List<BaseTile> moves = UnitManager.instance.GetValidMoves(unit);
         List<AISupport> possibleSupports = new();
-        foreach (Tile tile in moves){
+        foreach (BaseTile tile in moves){
             possibleSupports.Add(new(tile, tile));
         }
         foreach (AISupport sup in possibleSupports){
@@ -226,9 +226,9 @@ public class TurnManager : MonoBehaviour
     }
 
     private List<AISupport> RateStandardMoves(BaseUnit unit){
-        List<Tile> moves = UnitManager.instance.GetValidMoves(unit);
+        List<BaseTile> moves = UnitManager.instance.GetValidMoves(unit);
         List<AISupport> possibleMoves = new();
-        foreach (Tile tile in moves){
+        foreach (BaseTile tile in moves){
             possibleMoves.Add(new(tile, tile));
         }
         foreach (AIMove move in possibleMoves){
@@ -286,12 +286,12 @@ public class TurnManager : MonoBehaviour
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
         MenuManager.instance.unitStatsMenu.SetUnit(enemy);
         GameManager.instance.PanCamera(enemy.transform.position);
-        List<Tile> validMoves = UnitManager.instance.SetValidMoves(enemy);
+        List<BaseTile> validMoves = UnitManager.instance.SetValidMoves(enemy);
         yield return new WaitForSeconds(0.8f);
         //yield return MoveWithAnimation(unit);
         BaseUnit heroToAttack = null;
-        Tile final = null;
-        foreach (Tile t in validMoves){
+        BaseTile final = null;
+        foreach (BaseTile t in validMoves){
             if (t.occupiedUnit != null && t.occupiedUnit.faction == UnitFaction.Hero){
                 var adjTiles = GridManager.instance.GetAdjacentTiles(t.coordiantes);
                 if (adjTiles.Contains(enemy.occupiedTile)){
@@ -299,7 +299,7 @@ public class TurnManager : MonoBehaviour
                     heroToAttack = t.occupiedUnit;
                     break;
                 }
-                foreach (Tile t2 in adjTiles){
+                foreach (BaseTile t2 in adjTiles){
                     if (validMoves.Contains(t2) && t2.occupiedUnit == null){
                         final = t2;
                         heroToAttack = t.occupiedUnit;
@@ -384,19 +384,19 @@ public class TurnManager : MonoBehaviour
 
 internal class AIMove {
     public int rating;
-    public Tile moveTile;
+    public BaseTile moveTile;
 }
 internal class AIAttack : AIMove{
-    public Tile attackTile;
+    public BaseTile attackTile;
     public ActiveSkill activeSkill;
 
-    public AIAttack (Tile moveTile, Tile attackTile){
+    public AIAttack (BaseTile moveTile, BaseTile attackTile){
         rating = 0;
         this.moveTile = moveTile;
         this.attackTile = attackTile;
         this.activeSkill = null;
     }
-    public AIAttack (Tile moveTile, Tile attackTile, ActiveSkill activeSkill){
+    public AIAttack (BaseTile moveTile, BaseTile attackTile, ActiveSkill activeSkill){
         rating = 0;
         this.moveTile = moveTile;
         this.attackTile = attackTile;
@@ -405,16 +405,16 @@ internal class AIAttack : AIMove{
 }
 
 internal class AISupport : AIMove{
-    public Tile supporTile;
+    public BaseTile supporTile;
     public ActiveSkill activeSkill;
 
-    public AISupport (Tile moveTile, Tile attackTile){
+    public AISupport (BaseTile moveTile, BaseTile attackTile){
         rating = 0;
         this.moveTile = moveTile;
         this.supporTile = attackTile;
         this.activeSkill = null;
     }
-    public AISupport (Tile moveTile, Tile attackTile, ActiveSkill activeSkill){
+    public AISupport (BaseTile moveTile, BaseTile attackTile, ActiveSkill activeSkill){
         rating = 0;
         this.moveTile = moveTile;
         this.supporTile = attackTile;

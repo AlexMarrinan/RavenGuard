@@ -7,7 +7,7 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 
-public abstract class Tile : MonoBehaviour
+public abstract class BaseTile : MonoBehaviour
 {
     [SerializeField] protected SpriteRenderer renderer; 
     [SerializeField] private GameObject validMoveHighlight;
@@ -20,7 +20,7 @@ public abstract class Tile : MonoBehaviour
     public bool walkable => (occupiedUnit == null && isWalkable) || (occupiedUnit != null && occupiedUnit.faction == OtherFaction());
     public TileMoveType moveType = TileMoveType.NotValid;
     public int depth = 0;
-    public List<Tile> validPath;
+    public List<BaseTile> validPath;
     public TMP_Text depthText;
     public Vector2 coordiantes;
     private void FixedUpdate(){
@@ -146,7 +146,7 @@ public abstract class Tile : MonoBehaviour
         Debug.Log(path);
         StartCoroutine(UnitManager.instance.AnimateUnitMove(unit, path, turnOver));
     }
-    public void SetPossibleMove(bool valid, Tile startPos){
+    public void SetPossibleMove(bool valid, BaseTile startPos){
         validMoveHighlight.SetActive(valid);
         if (valid){
             //determine if attack or move
@@ -172,8 +172,8 @@ public abstract class Tile : MonoBehaviour
             validPath = GetPathFrom(startPos);
         }
     }
-    public List<Tile> GetPathFrom(Tile startPos){
-        List<Tile> path = new List<Tile>();
+    public List<BaseTile> GetPathFrom(BaseTile startPos){
+        List<BaseTile> path = new List<BaseTile>();
         var startCoordiantes = startPos.coordiantes;
         int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
         int y = (int)Mathf.Abs(startCoordiantes.y - coordiantes.y);
@@ -189,8 +189,8 @@ public abstract class Tile : MonoBehaviour
         //TOOD: actually make the path for drawing the line
         return path;
     }
-     public int GetPathLengthFrom(Tile startPos){
-        List<Tile> path = new List<Tile>();
+     public int GetPathLengthFrom(BaseTile startPos){
+        List<BaseTile> path = new List<BaseTile>();
         var startCoordiantes = startPos.coordiantes;
         int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
         int y = (int)Mathf.Abs(startCoordiantes.y - coordiantes.y);
@@ -201,7 +201,7 @@ public abstract class Tile : MonoBehaviour
         //TOOD: actually make the path for drawing the line
         return depth;
     }
-    public List<Tile> GetAdjacentTiles(){
+    public List<BaseTile> GetAdjacentTiles(){
         int left = (int)coordiantes.x - 1;
         int right = (int)coordiantes.x + 1;
         int up = (int)coordiantes.y - 1;
@@ -213,7 +213,7 @@ public abstract class Tile : MonoBehaviour
         Vector2 d = new Vector2(coordiantes.x, down);
         
         Vector2[] array = {l, r, u, d};
-        List<Tile> newTiles = new List<Tile>();
+        List<BaseTile> newTiles = new List<BaseTile>();
         for (int i = 0; i < 4; i++){
             newTiles.Add(GridManager.instance.GetTileAtPosition(array[i]));
         }

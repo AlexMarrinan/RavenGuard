@@ -23,7 +23,7 @@ public class MeleeUnit : BaseUnit
         return base.moveAmount;
     }
 
-    public override TileMoveType GetMoveTypeAt(Tile otherTile)
+    public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
     {
         if (otherTile.occupiedUnit != null && otherTile.occupiedUnit.faction != TurnManager.instance.currentFaction){
             return TileMoveType.Attack;

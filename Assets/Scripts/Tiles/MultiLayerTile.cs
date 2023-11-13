@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiLayerTile : Tile
+public class MultiLayerTile : BaseTile
 {
     [SerializeField] protected SpriteRenderer backgroundRenderer;
     [SerializeField] private Color baseColor, offsetColor;

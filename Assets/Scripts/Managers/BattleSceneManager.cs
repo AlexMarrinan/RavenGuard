@@ -36,6 +36,8 @@ public class BattleSceneManager : MonoBehaviour
     public void StartBattle(BaseUnit first, BaseUnit second){
         MenuManager.instance.menuState = MenuState.Battle;
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+        MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
+
         MenuManager.instance.highlightObject.SetActive(false);
         MenuManager.instance.selectedObject.SetActive(false);
 

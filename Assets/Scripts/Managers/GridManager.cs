@@ -15,9 +15,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private WallTile wallPrefab;
 
     [SerializeField] private Transform cam;
-    private Dictionary<Vector2, Tile> tiles;
+    private Dictionary<Vector2, BaseTile> tiles;
     private float[,] noiseMap;
-    public Tile hoveredTile;
+    public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
 
     void Awake(){
@@ -31,7 +31,7 @@ public class GridManager : MonoBehaviour
     }
     //Generates a grid of width x height of the tilePrefab
     public void GenerateGrid(){
-        tiles = new Dictionary<Vector2, Tile>();
+        tiles = new Dictionary<Vector2, BaseTile>();
         this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
 
         var startX = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-width);
@@ -44,7 +44,7 @@ public class GridManager : MonoBehaviour
                 // float actualY = (float)(y * scale);
 
                 //TODO: GET ANY FLOOR/WALL
-                Tile randomTile = floorPrefab;
+                BaseTile randomTile = floorPrefab;
                 randomTile.SetSprite(tileSet.GetRandomFloor());
 
                 if (noiseMap[x+startX, y+startY] > 0.6f){
@@ -76,7 +76,7 @@ public class GridManager : MonoBehaviour
             }
         }
 
-        foreach (Tile t in tiles.Values){
+        foreach (BaseTile t in tiles.Values){
             if (t is FloorTile){
                 SetFloorTileSprite(t as FloorTile);
             }else if (t is WallTile){
@@ -243,20 +243,20 @@ public class GridManager : MonoBehaviour
     //     }
     //     return 0;
     // }
-    public Tile GetTileAtPosition(Vector2 pos){
+    public BaseTile GetTileAtPosition(Vector2 pos){
         if (tiles.TryGetValue(pos, out var tile)){
             return tile;
         }
         return null;
     }
-    public Tile GetTileAtPosition(int x, int y){
+    public BaseTile GetTileAtPosition(int x, int y){
         return GetTileAtPosition(new Vector2(x, y));
     }
 
-    public Tile GetAdjacentValidTile(Vector2 startPos, Vector2 endPos){
-        List<Tile> tiles = GetAdjacentTiles(endPos);
-        Tile bestTile = null;
-        foreach (Tile t in tiles){
+    public BaseTile GetAdjacentValidTile(Vector2 startPos, Vector2 endPos){
+        List<BaseTile> tiles = GetAdjacentTiles(endPos);
+        BaseTile bestTile = null;
+        foreach (BaseTile t in tiles){
             if (t.moveType != TileMoveType.NotValid){
                 bestTile = t;
             }
@@ -267,11 +267,11 @@ public class GridManager : MonoBehaviour
         return bestTile;
     }
 
-    public List<Tile> GetAdjacentTiles(UnityEngine.Vector2 pos){
+    public List<BaseTile> GetAdjacentTiles(UnityEngine.Vector2 pos){
         return GetAdjacentTiles((int)pos.x, (int)pos.y);
     }
-    public List<Tile> GetAdjacentTiles(int x, int y){
-        List<Tile> tiles = new List<Tile>();
+    public List<BaseTile> GetAdjacentTiles(int x, int y){
+        List<BaseTile> tiles = new List<BaseTile>();
         GetAdjecentTile(x, y, 1, 0, tiles);
         GetAdjecentTile(x, y, -1, 0, tiles);
         GetAdjecentTile(x, y, 0, 1, tiles);
@@ -279,7 +279,7 @@ public class GridManager : MonoBehaviour
         return tiles;
     }
 
-    private Tile GetAdjecentTile(int x, int y, int xOff, int yOff, List<Tile> tiles=null){
+    private BaseTile GetAdjecentTile(int x, int y, int xOff, int yOff, List<BaseTile> tiles=null){
         var t = GetTileAtPosition(x+xOff, y+yOff);
         if (tiles != null && t != null){
             tiles.Add(t);
@@ -287,19 +287,19 @@ public class GridManager : MonoBehaviour
         return t;
     }
     
-    public Tile GetHeroSpawnTile(){
+    public BaseTile GetHeroSpawnTile(){
         return tiles.Where(t => t.Key.x < width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
     }
 
-    public Tile GetEnemySpawnTile(){
+    public BaseTile GetEnemySpawnTile(){
         return tiles.Where(t => t.Key.x > width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
     }
-    public List<Tile> GetAllTiles(){
+    public List<BaseTile> GetAllTiles(){
         return tiles.Values.ToList();
     }
     
 
-    public void SetHoveredTile(Tile newTile){
+    public void SetHoveredTile(BaseTile newTile){
         hoveredTile = newTile;
         hoveredTile.OnHover();
     }
@@ -314,7 +314,7 @@ public class GridManager : MonoBehaviour
         }
         MoveHoveredTile(newTile);
     }
-    public void MoveHoveredTile(Tile newTile){
+    public void MoveHoveredTile(BaseTile newTile){
         
         BaseUnit sUnit = UnitManager.instance.selectedUnit;
         //if a unit is selected, dont move to tiles that arent valid moves
@@ -342,8 +342,8 @@ public class GridManager : MonoBehaviour
         hoveredTile.OnSelectTile();
     }
 
-    public List<Tile> GetRectangleTiles(Tile t, int maxX, int maxY){
-        List<Tile> validTiles = new List<Tile>();
+    public List<BaseTile> GetRectangleTiles(BaseTile t, int maxX, int maxY){
+        List<BaseTile> validTiles = new List<BaseTile>();
         Vector2 start = t.coordiantes;
         Vector2 direction = new (SkillManager.instance.useDirection.x, SkillManager.instance.useDirection.y);
         if (SkillManager.instance.useDirection == Vector2.up || SkillManager.instance.useDirection == Vector2.down){
@@ -363,7 +363,7 @@ public class GridManager : MonoBehaviour
                 //     break;
                 // }
                 for (int y = 0; y < maxY; y++){
-                    Tile tile = GetTileAtPosition(topLeft + new Vector2(x, y));
+                    BaseTile tile = GetTileAtPosition(topLeft + new Vector2(x, y));
                     if (tile == null){
                         continue;
                     }
@@ -379,8 +379,8 @@ public class GridManager : MonoBehaviour
         Debug.Log(validTiles.Count);
         return validTiles;
     }
-    public List<Tile> GetRadiusTiles(Tile t, int maxDepth){
-        var visited = new Dictionary<Tile, int>();
+    public List<BaseTile> GetRadiusTiles(BaseTile t, int maxDepth){
+        var visited = new Dictionary<BaseTile, int>();
         visited[t] = 0;
         var next = t.GetAdjacentTiles();
         next.ForEach(t => GetRadiusTilesHelper(1, maxDepth, t, visited, t));
@@ -388,7 +388,7 @@ public class GridManager : MonoBehaviour
         return validMoves;
     }
 
-    private void GetRadiusTilesHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile){
+    private void GetRadiusTilesHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile){
         if (depth >= max ){
             return;
         }
@@ -408,7 +408,7 @@ public class GridManager : MonoBehaviour
         next.ForEach(t => GetRadiusTilesHelper(depth + 1, max, t, visited, startTile));
         return;
     }
-    public int Distance(Tile t1, Tile t2){
+    public int Distance(BaseTile t1, BaseTile t2){
         return Distance(t1.coordiantes, t2.coordiantes);
     }
     public int Distance(Vector2 v1, Vector2 v2){
@@ -433,19 +433,19 @@ public class GridManager : MonoBehaviour
     return noiseMap;
   }
 
-  public List<Tile> ShortestPathBetweenTiles(Tile start, Tile end, bool withPathLine){
+  public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine){
     if (start == end){
-        return new List<Tile>{start};
+        return new List<BaseTile>{start};
     }
-    List<Tile> visited = new();
-    Queue<Tile> toVisit = new();
-    Dictionary<Tile, Tile> previousTiles = new();
-    Tile current = start;
+    List<BaseTile> visited = new();
+    Queue<BaseTile> toVisit = new();
+    Dictionary<BaseTile, BaseTile> previousTiles = new();
+    BaseTile current = start;
     previousTiles.Add(current, null);
     do {
         var adjTiles = current.GetAdjacentTiles();
 //        Debug.Log(adjTiles.Count);
-        foreach (Tile tile in adjTiles){
+        foreach (BaseTile tile in adjTiles){
             if (tile == null){
                 continue;
             }
@@ -469,7 +469,7 @@ public class GridManager : MonoBehaviour
             current = toVisit.Dequeue();
         }
         if (current == end || toVisit.Count == 0){
-            List<Tile> finalTiles = new();
+            List<BaseTile> finalTiles = new();
             var finalCurr = current;
             while (finalCurr != null){
                 if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){

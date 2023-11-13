@@ -8,7 +8,7 @@ public class SkillManager : MonoBehaviour
     public Vector2 useDirection = Vector2.right;
     public static SkillManager instance;
     public bool selectingSkill = false;
-    public List<Tile> currentTiles;
+    public List<BaseTile> currentTiles;
     public BaseUnit user;
     public BaseSkill currentSkill;
     public void Awake(){
@@ -18,11 +18,11 @@ public class SkillManager : MonoBehaviour
     public void ShowSkillPreview(){
         UnitManager.instance.RemoveAllValidMoves();
         selectingSkill = true;
-        foreach (Tile t in currentTiles){
+        foreach (BaseTile t in currentTiles){
             t.SetPossibleMove(false, user.occupiedTile);
         }
         currentTiles = currentSkill.GetAffectedTiles(user);
-        foreach (Tile t in currentTiles){
+        foreach (BaseTile t in currentTiles){
             t.SetPossibleMove(true, user.occupiedTile);
         }
     }
@@ -32,7 +32,7 @@ public class SkillManager : MonoBehaviour
         int damage = 3;
         Debug.Log("Used Earthquake...");
         var tiles = SkillManager.instance.currentTiles;
-        foreach (Tile tile in tiles){
+        foreach (BaseTile tile in tiles){
             BaseUnit unit = tile.occupiedUnit;
             if (unit != null && unit.faction == UnitFaction.Enemy){
                 unit.ReceiveDamage(damage);
@@ -99,7 +99,7 @@ public class SkillManager : MonoBehaviour
     internal void OnSkilEnd()
     {
         selectingSkill = false;
-        currentTiles = new List<Tile>();
+        currentTiles = new List<BaseTile>();
         UnitManager.instance.UnselectUnit();
     }
 }

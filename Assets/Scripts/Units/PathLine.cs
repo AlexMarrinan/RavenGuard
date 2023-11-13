@@ -7,7 +7,7 @@ using System;
 public class PathLine : MonoBehaviour
 {
     private LineRenderer line;
-    private List<Tile> tiles = new List<Tile>();
+    private List<BaseTile> tiles = new List<BaseTile>();
     public float lineWidth;
 
     public static PathLine instance;
@@ -18,17 +18,17 @@ public class PathLine : MonoBehaviour
         line.SetWidth(lineWidth, lineWidth);
     }
 
-    public List<Tile> GetPath(){
+    public List<BaseTile> GetPath(){
         return tiles;
     }
-    public void AddTile(Tile tile){
+    public void AddTile(BaseTile tile){
         if (tile.moveType != TileMoveType.Move && tile != UnitManager.instance.selectedUnit.occupiedTile){
             return;
         }
         tiles.Add(tile); 
     }
 
-    public void RemoveTile(Tile tile){
+    public void RemoveTile(BaseTile tile){
         int index = tiles.IndexOf(tile)+1;
         tiles.RemoveRange(index, tiles.Count() - index);
     }
@@ -40,22 +40,22 @@ public class PathLine : MonoBehaviour
 
     }
 
-    public bool IsOnPath(Tile tile){
+    public bool IsOnPath(BaseTile tile){
         return tiles.Contains(tile);
     }
-    public Tile GetLastTile(){
+    public BaseTile GetLastTile(){
         if (tiles.Count == 0){
             return null;
         }
         return GetPathTile(tiles.Count() - 1);
     }
-    public Tile GetPathTile(int index){
+    public BaseTile GetPathTile(int index){
         Debug.Log(index);
         Debug.Log(tiles.Count);
         return tiles[index];
     }
     //TODO: MAKE IT CHANGE TO THE ACTUAL PATH OF HOVERED TILE, NOT JUST THE DIRECTION THE PLAYER MOVED IT !!!
-    public void RenderLine(Tile start, Tile end){
+    public void RenderLine(BaseTile start, BaseTile end){
         //Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
         tiles = GridManager.instance.ShortestPathBetweenTiles(start, end, true);
         Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();

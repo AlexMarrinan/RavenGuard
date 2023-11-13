@@ -25,7 +25,7 @@ public class BaseSkill : BaseItem {
     public virtual void SetMethod(){
 
     }
-    public List<Tile> GetAffectedTiles(BaseUnit user){
+    public List<BaseTile> GetAffectedTiles(BaseUnit user){
         switch (shape){
             case SkillShape.Radius:
                 return GetRadiusTiles(user);
@@ -37,27 +37,27 @@ public class BaseSkill : BaseItem {
         return null;
     }
 
-    private List<Tile> GetRadiusTiles(BaseUnit user)
+    private List<BaseTile> GetRadiusTiles(BaseUnit user)
     {   
         //range 1 is radius
         //range 2 is distance away from unit, if not centered
-        Tile t = user.occupiedTile;
+        BaseTile t = user.occupiedTile;
         if (centered){
             Debug.Log("centered!");
             return GridManager.instance.GetRadiusTiles(t, range1);
         }
-        Tile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + range2*SkillManager.instance.useDirection);
+        BaseTile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + range2*SkillManager.instance.useDirection);
         return GridManager.instance.GetRadiusTiles(newT, range1);
     }
-    private List<Tile> GetRectangleTiles(BaseUnit user)
+    private List<BaseTile> GetRectangleTiles(BaseUnit user)
     {
-        Tile t = user.occupiedTile;
+        BaseTile t = user.occupiedTile;
         if (centered){
             Debug.Log("centered!");
             return GridManager.instance.GetRectangleTiles(t, range1, range2);
         }
-        Tile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + SkillManager.instance.useDirection);
-        List<Tile> potentialTiles = GridManager.instance.GetRectangleTiles(newT, range1, range2);
+        BaseTile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + SkillManager.instance.useDirection);
+        List<BaseTile> potentialTiles = GridManager.instance.GetRectangleTiles(newT, range1, range2);
         while (potentialTiles.Contains(user.occupiedTile)){
             newT = GridManager.instance.GetTileAtPosition(newT.coordiantes + SkillManager.instance.useDirection);
             potentialTiles = GridManager.instance.GetRectangleTiles(newT, range1, range2);
@@ -65,7 +65,7 @@ public class BaseSkill : BaseItem {
         return potentialTiles;
     }
 
-    private List<Tile> GetConeTiles(BaseUnit user)
+    private List<BaseTile> GetConeTiles(BaseUnit user)
     {
         return null;
     }

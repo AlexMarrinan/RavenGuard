@@ -6,7 +6,7 @@ using UnityEngine;
 public class BaseUnit : MonoBehaviour
 {
     public string unitName;
-    public Tile occupiedTile;
+    public BaseTile occupiedTile;
     public UnitFaction faction;
     public UnitClass unitClass;
     private ArmorType armorType;
@@ -131,7 +131,7 @@ public class BaseUnit : MonoBehaviour
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
-        Tile lastTile = PathLine.instance.GetLastTile();
+        BaseTile lastTile = PathLine.instance.GetLastTile();
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
         if (lastTile != null){
@@ -140,7 +140,7 @@ public class BaseUnit : MonoBehaviour
         //healthBar.RenderHealth();
     }
     public void MoveToTileAtDistance(int distance){
-        Tile adjTile = PathLine.instance.GetPathTile(distance);
+        BaseTile adjTile = PathLine.instance.GetPathTile(distance);
         adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit);
         //healthBar.RenderHealth();
     }
@@ -156,7 +156,7 @@ public class BaseUnit : MonoBehaviour
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
     }
-    public virtual TileMoveType GetMoveTypeAt(Tile otherTile){
+    public virtual TileMoveType GetMoveTypeAt(BaseTile otherTile){
         return TileMoveType.NotValid;
     }  
 
@@ -306,7 +306,7 @@ public class BaseUnit : MonoBehaviour
     public List<BaseUnit> GetAdjacentUnitsOfFaction(UnitFaction faction){
         var tiles = GridManager.instance.GetAdjacentTiles(this.occupiedTile.coordiantes);
         List<BaseUnit> adjUnits = new();
-        foreach (Tile tile in tiles){
+        foreach (BaseTile tile in tiles){
             if (tile != null && tile.occupiedUnit != null && (tile.occupiedUnit.faction == faction || faction == UnitFaction.Both)){
                 adjUnits.Add(tile.occupiedUnit);
             }
@@ -348,7 +348,7 @@ public class BaseUnit : MonoBehaviour
 
     public bool UnitsInRange(UnitFaction f){
         var tiles = GridManager.instance.GetRadiusTiles(this.occupiedTile, maxMoveAmount);
-        foreach (Tile t in tiles){
+        foreach (BaseTile t in tiles){
             if (t.occupiedUnit != null && t.occupiedUnit.faction == f){
                 return true;
             }
@@ -358,7 +358,7 @@ public class BaseUnit : MonoBehaviour
 
     public bool UnitInRange(BaseUnit unitToFind){
         var tiles = GridManager.instance.GetRadiusTiles(this.occupiedTile, maxMoveAmount);
-        foreach (Tile t in tiles){
+        foreach (BaseTile t in tiles){
             if (t.occupiedUnit != null && t.occupiedUnit == unitToFind){
                 return true;
             }

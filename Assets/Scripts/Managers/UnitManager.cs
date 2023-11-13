@@ -78,6 +78,12 @@ public class UnitManager : MonoBehaviour
         MenuManager.instance.UnselectTile();
         selectedUnit = null;
         PathLine.instance.Reset();
+        MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
+        if (GridManager.instance.hoveredTile.occupiedUnit == null){
+            MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+        }else{
+            MenuManager.instance.unitStatsMenu.SetUnit(GridManager.instance.hoveredTile.occupiedUnit);
+        }
         RemoveAllValidMoves();
     }
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
@@ -94,14 +100,14 @@ public class UnitManager : MonoBehaviour
     public List<BaseUnit> GetAllEnemies(){
         return GetAllUnitsOfFaction(UnitFaction.Enemy);
     }
-    public List<Tile> SetValidMoves(BaseUnit unit){
+    public List<BaseTile> SetValidMoves(BaseUnit unit){
         var validMoves = GetValidMoves(unit);
         validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
         return validMoves;
     }
-    public List<Tile> GetPotentialValidMoves(BaseUnit unit,Tile newTile){
+    public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){
         int max = unit.MaxTileRange();
-        var visited = new Dictionary<Tile, int>();
+        var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = newTile.GetAdjacentTiles();
@@ -109,10 +115,10 @@ public class UnitManager : MonoBehaviour
         var validMoves = visited.Keys.ToList();
         return validMoves;
     }
-    public List<Tile> GetValidMoves(BaseUnit unit){
+    public List<BaseTile> GetValidMoves(BaseUnit unit){
         int max = unit.MaxTileRange();
-        Tile tile = unit.occupiedTile;
-        var visited = new Dictionary<Tile, int>();
+        BaseTile tile = unit.occupiedTile;
+        var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = tile.GetAdjacentTiles();
@@ -121,7 +127,7 @@ public class UnitManager : MonoBehaviour
         return validMoves;
     }
 
-    private void SVMHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile, BaseUnit startUnit){
+    private void SVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
         if (depth >= max ){
             return;
         }
@@ -157,9 +163,9 @@ public class UnitManager : MonoBehaviour
             u.healthBar.gameObject.SetActive(show);
         }
     }
-    public IEnumerator AnimateUnitMove(BaseUnit unit, List<Tile> path, bool turnOver){
+    public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool turnOver){
         if (path.Count > 0){
-            Tile nextTile = path[0];
+            BaseTile nextTile = path[0];
             Vector3 nextPos = nextTile.transform.position;
             float elapsedTime = 0;
             while (unit.transform.position != nextPos){
