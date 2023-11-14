@@ -369,9 +369,7 @@ public class BaseUnit : MonoBehaviour
         return adjUnits;
     }
     public void Cleanse(){
-
-        //TODO: MAKE ACTUALLY REMOVE DEBUFFS !!!
-//        Debug.Log(this + " cleansed!");
+        buffs.RemoveAll(b => !b.positive);
     }
 
     public bool IsInjured(){

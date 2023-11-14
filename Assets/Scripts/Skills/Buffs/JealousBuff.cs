@@ -7,6 +7,7 @@ using UnityEngine;
 public class JelousBuff : Buff{
     public JelousBuff(BaseUnit applier, BaseUnit appliedTo) : base(applier, appliedTo)
     {
+        this.positive = false;
         this.buffType = BuffType.OnApply;
     }
 

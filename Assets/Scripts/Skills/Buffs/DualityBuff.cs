@@ -7,6 +7,7 @@ using UnityEngine;
 public class DualityBuff : Buff{
     public DualityBuff(BaseUnit applier, BaseUnit appliedTo) : base(applier, appliedTo)
     {
+        this.positive = true;
         this.buffType = BuffType.OnApply;
     }
 

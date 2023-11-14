@@ -8,6 +8,7 @@ public class CrippledBuff : Buff{
     public int amount;
     public CrippledBuff(BaseUnit applier, BaseUnit appliedTo, int amount=2) : base(applier, appliedTo)
     {
+        this.positive = false;
         this.buffType = BuffType.OnApply;
         this.amount = amount;
         cooldown = 2;

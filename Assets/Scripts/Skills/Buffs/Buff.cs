@@ -9,6 +9,7 @@ public class Buff {
     public BuffType buffType;
     public BaseUnit applier;
     public BaseUnit appliedTo;
+    public bool positive;
     public Buff(BaseUnit applier, BaseUnit appliedTo){
         this.applier = applier;
         this.appliedTo = appliedTo;

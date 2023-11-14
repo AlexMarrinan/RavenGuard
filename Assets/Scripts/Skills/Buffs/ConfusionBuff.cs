@@ -7,6 +7,7 @@ using UnityEngine;
 public class ConfusionBuff : Buff{
     public ConfusionBuff(BaseUnit applier, BaseUnit appliedTo) : base(applier, appliedTo)
     {
+        this.positive = false;
         this.buffType = BuffType.OnApply;
     }
 

@@ -8,6 +8,7 @@ public class PoisonBuff : Buff{
 
     public PoisonBuff(BaseUnit applier, BaseUnit appliedTo) : base(applier, appliedTo) {
         this.cooldown = 2;
+        this.positive = false;
         this.buffType = BuffType.OnTurn;
     }
     public override void ApplyEffect(){
