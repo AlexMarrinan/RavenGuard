@@ -35,8 +35,11 @@ public class BaseUnit : MonoBehaviour
     private bool isAggroed = false;
     public List<UnitStatMultiplier> tempStatChanges;
     public List<Buff> buffs = new();
+    internal AttackEffect attackEffect;
+
     void Start(){
         //RandomizeUnitClass();
+        attackEffect = AttackEffect.None;
         buffs = new();
         InitializeUnitClass();
         InitializeFaction();
@@ -113,6 +116,22 @@ public class BaseUnit : MonoBehaviour
         return;
     }
     public int GetDamage(BaseUnit otherUnit){
+        int attackDmg = GetAttackDamage(otherUnit);
+        int magicDmg = GetMagicDamage(otherUnit);
+        bool attackHigher = attackDmg > magicDmg;
+
+        if (attackEffect == AttackEffect.Duality){
+            return attackHigher ? attackDmg : magicDmg;
+        }
+        if (attackEffect == AttackEffect.Confusion){
+            return !attackHigher ? attackDmg : magicDmg;
+        }
+        if (weaponClass == WeaponClass.Magic){
+            return magicDmg;
+        }
+        return attackDmg;
+    }
+    private int GetAttackDamage(BaseUnit otherUnit){
         int damage = this.GetAttack().total - otherUnit.GetDefense().total;
         if (damage <= 0){
             return 0;
@@ -120,6 +139,20 @@ public class BaseUnit : MonoBehaviour
         if (tempStatChanges != null){
             foreach (UnitStatMultiplier mult in tempStatChanges){
                 if (mult.statType == UnitStatType.Attack){
+                    damage = (int)((float)damage * mult.multiplier);
+                }
+            }
+        }
+        return damage;
+    }
+    private int GetMagicDamage(BaseUnit otherUnit){
+        int damage = this.GetAttuenment().total - otherUnit.GetForesight().total;
+        if (damage <= 0){
+            return 0;
+        }
+        if (tempStatChanges != null){
+            foreach (UnitStatMultiplier mult in tempStatChanges){
+                if (mult.statType == UnitStatType.Attunment){
                     damage = (int)((float)damage * mult.multiplier);
                 }
             }

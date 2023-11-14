@@ -93,6 +93,15 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+    public void WeakpointManipulationPS(BaseUnit u){
+        var units = u.GetAdjacentUnits();
+        foreach (BaseUnit unit in units){
+            if (unit.faction == u.faction && (unit.weaponClass == WeaponClass.Magic || unit.unitClass == UnitClass.Mage)){
+                u.AddBuff(new DualityBuff(u, u));
+                return;
+            }
+        }
+    }
     internal void Move(Vector2 moveVector)
     {
         if (moveVector.x != 0 && moveVector.y != 0){
