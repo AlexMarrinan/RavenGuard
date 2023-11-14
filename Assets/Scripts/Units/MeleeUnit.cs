@@ -20,7 +20,11 @@ public class MeleeUnit : BaseUnit
     }
 
     public override int MaxTileRange(){
-        return base.moveAmount;
+        if (reducedMovment != 0){
+            int newMove = moveAmount - reducedMovment;
+            return newMove < 1 ? 1 : newMove;
+        }
+        return moveAmount;
     }
 
     public override TileMoveType GetMoveTypeAt(BaseTile otherTile)

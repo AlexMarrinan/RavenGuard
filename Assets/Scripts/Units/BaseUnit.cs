@@ -36,6 +36,7 @@ public class BaseUnit : MonoBehaviour
     public List<UnitStatMultiplier> tempStatChanges;
     public List<Buff> buffs = new();
     internal AttackEffect attackEffect;
+    protected int reducedMovment = 0;
 
     void Start(){
         //RandomizeUnitClass();
@@ -452,6 +453,12 @@ public class BaseUnit : MonoBehaviour
     internal void RemoveBuff(Buff buff)
     {
         buffs.Remove(buff);
+    }
+
+    internal void ReduceNextMovemnt(int amount)
+    {
+        Debug.Log("reduced movement: " + amount);
+        reducedMovment = amount;
     }
 }
 

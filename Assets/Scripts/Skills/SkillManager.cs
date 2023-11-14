@@ -45,7 +45,15 @@ public class SkillManager : MonoBehaviour
         u.Cleanse();
         u.GetAdjacentUnits().ForEach(u => u.Cleanse());
     }
-
+    public void CripplingAimPS(BaseUnit u){
+        BattleUnit bu = BattleSceneManager.instance.GetBattleUnit(u);
+        if (bu.damageDealt >= 10){
+            BattleUnit otherBU = BattleSceneManager.instance.GetOtherBattleUnit(u);
+            if (otherBU.assignedUnit != null){
+                otherBU.assignedUnit.AddBuff(new CrippledBuff(u, otherBU.assignedUnit));
+            }
+        }
+    }
     //If unit moves 0 or 1 spaces, unit gains +2 defense and +1 attack during combat.
     //This effect stack for each consecutive turn in a row, up to three turns. 
     //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.

@@ -50,8 +50,8 @@ public class PathLine : MonoBehaviour
         return GetPathTile(tiles.Count() - 1);
     }
     public BaseTile GetPathTile(int index){
-        Debug.Log(index);
-        Debug.Log(tiles.Count);
+//        Debug.Log(index);
+//        Debug.Log(tiles.Count);
         return tiles[index];
     }
     //TODO: MAKE IT CHANGE TO THE ACTUAL PATH OF HOVERED TILE, NOT JUST THE DIRECTION THE PLAYER MOVED IT !!!

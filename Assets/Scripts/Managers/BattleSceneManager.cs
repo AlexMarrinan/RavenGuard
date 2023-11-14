@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BattleSceneManager : MonoBehaviour
 {
@@ -75,16 +76,26 @@ public class BattleSceneManager : MonoBehaviour
         state = BattleSceneState.FirstAttack;
     }
     public void DisplayUnits(){
-
+        
+    }
+    public BattleUnit GetBattleUnit(BaseUnit unit){
+        if (leftBU.assignedUnit == unit){
+            return leftBU;
+        }
+        if (rightBU.assignedUnit == unit){
+            return rightBU;
+        }
+        return null;
+    }
+    public BattleUnit GetOtherBattleUnit(BaseUnit unit){
+        if (leftBU.assignedUnit == unit){
+            return rightBU;
+        }
+        return leftBU;
     }
     public bool UnitAttacked(BaseUnit unit){
-        if (unit == leftBU.assignedUnit){
-            return leftBU.attacked;
-        }
-        if (unit == rightBU.assignedUnit){
-            return rightBU.attacked;
-        }
-        return false;
+        BattleUnit bu = GetBattleUnit(unit);
+        return bu != null && bu.attacked;
     }
 
     public void OnHit(BattleUnit hitter){
@@ -95,6 +106,7 @@ public class BattleSceneManager : MonoBehaviour
         int health = damaged.assignedUnit.health;
         damaged.assignedUnit.ReceiveDamage(hitter.assignedUnit);
         int newHealth = damaged.assignedUnit.health;
+        hitter.damageDealt += health - newHealth;
         if (newHealth == health){
             //No damage done
             HitRecoil(damaged, 0.5f);

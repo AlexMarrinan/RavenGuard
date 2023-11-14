@@ -20,6 +20,7 @@ public class RangedUnit : BaseUnit
         base.weapon = rangedWeapon;
     }
     public override int MaxTileRange(){
+        //TOOD: FIX WHEN RANGED UNITS NEED FIXING;
         return  rangedWeapon.maxRange - (base.maxMoveAmount - base.moveAmount);
     }
     public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
