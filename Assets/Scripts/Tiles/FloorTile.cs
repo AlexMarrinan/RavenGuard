@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FloorTile : Tile
+public class FloorTile : BaseTile
 {
     [SerializeField] private Color baseColor, offsetColor;
     private void Awake(){

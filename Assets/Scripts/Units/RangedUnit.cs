@@ -22,7 +22,7 @@ public class RangedUnit : BaseUnit
     public override int MaxTileRange(){
         return  rangedWeapon.maxRange - (base.maxMoveAmount - base.moveAmount);
     }
-    public override TileMoveType GetMoveTypeAt(Tile otherTile)
+    public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
     {
         int distance = otherTile.GetPathLengthFrom(base.occupiedTile);
         TileMoveType tempType;
@@ -48,5 +48,6 @@ public class RangedUnit : BaseUnit
         }
         OnExhaustMovment();
         UnitManager.instance.SetSeclectedUnit(null);
+        // yield return null;
     }
 }

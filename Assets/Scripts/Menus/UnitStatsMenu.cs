@@ -40,12 +40,66 @@ public class UnitStatsMenu : BaseMenu
         
         healthBar.SetUnit(unit);
 
-        attackText.text = unit.GetAttack().ToString();
-        defenseText.text = unit.GetDefense().ToString();
-        agilityText.text = unit.GetAgility().ToString();
-        attunementText.text = unit.GetAttuenment().ToString();
-        forsightText.text = unit.GetForesight().ToString();
-        luckText.text = unit.GetLuck().ToString();
+        var atk = unit.GetAttack();
+        attackText.text = atk.total.ToString();
+        if (atk.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            attackText.color = Color.red;
+        }else if (atk.GetStatIncreaseType() == StatIncreaseType.UP){
+            attackText.color = Color.green;
+        }else{
+            attackText.color = Color.white;
+        }
+
+        var def = unit.GetDefense();
+        defenseText.text = def.total.ToString();
+        if (def.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            defenseText.color = Color.red;
+        }else if (def.GetStatIncreaseType() == StatIncreaseType.UP){
+            defenseText.color = Color.green;
+        }else{
+            defenseText.color = Color.white;
+        }
+
+       var agi = unit.GetAgility();
+        agilityText.text = agi.total.ToString();
+        if (agi.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            agilityText.color = Color.red;
+        }else if (agi.GetStatIncreaseType() == StatIncreaseType.UP){
+            agilityText.color = Color.green;
+        }else{
+            agilityText.color = Color.white;
+        }
+
+
+       var atu = unit.GetAttuenment();
+        attunementText.text = atu.total.ToString();
+        if (atu.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            attunementText.color = Color.red;
+        }else if (atu.GetStatIncreaseType() == StatIncreaseType.UP){
+            attunementText.color = Color.green;
+        }else{
+            attunementText.color = Color.white;
+        }
+
+        var frs = unit.GetForesight();
+        forsightText.text = frs.total.ToString();
+        if (frs.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            forsightText.color = Color.red;
+        }else if (frs.GetStatIncreaseType() == StatIncreaseType.UP){
+            forsightText.color = Color.green;
+        }else{
+            forsightText.color = Color.white;
+        }
+
+        var lck = unit.GetLuck();
+        luckText.text = lck.total.ToString();
+        if (lck.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            luckText.color = Color.red;
+        }else if (lck.GetStatIncreaseType() == StatIncreaseType.UP){
+            luckText.color = Color.green;
+        }else{
+            luckText.color = Color.white;
+        }
     }
 }
 

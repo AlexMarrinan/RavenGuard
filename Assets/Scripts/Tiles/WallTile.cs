@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WallTile : Tile
+public class WallTile : BaseTile
 {
     private void Awake(){
         isWalkable = false;

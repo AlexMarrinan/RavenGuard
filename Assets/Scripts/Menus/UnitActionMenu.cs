@@ -42,33 +42,30 @@ public class UnitActionMenu : BaseMenu
     private void SetSkill(BaseUnit u, int index)
     {
         var skill = u.GetSkill(index-2);
-        if (skill == null)
-        {
+        if (skill == null) {
             buttons[index].image.sprite = noSkillSprite;
             buttons[index].bonusText = "";
         }
-        else
-        {
+        else {
             skill.SetMethod();
             buttons[index].image.sprite = skill.sprite;
             buttons[index].bonusText = ": " + skill.skillName;
         }
     }
 
-    public override void Select()
-    {
+    public override void Select(){
         base.Select();
         if (buttonIndex > 0){
             var u = UnitManager.instance.selectedUnit;
             if (buttonIndex == 1){
                 var s = u.GetBoringSkill();
                 if (s != null){
-                    s.OnUse(u);
+                    s.OnSelect(u);
                 }
             }else{
                 var s = u.GetSkill(buttonIndex - 2);
                 if (s != null){
-                    s.OnUse(u);
+                    s.OnSelect(u);
                 }
             }
         }

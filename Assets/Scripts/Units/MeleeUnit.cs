@@ -23,7 +23,7 @@ public class MeleeUnit : BaseUnit
         return base.moveAmount;
     }
 
-    public override TileMoveType GetMoveTypeAt(Tile otherTile)
+    public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
     {
         if (otherTile.occupiedUnit != null && otherTile.occupiedUnit.faction != TurnManager.instance.currentFaction){
             return TileMoveType.Attack;
@@ -33,13 +33,7 @@ public class MeleeUnit : BaseUnit
 
     
     public override void Attack(BaseUnit otherUnit){
-        otherUnit.ReceiveDamage(this);
-        if (otherUnit.health <= 0){
-            UnitManager.instance.DeleteUnit(otherUnit);
-            MoveToSelectedTile(otherUnit.occupiedTile);
-        }else{
-            MoveToClosestTile(otherUnit.occupiedTile);
-        }
-        OnExhaustMovment();
+        MoveToAttackTile();
+        BattleSceneManager.instance.StartBattle(this, otherUnit);
     }
 }

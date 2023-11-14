@@ -16,8 +16,11 @@ public class BattleSceneManager : MonoBehaviour
     private Vector3 leftNewPos;
     private Vector3 rightNewPos;
     public float hitMoveSpeed = 10f;
-    private BattleUnit attacker;
+    private BaseUnit startingUnit;
+    public CombatOrder combatOrder;
+    public GameObject sceneBackground;
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
+    private BattlePrediction prediction;
     void Awake()
     {
         instance = this;
@@ -26,33 +29,64 @@ public class BattleSceneManager : MonoBehaviour
     void FixedUpdate(){
         rightBU.animator.transform.position = Vector3.Lerp(rightBU.transform.position, rightNewPos, hitMoveSpeed * Time.deltaTime);
         leftBU.animator.transform.position = Vector3.Lerp(leftBU.transform.position, leftNewPos, hitMoveSpeed * Time.deltaTime);
-    }
-
-    //TODO: Find better name
-    public void StartBattleOld(){
-        MenuManager.instance.menuState = MenuState.Battle;
-        leftStartPos = leftBU.transform.position;
-        leftNewPos = leftStartPos;
-        rightStartPos = rightBU.transform.position;
-        rightNewPos = rightStartPos;
+        // leftBU.transform.position = new Vector3(0,0,0);
+        // rightBU.transform.position = new Vector3(0,0,0);
     }
 
     public void StartBattle(BaseUnit first, BaseUnit second){
         MenuManager.instance.menuState = MenuState.Battle;
+        MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+        MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
+
+        MenuManager.instance.highlightObject.SetActive(false);
+        MenuManager.instance.selectedObject.SetActive(false);
+
+        UnitManager.instance.ShowUnitHealthbars(false);
+        
+        sceneBackground.SetActive(true);
         leftBU.gameObject.SetActive(true);
         rightBU.gameObject.SetActive(true);
+
+        leftStartPos = leftBU.parentTrans.position;
+        leftNewPos = leftStartPos;
+        leftBU.transform.position = leftStartPos;
+
+        rightStartPos = rightBU.parentTrans.position;
+        rightNewPos = rightStartPos;
+        rightBU.transform.position = rightStartPos;
+        
         leftBU.SetUnit(first);
         rightBU.SetUnit(second);
-        leftBU.Attack();
+        prediction = new BattlePrediction(first, second);
+        Debug.Log("Prediction counter: " + prediction.defenderCounterAttack);
+        Debug.Log("Prediction atk followup: " + prediction.attackerSecondAttack);
+        Debug.Log("Prediction def followup: " + prediction.defenderSecondAttack);
+        Debug.Log("Prediction swapped: " + prediction.swappedAttackers);
+        Debug.Log("Prediction Attacker: " + prediction.attacker.unitClass);
+        if (leftBU.assignedUnit == prediction.attacker){
+            Debug.Log("Left starting...");
+            leftBU.Attack();
+            startingUnit = first;
+        }else{
+            Debug.Log("Right starting...");
+            rightBU.Attack();
+            startingUnit = second;
+        }
         state = BattleSceneState.FirstAttack;
-    }
-    public void SetAttacker(BattleUnit unit){
-        attacker = unit;
-        Debug.Log(attacker);
     }
     public void DisplayUnits(){
 
     }
+    public bool UnitAttacked(BaseUnit unit){
+        if (unit == leftBU.assignedUnit){
+            return leftBU.attacked;
+        }
+        if (unit == rightBU.assignedUnit){
+            return rightBU.attacked;
+        }
+        return false;
+    }
+
     public void OnHit(BattleUnit hitter){
         var damaged = leftBU;
         if (hitter == leftBU){
@@ -111,23 +145,26 @@ public class BattleSceneManager : MonoBehaviour
     IEnumerator NextAttack(BattleUnit hitter, BattleUnit damaged){
         ResetBattleUnitsPos();
         yield return new WaitForSeconds(0.4f);
-        if (state == BattleSceneState.FirstAttack && ((hitter.assignedUnit is RangedUnit && damaged.assignedUnit is RangedUnit) || 
-            (hitter.assignedUnit is MeleeUnit && damaged.assignedUnit is MeleeUnit))){
-                state = BattleSceneState.CounterAttack;
-                damaged.Attack();
-                yield return null;
+        if (state == BattleSceneState.FirstAttack && prediction.defenderCounterAttack){
+            Debug.Log("counter attack!");
+            state = BattleSceneState.CounterAttack;
+            damaged.Attack();
+            yield return null;
         }
-        else if (state == BattleSceneState.FirstAttack && (hitter.assignedUnit.GetAgility() >= damaged.assignedUnit.GetAgility() + 5)) {
+        else if (state == BattleSceneState.FirstAttack && prediction.attackerSecondAttack){
+            Debug.Log("attacker second attack!");
             state = BattleSceneState.SecondAttack;
             hitter.Attack();
             yield return null;
         }
         else if (state == BattleSceneState.CounterAttack) {
-            if (damaged.assignedUnit.GetAgility() >= hitter.assignedUnit.GetAgility() + 5) {
+            if (prediction.attackerSecondAttack) {
+                Debug.Log("attacker second attack!");
                 state = BattleSceneState.SecondAttack;
                 damaged.Attack();
                 yield return null;
-            }else if (hitter.assignedUnit.GetAgility() >= damaged.assignedUnit.GetAgility() + 5) {
+            }else if (prediction.defenderSecondAttack) {
+                Debug.Log("defender second attack!");
                 state = BattleSceneState.SecondAttack;
                 hitter.Attack();
                 yield return null;
@@ -142,22 +179,43 @@ public class BattleSceneManager : MonoBehaviour
         //TODO: ACTUAL KILL ANIMATION
         killed.Hide();        
         yield return new WaitForSeconds(v);
-        Reset();
+        UnitManager.instance.DeleteUnit(killed.assignedUnit);
+        OnBattlEnd();
     }   
-
+    
     IEnumerator EndAnaimtionWait(float secs){
         yield return new WaitForSeconds(secs);
-        Reset();
+        OnBattlEnd();
     }
-    private void Reset(){
+    private void OnBattlEnd(){
+        leftBU.assignedUnit.tempStatChanges = null;
+        rightBU.assignedUnit.tempStatChanges = null;
+
+        MenuManager.instance.menuState = MenuState.None;
+        if (startingUnit != null){
+            //startingUnit.moveAmount = 0;
+            startingUnit.OnExhaustMovment();
+        }else{
+            TurnManager.instance.GoToNextUnit();
+        }
+        if (leftBU.assignedUnit != null){
+            leftBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
+        }
+        if (rightBU.assignedUnit != null){
+            rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
+        }
+        UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();
         leftBU.spriteRenderer.color = Color.white;
         rightBU.spriteRenderer.color = Color.white;
         state = BattleSceneState.FirstAttack;        
         leftBU.Hide();
         rightBU.Hide();
-        battleMenu.gameObject.SetActive(true);
-        battleMenu.SetRandomEnemy();
+        sceneBackground.SetActive(false);
+        UnitManager.instance.UnselectUnit();
+        MenuManager.instance.highlightObject.SetActive(true);
+        //battleMenu.gameObject.SetActive(true);
+        //battleMenu.SetRandomEnemy();
     }
     private void ResetBattleUnitsPos(){
         leftNewPos = leftStartPos;

@@ -11,6 +11,7 @@ public class BattleUnit : MonoBehaviour
     public FaceDirection faceDirection = FaceDirection.Right;
     public HealthBarMenu healthBar;
     public Transform parentTrans;
+    public bool attacked = false;
     public void Start(){
         if (faceDirection == FaceDirection.Left){
             parentTrans.localScale = new Vector3(parentTrans.localScale.x * -1, parentTrans.localScale.y, parentTrans.localScale.z);
@@ -26,7 +27,7 @@ public class BattleUnit : MonoBehaviour
         //animator.StopPlayback();
     }
     public void Attack(){
-        BattleSceneManager.instance.SetAttacker(this);
+        attacked = true;
         SetAnimator();
         animator.Rebind();
         animator.speed = 1.0f;
@@ -45,7 +46,9 @@ public class BattleUnit : MonoBehaviour
     }
 
     public void Hide(){
+        attacked = false;
         healthBar.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
     }
+
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,8 +6,16 @@ using UnityEngine;
 
 public class TileSet : ScriptableObject
 {
-    public List<FloorTile> floors;
-    public List<WallTile> walls;
-    public List<PitTile> pits;
-    public List<FenceTile> fences;
+    public List<Sprite> floors;
+    public List<Sprite> floorXWalls;
+    public List<Sprite> walls;
+
+    public Sprite GetRandomWall(){
+        int randomIndex = UnityEngine.Random.Range(0, walls.Count);    
+        return walls[randomIndex];
+    }
+    public Sprite GetRandomFloor(){
+        int randomIndex = UnityEngine.Random.Range(0, floors.Count);    
+        return floors[randomIndex];
+    }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UnitManager : MonoBehaviour
@@ -9,6 +10,7 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> unitPrefabs;
     private List<BaseUnit> units;
     public BaseUnit selectedUnit;
+    public float unitMoveSpeed = .1f;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
@@ -69,7 +71,6 @@ public class UnitManager : MonoBehaviour
         RemoveAllValidMoves();
         SetValidMoves(unit);
         PathLine.instance.Reset();
-        PathLine.instance.AddTile(unit.occupiedTile);
         //MenuManager.instance.ShowSelectedUnit(unit);
     }
 
@@ -77,10 +78,21 @@ public class UnitManager : MonoBehaviour
         MenuManager.instance.UnselectTile();
         selectedUnit = null;
         PathLine.instance.Reset();
+        MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
+        if (GridManager.instance.hoveredTile.occupiedUnit == null){
+            MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+        }else{
+            MenuManager.instance.unitStatsMenu.SetUnit(GridManager.instance.hoveredTile.occupiedUnit);
+        }
         RemoveAllValidMoves();
     }
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         return units.Where(u => u.faction == faction).ToList();
+    }
+    public List<BaseUnit> GetAllUnits(){
+        var heroes = GetAllHeroes();
+        var enemies = GetAllEnemies();
+        return heroes.Concat(enemies).ToList();
     }
     public List<BaseUnit> GetAllHeroes(){
         return GetAllUnitsOfFaction(UnitFaction.Hero);
@@ -88,18 +100,34 @@ public class UnitManager : MonoBehaviour
     public List<BaseUnit> GetAllEnemies(){
         return GetAllUnitsOfFaction(UnitFaction.Enemy);
     }
-    public List<Tile> SetValidMoves(BaseUnit unit){
-        int max = unit.MaxTileRange();
-        Tile tile = unit.occupiedTile;
-        var visited = new Dictionary<Tile, int>();
-        var next = tile.GetAdjacentCoords();
-        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
-        var validMoves = visited.Keys.ToList();
+    public List<BaseTile> SetValidMoves(BaseUnit unit){
+        var validMoves = GetValidMoves(unit);
         validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
         return validMoves;
     }
+    public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){
+        int max = unit.MaxTileRange();
+        var visited = new Dictionary<BaseTile, int>();
 
-    private void SVMHelper(int depth, int max, Tile tile, Dictionary<Tile, int> visited, Tile startTile, BaseUnit startUnit){
+        //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
+        var next = newTile.GetAdjacentTiles();
+        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        var validMoves = visited.Keys.ToList();
+        return validMoves;
+    }
+    public List<BaseTile> GetValidMoves(BaseUnit unit){
+        int max = unit.MaxTileRange();
+        BaseTile tile = unit.occupiedTile;
+        var visited = new Dictionary<BaseTile, int>();
+
+        //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
+        var next = tile.GetAdjacentTiles();
+        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        var validMoves = visited.Keys.ToList();
+        return validMoves;
+    }
+
+    private void SVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
         if (depth >= max ){
             return;
         }
@@ -115,7 +143,7 @@ public class UnitManager : MonoBehaviour
 
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
-        var next = tile.GetAdjacentCoords();   
+        var next = tile.GetAdjacentTiles();   
         next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
     }
@@ -127,6 +155,43 @@ public class UnitManager : MonoBehaviour
     public void ResetUnitMovment(){
         foreach (BaseUnit unit in units){
             unit.ResetMovment();
+        }
+    }
+
+    public void ShowUnitHealthbars(bool show){
+        foreach (BaseUnit u in GetAllUnits()){
+            u.healthBar.gameObject.SetActive(show);
+        }
+    }
+    public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool turnOver){
+        if (path.Count > 0){
+            BaseTile nextTile = path[0];
+            Vector3 nextPos = nextTile.transform.position;
+            float elapsedTime = 0;
+            while (unit.transform.position != nextPos){
+                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+            path.RemoveAt(0);
+            if (path.Count > 0){
+                yield return AnimateUnitMove(unit, path, turnOver);
+            }else{
+                nextTile.occupiedUnit = unit;
+                unit.occupiedTile = nextTile;
+                if (turnOver){
+                    unit.OnExhaustMovment();
+                }
+                yield return new WaitForSeconds(0.45f);
+            }
+        }
+    }
+
+
+    internal void OnTurnEndSkills(BaseUnit unit){
+        var units = GetAllUnitsOfFaction(unit.faction);
+        foreach (BaseUnit u in units){
+            u.UsePassiveSkills(PassiveSkillType.OnTurnEnd);
         }
     }
 }
