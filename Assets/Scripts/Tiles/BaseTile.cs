@@ -143,7 +143,7 @@ public abstract class BaseTile : MonoBehaviour
         //TODO: ANIMATE UNIT
         //var path = GridManager.instance.ShortestPathBetweenTiles(unit.occupiedTile, this, false);
         var path = PathLine.instance.GetPath();
-        Debug.Log(path);
+//        Debug.Log(path);
         StartCoroutine(UnitManager.instance.AnimateUnitMove(unit, path, turnOver));
     }
     public void SetPossibleMove(bool valid, BaseTile startPos){

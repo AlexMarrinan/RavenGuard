@@ -36,6 +36,8 @@ public class TurnManager : MonoBehaviour
         BaseUnit firstHero = unitsAwaitingOrders[0];
         MenuManager.instance.highlightObject.SetActive(true);
         GridManager.instance.SetHoveredTile(firstHero.occupiedTile);
+        UnitManager.instance.DescrementBuffs(UnitFaction.Hero);
+        UnitManager.instance.OnTurnStartSkills(UnitFaction.Hero);
     }
 
     public void BeginEnemyTurn(){
@@ -47,6 +49,8 @@ public class TurnManager : MonoBehaviour
         MenuManager.instance.ShowStartText("Enemy's turn!", false);
         UnitManager.instance.ResetUnitMovment();
         MenuManager.instance.highlightObject.SetActive(false);
+        UnitManager.instance.OnTurnStartSkills(UnitFaction.Enemy);
+        UnitManager.instance.DescrementBuffs(UnitFaction.Enemy);
         StartCoroutine(MoveEnemies(UnitManager.instance.GetAllEnemies()));
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
@@ -70,7 +74,7 @@ public class TurnManager : MonoBehaviour
             List<AIMove> currentMoves = null;
             //Debug.Log(moves.Count);
             foreach (AIMove move in moves){
-                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
+//                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
                 if (currentMoves == null){
                     currentMoves = new(){move};
                 }
@@ -85,8 +89,8 @@ public class TurnManager : MonoBehaviour
             if (currentMoves != null){
                 int moveIdx = Random.Range(0, currentMoves.Count);
                 var currentMove = currentMoves[moveIdx];
-                Debug.Log(currentMove.moveTile);
-                Debug.Log(currentMove.rating);
+                // Debug.Log(currentMove.moveTile);
+                // Debug.Log(currentMove.rating);
                 PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
                 yield return new WaitForSeconds(0.5f);
                 currentMove.moveTile.MoveUnitToTile(unit);

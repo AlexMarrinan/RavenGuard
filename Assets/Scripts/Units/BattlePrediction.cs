@@ -43,7 +43,7 @@ public class BattlePrediction
                 CheckBattleSkill(battleSkill, defender);
             }
 
-            Debug.Log(this.attacker.unitClass.ToString() + " " + this.defender.unitClass.ToString());
+//            Debug.Log(this.attacker.unitClass.ToString() + " " + this.defender.unitClass.ToString());
             if (tempAttacker == null || tempAttacker == attacker || swappedAttackers){
                 attacker.tempStatChanges = attackerStatChanges;
                 defender.tempStatChanges = defenderStatChanges;
@@ -159,8 +159,8 @@ public class BattlePrediction
             case Comparator.LessThan:
                 return variableValue < compareVariableValue*cond.value;
             case Comparator.LessThanEqualTo:
-                Debug.Log("less than equal...");
-                Debug.Log(variableValue + " " + compareVariableValue*cond.value);
+//                Debug.Log("less than equal...");
+//                Debug.Log(variableValue + " " + compareVariableValue*cond.value);
 
                 return variableValue <= compareVariableValue*cond.value;
             case Comparator.GreaterThan:

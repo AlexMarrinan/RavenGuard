@@ -25,7 +25,7 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedHero);
             var randomSpawnTile = GridManager.instance.GetHeroSpawnTile();
             randomSpawnTile.SetUnitStart(spawnedHero);
-            
+            spawnedHero.SetSkillMethods();
             //TODO: REMOVE AFTER PROVING LINE SHOWS UP
             //PathLine.instance.AddTile(randomSpawnTile);
         }
@@ -40,6 +40,7 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedEnemy);
             var randomSpawnTile = GridManager.instance.GetEnemySpawnTile();
             randomSpawnTile.SetUnitStart(spawnedEnemy);
+            spawnedEnemy.SetSkillMethods();
         }
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
@@ -186,12 +187,26 @@ public class UnitManager : MonoBehaviour
             }
         }
     }
-
+    internal void OnTurnStartSkills(UnitFaction faction){
+        var units = GetAllUnitsOfFaction(faction);
+        foreach (BaseUnit u in units){
+            u.UsePassiveSkills(PassiveSkillType.OnTurnStart);
+        }
+    }
 
     internal void OnTurnEndSkills(BaseUnit unit){
         var units = GetAllUnitsOfFaction(unit.faction);
         foreach (BaseUnit u in units){
             u.UsePassiveSkills(PassiveSkillType.OnTurnEnd);
         }
+    }
+
+    internal void DescrementBuffs(UnitFaction faction)
+    {
+        var units = GetAllUnitsOfFaction(faction);
+        foreach (BaseUnit u in units){
+            u.DecrementBuffs();
+        }
+        
     }
 }

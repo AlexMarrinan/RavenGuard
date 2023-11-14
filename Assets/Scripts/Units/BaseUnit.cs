@@ -34,17 +34,19 @@ public class BaseUnit : MonoBehaviour
     public RuntimeAnimatorController animatorController;
     private bool isAggroed = false;
     public List<UnitStatMultiplier> tempStatChanges;
-
+    public List<Buff> buffs = new();
     void Start(){
         //RandomizeUnitClass();
+        buffs = new();
         InitializeUnitClass();
         InitializeFaction();
         CreateHealthbar();
         SetSkillMethods();
     }
-    private void SetSkillMethods(){
+    public void SetSkillMethods(){
         //TODO: ONLY SET SKILL METHODS ON GAME STARTUP
         foreach (var skill in skills){
+//            Debug.Log(skill.skillName);
             skill.SetMethod();
         }
     }
@@ -111,7 +113,7 @@ public class BaseUnit : MonoBehaviour
         return;
     }
     public int GetDamage(BaseUnit otherUnit){
-        int damage = otherUnit.GetAttack().total - otherUnit.GetDefense().total;
+        int damage = this.GetAttack().total - otherUnit.GetDefense().total;
         if (damage <= 0){
             return 0;
         }
@@ -238,6 +240,8 @@ public class BaseUnit : MonoBehaviour
         if (GetStatChange(name) == null){
             var newStats = new SkillStatChange(type, startAmount, minAmount, maxAmount);
             skillStatChanges.Add(name, newStats);
+        }else{
+            SetStatChange(name, startAmount);
         }
     }
     public void IncrementStatsChange(string name, int amount){
@@ -259,6 +263,14 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         stats.currentAmount = amount;
+    }
+    
+    public void RemoveStatChange(string name){
+        var stats = GetStatChange(name);
+        if (stats == null){
+            return;
+        }
+        skillStatChanges.Remove(name);
     }
     public List<ActiveSkill> GetActiveSkills(){
         List<ActiveSkill> aSkills = new();
@@ -325,7 +337,7 @@ public class BaseUnit : MonoBehaviour
     public void Cleanse(){
 
         //TODO: MAKE ACTUALLY REMOVE DEBUFFS !!!
-        Debug.Log(this + " cleansed!");
+//        Debug.Log(this + " cleansed!");
     }
 
     public bool IsInjured(){
@@ -378,6 +390,35 @@ public class BaseUnit : MonoBehaviour
     public void ReverseBuffs()
     {
         Debug.Log("reversed buffs");
+    }
+
+    internal void GiveBuff(Buff buff)
+    {
+        
+    }
+
+    public void DecrementBuffs(){
+        Debug.Log(buffs.Count);
+        foreach (var buff in buffs){
+            Debug.Log(buff.buffType);
+            if (buff.buffType == BuffType.OnTurn){
+                buff.ApplyEffect();
+            }
+            buff.ReduceCooldown();
+        }
+        buffs.RemoveAll(b => b.CooldownOver());
+    }
+
+    internal void AddBuff(Buff buff)
+    {
+        buffs.Add(buff);
+        if (buff.buffType == BuffType.OnApply){
+            buff.ApplyEffect();
+        }
+    }
+    internal void RemoveBuff(Buff buff)
+    {
+        buffs.Remove(buff);
     }
 }
 

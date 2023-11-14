@@ -58,17 +58,17 @@ public class BattleSceneManager : MonoBehaviour
         leftBU.SetUnit(first);
         rightBU.SetUnit(second);
         prediction = new BattlePrediction(first, second);
-        Debug.Log("Prediction counter: " + prediction.defenderCounterAttack);
-        Debug.Log("Prediction atk followup: " + prediction.attackerSecondAttack);
-        Debug.Log("Prediction def followup: " + prediction.defenderSecondAttack);
-        Debug.Log("Prediction swapped: " + prediction.swappedAttackers);
-        Debug.Log("Prediction Attacker: " + prediction.attacker.unitClass);
+//        Debug.Log("Prediction counter: " + prediction.defenderCounterAttack);
+//        Debug.Log("Prediction atk followup: " + prediction.attackerSecondAttack);
+//        Debug.Log("Prediction def followup: " + prediction.defenderSecondAttack);
+//        Debug.Log("Prediction swapped: " + prediction.swappedAttackers);
+//        Debug.Log("Prediction Attacker: " + prediction.attacker.unitClass);
         if (leftBU.assignedUnit == prediction.attacker){
-            Debug.Log("Left starting...");
+//            Debug.Log("Left starting...");
             leftBU.Attack();
             startingUnit = first;
         }else{
-            Debug.Log("Right starting...");
+ //           Debug.Log("Right starting...");
             rightBU.Attack();
             startingUnit = second;
         }

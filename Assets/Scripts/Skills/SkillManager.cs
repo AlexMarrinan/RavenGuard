@@ -51,7 +51,7 @@ public class SkillManager : MonoBehaviour
     //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.
     public void HunkerDownPS(BaseUnit u){
         //Called After Movment
-        Debug.Log("hunkering down...");
+//        Debug.Log("hunkering down...");
         var defStats = u.GetStatChange("HunkerDownDef");
         if (defStats == null){
             u.AddStatsChange("HunkerDownDef", UnitStatType.Defense, 0, 0, 6);
@@ -79,7 +79,20 @@ public class SkillManager : MonoBehaviour
             u.RecoverHealth(healing);
         }
     }   
+    public void CripplingJealousyPS (BaseUnit u){
+        var units = UnitManager.instance.GetAllUnits();
+        var coords = u.occupiedTile.coordiantes;
+        //Debug.Log("searching for jealousy");
 
+        foreach (var unit in units){
+            if (u != unit && (coords.x == unit.occupiedTile.coordiantes.x || coords.y == unit.occupiedTile.coordiantes.y)){
+                if (u.GetForesight().total > unit.GetForesight().total){
+                    //Debug.Log("Applying jealousy");
+                    unit.AddBuff(new JelousBuff(u, unit));
+                }
+            }
+        }
+    }
     internal void Move(Vector2 moveVector)
     {
         if (moveVector.x != 0 && moveVector.y != 0){

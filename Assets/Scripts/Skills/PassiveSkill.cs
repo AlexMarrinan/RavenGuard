@@ -15,12 +15,13 @@ public class PassiveSkill : BaseSkill {
         var mng = SkillManager.instance;
         var param = new object[1];
         param[0] = user;
+//        Debug.Log(methodInfo);
         methodInfo.Invoke(mng, param);
     }
 }
 
 public enum PassiveSkillType {
-    Buff,
+    OnTurnStart,
     BeforeCombat,
     DuringCombat,
     AfterCombat,
