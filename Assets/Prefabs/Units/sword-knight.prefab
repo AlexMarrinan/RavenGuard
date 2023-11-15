@@ -105,18 +105,18 @@ MonoBehaviour:
   maxMoveAmount: 4
   health: 14
   maxHealth: 14
+  hasMoved: 0
   attack: 20
   defense: 11
   agility: 15
   attunment: 12
   foresight: 15
   luck: 8
-  awaitingOrders: 0
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
   - {fileID: 11400000, guid: 8d085454e388a4542a9d064cb0d148f4, type: 2}
-  - {fileID: 11400000, guid: d8a19c2c535920f43aa005b761320edd, type: 2}
+  - {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
   - {fileID: 11400000, guid: 84101b74117eeed4289321c965b66b94, type: 2}
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0

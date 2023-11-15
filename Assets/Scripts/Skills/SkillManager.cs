@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class SkillManager : MonoBehaviour
 {
     public Vector2 useDirection = Vector2.right;
     public static SkillManager instance;
     public bool selectingSkill = false;
+    public bool skillFailed = false;
     public List<BaseTile> currentTiles;
     public BaseUnit user;
     public BaseSkill currentSkill;
@@ -19,10 +21,28 @@ public class SkillManager : MonoBehaviour
     public void ShowSkillPreview(){
         UnitManager.instance.RemoveAllValidMoves();
         selectingSkill = true;
-        foreach (BaseTile t in currentTiles){
-            t.SetPossibleMove(false, user.occupiedTile);
-        }
+        // foreach (BaseTile t in currentTiles){
+        //     t.SetPossibleMove(false, user.occupiedTile);
+        // }
         currentTiles = currentSkill.GetAffectedTiles(user);
+        // if (currentSkill is ActiveSkill){
+        //     if ((currentSkill as ActiveSkill).activeSkillType == ActiveSkillType.OnUnit){
+        //         bool found = false;
+        //         foreach(BaseTile tile in currentTiles){
+        //             if (tile.occupiedUnit != null){
+        //                 if (tile.occupiedUnit.faction != user.faction){
+        //                     found = true;
+        //                     break;
+        //                 }
+        //             }
+        //         }
+        //         if (!found){
+        //             return;
+        //         }
+        //     }
+        // }
+        UnitManager.instance.RemoveAllValidMoves();
+
         foreach (BaseTile t in currentTiles){
             if (t == user.occupiedTile){
                 continue;
@@ -33,16 +53,30 @@ public class SkillManager : MonoBehaviour
     }
 
 
-    public void EarthQuakeAS(BaseUnit u){
-        int damage = 3;
-        Debug.Log("Used Earthquake...");
+    public void SwitchAS(BaseUnit u){
         var tiles = SkillManager.instance.currentTiles;
+        BaseUnit switchUnit = null;
         foreach (BaseTile tile in tiles){
-            BaseUnit unit = tile.occupiedUnit;
-            if (unit != null && unit.faction == UnitFaction.Enemy){
-                unit.ReceiveDamage(damage);
+            if (tile.occupiedUnit != null && tile.occupiedUnit.faction == u.faction){
+                switchUnit = tile.occupiedUnit;
+                break;
             }
+        }  
+        if (switchUnit == null){
+            skillFailed = true;
+            return;
         }
+        Debug.Log("switching...");
+        BaseTile uTile = u.occupiedTile;
+        BaseTile switchTile = switchUnit.occupiedTile;
+
+        switchTile.occupiedUnit = u;
+        u.occupiedTile = switchTile;
+        u.transform.position = switchTile.transform.position;
+
+        uTile.occupiedUnit = switchUnit;
+        switchUnit.occupiedTile = uTile;
+        switchUnit.transform.position = uTile.transform.position;
     }
     public void WhirlwindAS(BaseUnit u){
         int damage = 3;

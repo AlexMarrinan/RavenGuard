@@ -24,6 +24,10 @@ public class ActiveSkill : BaseSkill {
         var param = new object[1];
         param[0] = user;
         methodInfo.Invoke(mng, param);
+        if (SkillManager.instance.skillFailed){
+            SkillManager.instance.skillFailed = false;
+            return;
+        }
         user.FinishTurn();
         SkillManager.instance.OnSkilEnd();
     }

@@ -69,7 +69,7 @@ public class UnitActionMenu : BaseMenu
         if (buttonIndex >= 0){
             if (buttonIndex == 0){
                 u.FinishTurn();
-                MenuManager.instance.ToggleUnitActionMenu();
+                MenuManager.instance.CloseMenus();
             }else{
                 var s = u.GetSkill(buttonIndex - 1);
                 if (s != null){
