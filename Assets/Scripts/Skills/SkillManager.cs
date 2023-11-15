@@ -54,6 +54,19 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+    public void CrossfirePS(BaseUnit u){
+        BattleUnit bu = BattleSceneManager.instance.GetBattleUnit(u);
+        int damage = bu.damageDealt * 1/4;
+        BattleUnit otherbu = BattleSceneManager.instance.GetOtherBattleUnit(u);
+
+        var units = otherbu.assignedUnit.GetAdjacentUnits();
+        units.ForEach(unit => unit.ReceiveDamage(damage));
+    }
+
+    public void AdrenalineBurstPS(BaseUnit u){
+        Debug.Log("AdrenalineBurst");
+        u.ReceiveDamage(2);
+    }
     //If unit moves 0 or 1 spaces, unit gains +2 defense and +1 attack during combat.
     //This effect stack for each consecutive turn in a row, up to three turns. 
     //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.

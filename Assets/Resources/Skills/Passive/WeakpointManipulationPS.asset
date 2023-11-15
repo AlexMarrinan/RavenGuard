@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
   m_Name: WeakpointManipulationPS
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 9ea72647c24be493ba6f15a9cd2a24ae, type: 3}
+  sprite: {fileID: 21300000, guid: aec7b7326625ce947a925f5c54f8a9e1, type: 3}
   skillName: WeakpointManipulation
   description: If unit is adjacent to an ally magic user or another mage at the start
     of turn, grants [Dualtiy] to unit.

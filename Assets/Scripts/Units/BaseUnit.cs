@@ -37,15 +37,32 @@ public class BaseUnit : MonoBehaviour
     public List<Buff> buffs = new();
     internal AttackEffect attackEffect;
     protected int reducedMovment = 0;
+    public Dictionary<UnitStatType, int> duringCombatStats = new();
 
     void Start(){
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
         buffs = new();
+        ResetCombatStats();
         InitializeUnitClass();
         InitializeFaction();
         CreateHealthbar();
         SetSkillMethods();
+    }
+
+    public void ResetCombatStats(){
+        foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
+            Debug.Log(ust);
+            duringCombatStats[ust] = 0;
+        }
+    }
+    public void BuffAllCombatStats(int amount){
+        foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
+            duringCombatStats[ust] = amount;
+        }
+    }
+    public void BuffCombatStat(UnitStatType type, int amount){
+        duringCombatStats[type] = amount;
     }
     public void SetSkillMethods(){
         //TODO: ONLY SET SKILL METHODS ON GAME STARTUP
@@ -165,6 +182,9 @@ public class BaseUnit : MonoBehaviour
     }
     public void ReceiveDamage(int damage){
         health -= damage;
+        if (health <= 0){
+            UnitManager.instance.DeleteUnit(this);
+        }
     }
     public void RecoverHealth(int healing){
         health += healing;
@@ -262,7 +282,7 @@ public class BaseUnit : MonoBehaviour
                 newAmount += change.currentAmount;
             }
         }
-        return newAmount;
+        return newAmount + duringCombatStats[type];
     }
     public SkillStatChange GetStatChange(string name){
         if (skillStatChanges.ContainsKey(name)){
@@ -347,7 +367,7 @@ public class BaseUnit : MonoBehaviour
     public void UsePassiveSkills(PassiveSkillType type){
         var pSkills = GetPassiveSkills();
         foreach (PassiveSkill pSkill in pSkills){
-            if (pSkill is CombatPassiveSkill){
+            if (pSkill is CombatPassiveSkill && !pSkill.HasMethod()){
                 continue;
             }
             if (pSkill.passiveSkillType == type){

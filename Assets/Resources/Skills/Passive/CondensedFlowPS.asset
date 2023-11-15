@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
   m_Name: CondensedFlowPS
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 0779ad3feec52124e97114bcbb12ef13, type: 3}
+  sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
   skillName: CondensedFlow
   description: Unit can counterattack regardless of foe's range.
   unitClass: 0

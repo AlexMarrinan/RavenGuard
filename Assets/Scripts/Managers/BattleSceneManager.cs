@@ -191,7 +191,6 @@ public class BattleSceneManager : MonoBehaviour
         //TODO: ACTUAL KILL ANIMATION
         killed.Hide();        
         yield return new WaitForSeconds(v);
-        UnitManager.instance.DeleteUnit(killed.assignedUnit);
         OnBattlEnd();
     }   
     
@@ -210,11 +209,17 @@ public class BattleSceneManager : MonoBehaviour
         }else{
             TurnManager.instance.GoToNextUnit();
         }
-        if (leftBU.assignedUnit != null){
+        if (leftBU.assignedUnit.health > 0){
             leftBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
-        if (rightBU.assignedUnit != null){
+        if (rightBU.assignedUnit.health > 0){
             rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
+        }
+        if (leftBU.assignedUnit.health <= 0){
+            UnitManager.instance.DeleteUnit(leftBU.assignedUnit);
+        }
+        if (rightBU.assignedUnit.health <= 0){
+            UnitManager.instance.DeleteUnit(rightBU.assignedUnit);
         }
         UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();

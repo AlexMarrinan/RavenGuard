@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -49,18 +50,36 @@ public class MenuManager : MonoBehaviour
         highlightObject.SetActive(true);
         
         if (tile.occupiedUnit != null){
+            tile.occupiedUnit.ResetCombatStats();
             if (UnitManager.instance.selectedUnit == null){
-                MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
-                MenuManager.instance.unitStatsMenu.SetUnit(tile.occupiedUnit);
+                unitStatsMenu.gameObject.SetActive(true);
+                unitStatsMenu.SetUnit(tile.occupiedUnit);
             }else if (tile.occupiedUnit.faction == UnitFaction.Enemy){
-                MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(true);
-                MenuManager.instance.otherUnitStatsMenu.SetUnit(tile.occupiedUnit);
+                UnitManager.instance.selectedUnit.ResetCombatStats();
+                BattlePrediction bp = new BattlePrediction(UnitManager.instance.selectedUnit, tile.occupiedUnit);
+                unitStatsMenu.SetUnit(UnitManager.instance.selectedUnit);
+                if (bp.attacker == UnitManager.instance.selectedUnit){
+                    unitStatsMenu.healthBar.SetHealth(bp.atkHealth);
+                }else{
+                    unitStatsMenu.healthBar.SetHealth(bp.defHealth);
+                }
+
+                otherUnitStatsMenu.gameObject.SetActive(true);
+                otherUnitStatsMenu.SetUnit(tile.occupiedUnit);
+                if (bp.attacker == tile.occupiedUnit){
+                    otherUnitStatsMenu.healthBar.SetHealth(bp.atkHealth);
+                }else{
+                    otherUnitStatsMenu.healthBar.SetHealth(bp.defHealth);
+                }
             }
         }else{
             if (UnitManager.instance.selectedUnit == null){
-                MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
+                unitStatsMenu.gameObject.SetActive(false);
+            }else{
+                UnitManager.instance.selectedUnit.ResetCombatStats();
+                unitStatsMenu.SetUnit(UnitManager.instance.selectedUnit);
             }
-            MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
+            otherUnitStatsMenu.gameObject.SetActive(false);
         }
 
         if (UnitManager.instance.selectedUnit == null){

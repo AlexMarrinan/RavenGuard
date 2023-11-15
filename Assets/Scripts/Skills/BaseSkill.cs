@@ -69,6 +69,10 @@ public class BaseSkill : BaseItem {
     {
         return null;
     }
+    internal bool HasMethod()
+    {
+        return methodInfo != null;
+    }
 }
 
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
   m_Name: PatiencePS
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 0779ad3feec52124e97114bcbb12ef13, type: 3}
+  sprite: {fileID: 21300000, guid: 24de8379e9437a34bb2dd9b68bba01e0, type: 3}
   skillName: Patience
   description: Unit cannot make a follow-up attack, foe cannot counterattack during
     combat.  When attacked, unit cannot counterattack.

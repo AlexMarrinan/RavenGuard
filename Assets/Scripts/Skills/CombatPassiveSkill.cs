@@ -85,4 +85,7 @@ public enum CombatPSActionType {
 
     DamageMultiplier,
     OppDamageMultiplier,
+
+    BuffAllStats,
+    OppBuffAllStats,
 }
