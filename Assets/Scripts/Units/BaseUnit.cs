@@ -52,7 +52,6 @@ public class BaseUnit : MonoBehaviour
 
     public void ResetCombatStats(){
         foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
-            Debug.Log(ust);
             duringCombatStats[ust] = 0;
         }
     }
@@ -450,9 +449,9 @@ public class BaseUnit : MonoBehaviour
     }
 
     public void DecrementBuffs(){
-        Debug.Log(buffs.Count);
+        // Debug.Log(buffs.Count);
         foreach (var buff in buffs){
-            Debug.Log(buff.buffType);
+            //Debug.Log(buff.buffType);
             if (buff.buffType == BuffType.OnTurn){
                 buff.ApplyEffect();
             }

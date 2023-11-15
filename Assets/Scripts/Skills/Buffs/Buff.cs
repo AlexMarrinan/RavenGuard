@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
+[Serializable]
 public class Buff {
     public int cooldown = 1;
     public BuffType buffType;

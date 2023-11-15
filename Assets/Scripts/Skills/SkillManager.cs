@@ -67,6 +67,10 @@ public class SkillManager : MonoBehaviour
         Debug.Log("AdrenalineBurst");
         u.ReceiveDamage(2);
     }
+    public void PoisonArrowsPS(BaseUnit u){
+        BattleUnit otherbu = BattleSceneManager.instance.GetOtherBattleUnit(u);
+        otherbu.assignedUnit.AddBuff(new PoisonBuff(u, otherbu.assignedUnit, 2));
+    }
     //If unit moves 0 or 1 spaces, unit gains +2 defense and +1 attack during combat.
     //This effect stack for each consecutive turn in a row, up to three turns. 
     //Then, stays at 3 turns. Moving more than the amount of spaces resets the stats.

@@ -27,7 +27,7 @@ MonoBehaviour:
   - condition:
       variable: 0
       comparator: 2
-      value: 1
+      value: 0.3
     action:
       type: 10
       value: 3

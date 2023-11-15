@@ -5,13 +5,15 @@ using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 public class PoisonBuff : Buff{
-
-    public PoisonBuff(BaseUnit applier, BaseUnit appliedTo) : base(applier, appliedTo) {
+    public int amount;
+    public PoisonBuff(BaseUnit applier, BaseUnit appliedTo, int amount) : base(applier, appliedTo) {
         this.cooldown = 2;
         this.positive = false;
         this.buffType = BuffType.OnTurn;
+        this.amount = amount;
     }
     public override void ApplyEffect(){
-        appliedTo.ReceiveDamage(-1);
+        Debug.Log(appliedTo.occupiedTile.coordiantes);
+        appliedTo.ReceiveDamage(amount);
     }
 }
