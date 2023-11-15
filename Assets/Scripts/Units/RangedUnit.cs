@@ -47,7 +47,7 @@ public class RangedUnit : BaseUnit
         if (distance >= base.moveAmount){
             base.MoveToTileAtDistance(distance - base.moveAmount);
         }
-        OnExhaustMovment();
+        FinishTurn();
         UnitManager.instance.SetSeclectedUnit(null);
         // yield return null;
     }

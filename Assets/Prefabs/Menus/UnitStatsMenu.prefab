@@ -1979,6 +1979,9 @@ MonoBehaviour:
   skillIcon0: {fileID: 2991188063541712161}
   skillIcon1: {fileID: 2128078313152447064}
   skillIcon2: {fileID: 6056981372960737814}
+  skillIcon0BG: {fileID: 3256141055475006498}
+  skillIcon1BG: {fileID: 2832005941115157071}
+  skillIcon2BG: {fileID: 56542152233105589}
   unitNameText: {fileID: 2991188063485866175}
   weaponText: {fileID: 2991188063870987585}
   attackText: {fileID: 2991188064331527041}

@@ -205,7 +205,7 @@ public class BattleSceneManager : MonoBehaviour
         MenuManager.instance.menuState = MenuState.None;
         if (startingUnit != null){
             //startingUnit.moveAmount = 0;
-            startingUnit.OnExhaustMovment();
+            startingUnit.FinishTurn();
         }else{
             TurnManager.instance.GoToNextUnit();
         }

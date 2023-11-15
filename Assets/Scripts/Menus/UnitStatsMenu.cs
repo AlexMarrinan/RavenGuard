@@ -11,7 +11,7 @@ public class UnitStatsMenu : BaseMenu
     public Image unitIcon;
     public FaceDirection faceDirection;
     public UnitFaction faction;
-    public Image weaponImage, skillIcon0, skillIcon1, skillIcon2;
+    public Image weaponImage, skillIcon0, skillIcon1, skillIcon2, skillIcon0BG, skillIcon1BG, skillIcon2BG;
     public TextMeshProUGUI unitNameText, weaponText, attackText, defenseText, agilityText, attunementText, forsightText, luckText;
     public TextMeshProUGUI weaponClassText, unitClassText;
     public HealthBarMenu healthBar;
@@ -108,6 +108,11 @@ public class UnitStatsMenu : BaseMenu
         }else{
             skillIcon0.sprite = skill.sprite;
         }
+        if (skill is ActiveSkill){
+            skillIcon0BG.color = SkillManager.instance.activeSkillColor;
+        }else{
+            skillIcon0BG.color = SkillManager.instance.passiveSkillColor;
+        }
 
         skill = unit.GetSkill(1);
         if (skill == null){
@@ -115,12 +120,22 @@ public class UnitStatsMenu : BaseMenu
         }else{
             skillIcon1.sprite = skill.sprite;
         }
+        if (skill is ActiveSkill){
+            skillIcon1BG.color = SkillManager.instance.activeSkillColor;
+        }else{
+            skillIcon1BG.color = SkillManager.instance.passiveSkillColor;
+        }
 
         skill = unit.GetSkill(2);
         if (skill == null){
             skillIcon2.sprite = null;
         }else{
             skillIcon2.sprite = skill.sprite;
+        }
+        if (skill is ActiveSkill){
+            skillIcon2BG.color = SkillManager.instance.activeSkillColor;
+        }else{
+            skillIcon2BG.color = SkillManager.instance.passiveSkillColor;
         }
     }
 }

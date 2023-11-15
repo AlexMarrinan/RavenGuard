@@ -398,7 +398,7 @@ public class GridManager : MonoBehaviour
             return;
         }
         //if tile is not valid, continue
-        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        if (tile == null || tile is WallTile || (visited.ContainsKey(tile) && visited[tile] == depth)){
             return;
         }
 

@@ -15,6 +15,7 @@ public class BaseUnit : MonoBehaviour
     public int maxMoveAmount;
     public int health;
     public int maxHealth;
+    public bool hasMoved;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
     [SerializeField] private int agility;
@@ -25,7 +26,6 @@ public class BaseUnit : MonoBehaviour
     public Dictionary<string, SkillStatChange> skillStatChanges = new();
 
     // [HideInInspector]
-    public bool awaitingOrders;
     public UnitHealthBar healthBar;
     public SpriteRenderer spriteRenderer;
     public List<BaseSkill> skills;
@@ -212,11 +212,22 @@ public class BaseUnit : MonoBehaviour
         InitializeFaction();
         moveAmount = maxMoveAmount;
     }
-
-    public void OnExhaustMovment(){
+    public void FinishMovement(){
+        // moveAmount = 0;
+        Debug.Log("movment over");
+        hasMoved = true;
+        UsePassiveSkills(PassiveSkillType.OnMovement);
+        UnitManager.instance.SetSeclectedUnit(null);
+        if (GetActiveSkills().Count <= 0 || this.faction == UnitFaction.Enemy){
+            FinishTurn();
+        }else{
+            GridManager.instance.SetHoveredTile(this.occupiedTile);
+        }
+    }
+    public void FinishTurn(){
         // moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
-        UsePassiveSkills(PassiveSkillType.OnMovement);
+        Debug.Log("turn over");
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
     }

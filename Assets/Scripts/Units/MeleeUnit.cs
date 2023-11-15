@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class MeleeUnit : BaseUnit
 {
@@ -29,6 +30,9 @@ public class MeleeUnit : BaseUnit
 
     public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
     {
+        if (otherTile.moveType != TileMoveType.NotValid){
+            return otherTile.moveType;
+        }
         if (otherTile.occupiedUnit != null && otherTile.occupiedUnit.faction != TurnManager.instance.currentFaction){
             return TileMoveType.Attack;
         }

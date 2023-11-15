@@ -16,6 +16,7 @@ public class BaseSkill : BaseItem {
     public SkillShape shape;
     public int range1 = 1;
     public int range2 = 1;
+    public TileMoveType tileMoveType;
     public virtual void OnSelect(BaseUnit user){
 
     }
@@ -43,7 +44,7 @@ public class BaseSkill : BaseItem {
         //range 2 is distance away from unit, if not centered
         BaseTile t = user.occupiedTile;
         if (centered){
-            Debug.Log("centered!");
+            Debug.Log("radius centered!");
             return GridManager.instance.GetRadiusTiles(t, range1);
         }
         BaseTile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + range2*SkillManager.instance.useDirection);

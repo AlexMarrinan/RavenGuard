@@ -11,6 +11,7 @@ public class SkillManager : MonoBehaviour
     public List<BaseTile> currentTiles;
     public BaseUnit user;
     public BaseSkill currentSkill;
+    public Color activeSkillColor, passiveSkillColor;
     public void Awake(){
         instance = this;
     }
@@ -23,6 +24,10 @@ public class SkillManager : MonoBehaviour
         }
         currentTiles = currentSkill.GetAffectedTiles(user);
         foreach (BaseTile t in currentTiles){
+            if (t == user.occupiedTile){
+                continue;
+            }
+            t.moveType = currentSkill.tileMoveType;
             t.SetPossibleMove(true, user.occupiedTile);
         }
     }
@@ -39,7 +44,17 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
-    
+    public void WhirlwindAS(BaseUnit u){
+        int damage = 3;
+        Debug.Log("Used Whirlwind...");
+        var tiles = SkillManager.instance.currentTiles;
+        foreach (BaseTile tile in tiles){
+            BaseUnit unit = tile.occupiedUnit;
+            if (unit != null && unit != u){
+                unit.ReceiveDamage(damage);
+            }
+        }
+    }
     //Upon ending unit's action or end of combat, adjacent allies are cleansed of all clearable debuffs.
     public void CleansePS(BaseUnit u){
         u.Cleanse();

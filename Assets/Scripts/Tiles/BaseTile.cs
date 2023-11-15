@@ -86,7 +86,7 @@ public abstract class BaseTile : MonoBehaviour
 
         //current pressed tile is occupied
         if (occupiedUnit != null){
-            //if the unit is out of movment, do not allow selection
+            //if the unit is not awaiting orders, do not allow selection
             if (!TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit) && occupiedUnit.faction == TurnManager.instance.currentFaction){
                 return;
             }
@@ -169,7 +169,9 @@ public abstract class BaseTile : MonoBehaviour
         if (startPos == null){
             validPath = null;
         }else{
-            validPath = GetPathFrom(startPos);
+            if (!SkillManager.instance.selectingSkill){
+                validPath = GetPathFrom(startPos);
+            }
         }
     }
     public List<BaseTile> GetPathFrom(BaseTile startPos){

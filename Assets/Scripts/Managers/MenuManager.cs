@@ -112,7 +112,7 @@ public class MenuManager : MonoBehaviour
         turnStartText.transform.SetAsLastSibling();
     }
 
-    public void ToggleUnitMenu(){
+    public void ToggleUnitActionMenu(){
         if (menuState == MenuState.UnitAction){
             CloseMenus();
             return;

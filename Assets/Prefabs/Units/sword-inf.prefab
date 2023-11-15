@@ -116,7 +116,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
   - {fileID: 11400000, guid: 05d71841e6128b942a52cc756f1e91be, type: 2}
-  - {fileID: 11400000, guid: 2c3bde3c3787cf54fa10efbd80c1bcd0, type: 2}
+  - {fileID: 11400000, guid: c8ee1636f404cd24190a6dbf39a649c8, type: 2}
   - {fileID: 11400000, guid: 1ad4f5f2ed739cd42a48b09d6ed81f3a, type: 2}
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0

@@ -236,7 +236,7 @@ public class InputManager : MonoBehaviour
 
     private void OnUnitMenuPerformed(InputAction.CallbackContext context)
     {
-        MenuManager.instance.ToggleUnitMenu();
+        MenuManager.instance.ToggleUnitActionMenu();
     }
     private void OnUnitMenuCanceled(InputAction.CallbackContext context)
     {

@@ -70,6 +70,10 @@ public class UnitManager : MonoBehaviour
         MenuManager.instance.SelectTile(unit.occupiedTile);
         selectedUnit = unit;
         RemoveAllValidMoves();
+        if (unit.hasMoved){
+            MenuManager.instance.ToggleUnitActionMenu();
+            return;
+        }
         SetValidMoves(unit);
         PathLine.instance.Reset();
         //MenuManager.instance.ShowSelectedUnit(unit);
@@ -164,7 +168,7 @@ public class UnitManager : MonoBehaviour
             u.healthBar.gameObject.SetActive(show);
         }
     }
-    public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool turnOver){
+    public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
         if (path.Count > 0){
             BaseTile nextTile = path[0];
             Vector3 nextPos = nextTile.transform.position;
@@ -176,12 +180,12 @@ public class UnitManager : MonoBehaviour
             }
             path.RemoveAt(0);
             if (path.Count > 0){
-                yield return AnimateUnitMove(unit, path, turnOver);
+                yield return AnimateUnitMove(unit, path, moveOver);
             }else{
                 nextTile.occupiedUnit = unit;
                 unit.occupiedTile = nextTile;
-                if (turnOver){
-                    unit.OnExhaustMovment();
+                if (moveOver){
+                    unit.FinishMovement();
                 }
                 yield return new WaitForSeconds(0.45f);
             }

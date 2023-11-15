@@ -14,7 +14,7 @@ public class ActiveSkill : BaseSkill {
         methodInfo = type.GetMethod(base.skillName + "AS");
     }
      public override void OnSelect(BaseUnit user){
-        MenuManager.instance.ToggleUnitMenu();
+        MenuManager.instance.ToggleUnitActionMenu();
         SkillManager.instance.currentSkill = this;
         SkillManager.instance.user = user;
         SkillManager.instance.ShowSkillPreview();
@@ -24,6 +24,7 @@ public class ActiveSkill : BaseSkill {
         var param = new object[1];
         param[0] = user;
         methodInfo.Invoke(mng, param);
+        user.FinishTurn();
         SkillManager.instance.OnSkilEnd();
     }
 }
