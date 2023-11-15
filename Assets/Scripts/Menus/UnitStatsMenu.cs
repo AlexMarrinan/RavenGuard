@@ -11,7 +11,7 @@ public class UnitStatsMenu : BaseMenu
     public Image unitIcon;
     public FaceDirection faceDirection;
     public UnitFaction faction;
-    public Image weaponImage;
+    public Image weaponImage, skillIcon0, skillIcon1, skillIcon2;
     public TextMeshProUGUI unitNameText, weaponText, attackText, defenseText, agilityText, attunementText, forsightText, luckText;
     public TextMeshProUGUI weaponClassText, unitClassText;
     public HealthBarMenu healthBar;
@@ -31,6 +31,7 @@ public class UnitStatsMenu : BaseMenu
     }
 
     private void DisplayUnit(){
+        this.transform.SetAsLastSibling();
         unitIcon.sprite = unit.GetSprite();
         unitNameText.text = unit.unitName;
         unitClassText.text = unit.unitClass.ToString();
@@ -99,6 +100,27 @@ public class UnitStatsMenu : BaseMenu
             luckText.color = Color.green;
         }else{
             luckText.color = Color.white;
+        }
+
+        var skill = unit.GetSkill(0);
+        if (skill == null){
+            skillIcon0.sprite = null;
+        }else{
+            skillIcon0.sprite = skill.sprite;
+        }
+
+        skill = unit.GetSkill(1);
+        if (skill == null){
+            skillIcon1.sprite = null;
+        }else{
+            skillIcon1.sprite = skill.sprite;
+        }
+
+        skill = unit.GetSkill(2);
+        if (skill == null){
+            skillIcon2.sprite = null;
+        }else{
+            skillIcon2.sprite = skill.sprite;
         }
     }
 }
