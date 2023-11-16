@@ -18,7 +18,6 @@ public class BattleSceneManager : MonoBehaviour
     private Vector3 rightNewPos;
     public float hitMoveSpeed = 10f;
     private BaseUnit startingUnit;
-    public CombatOrder combatOrder;
     public GameObject sceneBackground;
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
     private BattlePrediction prediction;

@@ -38,17 +38,11 @@ public class RangedUnit : BaseUnit
         return tempType;
     }
     public override void Attack(BaseUnit otherUnit){
-        otherUnit.ReceiveDamage(this);
         int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);
 
-        if (otherUnit.health <= 0){
-            UnitManager.instance.DeleteUnit(otherUnit);
-        }
         if (distance >= base.moveAmount){
             base.MoveToTileAtDistance(distance - base.moveAmount);
         }
-        FinishTurn();
-        UnitManager.instance.SetSeclectedUnit(null);
-        // yield return null;
+        BattleSceneManager.instance.StartBattle(this, otherUnit);
     }
 }

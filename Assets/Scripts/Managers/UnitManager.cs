@@ -182,6 +182,9 @@ public class UnitManager : MonoBehaviour
             if (path.Count > 0){
                 yield return AnimateUnitMove(unit, path, moveOver);
             }else{
+                while (MenuManager.instance.menuState == MenuState.Battle){
+                    yield return null;
+                } 
                 nextTile.occupiedUnit = unit;
                 unit.occupiedTile = nextTile;
                 if (moveOver){

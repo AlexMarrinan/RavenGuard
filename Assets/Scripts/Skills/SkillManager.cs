@@ -147,7 +147,7 @@ public class SkillManager : MonoBehaviour
 
     //Unit heals 7 HP after combat if unit attacked.
     public void RecoveryPS(BaseUnit u){
-        int healing = 7;
+        int healing = 4;
         //Called After Movment
         if (BattleSceneManager.instance.UnitAttacked(u)){
             u.RecoverHealth(healing);

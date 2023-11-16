@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: 
   occupiedTile: {fileID: 0}
-  faction: 0
+  faction: 1
   unitClass: 0
   moveAmount: 3
   maxMoveAmount: 3
@@ -108,16 +108,16 @@ MonoBehaviour:
   hasMoved: 0
   attack: 19
   defense: 11
-  agility: 0
-  attunment: 0
-  foresight: 0
-  luck: 0
+  agility: 15
+  attunment: 3
+  foresight: 7
+  luck: 1
   healthBar: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 6896802453669631958}
   skills: []
   weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 0}
+  animatorController: {fileID: 9100000, guid: c82bba4dea9aa8b4ab9ff4fb8b4c34db, type: 2}
   buffs: []
-  rangedWeapon: {fileID: 0}
+  rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   rangedWeaponClass: 0
