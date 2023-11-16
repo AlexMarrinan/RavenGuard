@@ -442,6 +442,7 @@ public class GridManager : MonoBehaviour
     }
     List<BaseTile> visited = new();
     Queue<BaseTile> toVisit = new();
+    BaseUnit startUnit = start.occupiedUnit;
     Dictionary<BaseTile, BaseTile> previousTiles = new();
     BaseTile current = start;
     previousTiles.Add(current, null);
@@ -456,7 +457,7 @@ public class GridManager : MonoBehaviour
                 continue;
             }
             if (withPathLine){
-                if (tile.moveType == TileMoveType.NotValid || tile.moveType == TileMoveType.Attack ){
+                if (tile.moveType == TileMoveType.NotValid || (startUnit is MeleeUnit && tile.moveType == TileMoveType.Attack) ){
                     continue;
                 }
             }else{
