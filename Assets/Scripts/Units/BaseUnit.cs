@@ -120,7 +120,7 @@ public class BaseUnit : MonoBehaviour
         }
     }
     private void CreateHealthbar(){
-        var prefab = Resources.Load("HealthBar");
+        var prefab = Resources.Load("Prefabs/UI/OverworldHealthBar");
         var go = (GameObject)Instantiate(prefab);
         ((GameObject)go).transform.SetParent(GameManager.instance.mainCanvas.transform);
         healthBar = go.GetComponent<UnitHealthBar>();

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a898077141c9374f909d14396d30a2d, type: 3}
   m_Name: TestStaff
   m_EditorClassIdentifier: Assembly-CSharp::RangedWeapon
-  sprite: {fileID: 21300000, guid: a4ea9d8a2a4a8d744927ec9cef59843d, type: 3}
+  sprite: {fileID: 21300000, guid: 125c4d3925c62854fa106d4bd734592e, type: 3}
   weaponName: Test Bow
   weaponDescription: 
   damage: 5
