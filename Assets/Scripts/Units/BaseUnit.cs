@@ -211,6 +211,7 @@ public class BaseUnit : MonoBehaviour
     public void ResetMovment(){
         InitializeFaction();
         moveAmount = maxMoveAmount;
+        hasMoved = false;
     }
     public void FinishMovement(){
         // moveAmount = 0;

@@ -1730,7 +1730,7 @@ MonoBehaviour:
   moveColor: {r: 0.2962442, g: 0.41731423, b: 0.8396226, a: 0.78431374}
   attackColor: {r: 0.754717, g: 0.30188677, b: 0.30188677, a: 0.78431374}
   inRangeColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 0.54509807}
-  supportColor: {r: 0.4495335, g: 0.8584906, b: 0.44058383, a: 1}
+  supportColor: {r: 0.049393527, g: 0.2924528, b: 0.04248842, a: 1}
 --- !u!4 &426753145
 Transform:
   m_ObjectHideFlags: 0
@@ -6169,6 +6169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useDirection: {x: 1, y: 0}
   selectingSkill: 0
+  skillFailed: 0
   currentTiles: []
   user: {fileID: 0}
   currentSkill: {fileID: 0}
