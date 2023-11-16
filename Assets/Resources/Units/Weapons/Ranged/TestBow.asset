@@ -17,6 +17,6 @@ MonoBehaviour:
   weaponDescription: 
   damage: 5
   weaponClass: 3
-  minRange: 3
-  maxRange: 5
+  minRange: 4
+  maxRange: 6
   rangedWeaponClass: 0

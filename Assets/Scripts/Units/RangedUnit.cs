@@ -25,7 +25,7 @@ public class RangedUnit : BaseUnit
     }
     public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
     {
-        int distance = otherTile.GetPathLengthFrom(base.occupiedTile);
+        int distance = otherTile.DistanceFrom(base.occupiedTile);
         TileMoveType tempType;
         if (distance < base.moveAmount){
             tempType = TileMoveType.Move;
@@ -38,11 +38,12 @@ public class RangedUnit : BaseUnit
         return tempType;
     }
     public override void Attack(BaseUnit otherUnit){
-        int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);
+        // int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);
 
-        if (distance >= base.moveAmount){
-            base.MoveToTileAtDistance(distance - base.moveAmount);
-        }
+        // if (distance >= base.moveAmount){
+        //     base.MoveToTileAtDistance(distance - base.moveAmount);
+        // }
+        MoveToAttackTile(otherUnit);
         BattleSceneManager.instance.StartBattle(this, otherUnit);
     }
 }

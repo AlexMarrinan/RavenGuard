@@ -51,7 +51,7 @@ public abstract class BaseTile : MonoBehaviour
             if (moveType == TileMoveType.NotValid && UnitManager.instance.selectedUnit.occupiedTile != this) {
                 return;
             }
-            ToggleLinePoint();
+            RerenderLine();
         }
         if (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit)){
             TurnManager.instance.SetPreviousUnit(occupiedUnit);
@@ -191,7 +191,7 @@ public abstract class BaseTile : MonoBehaviour
         //TOOD: actually make the path for drawing the line
         return path;
     }
-     public int GetPathLengthFrom(BaseTile startPos){
+     public int DistanceFrom(BaseTile startPos){
         List<BaseTile> path = new List<BaseTile>();
         var startCoordiantes = startPos.coordiantes;
         int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
@@ -223,8 +223,8 @@ public abstract class BaseTile : MonoBehaviour
 
     }
 
-    private void ToggleLinePoint(){
-        if (this.moveType != TileMoveType.Move){
+    private void RerenderLine(){
+        if (UnitManager.instance.selectedUnit is MeleeUnit && this.moveType == TileMoveType.Attack){
             return;
         }
         PathLine.instance.RenderLine(UnitManager.instance.selectedUnit.occupiedTile, this);

@@ -3314,8 +3314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7e7208373f751d4d9d2d3143c302385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 13
-  height: 9
+  width: 12
+  height: 8
   tileSet: {fileID: 11400000, guid: 528ee551749d1d3479cb036ffe604345, type: 2}
   floorPrefab: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
   wallPrefab: {fileID: 1682275154842417547, guid: d258b296c79ea8c47b92c7a5ac33fad4, type: 3}

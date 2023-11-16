@@ -437,6 +437,9 @@ public class GridManager : MonoBehaviour
     if (start == end){
         return new List<BaseTile>{start};
     }
+    if (end.moveType == TileMoveType.InAttackRange){
+        return new();
+    }
     List<BaseTile> visited = new();
     Queue<BaseTile> toVisit = new();
     Dictionary<BaseTile, BaseTile> previousTiles = new();
@@ -453,7 +456,7 @@ public class GridManager : MonoBehaviour
                 continue;
             }
             if (withPathLine){
-                if (tile.moveType == TileMoveType.NotValid || tile.moveType == TileMoveType.Attack){
+                if (tile.moveType == TileMoveType.NotValid || tile.moveType == TileMoveType.Attack ){
                     continue;
                 }
             }else{
@@ -478,6 +481,24 @@ public class GridManager : MonoBehaviour
                     finalTiles.Add(finalCurr);
                 }
                 finalCurr = previousTiles[finalCurr];
+            }
+            if (start.occupiedUnit != null && start.occupiedUnit is RangedUnit && end.moveType == TileMoveType.Attack){
+                RangedUnit rangedUnit = start.occupiedUnit as RangedUnit;
+                int distance = end.DistanceFrom(start);
+                Debug.Log("ranged ataack distance " + distance);
+                // if (distance >= rangedUnit.maxMoveAmount){
+                    int max = rangedUnit.moveAmount - 1;
+                    int pathLength = distance - max;
+                    Debug.Log("pathLength " + pathLength);
+
+                    if (pathLength >= 0){
+                        int range = rangedUnit.rangedWeapon.maxRange - distance; //+ rangedUnit.rangedWeapon.minRange;
+                        if (range > finalTiles.Count){
+                            range = finalTiles.Count;
+                        }
+                        finalTiles.RemoveRange(0, range);
+                    }
+                // }
             }
             return finalTiles;
         }

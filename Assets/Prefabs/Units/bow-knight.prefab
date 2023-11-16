@@ -101,8 +101,8 @@ MonoBehaviour:
   occupiedTile: {fileID: 0}
   faction: 1
   unitClass: 0
-  moveAmount: 3
-  maxMoveAmount: 3
+  moveAmount: 4
+  maxMoveAmount: 4
   health: 5
   maxHealth: 5
   hasMoved: 0
