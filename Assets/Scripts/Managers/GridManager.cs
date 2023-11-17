@@ -457,6 +457,7 @@ public class GridManager : MonoBehaviour
                 continue;
             }
             if (withPathLine){
+                //TOOD: MAKE IT SO IF ITS AN ATTACK TILE BREAKS RANGED UNIT PATHFINDING !!!
                 if (tile.moveType == TileMoveType.NotValid || (startUnit is MeleeUnit && tile.moveType == TileMoveType.Attack) ){
                     continue;
                 }
