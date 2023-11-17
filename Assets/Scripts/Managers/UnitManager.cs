@@ -108,6 +108,24 @@ public class UnitManager : MonoBehaviour
     public List<BaseTile> SetValidMoves(BaseUnit unit){
         var validMoves = GetValidMoves(unit);
         validMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
+        if (unit is MeleeUnit){
+            var adjValidMoves = new List<BaseTile>();
+            foreach (var validMove in validMoves){
+                if (validMove == null || validMove.moveType != TileMoveType.Move){
+                    continue;
+                }
+                foreach (var adjTile in validMove.GetAdjacentTiles()){
+                    if (adjTile == null ){
+                        continue;
+                    }
+                    if (adjTile.moveType == TileMoveType.NotValid && adjTile.occupiedUnit != null && adjTile.occupiedUnit.faction != unit.faction){
+                        adjValidMoves.Add(adjTile);
+                    }
+                }
+            }
+            adjValidMoves.ForEach(t => t.SetPossibleMove(true, unit.occupiedTile));
+            validMoves = validMoves.Concat(adjValidMoves).ToList();
+        }   
         return validMoves;
     }
     public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){

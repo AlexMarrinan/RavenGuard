@@ -17,16 +17,24 @@ public class TurnManager : MonoBehaviour
     }
 
     public void SkipTurn(){
-        if (currentFaction == UnitFaction.Hero){
-            GameManager.instance.ChangeState(GameState.EnemiesTurn);
-        }else{
-            GameManager.instance.ChangeState(GameState.HeroesTurn);
+        var units = new List<BaseUnit>();
+        unitsAwaitingOrders.ForEach(u => units.Add(u));
+        foreach (BaseUnit unit in units){
+            unit.moveAmount = 0;
+            unit.UsePassiveSkills(PassiveSkillType.OnMovement);
+            unit.FinishTurn();
         }
+        // if (currentFaction == UnitFaction.Hero){
+        //     GameManager.instance.ChangeState(GameState.EnemiesTurn);
+        // }else{
+        //     GameManager.instance.ChangeState(GameState.HeroesTurn);
+        // }
     }
     public void BeginHeroTurn(){
         turnNumber++;
         currentFaction = UnitFaction.Hero;
         MenuManager.instance.ShowStartText("Your turn!", false);
+        
         UnitManager.instance.ResetUnitMovment();
         unitsAwaitingOrders = UnitManager.instance.GetAllHeroes();
         if (unitsAwaitingOrders.Count <= 0){

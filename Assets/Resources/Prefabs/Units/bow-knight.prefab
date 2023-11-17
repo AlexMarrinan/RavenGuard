@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: -3642861134224457236}
+  - component: {fileID: -5132088052295604715}
   m_Layer: 0
-  m_Name: BowInfantry
+  m_Name: bow-knight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1746290447937580278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 1842834661, guid: dc2312f1d79df2542b669ca5d61b7b95, type: 3}
+  m_Sprite: {fileID: 1865143392, guid: e728f6bf4c84fb14c865da352667c2f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &-3642861134224457236
+--- !u!114 &-5132088052295604715
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,28 +97,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf1f64db6caed948acc337443f5e6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Infantry w/Bow
+  unitName: 
   occupiedTile: {fileID: 0}
-  faction: 0
+  faction: 1
   unitClass: 0
   moveAmount: 4
   maxMoveAmount: 4
-  health: 14
-  maxHealth: 14
-  attack: 20
+  health: 5
+  maxHealth: 5
+  hasMoved: 0
+  attack: 19
   defense: 11
   agility: 15
-  attunment: 12
-  foresight: 15
-  luck: 12
-  awaitingOrders: 0
+  attunment: 3
+  foresight: 7
+  luck: 1
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
-  activeSkill: {fileID: 0}
-  universalPassiveSkill: {fileID: 0}
-  classPassiveSkill: {fileID: 0}
-  weapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
+  skills: []
+  weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: e3e01948576e05446a195d034afba95f, type: 2}
+  animatorController: {fileID: 9100000, guid: c82bba4dea9aa8b4ab9ff4fb8b4c34db, type: 2}
+  buffs: []
   rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
   rangedWeaponClass: 0

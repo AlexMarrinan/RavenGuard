@@ -26,6 +26,7 @@ public class MenuManager : MonoBehaviour
     public void Awake(){
         instance = this;
         InitMenuMap();
+        turnStartText.transform.SetAsLastSibling();
     }
     private void InitMenuMap(){
         menuMap = new Dictionary<MenuState, BaseMenu>();
@@ -107,9 +108,9 @@ public class MenuManager : MonoBehaviour
         turnStartText.alpha = 1.0f;
         if (forever){
             textFrames = 10000;
+        }else{
+            textFrames = textFramesMax;
         }
-        textFrames = textFramesMax;
-        turnStartText.transform.SetAsLastSibling();
     }
 
     public void ToggleUnitActionMenu(){

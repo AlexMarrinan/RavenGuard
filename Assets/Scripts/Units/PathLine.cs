@@ -54,7 +54,6 @@ public class PathLine : MonoBehaviour
 //        Debug.Log(tiles.Count);
         return tiles[index];
     }
-    //TODO: MAKE IT CHANGE TO THE ACTUAL PATH OF HOVERED TILE, NOT JUST THE DIRECTION THE PLAYER MOVED IT !!!
     public void RenderLine(BaseTile start, BaseTile end){
         //Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
         tiles = GridManager.instance.ShortestPathBetweenTiles(start, end, true);

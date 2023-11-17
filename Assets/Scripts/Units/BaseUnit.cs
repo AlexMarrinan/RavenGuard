@@ -120,7 +120,7 @@ public class BaseUnit : MonoBehaviour
         }
     }
     private void CreateHealthbar(){
-        var prefab = Resources.Load("HealthBar");
+        var prefab = Resources.Load("Prefabs/UI/OverworldHealthBar");
         var go = (GameObject)Instantiate(prefab);
         ((GameObject)go).transform.SetParent(GameManager.instance.mainCanvas.transform);
         healthBar = go.GetComponent<UnitHealthBar>();
@@ -191,11 +191,18 @@ public class BaseUnit : MonoBehaviour
             health = maxHealth;
         }
     }
-    public void MoveToAttackTile(){
+    public void MoveToAttackTile(BaseUnit otherUnit){
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
         BaseTile lastTile = PathLine.instance.GetLastTile();
+        // if (this is RangedUnit){
+        //     int distance = otherUnit.occupiedTile.GetPathLengthFrom(occupiedTile);
+
+        //     if (distance > maxMoveAmount){
+        //         lastTile = PathLine.instance.GetPathTile(distance - maxMoveAmount);
+        //     }
+        // }
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
         if (lastTile != null){

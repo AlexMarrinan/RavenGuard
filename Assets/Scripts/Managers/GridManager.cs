@@ -437,8 +437,12 @@ public class GridManager : MonoBehaviour
     if (start == end){
         return new List<BaseTile>{start};
     }
+    if (end.moveType == TileMoveType.InAttackRange){
+        return new();
+    }
     List<BaseTile> visited = new();
     Queue<BaseTile> toVisit = new();
+    BaseUnit startUnit = start.occupiedUnit;
     Dictionary<BaseTile, BaseTile> previousTiles = new();
     BaseTile current = start;
     previousTiles.Add(current, null);
@@ -453,7 +457,8 @@ public class GridManager : MonoBehaviour
                 continue;
             }
             if (withPathLine){
-                if (tile.moveType == TileMoveType.NotValid || tile.moveType == TileMoveType.Attack){
+                //TOOD: MAKE IT SO IF ITS AN ATTACK TILE BREAKS RANGED UNIT PATHFINDING !!!
+                if (tile.moveType == TileMoveType.NotValid || (startUnit is MeleeUnit && tile.moveType == TileMoveType.Attack) ){
                     continue;
                 }
             }else{
@@ -478,6 +483,25 @@ public class GridManager : MonoBehaviour
                     finalTiles.Add(finalCurr);
                 }
                 finalCurr = previousTiles[finalCurr];
+            }
+            if (start.occupiedUnit != null && start.occupiedUnit is RangedUnit && end.moveType == TileMoveType.Attack){
+                RangedUnit rangedUnit = start.occupiedUnit as RangedUnit;
+                int distance = end.DistanceFrom(start);
+                Debug.Log("ranged ataack distance " + distance);
+                // if (distance >= rangedUnit.maxMoveAmount){
+                int max = rangedUnit.maxMoveAmount - 1;
+                int extraPathLength = distance - max;
+                Debug.Log("pathLength " + extraPathLength);
+
+                if (extraPathLength >= 0){
+                    max = rangedUnit.rangedWeapon.maxRange - 1;
+                    int range = max - distance; //+ rangedUnit.rangedWeapon.minRange;
+                    if (range > finalTiles.Count){
+                        range = finalTiles.Count;
+                    }
+                    finalTiles.RemoveRange(0, range);
+                }
+                // }
             }
             return finalTiles;
         }
