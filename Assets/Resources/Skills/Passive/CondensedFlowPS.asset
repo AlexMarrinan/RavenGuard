@@ -14,13 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
   skillName: CondensedFlow
-  description: Unit can counterattack regardless of foe's range.
+  description: Unit cannot make a follow-up attack during combat.  The damage unit
+    deals during combat is multiplied by 1.5.
   unitClass: 0
   weaponClass: 4
   centered: 0
   shape: 0
   range1: 1
   range2: 1
+  tileMoveType: 0
   passiveSkillType: 1
   atributes:
   - condition:
@@ -28,7 +30,7 @@ MonoBehaviour:
       comparator: 0
       value: 0
     action:
-      type: 2
+      type: 4
       value: 0
   - condition:
       variable: 15

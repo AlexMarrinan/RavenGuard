@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39a2a7d5cac74594e9a13bd08365b04f, type: 3}
-  m_Name: SidearmsUnit
+  m_Name: A-M-KNI
   m_EditorClassIdentifier: 
   faction: 0
-  unitPrefab: {fileID: 2450522220589349630, guid: f962942d747522e4ea46be1eaa21269a, type: 3}
+  unitPrefab: {fileID: -6663769977594601867, guid: 1ce26ebcfeaf713439a5bb3b6993542f, type: 3}

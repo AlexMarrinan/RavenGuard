@@ -45,7 +45,11 @@ public class UnitManager : MonoBehaviour
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
     private BaseUnit GetRandomUnit(UnitFaction faction){
-        var unit = unitPrefabs.OrderBy(o => Random.value).First().unitPrefab;
+        var units = unitPrefabs.OrderBy(o => Random.value);
+        var unit = units.First().unitPrefab;
+        if (faction == UnitFaction.Enemy){
+            unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
+        }
         unit.faction = faction;
         return unit;
     }
@@ -176,7 +180,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void ResetUnitMovment(){
-        foreach (BaseUnit unit in units){
+        foreach (BaseUnit unit in GetAllUnits()){
             unit.ResetMovment();
         }
     }

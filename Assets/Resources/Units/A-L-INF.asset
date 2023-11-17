@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 39a2a7d5cac74594e9a13bd08365b04f, type: 3}
-  m_Name: ArcherUnit
+  m_Name: A-L-INF
   m_EditorClassIdentifier: 
   faction: 0
-  unitPrefab: {fileID: -5132088052295604715, guid: 66cde383f89e8b244a40bd7b2d2a7a3d, type: 3}
+  unitPrefab: {fileID: 2450522220589349630, guid: 81fbd8c134dc0f9468a9349fbf403090, type: 3}
