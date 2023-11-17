@@ -34,6 +34,7 @@ public class TurnManager : MonoBehaviour
         turnNumber++;
         currentFaction = UnitFaction.Hero;
         MenuManager.instance.ShowStartText("Your turn!", false);
+        
         UnitManager.instance.ResetUnitMovment();
         unitsAwaitingOrders = UnitManager.instance.GetAllHeroes();
         if (unitsAwaitingOrders.Count <= 0){
