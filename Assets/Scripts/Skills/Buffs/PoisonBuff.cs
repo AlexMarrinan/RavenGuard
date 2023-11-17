@@ -12,7 +12,7 @@ public class PoisonBuff : Buff{
         this.amount = amount;
     }
     public override void ApplyEffect(){
-        Debug.Log(appliedTo.occupiedTile.coordiantes);
+        //Debug.Log(appliedTo.occupiedTile.coordiantes);
         appliedTo.ReceiveDamage(amount);
     }
 }

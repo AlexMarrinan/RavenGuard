@@ -491,8 +491,7 @@ public class BaseUnit : MonoBehaviour
         buffs.Remove(buff);
     }
 
-    internal void ReduceNextMovemnt(int amount)
-    {
+    internal void ReduceNextMovemnt(int amount){
         Debug.Log("reduced movement: " + amount);
         reducedMovment = amount;
     }
