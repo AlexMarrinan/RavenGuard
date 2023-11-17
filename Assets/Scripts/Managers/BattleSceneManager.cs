@@ -20,7 +20,7 @@ public class BattleSceneManager : MonoBehaviour
     private BaseUnit startingUnit;
     public GameObject sceneBackground;
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
-    private BattlePrediction prediction;
+    public BattlePrediction prediction;
     void Awake()
     {
         instance = this;

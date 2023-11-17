@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BaseUnit : MonoBehaviour
@@ -148,7 +149,26 @@ public class BaseUnit : MonoBehaviour
         if (weaponClass == WeaponClass.Magic){
             return magicDmg;
         }
-        return attackDmg;
+        float value = 1;
+        if (BattleSceneManager.instance.prediction == null){
+            return attackDmg;
+        }
+        if (BattleSceneManager.instance.prediction.attacker == this){
+            foreach (UnitStatMultiplier multi in BattleSceneManager.instance.prediction.attackerStatMultipliers){
+                if (multi.statType == UnitStatType.Attack){
+                    value *= multi.multiplier;
+                }
+            }
+        }
+        else if (BattleSceneManager.instance.prediction.defender == this){
+            foreach (UnitStatMultiplier multi in BattleSceneManager.instance.prediction.defenderStatMultiplers){
+                if (multi.statType == UnitStatType.Attack){
+                    value *= multi.multiplier;
+                }
+            }
+        }
+        return (int)(attackDmg * value);
+        //return (int)((float)attackDmg * value);
     }
     private int GetAttackDamage(BaseUnit otherUnit){
         int damage = this.GetAttack().total - otherUnit.GetDefense().total;
@@ -237,7 +257,7 @@ public class BaseUnit : MonoBehaviour
     public void FinishTurn(){
         // moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
-        Debug.Log("turn over");
+//        Debug.Log("turn over");
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
     }
