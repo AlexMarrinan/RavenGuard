@@ -107,10 +107,10 @@ MonoBehaviour:
   maxHealth: 31
   hasMoved: 0
   attack: 28
-  defense: 25
+  defense: 17
   agility: 13
   attunment: 1
-  foresight: 22
+  foresight: 16
   luck: 1
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}

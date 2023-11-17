@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: A-M-MGE
   m_EditorClassIdentifier: 
   faction: 0
-  unitPrefab: {fileID: -4372316466427370903, guid: 184dd608321ba6544af4ecf999b1c26a, type: 3}
+  unitPrefab: {fileID: 1602817899114489199, guid: 8a2e39a64c6a4ed449d10f018de5a3c2, type: 3}

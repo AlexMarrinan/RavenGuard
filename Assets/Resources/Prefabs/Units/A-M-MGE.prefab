@@ -103,17 +103,17 @@ MonoBehaviour:
   unitClass: 4
   moveAmount: 5
   maxMoveAmount: 5
-  health: 21
-  maxHealth: 21
+  health: 24
+  maxHealth: 24
   hasMoved: 0
   attack: 1
-  defense: 20
-  agility: 5
-  attunment: 30
-  foresight: 20
+  defense: 18
+  agility: 12
+  attunment: 26
+  foresight: 15
   luck: 1
   healthBar: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 6896802453669631958}
   skills:
   - {fileID: 11400000, guid: 1ad4f5f2ed739cd42a48b09d6ed81f3a, type: 2}
   - {fileID: 11400000, guid: db6025ea8a701e64d96dfb30b83e7e5b, type: 2}

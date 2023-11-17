@@ -110,7 +110,7 @@ MonoBehaviour:
   defense: 18
   agility: 6
   attunment: 1
-  foresight: 19
+  foresight: 14
   luck: 1
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}

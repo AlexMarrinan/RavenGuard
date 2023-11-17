@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: 
   occupiedTile: {fileID: 0}
-  faction: 1
+  faction: 0
   unitClass: 1
   moveAmount: 5
   maxMoveAmount: 5
@@ -107,13 +107,13 @@ MonoBehaviour:
   maxHealth: 30
   hasMoved: 0
   attack: 1
-  defense: 21
+  defense: 18
   agility: 24
   attunment: 22
-  foresight: 20
+  foresight: 14
   luck: 1
   healthBar: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 6896802453669631958}
   skills:
   - {fileID: 11400000, guid: db6025ea8a701e64d96dfb30b83e7e5b, type: 2}
   - {fileID: 11400000, guid: d8a19c2c535920f43aa005b761320edd, type: 2}
