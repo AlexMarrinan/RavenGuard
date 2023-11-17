@@ -49,7 +49,6 @@ public class BaseUnit : MonoBehaviour
         CreateHealthbar();
         SetSkillMethods();
     }
-
     public void ResetCombatStats(){
         foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
             duringCombatStats[ust] = 0;
@@ -66,6 +65,9 @@ public class BaseUnit : MonoBehaviour
     public void SetSkillMethods(){
         //TODO: ONLY SET SKILL METHODS ON GAME STARTUP
         foreach (var skill in skills){
+            if (skill == null){
+                continue;
+            }
 //            Debug.Log(skill.skillName);
             skill.SetMethod();
         }

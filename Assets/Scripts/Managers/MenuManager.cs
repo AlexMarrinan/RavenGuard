@@ -104,6 +104,7 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ShowStartText(string text, bool forever){
+        turnStartText.transform.SetAsLastSibling();
         turnStartText.text = text;
         turnStartText.alpha = 1.0f;
         if (forever){
@@ -134,6 +135,9 @@ public class MenuManager : MonoBehaviour
     public void TogglePauseMenu(){
         if (menuState == MenuState.Pause){
             CloseMenus();
+            return;
+        }
+        if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
         pauseMenu.Reset();

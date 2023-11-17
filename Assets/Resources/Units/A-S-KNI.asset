@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: A-S-KNI
   m_EditorClassIdentifier: 
   faction: 0
-  unitPrefab: {fileID: 2450522220589349630, guid: 287bbba242fb0bb42937cb7e798f0047, type: 3}
+  unitPrefab: {fileID: 2450522220589349630, guid: 634894d594849624989cc771b02a8bce, type: 3}

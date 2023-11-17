@@ -202,9 +202,11 @@ public class BattleSceneManager : MonoBehaviour
         rightBU.assignedUnit.tempStatChanges = null;
 
         MenuManager.instance.menuState = MenuState.None;
-        if (startingUnit != null){
+        if (startingUnit.faction == TurnManager.instance.currentFaction){
             //startingUnit.moveAmount = 0;
             startingUnit.FinishTurn();
+        }else if (GetOtherBattleUnit(startingUnit).assignedUnit.faction  == TurnManager.instance.currentFaction){
+            GetOtherBattleUnit(startingUnit).assignedUnit.FinishTurn();
         }else{
             TurnManager.instance.GoToNextUnit();
         }

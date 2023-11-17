@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: 2450522220589349630}
+  - component: {fileID: -4372316466427370903}
   m_Layer: 0
-  m_Name: sword-knight
+  m_Name: A-R-KNI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 1746290447937580278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 2}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -1027908560, guid: f47efac6f611b4742be02e02c50dfe85, type: 3}
+  m_Sprite: {fileID: 1865143392, guid: e728f6bf4c84fb14c865da352667c2f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2450522220589349630
+--- !u!114 &-4372316466427370903
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,33 +94,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746290447937580278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 436e64aeb3c27a94cbab0f0e7f16f915, type: 3}
+  m_Script: {fileID: 11500000, guid: dcf1f64db6caed948acc337443f5e6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: 
   occupiedTile: {fileID: 0}
-  faction: 1
+  faction: 0
   unitClass: 2
   moveAmount: 4
   maxMoveAmount: 4
-  health: 14
-  maxHealth: 14
+  health: 31
+  maxHealth: 31
   hasMoved: 0
-  attack: 20
-  defense: 11
-  agility: 15
-  attunment: 12
-  foresight: 15
-  luck: 8
+  attack: 28
+  defense: 25
+  agility: 13
+  attunment: 1
+  foresight: 22
+  luck: 1
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
+  - {fileID: 11400000, guid: 2c3bde3c3787cf54fa10efbd80c1bcd0, type: 2}
+  - {fileID: 0}
   - {fileID: 11400000, guid: 8d085454e388a4542a9d064cb0d148f4, type: 2}
-  - {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
-  - {fileID: 11400000, guid: 84101b74117eeed4289321c965b66b94, type: 2}
-  weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
+  weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: 3b748f43679e1ae43ade250f548e792d, type: 2}
+  animatorController: {fileID: 9100000, guid: c82bba4dea9aa8b4ab9ff4fb8b4c34db, type: 2}
   buffs: []
-  meleeWeapon: {fileID: 11400000, guid: 4ff9351776674c740b0728d5a29b7ec6, type: 2}
-  meleeWeaponClass: 0
+  rangedWeapon: {fileID: 11400000, guid: 434f12ba03dbfe54d91caed419a3eaef, type: 2}
+  rangedWeaponClass: 0
