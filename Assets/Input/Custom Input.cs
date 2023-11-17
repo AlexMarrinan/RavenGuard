@@ -340,7 +340,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""id"": ""aad05ba0-e444-4323-b2bb-d6aa47ff3092"",
                     ""path"": ""<Gamepad>/rightStick"",
                     ""interactions"": """",
-                    ""processors"": ""StickDeadzone(min=0.25)"",
+                    ""processors"": ""StickDeadzone(min=0.4)"",
                     ""groups"": """",
                     ""action"": ""Pan Camera"",
                     ""isComposite"": false,

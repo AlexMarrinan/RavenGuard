@@ -489,17 +489,18 @@ public class GridManager : MonoBehaviour
                 int distance = end.DistanceFrom(start);
                 Debug.Log("ranged ataack distance " + distance);
                 // if (distance >= rangedUnit.maxMoveAmount){
-                    int max = rangedUnit.moveAmount - 1;
-                    int pathLength = distance - max;
-                    Debug.Log("pathLength " + pathLength);
+                int max = rangedUnit.maxMoveAmount - 1;
+                int extraPathLength = distance - max;
+                Debug.Log("pathLength " + extraPathLength);
 
-                    if (pathLength >= 0){
-                        int range = rangedUnit.rangedWeapon.maxRange - distance; //+ rangedUnit.rangedWeapon.minRange;
-                        if (range > finalTiles.Count){
-                            range = finalTiles.Count;
-                        }
-                        finalTiles.RemoveRange(0, range);
+                if (extraPathLength >= 0){
+                    max = rangedUnit.rangedWeapon.maxRange - 1;
+                    int range = max - distance; //+ rangedUnit.rangedWeapon.minRange;
+                    if (range > finalTiles.Count){
+                        range = finalTiles.Count;
                     }
+                    finalTiles.RemoveRange(0, range);
+                }
                 // }
             }
             return finalTiles;
