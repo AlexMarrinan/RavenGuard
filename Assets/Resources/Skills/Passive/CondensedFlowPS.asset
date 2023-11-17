@@ -30,7 +30,7 @@ MonoBehaviour:
       comparator: 0
       value: 0
     action:
-      type: 2
+      type: 4
       value: 0
   - condition:
       variable: 15
