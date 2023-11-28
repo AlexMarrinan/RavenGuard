@@ -66,56 +66,60 @@ public class TurnManager : MonoBehaviour
     }
     IEnumerator MoveEnemies(List<BaseUnit> list){
         BaseUnit unit = list[0];
-        MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
-        MenuManager.instance.unitStatsMenu.SetUnit(unit);
-        GameManager.instance.PanCamera(unit.transform.position);
-        List<BaseTile> validMoves = UnitManager.instance.SetValidMoves(unit);
-        yield return new WaitForSeconds(0.35f);
-        if (unit.IsInjured()){
-            MoveInjuredEnemy(unit);
-        } else if (unit.IsAggroed() || unit.OpponentInRange()){
-            List<AIMove> moves = new();
-            if (unit.OpponentInRange()){
-                 moves = moves.Concat(RateAttacks(unit)).ToList();
-            }
-            if (unit.AlliesInRange()){
-                moves = moves.Concat(RateSupports(unit)).ToList();
-            }
-            moves = moves.Concat(RateStandardMoves(unit)).ToList();
-            List<AIMove> currentMoves = null;
-            //Debug.Log(moves.Count);
-            foreach (AIMove move in moves){
-//                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
-                if (currentMoves == null){
-                    currentMoves = new(){move};
+        if (unit != null){
+            MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
+            MenuManager.instance.unitStatsMenu.SetUnit(unit);
+            GameManager.instance.PanCamera(unit.transform.position);
+            List<BaseTile> validMoves = UnitManager.instance.SetValidMoves(unit);
+            yield return new WaitForSeconds(0.35f);
+            if (unit.IsInjured()){
+                MoveInjuredEnemy(unit);
+            } else if (unit.IsAggroed() || unit.OpponentInRange()){
+                List<AIMove> moves = new();
+                if (unit.OpponentInRange()){
+                    moves = moves.Concat(RateAttacks(unit)).ToList();
                 }
-                if (move.rating == currentMoves[0].rating){
-                    currentMoves.Add(move);
+                if (unit.AlliesInRange()){
+                    moves = moves.Concat(RateSupports(unit)).ToList();
                 }
-                if (move.rating > currentMoves[0].rating){
-                    currentMoves.Clear();
-                    currentMoves.Add(move);
+                moves = moves.Concat(RateStandardMoves(unit)).ToList();
+                List<AIMove> currentMoves = null;
+                //Debug.Log(moves.Count);
+                foreach (AIMove move in moves){
+    //                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
+                    if (currentMoves == null){
+                        currentMoves = new(){move};
+                    }
+                    if (move.rating == currentMoves[0].rating){
+                        currentMoves.Add(move);
+                    }
+                    if (move.rating > currentMoves[0].rating){
+                        currentMoves.Clear();
+                        currentMoves.Add(move);
+                    }
                 }
-            }
-            if (currentMoves != null){
-                int moveIdx = Random.Range(0, currentMoves.Count);
-                var currentMove = currentMoves[moveIdx];
-                // Debug.Log(currentMove.moveTile);
-                // Debug.Log(currentMove.rating);
-                PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
-                yield return new WaitForSeconds(0.5f);
-                currentMove.moveTile.MoveUnitToTile(unit);
-                yield return new WaitForSeconds(0.5f);
-                if (currentMove is AIAttack){
-                    unit.Attack((currentMove as AIAttack).attackTile.occupiedUnit);
-                    while (MenuManager.instance.menuState == MenuState.Battle){
-                        yield return null;
-                    }                
+                if (currentMoves != null){
+                    int moveIdx = Random.Range(0, currentMoves.Count);
+                    var currentMove = currentMoves[moveIdx];
+                    // Debug.Log(currentMove.moveTile);
+                    // Debug.Log(currentMove.rating);
+                    PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
+                    yield return new WaitForSeconds(0.5f);
+                    currentMove.moveTile.MoveUnitToTile(unit);
+                    yield return new WaitForSeconds(0.5f);
+                    if (currentMove is AIAttack){
+                        unit.Attack((currentMove as AIAttack).attackTile.occupiedUnit);
+                        while (MenuManager.instance.menuState == MenuState.Battle){
+                            yield return null;
+                        }                
+                    }
+                    unit.hasMoved = true;
+                }else{
+                    Debug.Log("not moving!");
                 }
-            }else{
-                Debug.Log("not moving!");
             }
         }
+       
         list.RemoveAt(0);
         yield return new WaitForSeconds(0.25f);
         UnitManager.instance.RemoveAllValidMoves();

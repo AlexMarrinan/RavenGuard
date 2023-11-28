@@ -96,7 +96,9 @@ public class UnitManager : MonoBehaviour
         RemoveAllValidMoves();
     }
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
-        return units.Where(u => u.faction == faction).ToList();
+        var wantedUnits = units.Where(u => u.faction == faction).ToList();
+        Debug.Log(faction + ": " + wantedUnits.Count);
+        return wantedUnits;
     }
     public List<BaseUnit> GetAllUnits(){
         var heroes = GetAllHeroes();
@@ -191,7 +193,10 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
-        if (path.Count > 0){
+        if (unit == null){
+            yield return null;
+        }
+        else if (path.Count > 0){
             BaseTile nextTile = path[0];
             Vector3 nextPos = nextTile.transform.position;
             float elapsedTime = 0;
@@ -204,9 +209,9 @@ public class UnitManager : MonoBehaviour
             if (path.Count > 0){
                 yield return AnimateUnitMove(unit, path, moveOver);
             }else{
-                while (MenuManager.instance.menuState == MenuState.Battle){
-                    yield return null;
-                } 
+                // while (MenuManager.instance.menuState == MenuState.Battle){
+                //     yield return null;
+                // } 
                 nextTile.occupiedUnit = unit;
                 unit.occupiedTile = nextTile;
                 if (moveOver){
