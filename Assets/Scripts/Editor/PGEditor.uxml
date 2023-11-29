@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Label text="Grid Dimensions:" display-tooltip-when-elided="true" />
+    <ui:VisualElement>
+        <uie:IntegerField label="X" value="42" binding-path="x_size" />
+        <uie:IntegerField label="Y" value="42" binding-path="y_size" />
+        <ui:DropdownField label="Tyle Type" index="-1" choices="System.Collections.Generic.List`1[System.String]" binding-path="type_list" />
+    </ui:VisualElement>
+</ui:UXML>
