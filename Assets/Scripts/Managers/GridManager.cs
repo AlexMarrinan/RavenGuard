@@ -148,26 +148,36 @@ public class GridManager : MonoBehaviour
     }
 
     private void SetGrassTileSprites(FloorTile ft){
-        int idx = GetGrassTileIndex(ft);
-        if (idx == -1){
-            ft.SetBGSprite(tileSet.GetRandomFloor());
-        }else{
-            ft.SetBGSprite(tileSet.floorXWalls[idx]);
-        }
+        // int idx = GetBlendTileIndex(ft);
+        // if (idx == -1){
+        ft.SetBGSprite(tileSet.GetRandomFloor());
+        // }else{
+        //     ft.SetBGSprite(tileSet.floorXWalls[idx]);
+        // }
     }
 
+    private void SetMountainTileSprites(WallTile wt){
+        int idx = GetBlendTileIndex(wt);
+        if (idx == -1){
+            wt.SetFGSprite(tileSet.GetRandomWall());
+        }else{
+            wt.SetFGSprite(tileSet.floorXWalls[idx]);
+            wt.SetBGSprite(tileSet.GetRandomFloor());
+        }
+    }
     //TODO: MAKE NOT ASS HOLY SHIT
-    private int GetGrassTileIndex(FloorTile ft){
-        Vector2 pos = ft.coordiantes;
+    private int GetBlendTileIndex(BaseTile bt){
+        TileEditorType tileEditorType = bt.editorType;
+        Vector2 pos = bt.coordiantes;
         var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
         var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
         var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
         var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
 
-        var u = up != null && up is WallTile;
-        var d = down != null && down is WallTile;
-        var l = left != null && left is WallTile;
-        var r = right != null && right is WallTile;
+        var u = up != null && up.editorType != tileEditorType;
+        var d = down != null && down.editorType != tileEditorType;
+        var l = left != null && left.editorType != tileEditorType;
+        var r = right != null && right.editorType != tileEditorType;
 
         //Single direction walls
         if (u && !d && !l && !r){
@@ -224,10 +234,10 @@ public class GridManager : MonoBehaviour
         var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
         var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
 
-        var ul = upleft != null && upleft is WallTile;
-        var dl = downleft != null && downleft is WallTile;
-        var ur = upright != null && upright is WallTile;
-        var dr = downright != null && downright is WallTile;
+        var ul = upleft != null && upleft.editorType != tileEditorType;
+        var dl = downleft != null && downleft.editorType != tileEditorType;
+        var ur = upright != null && upright.editorType != tileEditorType;
+        var dr = downright != null && downright.editorType != tileEditorType;
 
         //single walls
         if (ul && !dl && !ur && !dr){
@@ -277,9 +287,6 @@ public class GridManager : MonoBehaviour
             return 22;
         }
         return -1;
-    }
-    private void SetMountainTileSprites(WallTile wt) {
-        wt.SetBGSprite(tileSet.walls[0]);
     }
     private void SetForestTileSprites(FloorTile ft) {
         ft.SetBGSprite(tileSet.forest[0]);
