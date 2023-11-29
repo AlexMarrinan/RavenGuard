@@ -50,3 +50,9 @@ MonoBehaviour:
   - {fileID: -941938968, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   walls:
   - {fileID: 1669874268, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
+  water:
+  - {fileID: 1340150643, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
+  bridge:
+  - {fileID: -2068245013, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
+  forest:
+  - {fileID: 1309414616, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}

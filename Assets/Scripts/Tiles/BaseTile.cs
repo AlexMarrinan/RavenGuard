@@ -9,7 +9,7 @@ using TMPro;
 
 public abstract class BaseTile : MonoBehaviour
 {
-    [SerializeField] protected SpriteRenderer renderer; 
+    [SerializeField] protected SpriteRenderer bgSprite, fgSprite; 
     [SerializeField] private GameObject validMoveHighlight;
 
     //Can a unit walk onto this tile
@@ -23,6 +23,7 @@ public abstract class BaseTile : MonoBehaviour
     public List<BaseTile> validPath;
     public TMP_Text depthText;
     public Vector2 coordiantes;
+    public TileEditorType editorType;
     private void FixedUpdate(){
         //depthText.text = moveType.ToString();
     }
@@ -231,8 +232,11 @@ public abstract class BaseTile : MonoBehaviour
         validPath = PathLine.instance.GetPath();
     }
 
-    public void SetSprite(Sprite s){
-        renderer.sprite = s;
+    public void SetBGSprite(Sprite s){
+        bgSprite.sprite = s;
+    }
+    public void SetFGSprite(Sprite s){
+        fgSprite.sprite = s;
     }
 }
 

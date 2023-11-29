@@ -13,7 +13,6 @@ public class GridManager : MonoBehaviour
     //Predabs
     [SerializeField] private FloorTile floorPrefab;
     [SerializeField] private WallTile wallPrefab;
-
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, BaseTile> tiles;
     private float[,] noiseMap;
@@ -45,11 +44,11 @@ public class GridManager : MonoBehaviour
 
                 //TODO: GET ANY FLOOR/WALL
                 BaseTile randomTile = floorPrefab;
-                randomTile.SetSprite(tileSet.GetRandomFloor());
+                randomTile.SetBGSprite(tileSet.GetRandomFloor());
 
                 if (noiseMap[x+startX, y+startY] > 0.6f){
                     randomTile = wallPrefab;
-                    randomTile.SetSprite(tileSet.walls[0]);
+                    randomTile.SetBGSprite(tileSet.walls[0]);
                 }
 
 
@@ -78,9 +77,9 @@ public class GridManager : MonoBehaviour
 
         foreach (BaseTile t in tiles.Values){
             if (t is FloorTile){
-                SetFloorTileSprite(t as FloorTile);
+                SetGrassTileSprites(t as FloorTile);
             }else if (t is WallTile){
-                SetWallTileSprite(t as WallTile);
+                SetMountainTileSprites(t as WallTile);
             }
         }
         cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
@@ -108,8 +107,18 @@ public class GridManager : MonoBehaviour
                     case TileEditorType.Mountain:
                         randomTile = wallPrefab;
                         break;
+                    case TileEditorType.Forest:
+                        randomTile = floorPrefab;
+                        break;
+                    case TileEditorType.Water:
+                        randomTile = wallPrefab;
+                        break;
+                    case TileEditorType.Bridge:
+                        randomTile = floorPrefab;
+                        break;
                 }
-                randomTile.SetSprite(tileSet.GetRandomFloor());
+                randomTile.editorType = type;
+                randomTile.SetBGSprite(tileSet.GetRandomFloor());
 
                 var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
                 newTile.name = $"Tile {x} {y}";
@@ -122,28 +131,34 @@ public class GridManager : MonoBehaviour
         }
 
         foreach (BaseTile t in tiles.Values){
-            if (t is FloorTile){
-                SetFloorTileSprite(t as FloorTile);
-            }else if (t is WallTile){
-                SetWallTileSprite(t as WallTile);
+            if (t.editorType == TileEditorType.Grass){
+                SetGrassTileSprites(t as FloorTile);
+            }else if (t.editorType == TileEditorType.Mountain){
+                SetMountainTileSprites(t as WallTile);
+            }else if (t.editorType == TileEditorType.Forest){
+                SetForestTileSprites(t as FloorTile);
+            }else if (t.editorType == TileEditorType.Bridge){
+                SetBridgeTileSprites(t as FloorTile);
+              }else if (t.editorType == TileEditorType.Water){
+                SetWaterTileSprites(t as WallTile);
             }
         }
         cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
 
-    private void SetFloorTileSprite(FloorTile ft){
-        int idx = GetFloorTileIndex(ft);
+    private void SetGrassTileSprites(FloorTile ft){
+        int idx = GetGrassTileIndex(ft);
         if (idx == -1){
-            ft.SetSprite(tileSet.GetRandomFloor());
+            ft.SetBGSprite(tileSet.GetRandomFloor());
         }else{
-            ft.SetSprite(tileSet.floorXWalls[idx]);
+            ft.SetBGSprite(tileSet.floorXWalls[idx]);
         }
     }
 
     //TODO: MAKE NOT ASS HOLY SHIT
-    private int GetFloorTileIndex(FloorTile wt){
-        Vector2 pos = wt.coordiantes;
+    private int GetGrassTileIndex(FloorTile ft){
+        Vector2 pos = ft.coordiantes;
         var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
         var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
         var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
@@ -263,8 +278,18 @@ public class GridManager : MonoBehaviour
         }
         return -1;
     }
-    private void SetWallTileSprite(WallTile wt) {
-        wt.SetSprite(tileSet.walls[0]);
+    private void SetMountainTileSprites(WallTile wt) {
+        wt.SetBGSprite(tileSet.walls[0]);
+    }
+    private void SetForestTileSprites(FloorTile ft) {
+        ft.SetBGSprite(tileSet.forest[0]);
+    }
+    private void SetBridgeTileSprites(FloorTile ft) {
+        ft.SetBGSprite(tileSet.water[0]);
+        ft.SetFGSprite(tileSet.bridge[0]);
+    }
+    private void SetWaterTileSprites(WallTile wt) {
+        wt.SetBGSprite(tileSet.water[0]);
     }
     // private int GetWallTileIndex(WallTile wt){
     //     Vector2 pos = wt.coordiantes;
