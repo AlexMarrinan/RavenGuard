@@ -12,20 +12,7 @@ public class PGEditor : Editor {
     public VisualTreeAsset inspectorXML; 
     public VisualElement myInspector;
     public Texture grass, water, forest, mountain, bridge, none;
-    // public override VisualElement CreateInspectorGUI() {
-    //     // Create a new VisualElement to be the root of our inspector UI
-    //     myInspector = new VisualElement();
 
-    //     // Load from default reference
-    //     inspectorXML.CloneTree(myInspector);
-    //     tileTypeField = myInspector.Q<DropdownField>(); //or VisualElement result = root.Q("OK");
-    //     var tileTypes = Enum.GetValues(typeof(TileEditorType)).Cast<TileEditorType>().ToList();
-        
-    //     tileTypeField.choices = tileTypes.ConvertAll(t => t.ToString());
-    //     tileTypeField.index = 0;
-
-    //     return myInspector;
-    // }
 
     public override void OnInspectorGUI() {
 
@@ -33,15 +20,7 @@ public class PGEditor : Editor {
         if (GUILayout.Button("Resize")){
             b.grid = new TileEditorType[b.height * b.width];
         }
-        // // if (oldX == 0 && oldY == 0){
-        // //     oldX = b.width; oldY = b.height;
-        // // }
-        // // if (oldX != b.width || oldY != b.height){
-        // //     oldX = b.width;
-        // //     oldY = b.height;
-        // // }
-        // if (GUIBu)
-        //     b.grid = new TileEditorType[b.height, b.width];
+
 
         DrawDefaultInspector();
         tileTypeIndex = EditorGUILayout.Popup(tileTypeIndex, Enum.GetNames(typeof(TileEditorType)));

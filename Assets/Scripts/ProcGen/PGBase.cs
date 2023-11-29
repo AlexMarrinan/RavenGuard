@@ -9,6 +9,17 @@ public class PGBase : ScriptableObject
 {
     public int height, width;
     public TileEditorType[] grid;
+
+    public TileEditorType GetType(Vector2 pos){
+        return GetType((int)pos.x, (int)pos.y);
+    }
+    public TileEditorType GetType(int x, int y){
+        //Flips height 
+        //(bottom left corner is 0,0 in game);
+        //(top left corner is 0,0 in editor);
+        int newy = this.height-1-y;
+        return grid[newy*width+x];
+    }
     
 }
 

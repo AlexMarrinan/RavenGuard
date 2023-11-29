@@ -30,7 +30,7 @@ public class GridManager : MonoBehaviour
         return height;
     }
     //Generates a grid of width x height of the tilePrefab
-    public void GenerateGrid(){
+    public void GenerateGridOLD(){
         tiles = new Dictionary<Vector2, BaseTile>();
         this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
 
@@ -87,7 +87,50 @@ public class GridManager : MonoBehaviour
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
 
+    public void GenerateGrid(){
+        tiles = new Dictionary<Vector2, BaseTile>();
+        List<PGBase> bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+        int randIndex = UnityEngine.Random.Range(0, bases.Count);
+        PGBase pgb = bases[randIndex];
+        for (int x = 0; x < pgb.width; x++){
+            for (int y = 0; y < pgb.height; y++){
+                TileEditorType type = pgb.GetType(x, y);
+                // float scale = 1f;//0.16f;
+                // float actualX = (float)(x * scale);
+                // float actualY = (float)(y * scale);
 
+                //TODO: GET ANY FLOOR/WALL
+                BaseTile randomTile = null;
+                switch (type){
+                    case TileEditorType.Grass:
+                        randomTile = floorPrefab;
+                        break;
+                    case TileEditorType.Mountain:
+                        randomTile = wallPrefab;
+                        break;
+                }
+                randomTile.SetSprite(tileSet.GetRandomFloor());
+
+                var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
+                newTile.name = $"Tile {x} {y}";
+                
+                newTile.Init(x, y);
+                var pos = new Vector2(x,y);
+                tiles[pos] = newTile;
+                newTile.coordiantes = pos;
+            }
+        }
+
+        foreach (BaseTile t in tiles.Values){
+            if (t is FloorTile){
+                SetFloorTileSprite(t as FloorTile);
+            }else if (t is WallTile){
+                SetWallTileSprite(t as WallTile);
+            }
+        }
+        cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
+        GameManager.instance.ChangeState(GameState.SapwnHeroes);
+    }
 
     private void SetFloorTileSprite(FloorTile ft){
         int idx = GetFloorTileIndex(ft);
