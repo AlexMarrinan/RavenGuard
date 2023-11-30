@@ -271,7 +271,7 @@ public class GridManager : MonoBehaviour
     private void OverlayRiver(PGWater river)
     {
         int randX, randY;
-        var tempList = new int[]{-4, -3, -2, -1, 0, 1, 2, 3, 4};
+        var tempList = new int[]{-2, -1, 0, 1, 2};
         if (river.horizontal){
             randX = UnityEngine.Random.Range(0, tempList.Length);
             randY = UnityEngine.Random.Range(2-river.height, height-2);
