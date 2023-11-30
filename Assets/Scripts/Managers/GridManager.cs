@@ -134,6 +134,11 @@ public class GridManager : MonoBehaviour
             PGWater pond = ponds[pondIndex];
             OverlayPond(pond);
         }
+        for (int _ = 0; _ < numRivers; _ ++){
+            int riverIndex =  UnityEngine.Random.Range(0, rivers.Count);
+            PGWater river = rivers[riverIndex];
+            OverlayRiver(river);
+        }
         tiles = new();
         foreach (Vector2 pos in tileTypes.Keys){
             int x = (int)pos.x;
@@ -165,6 +170,7 @@ public class GridManager : MonoBehaviour
         cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
+
     //TODO: MAKE 2D ARRAY CLASS THAT DOES THESE THINGS IN AN ORGANAIZED WAY
     private TileEditorType[] FlipGridX(TileEditorType[] grid)
     {   
@@ -261,6 +267,19 @@ public class GridManager : MonoBehaviour
         // Debug.Log("Dem: " + (pond.width, pond.height));
 
         OverlayLayer(pond, randX, randY);
+    }
+    private void OverlayRiver(PGWater river)
+    {
+        int randX, randY;
+        var tempList = new int[]{-4, -3, -2, -1, 0, 1, 2, 3, 4};
+        if (river.horizontal){
+            randX = UnityEngine.Random.Range(0, tempList.Length);
+            randY = UnityEngine.Random.Range(2-river.height, height-2);
+        }else{
+            randX = UnityEngine.Random.Range(2-river.width, width-2);
+            randY = UnityEngine.Random.Range(0, tempList.Length);
+        }
+        OverlayLayer(river, randX, randY);
     }
     private void OverlayLayer(PGBase layer, int startX, int startY)
     {   

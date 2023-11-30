@@ -8,6 +8,7 @@ using UnityEngine;
 public class PGWater : PGBase
 {
     public WaterType waterType;
+    public bool horizontal;
     public int minBridges, maxBridges;
 }
 
