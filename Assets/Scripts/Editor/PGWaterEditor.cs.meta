@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: f6abb71add35bf443a73e97c7b08c257
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inspectorXML: {fileID: 9197481963319205126, guid: 07e2c88dfb031474181c19862d6143f8, type: 3}
+  - grass: {fileID: 2800000, guid: ecead4cf21ae8214b8f4b937b8a29de1, type: 3}
+  - water: {fileID: 2800000, guid: 5ae580c8e1bf7634eacbfc64b6d64358, type: 3}
+  - forest: {fileID: 2800000, guid: 88f82819caa468640a9a5297fc01ee30, type: 3}
+  - mountain: {fileID: 2800000, guid: 4b89e8cd4c5aec3499b9ffa80d73c16b, type: 3}
+  - bridge: {fileID: 2800000, guid: bd5f30779db07354a90ec6d4718c267f, type: 3}
+  - none: {fileID: 2800000, guid: 6181bb45b91b5424f85dcc0317876b4c, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -8,6 +8,7 @@ using UnityEngine;
 public class PGBase : ScriptableObject
 {
     public int height, width;
+    public int numRivers, numPonds, numForests;
     public TileEditorType[] grid;
 
     public TileEditorType GetType(Vector2 pos){

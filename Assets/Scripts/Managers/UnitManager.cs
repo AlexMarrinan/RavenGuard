@@ -97,7 +97,7 @@ public class UnitManager : MonoBehaviour
     }
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         var wantedUnits = units.Where(u => u.faction == faction).ToList();
-        Debug.Log(faction + ": " + wantedUnits.Count);
+        // Debug.Log(faction + ": " + wantedUnits.Count);
         return wantedUnits;
     }
     public List<BaseUnit> GetAllUnits(){

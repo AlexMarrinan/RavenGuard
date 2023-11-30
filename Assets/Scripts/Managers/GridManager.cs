@@ -7,7 +7,7 @@ using System;
 public class GridManager : MonoBehaviour
 {
     public static GridManager instance;
-    [SerializeField] private int width, height;
+    private int width, height;
     [SerializeField] private TileSet tileSet;
 
     //Predabs
@@ -15,6 +15,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private WallTile wallPrefab;
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, BaseTile> tiles;
+    private Dictionary<Vector2, TileEditorType> tileTypes;
     private float[,] noiseMap;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
@@ -29,107 +30,125 @@ public class GridManager : MonoBehaviour
         return height;
     }
     //Generates a grid of width x height of the tilePrefab
-    public void GenerateGridOLD(){
-        tiles = new Dictionary<Vector2, BaseTile>();
-        this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
+    // public void GenerateGridOLD(){
+    //     tiles = new Dictionary<Vector2, BaseTile>();
+    //     this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
 
-        var startX = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-width);
-        var startY = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-height);
+    //     var startX = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-width);
+    //     var startY = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-height);
 
-        for (int x = 0; x < width; x++){
-            for (int y = 0; y < height; y++){
-                // float scale = 1f;//0.16f;
-                // float actualX = (float)(x * scale);
-                // float actualY = (float)(y * scale);
+    //     for (int x = 0; x < width; x++){
+    //         for (int y = 0; y < height; y++){
+    //             // float scale = 1f;//0.16f;
+    //             // float actualX = (float)(x * scale);
+    //             // float actualY = (float)(y * scale);
 
-                //TODO: GET ANY FLOOR/WALL
-                BaseTile randomTile = floorPrefab;
-                randomTile.SetBGSprite(tileSet.GetRandomFloor());
+    //             //TODO: GET ANY FLOOR/WALL
+    //             BaseTile randomTile = floorPrefab;
+    //             randomTile.SetBGSprite(tileSet.GetRandomFloor());
 
-                if (noiseMap[x+startX, y+startY] > 0.6f){
-                    randomTile = wallPrefab;
-                    randomTile.SetBGSprite(tileSet.walls[0]);
-                }
+    //             if (noiseMap[x+startX, y+startY] > 0.6f){
+    //                 randomTile = wallPrefab;
+    //                 randomTile.SetBGSprite(tileSet.walls[0]);
+    //             }
 
 
                 
-                // if (randomTile is FloorTile){
-                //     int idk = Random.Range(0, 50);
-                //     if (idk == 0){
-                //         randomTile = tileSet.pits[0];
-                //     }else if (idk == 1){
-                //         randomTile = tileSet.fences[0];
-                //     }
-                // }                
+    //             // if (randomTile is FloorTile){
+    //             //     int idk = Random.Range(0, 50);
+    //             //     if (idk == 0){
+    //             //         randomTile = tileSet.pits[0];
+    //             //     }else if (idk == 1){
+    //             //         randomTile = tileSet.fences[0];
+    //             //     }
+    //             // }                
                 
-                // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
-                // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
+    //             // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
+    //             // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
                 
-                var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
-                newTile.name = $"Tile {x} {y}";
+    //             var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
+    //             newTile.name = $"Tile {x} {y}";
                 
-                newTile.Init(x, y);
-                var pos = new Vector2(x,y);
-                tiles[pos] = newTile;
-                newTile.coordiantes = pos;
-            }
-        }
+    //             newTile.Init(x, y);
+    //             var pos = new Vector2(x,y);
+    //             tiles[pos] = newTile;
+    //             newTile.coordiantes = pos;
+    //         }
+    //     }
 
-        foreach (BaseTile t in tiles.Values){
-            if (t is FloorTile){
-                SetGrassTileSprites(t as FloorTile);
-            }else if (t is WallTile){
-                SetMountainTileSprites(t as WallTile);
-            }
-        }
-        cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
-        GameManager.instance.ChangeState(GameState.SapwnHeroes);
-    }
+    //     foreach (BaseTile t in tiles.Values){
+    //         if (t is FloorTile){
+    //             SetGrassTileSprites(t as FloorTile);
+    //         }else if (t is WallTile){
+    //             SetMountainTileSprites(t as WallTile);
+    //         }
+    //     }
+    //     cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
+    //     GameManager.instance.ChangeState(GameState.SapwnHeroes);
+    // }
 
     public void GenerateGrid(){
-        tiles = new Dictionary<Vector2, BaseTile>();
+        tileTypes = new Dictionary<Vector2, TileEditorType>();
         List<PGBase> bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
         PGBase pgb = bases[randIndex];
-        for (int x = 0; x < pgb.width; x++){
-            for (int y = 0; y < pgb.height; y++){
-                TileEditorType type = pgb.GetType(x, y);
-                // float scale = 1f;//0.16f;
-                // float actualX = (float)(x * scale);
-                // float actualY = (float)(y * scale);
-
-                //TODO: GET ANY FLOOR/WALL
-                BaseTile randomTile = null;
-                switch (type){
-                    case TileEditorType.Grass:
-                        randomTile = floorPrefab;
-                        break;
-                    case TileEditorType.Mountain:
-                        randomTile = wallPrefab;
-                        break;
-                    case TileEditorType.Forest:
-                        randomTile = floorPrefab;
-                        break;
-                    case TileEditorType.Water:
-                        randomTile = wallPrefab;
-                        break;
-                    case TileEditorType.Bridge:
-                        randomTile = floorPrefab;
-                        break;
-                }
-                randomTile.editorType = type;
-                randomTile.SetBGSprite(tileSet.GetRandomFloor());
-
-                var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
-                newTile.name = $"Tile {x} {y}";
-                
-                newTile.Init(x, y);
-                var pos = new Vector2(x,y);
-                tiles[pos] = newTile;
-                newTile.coordiantes = pos;
-            }
+        width = pgb.width;
+        height = pgb.height;
+        var newGrid = new TileEditorType[pgb.grid.Length];
+        for (int i = 0; i < newGrid.Length; i++){
+            newGrid[i] = pgb.grid[i];
+        }
+        
+        //Randomly Flip Layout
+        if (UnityEngine.Random.Range(0, 2) == 1){
+            newGrid = FlipGridX(newGrid);
+        }
+        else if (UnityEngine.Random.Range(0, 2) == 1){
+            newGrid = FlipGridY(newGrid);
         }
 
+        //Randomly Rotate Layout
+        int numRotates = UnityEngine.Random.Range(0, 4);
+        for (int i = 0; i < numRotates; i++){
+            newGrid = RotateGrid(newGrid);
+        }
+
+
+        for (int x = 0; x < width; x++){
+            for (int y = 0; y < height; y++)
+            {
+                var pos = new Vector2(x, y);
+                int newy = height-1-y;
+                tileTypes[pos] = newGrid[newy*width+x];
+            }
+        }
+        List<PGWater> ponds =  Resources.LoadAll<PGWater>("ProcGen/Waters/Ponds").ToList();
+        List<PGWater> rivers =  Resources.LoadAll<PGWater>("ProcGen/Waters/Rivers").ToList();
+        
+        int numPonds = UnityEngine.Random.Range(0, pgb.numPonds+1);
+        int numRivers = UnityEngine.Random.Range(0, pgb.numRivers+1);
+
+        for (int _ = 0; _ < numPonds; _ ++){
+            int pondIndex =  UnityEngine.Random.Range(0, ponds.Count);
+            PGWater pond = ponds[pondIndex];
+            OverlayPond(pond);
+        }
+        tiles = new();
+        foreach (Vector2 pos in tileTypes.Keys){
+            int x = (int)pos.x;
+            int y = (int)pos.y;
+        
+            BaseTile randomTile = GetTileFromType(tileTypes[pos]);
+            randomTile.SetBGSprite(tileSet.GetRandomFloor());
+
+            var newTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
+            newTile.name = $"Tile {pos.x} {pos.y}";
+
+            newTile.Init(x, y);
+            newTile.coordiantes = pos;
+            tiles[pos] = newTile;
+        }
         foreach (BaseTile t in tiles.Values){
             if (t.editorType == TileEditorType.Grass){
                 SetGrassTileSprites(t as FloorTile);
@@ -146,7 +165,122 @@ public class GridManager : MonoBehaviour
         cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
+    //TODO: MAKE 2D ARRAY CLASS THAT DOES THESE THINGS IN AN ORGANAIZED WAY
+    private TileEditorType[] FlipGridX(TileEditorType[] grid)
+    {   
+        Debug.Log("X Flipped");
+        var newGrid = new TileEditorType[grid.Length];
 
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int newy = height-1-y;
+                TileEditorType t = grid[newy*width+x];
+                int newx = width-1-x;
+                newGrid[newy*width+newx] = t;
+            }
+        }
+
+        return newGrid;
+    }
+    private TileEditorType[] FlipGridY(TileEditorType[] grid)
+    {
+        Debug.Log("Y Flipped");
+        var newGrid = new TileEditorType[grid.Length];
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int newy = height-1-y;
+                TileEditorType t = grid[newy*width+x];
+                newGrid[y*width+x] = t;
+            }
+        }
+
+        return newGrid;
+    }
+    private TileEditorType[] RotateGrid(TileEditorType[] grid)
+    {   
+        Debug.Log("Rotated");
+        var newGrid = new TileEditorType[grid.Length];
+        
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int newy = height-1-y;
+                TileEditorType t = grid[newy*width+x];
+                int newx = width-1-x;
+                newGrid[newx*height+y] = t;
+            }
+        }
+
+        int oldHeight = height;
+        height = width;
+        width = oldHeight;
+        return newGrid;
+    }
+    private BaseTile GetTileFromType(TileEditorType type){
+        // float scale = 1f;//0.16f;
+        // float actualX = (float)(x * scale);
+        // float actualY = (float)(y * scale);
+
+        //TODO: GET ANY FLOOR/WALL
+        BaseTile randomTile = null;
+        switch (type)
+        {
+            case TileEditorType.Grass:
+                randomTile = floorPrefab;
+                break;
+            case TileEditorType.Mountain:
+                randomTile = wallPrefab;
+                break;
+            case TileEditorType.Forest:
+                randomTile = floorPrefab;
+                break;
+            case TileEditorType.Water:
+                randomTile = wallPrefab;
+                break;
+            case TileEditorType.Bridge:
+                randomTile = floorPrefab;
+                break;
+            case TileEditorType.None:
+                return null;
+        }
+        randomTile.editorType = type;
+        return randomTile;
+    }
+    private BaseTile GetTileTypeAtPos(PGBase pgb, int x, int y)
+    {
+        TileEditorType type = pgb.GetType(x, y);
+        return GetTileFromType(type);
+    }
+
+    private void OverlayPond(PGWater pond)
+    {
+        int randX = UnityEngine.Random.Range(2-pond.width, width-2);
+        int randY = UnityEngine.Random.Range(2-pond.height, height-2);
+        // Debug.Log("Pond at: " + (randX, randY));
+        // Debug.Log("Total dem " + (width, height));
+        // Debug.Log("Dem: " + (pond.width, pond.height));
+
+        OverlayLayer(pond, randX, randY);
+    }
+    private void OverlayLayer(PGBase layer, int startX, int startY)
+    {   
+        for (int x = startX, layerX = 0; x < startX + layer.width && x < width && layerX < layer.width; x++, layerX++){
+            if (x >= 0){
+                for (int y = startY, layerY = 0; y < startY + layer.height && y < height && layerY < layer.height; y++, layerY++){
+                    // Debug.Log("Pos: " + (x, y));
+                    // Debug.Log("Layer Pos: " + (layerX, layerY));
+
+                    if (y >= 0){
+                        TileEditorType tileEditorType = layer.GetType(layerX, layerY);
+                        if (tileEditorType != TileEditorType.None){
+                            Vector2 pos = new(x, y);
+                            tileTypes[pos] = tileEditorType;
+                        }
+                    }
+                }
+            }
+        }
+    }
     private void SetGrassTileSprites(FloorTile ft){
         // int idx = GetBlendTileIndex(ft);
         // if (idx == -1){
