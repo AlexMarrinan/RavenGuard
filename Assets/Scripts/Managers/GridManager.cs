@@ -88,39 +88,38 @@ public class GridManager : MonoBehaviour
     // }
 
     public void GenerateGrid(){
+        
         tileTypes = new Dictionary<Vector2, TileEditorType>();
         List<PGBase> bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
 
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
         PGBase pgb = bases[randIndex];
-        width = pgb.width;
-        height = pgb.height;
-        var newGrid = new TileEditorType[pgb.grid.Length];
-        for (int i = 0; i < newGrid.Length; i++){
-            newGrid[i] = pgb.grid[i];
-        }
+        var newArray = new Array2D<TileEditorType>(pgb.array.Width, pgb.array.Height);
+        newArray.Copy(pgb.array);
         
         //Randomly Flip Layout
         if (UnityEngine.Random.Range(0, 2) == 1){
-            newGrid = FlipGridX(newGrid);
+            newArray.FlipX();
         }
         else if (UnityEngine.Random.Range(0, 2) == 1){
-            newGrid = FlipGridY(newGrid);
+           newArray.FlipX();
         }
 
         //Randomly Rotate Layout
         int numRotates = UnityEngine.Random.Range(0, 4);
         for (int i = 0; i < numRotates; i++){
-            newGrid = RotateGrid(newGrid);
+            newArray.Rotate();
         }
 
 
+        width = newArray.Width;
+        height = newArray.Height;
         for (int x = 0; x < width; x++){
             for (int y = 0; y < height; y++)
             {
                 var pos = new Vector2(x, y);
                 int newy = height-1-y;
-                tileTypes[pos] = newGrid[newy*width+x];
+                tileTypes[pos] = newArray.grid[newy*width+x];
             }
         }
         List<PGWater> ponds =  Resources.LoadAll<PGWater>("ProcGen/Waters/Ponds").ToList();
@@ -172,56 +171,6 @@ public class GridManager : MonoBehaviour
     }
 
     //TODO: MAKE 2D ARRAY CLASS THAT DOES THESE THINGS IN AN ORGANAIZED WAY
-    private TileEditorType[] FlipGridX(TileEditorType[] grid)
-    {   
-        Debug.Log("X Flipped");
-        var newGrid = new TileEditorType[grid.Length];
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                int newy = height-1-y;
-                TileEditorType t = grid[newy*width+x];
-                int newx = width-1-x;
-                newGrid[newy*width+newx] = t;
-            }
-        }
-
-        return newGrid;
-    }
-    private TileEditorType[] FlipGridY(TileEditorType[] grid)
-    {
-        Debug.Log("Y Flipped");
-        var newGrid = new TileEditorType[grid.Length];
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                int newy = height-1-y;
-                TileEditorType t = grid[newy*width+x];
-                newGrid[y*width+x] = t;
-            }
-        }
-
-        return newGrid;
-    }
-    private TileEditorType[] RotateGrid(TileEditorType[] grid)
-    {   
-        Debug.Log("Rotated");
-        var newGrid = new TileEditorType[grid.Length];
-        
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                int newy = height-1-y;
-                TileEditorType t = grid[newy*width+x];
-                int newx = width-1-x;
-                newGrid[newx*height+y] = t;
-            }
-        }
-
-        int oldHeight = height;
-        height = width;
-        width = oldHeight;
-        return newGrid;
-    }
     private BaseTile GetTileFromType(TileEditorType type){
         // float scale = 1f;//0.16f;
         // float actualX = (float)(x * scale);
@@ -254,7 +203,7 @@ public class GridManager : MonoBehaviour
     }
     private BaseTile GetTileTypeAtPos(PGBase pgb, int x, int y)
     {
-        TileEditorType type = pgb.GetType(x, y);
+        TileEditorType type = pgb.GetTileType(x, y);
         return GetTileFromType(type);
     }
 
@@ -290,7 +239,7 @@ public class GridManager : MonoBehaviour
                     // Debug.Log("Layer Pos: " + (layerX, layerY));
 
                     if (y >= 0){
-                        TileEditorType tileEditorType = layer.GetType(layerX, layerY);
+                        TileEditorType tileEditorType = layer.GetTileType(layerX, layerY);
                         if (tileEditorType != TileEditorType.None){
                             Vector2 pos = new(x, y);
                             tileTypes[pos] = tileEditorType;

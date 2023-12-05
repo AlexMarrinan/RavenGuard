@@ -9,19 +9,33 @@ public class PGBase : ScriptableObject
 {
     public int height, width;
     public int numRivers, numPonds, numForests;
-    public TileEditorType[] grid;
+    public  Array2D<TileEditorType> array;
+    public Array2D<LayerSize> riverArray, pondArray, mountainArray, forestArray;
 
-    public TileEditorType GetType(Vector2 pos){
-        return GetType((int)pos.x, (int)pos.y);
+    public TileEditorType GetTileType(int layerX, int layerY)
+    {
+        return array.Get(layerX, layerY);
     }
-    public TileEditorType GetType(int x, int y){
-        //Flips height 
-        //(bottom left corner is 0,0 in game);
-        //(top left corner is 0,0 in editor);
-        int newy = this.height-1-y;
-        return grid[newy*width+x];
+
+    public void Resize()
+    {
+        array = new Array2D<TileEditorType>(width, height);
+        riverArray = new Array2D<LayerSize>(width, height);
+        pondArray = new Array2D<LayerSize>(width, height);
+        mountainArray = new Array2D<LayerSize>(width, height);
+        forestArray = new Array2D<LayerSize>(width, height);
     }
-    
+}
+public enum LayerSize {
+    None,
+    Small,
+    Medium,
+    Large
+}
+public enum PGDrawLayer {
+    Standard,
+    River,
+    Pond,
 }
 
 public enum TileEditorType {
