@@ -17,8 +17,11 @@ public class PGEditor : Editor {
 
     //TODO: FIX X/Y DIMMENSIONS SWAPPED
     public override void OnInspectorGUI() {
-
+        
         PGBase b = (PGBase)target;
+        b.SetHeight(b.height);
+        b.SetWidth(b.width);
+        EditorUtility.SetDirty(b);
         if (GUILayout.Button("Resize")){
             b.Resize();
         }
@@ -51,11 +54,10 @@ public class PGEditor : Editor {
         layerSizeIndex = EditorGUILayout.Popup(layerSizeIndex, Enum.GetNames(typeof(LayerSize)));
         GUILayout.EndHorizontal();
 
-        for (int x = 0; x < b.width; x++){
-            GUILayout.EndVertical();
+        for (int y = 0; y < array.Height; y++){
+            GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            for (int y = 0; y < b.height; y++)
-            { 
+            for (int x = 0; x < array.Width; x++){
                 LayerSize size = array.Get(x,y);
                 Texture texture = grass;
 
@@ -98,11 +100,11 @@ public class PGEditor : Editor {
         GUILayout.Label("Brush Tile Type:");
         tileTypeIndex = EditorGUILayout.Popup(tileTypeIndex, Enum.GetNames(typeof(TileEditorType)));
         GUILayout.EndHorizontal();
-
-        for (int x = 0; x < b.width; x++){
-            GUILayout.EndVertical();
+        // Debug.Log((b.width, b.height));
+        for (int y = 0; y < b.height; y++){
+            GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            for (int y = 0; y < b.height; y++)
+            for (int x = 0; x < b.width; x++)
             { 
                 TileEditorType tileType = b.GetTileType(x,y);
                 Texture texture = grass;
@@ -140,6 +142,7 @@ public class PGEditor : Editor {
                 if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50))){
                     var t = (TileEditorType)tileTypeIndex;
                     b.array.Set(x,y,t);
+                    Debug.Log((x,y));
                     // GUILayout.BeginArea()
                 }
                 // GUILayout.EndArea();

@@ -25,6 +25,23 @@ public class PGBase : ScriptableObject
         mountainArray = new Array2D<LayerSize>(width, height);
         forestArray = new Array2D<LayerSize>(width, height);
     }
+
+    public void SetHeight(int h)
+    {
+        array.Height = h;
+        riverArray.Height = h;
+        pondArray.Height = h;
+        mountainArray.Height = h;
+        forestArray.Height = h;
+    }
+    public void SetWidth(int w)
+    {
+        array.Width = w;
+        riverArray.Width = w;
+        pondArray.Width = w;
+        mountainArray.Width = w;
+        forestArray.Width = w;
+    }
 }
 public enum LayerSize {
     None,

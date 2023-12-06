@@ -94,9 +94,10 @@ public class GridManager : MonoBehaviour
 
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
         PGBase pgb = bases[randIndex];
-        var newArray = new Array2D<TileEditorType>(pgb.array.Width, pgb.array.Height);
-        newArray.Copy(pgb.array);
-        
+        var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
+        Debug.Log("new array" + (newArray.Width, newArray.Height));
+        newArray.DeepCopy(pgb.array);
+        Debug.Log("new array" + (newArray.Width, newArray.Height));
         //Randomly Flip Layout
         if (UnityEngine.Random.Range(0, 2) == 1){
             newArray.FlipX();
@@ -240,7 +241,7 @@ public class GridManager : MonoBehaviour
 
                     if (y >= 0){
                         TileEditorType tileEditorType = layer.GetTileType(layerX, layerY);
-                        if (tileEditorType != TileEditorType.None){
+                        if (tileEditorType != TileEditorType.None){ 
                             Vector2 pos = new(x, y);
                             tileTypes[pos] = tileEditorType;
                         }
@@ -465,6 +466,7 @@ public class GridManager : MonoBehaviour
     }
     
     public BaseTile GetHeroSpawnTile(){
+        Debug.Log(tiles.Values.Count);
         return tiles.Where(t => t.Key.x < width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
     }
 

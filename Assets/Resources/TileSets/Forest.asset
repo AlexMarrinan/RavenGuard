@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Forest
   m_EditorClassIdentifier: 
   floors:
-  - {fileID: 113592878, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
-  - {fileID: -1242719321, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
-  - {fileID: 914515312, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
-  - {fileID: 805266304, guid: 5904deef2187555489e124d84745cfd7, type: 3}
+  - {fileID: 469488106, guid: a0de6dae05b977e48810b3fcf6cc9f3c, type: 3}
+  - {fileID: -1569986566, guid: a0de6dae05b977e48810b3fcf6cc9f3c, type: 3}
+  - {fileID: -50607854, guid: a0de6dae05b977e48810b3fcf6cc9f3c, type: 3}
+  - {fileID: -665997717, guid: a0de6dae05b977e48810b3fcf6cc9f3c, type: 3}
   floorXWalls:
   - {fileID: 107972836, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   - {fileID: -319076362, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
@@ -51,8 +51,8 @@ MonoBehaviour:
   walls:
   - {fileID: 1669874268, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   water:
-  - {fileID: 1340150643, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
+  - {fileID: 1289211485, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
   bridge:
-  - {fileID: -2068245013, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}
+  - {fileID: 1400014258, guid: 046552f8a3beb4a4bb0723770d5e803f, type: 3}
   forest:
   - {fileID: 1309414616, guid: 31cbe6e8eeb27b4478831da4f1639c6e, type: 3}

@@ -28,9 +28,6 @@ public class Array2D<T> {
         return Get((int)pos.x, (int)pos.y);
     }
     public T Get(int x, int y){
-        //Flips height 
-        //(bottom left corner is 0,0 in game);
-        //(top left corner is 0,0 in editor);
         int newy = this.height-1-y;
         return grid[newy*width+x];
     }
@@ -87,11 +84,14 @@ public class Array2D<T> {
         grid = newGrid;
     }
 
-    internal void Copy(Array2D<T> otherGrid)
+    internal void DeepCopy(Array2D<T> otherArray)
     {
-        var newGrid = otherGrid.grid;
-        for (int i = 0; i < newGrid.Length; i++){
-            grid[i] = newGrid[i];
+        var otherGrid = otherArray.grid;
+        grid = new T[otherGrid.Length];
+        for (int i = 0; i < grid.Length; i++){
+            grid[i] = otherGrid[i];
         }
+        // height = otherArray.Height;
+        // width = otherArray.Width;
     }
 }
