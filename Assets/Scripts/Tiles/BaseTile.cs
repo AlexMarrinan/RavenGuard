@@ -9,7 +9,7 @@ using TMPro;
 
 public abstract class BaseTile : MonoBehaviour
 {
-    [SerializeField] protected SpriteRenderer bgSprite, fgSprite; 
+    [SerializeField] protected SpriteRenderer bgSprite, middleSprite, fgSprite; 
     [SerializeField] private GameObject validMoveHighlight;
 
     //Can a unit walk onto this tile
@@ -234,6 +234,9 @@ public abstract class BaseTile : MonoBehaviour
 
     public void SetBGSprite(Sprite s){
         bgSprite.sprite = s;
+    }
+    public void SetMidSprite(Sprite s){
+        middleSprite.sprite = s;
     }
     public void SetFGSprite(Sprite s){
         fgSprite.sprite = s;

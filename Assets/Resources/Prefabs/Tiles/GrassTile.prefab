@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgSprite: {fileID: 5677077747585552300}
-  fgSprite: {fileID: 2283859668058106876}
+  middleSprite: {fileID: 2283859668058106876}
+  fgSprite: {fileID: 6573805733429586677}
   validMoveHighlight: {fileID: 2062687372496000171}
   occupiedUnit: {fileID: 0}
   moveType: 0
@@ -143,5 +144,10 @@ SpriteRenderer:
 --- !u!212 &5677077747585552300 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5084094000523550533, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+  m_PrefabInstance: {fileID: 596547371651436777}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6573805733429586677 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6016111808480623132, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
   m_PrefabInstance: {fileID: 596547371651436777}
   m_PrefabAsset: {fileID: 0}

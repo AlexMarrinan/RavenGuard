@@ -51,7 +51,34 @@ MonoBehaviour:
   walls:
   - {fileID: 1669874268, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   water:
+  - {fileID: 1778104551, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 255879615, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -110210080, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 1181612925, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 688538757, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
   - {fileID: 1289211485, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -836689308, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 728770860, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 47968479, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 949983877, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -947993143, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 1777784569, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 595069270, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 32598888, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -624467685, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 1550898695, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -980223396, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 893113644, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -200628193, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -1180848614, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 629941250, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -307952129, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -553317558, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 957347034, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 1683379655, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 24123953, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: 1138761955, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
+  - {fileID: -1725415731, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
   bridge:
   - {fileID: 1400014258, guid: 046552f8a3beb4a4bb0723770d5e803f, type: 3}
   forest:

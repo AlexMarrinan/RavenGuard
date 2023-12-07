@@ -101,6 +101,11 @@ PrefabInstance:
       objectReference: {fileID: 469488106, guid: a0de6dae05b977e48810b3fcf6cc9f3c, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+--- !u!212 &441569558929736268 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6016111808480623132, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+  m_PrefabInstance: {fileID: 6151144118042441808}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &1428507989882545941 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 5084094000523550533, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
@@ -134,7 +139,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgSprite: {fileID: 1428507989882545941}
-  fgSprite: {fileID: 4804208392194016069}
+  middleSprite: {fileID: 4804208392194016069}
+  fgSprite: {fileID: 441569558929736268}
   validMoveHighlight: {fileID: 4736167691970411538}
   occupiedUnit: {fileID: 0}
   moveType: 0

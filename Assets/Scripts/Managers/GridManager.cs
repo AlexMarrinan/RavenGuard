@@ -19,8 +19,11 @@ public class GridManager : MonoBehaviour
     private float[,] noiseMap;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
-
+    List<PGWater> ponds;
+    List<PGWater> rivers;
     void Awake(){
+        ponds = Resources.LoadAll<PGWater>("ProcGen/Ponds").ToList();
+        rivers =  Resources.LoadAll<PGWater>("ProcGen/Rivers").ToList();
         instance = this;
     }
     public int getWidth(){
@@ -123,15 +126,16 @@ public class GridManager : MonoBehaviour
                 tileTypes[pos] = newArray.grid[newy*width+x];
             }
         }
-        List<PGWater> ponds =  Resources.LoadAll<PGWater>("ProcGen/Waters/Ponds").ToList();
-        List<PGWater> rivers =  Resources.LoadAll<PGWater>("ProcGen/Waters/Rivers").ToList();
         
         int numPonds = UnityEngine.Random.Range(0, pgb.numPonds+1);
         int numRivers = UnityEngine.Random.Range(0, pgb.numRivers+1);
+        Debug.Log(rivers.Count);
 
         for (int _ = 0; _ < numPonds; _ ++){
             int pondIndex =  UnityEngine.Random.Range(0, ponds.Count);
             PGWater pond = ponds[pondIndex];
+            Debug.Log((pond.width, pond.height));
+            Debug.Log(pondIndex);
             OverlayPond(pond);
         }
         for (int _ = 0; _ < numRivers; _ ++){
@@ -233,6 +237,7 @@ public class GridManager : MonoBehaviour
     }
     private void OverlayLayer(PGBase layer, int startX, int startY)
     {   
+        Debug.Log(layer.name);
         for (int x = startX, layerX = 0; x < startX + layer.width && x < width && layerX < layer.width; x++, layerX++){
             if (x >= 0){
                 for (int y = startY, layerY = 0; y < startY + layer.height && y < height && layerY < layer.height; y++, layerY++){
@@ -241,6 +246,7 @@ public class GridManager : MonoBehaviour
 
                     if (y >= 0){
                         TileEditorType tileEditorType = layer.GetTileType(layerX, layerY);
+                        Debug.Log((layerX, layerY, tileEditorType));
                         if (tileEditorType != TileEditorType.None){ 
                             Vector2 pos = new(x, y);
                             tileTypes[pos] = tileEditorType;
@@ -260,7 +266,7 @@ public class GridManager : MonoBehaviour
     }
 
     private void SetMountainTileSprites(WallTile wt){
-        int idx = GetBlendTileIndex(wt);
+        int idx = GetBlendTileIndexOLD(wt);
         if (idx == -1){
             wt.SetFGSprite(tileSet.GetRandomWall());
         }else{
@@ -269,7 +275,7 @@ public class GridManager : MonoBehaviour
         }
     }
     //TODO: MAKE NOT ASS HOLY SHIT
-    private int GetBlendTileIndex(BaseTile bt){
+    private int GetBlendTileIndexOLD(BaseTile bt){
         TileEditorType tileEditorType = bt.editorType;
         Vector2 pos = bt.coordiantes;
         var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
@@ -391,15 +397,164 @@ public class GridManager : MonoBehaviour
         }
         return -1;
     }
+    private int GetBlendTileIndex(BaseTile bt){
+        TileEditorType tileEditorType = bt.editorType;
+        Vector2 pos = bt.coordiantes;
+        var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
+        var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
+        var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
+        var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
+
+        var u = up != null && up.editorType != tileEditorType && up.editorType != TileEditorType.Bridge;
+        var d = down != null && down.editorType != tileEditorType  && down.editorType != TileEditorType.Bridge;;
+        var l = left != null && left.editorType != tileEditorType  && left.editorType != TileEditorType.Bridge;;
+        var r = right != null && right.editorType != tileEditorType  && right.editorType != TileEditorType.Bridge;;
+
+        //Single direction walls
+        if (u && !d && !l && !r){
+            return 1;
+        }
+        if (!u && d && !l && !r){
+            return 11;
+        }
+        if (!u && !d && l && !r){
+            return 4;
+        }
+        if (!u && !d && !l && r){
+            return 6;
+        }
+
+        //UP and 
+        if (u && d && !l && !r){
+            return 13;
+        }
+        if (u && !d && l && !r){
+            return 0;
+        }
+        if (u && !d && !l && r){
+            return 2;
+        }
+        //DOWN and 
+        if (!u && d && l && !r){
+            return 10;
+        }
+        if (!u && d && !l && r){
+            return 12;
+        }
+        //LEFT and RIGHT
+        if (!u && !d && l && r){
+            return 15;
+        }
+
+        //NOTS
+        if (!u && d && l && r){
+            return 14;
+        }
+        if (u && !d && l && r){
+            return 3;
+        }
+        if (u && d && !l && r){
+            return 9;
+        }
+        if (u && d && l && !r){
+            return 7;
+        }
+
+        var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
+        var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
+        var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
+        var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
+
+        var ul = upleft != null && upleft.editorType != tileEditorType && upleft.editorType != TileEditorType.Bridge;
+        var dl = downleft != null && downleft.editorType != tileEditorType  && downleft.editorType != TileEditorType.Bridge;;
+        var ur = upright != null && upright.editorType != tileEditorType && upright.editorType != TileEditorType.Bridge;;
+        var dr = downright != null && downright.editorType != tileEditorType && downright.editorType != TileEditorType.Bridge;;
+
+
+
+
+
+        // //single walls
+        if (ul && !dl && !ur && !dr){
+            return 27;
+        }
+        if (!ul && dl && !ur && !dr){
+            return 25;
+        }
+        if (!ul && !dl && ur && !dr){
+            return 26;
+        }
+        if (!ul && !dl && !ur && dr){
+            return 24;
+        }
+
+        if (u && l && !d && !r && ur && dr && ul && dl){
+            return 21;
+        }
+        if (!u && !l && d && r && ur && dr && ul && dl){
+            return 16;
+        }
+        if (u && !l && !d && r && ur && dr && ul && dl){
+            return 20;
+        }
+        if (!u && l && d && !r && ur && dr && ul && dl){
+            return 17;
+        }
+        // if (ul && dl && !ur && !dr){
+        //     return 18;
+        // }
+        // if (ul && !dl && ur && !dr){
+        //     return 19;
+        // }
+        // if (ul && !dl && !ur && dr){
+        //     return 24;
+        // }
+        // if (!ul && dl && ur && !dr){
+        //     return 21;
+        // }
+        // if (!ul && dl && !ur && dr){
+        //     return 27;
+        // }
+        // if (!ul && !dl && ur && dr){
+        //     return 23;
+        // }
+        // if (ul && dl && ur && !dr){
+        //     return 20;
+        // }
+        // if (ul && dl && !ur && dr){
+        //     return 28;
+        // }
+        // if (ul && !dl && ur && dr){
+        //     return 25;
+        // }
+        // if (!ul && dl && ur && dr){
+        //     return 29;
+        // }
+        // if (ul && dl && ur && dr){
+        //     return 22;
+        // }
+        return 5;
+    }
     private void SetForestTileSprites(FloorTile ft) {
         ft.SetBGSprite(tileSet.forest[0]);
     }
     private void SetBridgeTileSprites(FloorTile ft) {
-        ft.SetBGSprite(tileSet.water[0]);
+
+        //TODO: MAKE EDITOR TYPE SEPERATE BG TILE SPRITE TYPE
+        ft.editorType = TileEditorType.Water;        
+        int idx = GetBlendTileIndex(ft);
+        ft.SetBGSprite(tileSet.GetRandomFloor());
+        ft.SetMidSprite(tileSet.water[idx]);
         ft.SetFGSprite(tileSet.bridge[0]);
     }
     private void SetWaterTileSprites(WallTile wt) {
-        wt.SetBGSprite(tileSet.water[0]);
+        int idx = GetBlendTileIndex(wt);
+        if (idx == -1){
+            // wt.SetFGSprite(tileSet.GetRandomWall());
+        }else{
+            wt.SetFGSprite(tileSet.water[idx]);
+            wt.SetBGSprite(tileSet.GetRandomFloor());
+        }
     }
     // private int GetWallTileIndex(WallTile wt){
     //     Vector2 pos = wt.coordiantes;
@@ -466,7 +621,7 @@ public class GridManager : MonoBehaviour
     }
     
     public BaseTile GetHeroSpawnTile(){
-        Debug.Log(tiles.Values.Count);
+//        Debug.Log(tiles.Values.Count);
         return tiles.Where(t => t.Key.x < width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
     }
 
