@@ -410,17 +410,111 @@ public class GridManager : MonoBehaviour
         var l = left != null && left.editorType != tileEditorType  && left.editorType != TileEditorType.Bridge;;
         var r = right != null && right.editorType != tileEditorType  && right.editorType != TileEditorType.Bridge;;
 
+        var directions = u && d && l && r;
+        var notDirections = !u && !d && !l && !r;
+
+        var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
+        var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
+        var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
+        var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
+
+        var ul = upleft != null && upleft.editorType != tileEditorType && upleft.editorType != TileEditorType.Bridge;
+        var dl = downleft != null && downleft.editorType != tileEditorType  && downleft.editorType != TileEditorType.Bridge;;
+        var ur = upright != null && upright.editorType != tileEditorType && upright.editorType != TileEditorType.Bridge;;
+        var dr = downright != null && downright.editorType != tileEditorType && downright.editorType != TileEditorType.Bridge;;
+
+
+        var corners = ul && dl && ur && dr;
+        var notCorners = !ul && !dl && !ur && !dr;
+
+        if (notDirections){
+            //4 corenrs
+            if (corners){
+                return 8;
+            }
+            //1 corner
+            if (ul && !dl && !ur && !dr){
+                return 27;
+            }     
+            if (!ul && dl && !ur && !dr){
+                return 21;
+            }     
+            if (!ul && !dl && ur && !dr){
+                return 26;
+            }     
+            if (!ul && !dl && !ur && dr){
+                return 20;
+            }     
+            //2 corners
+            if (ul && !dl && !ur && dr){
+                return 28;
+            }            
+            if (!ul && dl && ur && !dr){
+                return 34;
+            }        
+
+            //3 corners
+            if (!ul && dl && ur && dr){
+                
+            }            
+            if (ul && !dl && ur && dr){
+                
+            }
+            if (ul && dl && !ur && dr){
+                
+            }     
+            if (ul && !dl && ur && !dr){
+                
+            }
+            return 5;
+        }
         //Single direction walls
         if (u && !d && !l && !r){
+            if (corners){
+                return 24;
+            }
+            if (dr){
+                return 33;
+            }
+            if (dl){
+                return 39;
+            }
             return 1;
         }
         if (!u && d && !l && !r){
+            if (corners){
+                return 19;
+            }
+            if (ur){
+                return 32;
+            }
+            if (ul){
+                return 38;
+            }
             return 11;
         }
         if (!u && !d && l && !r){
+            if (corners){
+                return 25;
+            }
+            if (ur){
+                return 30;
+            }
+            if (dr){
+                return 31;
+            }
             return 4;
         }
         if (!u && !d && !l && r){
+            if (corners){
+                return 18;
+            }
+            if (ul){
+                return 36;
+            }
+            if (dl){
+                return 37;
+            }
             return 6;
         }
 
@@ -429,16 +523,28 @@ public class GridManager : MonoBehaviour
             return 13;
         }
         if (u && !d && l && !r){
+            if (dr){
+                return 23;
+            }
             return 0;
         }
         if (u && !d && !l && r){
+            if (dl){
+                return 22;
+            }
             return 2;
         }
         //DOWN and 
         if (!u && d && l && !r){
+            if (ur){
+                return 17;
+            }
             return 10;
         }
         if (!u && d && !l && r){
+            if (ul){
+                return 16;
+            }
             return 12;
         }
         //LEFT and RIGHT
@@ -460,35 +566,21 @@ public class GridManager : MonoBehaviour
             return 7;
         }
 
-        var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
-        var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
-        var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
-        var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
-
-        var ul = upleft != null && upleft.editorType != tileEditorType && upleft.editorType != TileEditorType.Bridge;
-        var dl = downleft != null && downleft.editorType != tileEditorType  && downleft.editorType != TileEditorType.Bridge;;
-        var ur = upright != null && upright.editorType != tileEditorType && upright.editorType != TileEditorType.Bridge;;
-        var dr = downright != null && downright.editorType != tileEditorType && downright.editorType != TileEditorType.Bridge;;
-
-
-
-
-
         // //single walls
         if (ul && !dl && !ur && !dr){
             return 27;
         }
         if (!ul && dl && !ur && !dr){
-            return 25;
+            return 21;
         }
         if (!ul && !dl && ur && !dr){
             return 26;
         }
         if (!ul && !dl && !ur && dr){
-            return 24;
+            return 20;
         }
 
-        if (u && l && !d && !r && ur && dr && ul && dl){
+        if (notCorners && u && !d && l && !r){
             return 21;
         }
         if (!u && !l && d && r && ur && dr && ul && dl){

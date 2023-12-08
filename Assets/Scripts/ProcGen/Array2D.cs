@@ -41,7 +41,7 @@ public class Array2D<T> {
                 int newy = height-1-y;
                 T t = grid[newy*width+x];
                 int newx = width-1-x;
-                newGrid[newx*height+y] = t;
+                newGrid[newx*height+newy] = t;
             }
         }
 
