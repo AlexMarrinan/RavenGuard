@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: f6abb71add35bf443a73e97c7b08c257
+guid: 59fb8521edf147a41a4da28d3accdba6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - inspectorXML: {fileID: 9197481963319205126, guid: 07e2c88dfb031474181c19862d6143f8, type: 3}
+  - inspectorXML: {instanceID: 0}
   - grass: {fileID: 2800000, guid: ecead4cf21ae8214b8f4b937b8a29de1, type: 3}
   - water: {fileID: 2800000, guid: 5ae580c8e1bf7634eacbfc64b6d64358, type: 3}
   - forest: {fileID: 2800000, guid: 88f82819caa468640a9a5297fc01ee30, type: 3}
