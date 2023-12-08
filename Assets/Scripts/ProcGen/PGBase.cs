@@ -8,7 +8,7 @@ using UnityEngine;
 public class PGBase : ScriptableObject
 {
     public int height, width;
-    public int numRivers, numPonds, numForests;
+    public int numRivers, numPonds, numForests, numMountains;
     public  Array2D<TileEditorType> array;
     public Array2D<LayerSize> riverArray, pondArray, mountainArray, forestArray;
 
