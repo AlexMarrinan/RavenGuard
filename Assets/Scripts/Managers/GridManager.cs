@@ -21,9 +21,13 @@ public class GridManager : MonoBehaviour
     private const int NOUSE_MAP_SIZE = 500;
     List<PGWater> ponds;
     List<PGWater> rivers;
+    List<PGMountain> mountains;
+    List<PGForest> forests;
     void Awake(){
         ponds = Resources.LoadAll<PGWater>("ProcGen/Ponds").ToList();
         rivers =  Resources.LoadAll<PGWater>("ProcGen/Rivers").ToList();
+        forests =  Resources.LoadAll<PGForest>("ProcGen/Forests").ToList();
+        mountains =  Resources.LoadAll<PGMountain>("ProcGen/Mountains").ToList();
         instance = this;
     }
     public int getWidth(){
@@ -129,14 +133,25 @@ public class GridManager : MonoBehaviour
         
         int numPonds = UnityEngine.Random.Range(0, pgb.numPonds+1);
         int numRivers = UnityEngine.Random.Range(0, pgb.numRivers+1);
+        int numForests = UnityEngine.Random.Range(0, pgb.numForests+1);
+        int numMountains = UnityEngine.Random.Range(0, pgb.numMountains+1);
+
         Debug.Log(rivers.Count);
 
         for (int _ = 0; _ < numPonds; _ ++){
             int pondIndex =  UnityEngine.Random.Range(0, ponds.Count);
             PGWater pond = ponds[pondIndex];
-            Debug.Log((pond.width, pond.height));
-            Debug.Log(pondIndex);
             OverlayPond(pond);
+        }
+        for (int _ = 0; _ < numForests; _ ++){
+            int forestIndex =  UnityEngine.Random.Range(0, forests.Count);
+            var forest = forests[forestIndex];
+            OverlayPond(forest);
+        }
+        for (int _ = 0; _ < numMountains; _ ++){
+            int mountainIndex =  UnityEngine.Random.Range(0, mountains.Count);
+            var mountain = mountains[mountainIndex];
+            OverlayPond(mountain);
         }
         for (int _ = 0; _ < numRivers; _ ++){
             int riverIndex =  UnityEngine.Random.Range(0, rivers.Count);
@@ -212,7 +227,7 @@ public class GridManager : MonoBehaviour
         return GetTileFromType(type);
     }
 
-    private void OverlayPond(PGWater pond)
+    private void OverlayPond(PGBase pond)
     {
         int randX = UnityEngine.Random.Range(2-pond.width, width-2);
         int randY = UnityEngine.Random.Range(2-pond.height, height-2);

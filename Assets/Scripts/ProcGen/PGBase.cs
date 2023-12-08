@@ -7,6 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PG Base", menuName = "Procedural Geneartion/Base")]
 public class PGBase : ScriptableObject
 {
+    public LayerSize size;
     public int height, width;
     public int numRivers, numPonds, numForests, numMountains;
     public  Array2D<TileEditorType> array;
