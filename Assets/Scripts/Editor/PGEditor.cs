@@ -62,10 +62,10 @@ public class PGEditor : Editor {
         teamSpanwIndex = EditorGUILayout.Popup(teamSpanwIndex, Enum.GetNames(typeof(SpawnFaction)));
         GUILayout.EndHorizontal();
         var array =  b.spawnArray;
-        for (int y = 0; y < array.Height; y++){
+        for (int y = 0; y < b.array.Height; y++){
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            for (int x = 0; x < array.Width; x++){
+            for (int x = 0; x < b.array.Width; x++){
                 SpawnFaction size = array.Get(x,y);
                 Texture texture = grass;
 
@@ -82,9 +82,6 @@ public class PGEditor : Editor {
                 }
                 Texture2D texture2D = OverlapTexture(texture as Texture2D, none as Texture2D);
 
-                // GUIContent content = new GUIContent()
-                // GUILayout.BeginArea(new Rect(i*50, y*50, 50, 50));
-                // GUILayout.Box(none, GUILayout.Width(100));
                 if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50))){
                     var s = (SpawnFaction)teamSpanwIndex;
                     array.Set(x,y,s);

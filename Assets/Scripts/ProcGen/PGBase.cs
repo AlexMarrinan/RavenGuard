@@ -10,6 +10,7 @@ public class PGBase : ScriptableObject
     public LayerSize size;
     public int height, width;
     public int numRivers, numPonds, numForests, numMountains;
+    [HideInInspector]
     public  Array2D<TileEditorType> array;
     [HideInInspector]
     public Array2D<LayerSize> riverArray, pondArray, mountainArray, forestArray;
@@ -38,6 +39,7 @@ public class PGBase : ScriptableObject
         pondArray.Height = h;
         mountainArray.Height = h;
         forestArray.Height = h;
+        spawnArray.Height = h;
     }
     public void SetWidth(int w)
     {
@@ -46,6 +48,7 @@ public class PGBase : ScriptableObject
         pondArray.Width = w;
         mountainArray.Width = w;
         forestArray.Width = w;
+        spawnArray.Width = w;
     }
 }
 public enum LayerSize {
