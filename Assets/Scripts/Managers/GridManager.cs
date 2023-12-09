@@ -16,7 +16,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, BaseTile> tiles;
     private Dictionary<Vector2, TileEditorType> tileTypes;
-    private float[,] noiseMap;
+    public List<Vector2> team1spawns, team2spawns;
+
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
     public List<PGBase> ponds;
@@ -107,6 +108,9 @@ public class GridManager : MonoBehaviour
         Dictionary<Vector2, LayerSize> forestPositions = new();
         Dictionary<Vector2, LayerSize> mountainPositions = new();
 
+        team1spawns = new();
+        team2spawns = new();
+
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
         PGBase pgb = bases[randIndex];
         var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
@@ -114,6 +118,7 @@ public class GridManager : MonoBehaviour
         var newForestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
         var newRiverArray = new Array2D<LayerSize>(pgb.width, pgb.height);
         var newMountainArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
 
         //        Debug.Log("new array" + (newArray.Width, newArray.Height));
         newArray.DeepCopy(pgb.array);
@@ -121,7 +126,7 @@ public class GridManager : MonoBehaviour
         newForestArray.DeepCopy(pgb.forestArray);
         newRiverArray.DeepCopy(pgb.riverArray);
         newMountainArray.DeepCopy(pgb.mountainArray);
-
+        newSpawnArray.DeepCopy(pgb.spawnArray);
         //      Debug.Log("new array" + (newArray.Width, newArray.Height));
         //Randomly Flip Layout
         if (UnityEngine.Random.Range(0, 2) == 1)
@@ -131,6 +136,7 @@ public class GridManager : MonoBehaviour
             newForestArray.FlipX();
             newRiverArray.FlipX();
             newMountainArray.FlipX();
+            newSpawnArray.FlipX();
         }
         else if (UnityEngine.Random.Range(0, 2) == 1)
         {
@@ -139,6 +145,7 @@ public class GridManager : MonoBehaviour
             newForestArray.FlipY();
             newRiverArray.FlipY();
             newMountainArray.FlipY();
+            newSpawnArray.FlipY();
         }
 
         //Randomly Rotate Layout
@@ -150,6 +157,7 @@ public class GridManager : MonoBehaviour
             newForestArray.Rotate();
             newRiverArray.Rotate();
             newMountainArray.Rotate();
+            newSpawnArray.Rotate();
         }
 
 
@@ -161,10 +169,11 @@ public class GridManager : MonoBehaviour
             {
                 var pos = new Vector2(x, y);
                 int newy = height - 1 - y;
-                var mtn = pgb.mountainArray.Get(x, y);
-                var riv = pgb.riverArray.Get(x, y);
-                var pnd = pgb.pondArray.Get(x, y);
-                var frs = pgb.forestArray.Get(x, y);
+                var mtn = newMountainArray.Get(x, y);
+                var riv = newRiverArray.Get(x, y);
+                var pnd = newPondArray.Get(x, y);
+                var frs = newForestArray.Get(x, y);
+                var spawn = newSpawnArray.Get(x,y);
                 Debug.Log(pnd);
                 if (mtn != LayerSize.None)
                 {
@@ -181,6 +190,11 @@ public class GridManager : MonoBehaviour
                 if (frs != LayerSize.None)
                 {
                     forestPositions.Add(pos, mtn);
+                }
+                if (spawn == SpawnFaction.Team1){
+                    team1spawns.Add(pos);
+                }else if (spawn ==  SpawnFaction.Team2){
+                    team2spawns.Add(pos);
                 }
                 tileTypes[pos] = newArray.grid[newy * width + x];
             }
@@ -792,13 +806,17 @@ public class GridManager : MonoBehaviour
         return t;
     }
     
-    public BaseTile GetHeroSpawnTile(){
+    public BaseTile GetSpawnTile(bool team1){
 //        Debug.Log(tiles.Values.Count);
-        return tiles.Where(t => t.Key.x < width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
-    }
-
-    public BaseTile GetEnemySpawnTile(){
-        return tiles.Where(t => t.Key.x > width/2 && t.Value.walkable).OrderBy(t => UnityEngine.Random.value).First().Value;
+        List<Vector2> spawnPositions = GridManager.instance.team1spawns;
+        if (!team1){
+            spawnPositions = GridManager.instance.team2spawns;
+        }
+        int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
+        Vector2 pos = spawnPositions[randomIndex];
+        var tile = GridManager.instance.GetTileAtPosition(spawnPositions[randomIndex]);
+        spawnPositions.Remove(pos);
+        return tile;
     }
     public List<BaseTile> GetAllTiles(){
         return tiles.Values.ToList();

@@ -11,6 +11,7 @@ public class UnitManager : MonoBehaviour
     private List<BaseUnit> units;
     public BaseUnit selectedUnit;
     public float unitMoveSpeed = .1f;
+    private bool team1heros = false;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
@@ -18,12 +19,14 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnHeroes(){
+        //returns 0 or 1
+        team1heros = 0 == Random.Range(0, 2);
         var heroCount = 5;
         for (int i = 0; i < heroCount; i++){
             var randomPrefab = GetRandomUnit(UnitFaction.Hero);
             var spawnedHero = Instantiate(randomPrefab);
             units.Add(spawnedHero);
-            var randomSpawnTile = GridManager.instance.GetHeroSpawnTile();
+            var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
             randomSpawnTile.SetUnitStart(spawnedHero);
             spawnedHero.SetSkillMethods();
             //TODO: REMOVE AFTER PROVING LINE SHOWS UP
@@ -38,7 +41,7 @@ public class UnitManager : MonoBehaviour
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy);
             var spawnedEnemy = Instantiate(randomPrefab);
             units.Add(spawnedEnemy);
-            var randomSpawnTile = GridManager.instance.GetEnemySpawnTile();
+            var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             randomSpawnTile.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
         }
