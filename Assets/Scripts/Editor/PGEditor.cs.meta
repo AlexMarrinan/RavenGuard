@@ -14,6 +14,8 @@ MonoImporter:
   - small: {fileID: 2800000, guid: dcb430c45e6bdfe40bc522f2673c5a24, type: 3}
   - medium: {fileID: 2800000, guid: 61d1e341b2a0ba14cbec68857b62a68b, type: 3}
   - large: {fileID: 2800000, guid: a3cb0e4b6367a2e449b4cacaa470c7d2, type: 3}
+  - team1: {fileID: 2800000, guid: be0fc8b0d73e9054c9a5a28b0378d3aa, type: 3}
+  - team2: {fileID: 2800000, guid: a2d4230d723ec7546a813ce8e9bebb8e, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

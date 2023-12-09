@@ -11,7 +11,10 @@ public class PGBase : ScriptableObject
     public int height, width;
     public int numRivers, numPonds, numForests, numMountains;
     public  Array2D<TileEditorType> array;
+    [HideInInspector]
     public Array2D<LayerSize> riverArray, pondArray, mountainArray, forestArray;
+    //[HideInInspector]
+    public Array2D<SpawnFaction> spawnArray;
 
     public TileEditorType GetTileType(int layerX, int layerY)
     {
@@ -25,6 +28,7 @@ public class PGBase : ScriptableObject
         pondArray = new Array2D<LayerSize>(width, height);
         mountainArray = new Array2D<LayerSize>(width, height);
         forestArray = new Array2D<LayerSize>(width, height);
+        spawnArray = new Array2D<SpawnFaction>(width, height);
     }
 
     public void SetHeight(int h)
@@ -54,6 +58,9 @@ public enum PGDrawLayer {
     Standard,
     River,
     Pond,
+    Forest,
+    Mountain,
+    Spawns
 }
 
 public enum TileEditorType {
@@ -63,4 +70,10 @@ public enum TileEditorType {
     Water,
     Forest,
     Bridge,
+}
+
+public enum SpawnFaction {
+    None,
+    Team1,
+    Team2
 }

@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         gameState = startState;
         newCameraPos = mainCamera.transform.position;
+        GridManager.instance.LoadAssets();
         ChangeState(gameState);
     }
 

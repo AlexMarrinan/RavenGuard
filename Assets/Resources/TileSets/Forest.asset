@@ -49,7 +49,7 @@ MonoBehaviour:
   - {fileID: -1552205727, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   - {fileID: -941938968, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   walls:
-  - {fileID: 1341686922, guid: 046552f8a3beb4a4bb0723770d5e803f, type: 3}
+  - {fileID: 1669874268, guid: 5248467d44eb4a7498ececb23248d71c, type: 3}
   water:
   - {fileID: 1778104551, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}
   - {fileID: 255879615, guid: 3b2836088a0ca8a45ba2c144e0d4cdb9, type: 3}

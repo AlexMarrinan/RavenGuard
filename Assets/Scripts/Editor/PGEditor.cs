@@ -9,10 +9,10 @@ using UnityEngine.UIElements;
 [CustomEditor(typeof(PGBase))]
 public class PGEditor : Editor {
     //public DropdownField tileTypeField;
-    private int drawLayerIndex = 0, tileTypeIndex = 0, layerSizeIndex = 0;
+    private int drawLayerIndex = 0, tileTypeIndex = 0, layerSizeIndex = 0, teamSpanwIndex = 0;
     public VisualTreeAsset inspectorXML;
     public VisualElement myInspector;
-    public Texture grass, water, forest, mountain, bridge, none, small, medium, large;
+    public Texture grass, water, forest, mountain, bridge, none, small, medium, large, team1, team2;
 
 
     //TODO: FIX X/Y DIMMENSIONS SWAPPED
@@ -42,8 +42,58 @@ public class PGEditor : Editor {
             case 2:
                 DrawLayer(b, b.pondArray);
                 break;
+            case 3:
+                DrawLayer(b, b.forestArray);
+                break;
+            case 4:
+                DrawLayer(b, b.mountainArray);
+                break;
+            case 5:
+                DrawSpawn(b);
+                break;
             default:
                 break;
+        }
+    }
+    private void DrawSpawn(PGBase b)
+    {
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Spawn Faction:");
+        teamSpanwIndex = EditorGUILayout.Popup(teamSpanwIndex, Enum.GetNames(typeof(SpawnFaction)));
+        GUILayout.EndHorizontal();
+        var array =  b.spawnArray;
+        for (int y = 0; y < array.Height; y++){
+            GUILayout.EndHorizontal();
+            GUILayout.BeginHorizontal();
+            for (int x = 0; x < array.Width; x++){
+                SpawnFaction size = array.Get(x,y);
+                Texture texture = grass;
+
+                switch (size){
+                    case SpawnFaction.None:
+                        texture = none;
+                        break;
+                    case SpawnFaction.Team1:
+                        texture = team1;
+                        break;
+                    case SpawnFaction.Team2:
+                        texture = team2;
+                        break;
+                }
+                Texture2D texture2D = OverlapTexture(texture as Texture2D, none as Texture2D);
+
+                // GUIContent content = new GUIContent()
+                // GUILayout.BeginArea(new Rect(i*50, y*50, 50, 50));
+                // GUILayout.Box(none, GUILayout.Width(100));
+                if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50))){
+                    var s = (SpawnFaction)teamSpanwIndex;
+                    array.Set(x,y,s);
+                    // GUILayout.BeginArea()
+                }
+                // GUILayout.EndArea();
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.BeginVertical();
         }
     }
 

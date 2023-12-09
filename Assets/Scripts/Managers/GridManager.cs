@@ -19,15 +19,12 @@ public class GridManager : MonoBehaviour
     private float[,] noiseMap;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
-    List<PGWater> ponds;
-    List<PGWater> rivers;
-    List<PGMountain> mountains;
-    List<PGForest> forests;
+    public List<PGBase> ponds;
+    public List<PGBase> rivers;
+    public List<PGBase> mountains;
+    public List<PGBase> forests;
+    public List<PGBase> bases;
     void Awake(){
-        ponds = Resources.LoadAll<PGWater>("ProcGen/Ponds").ToList();
-        rivers =  Resources.LoadAll<PGWater>("ProcGen/Rivers").ToList();
-        forests =  Resources.LoadAll<PGForest>("ProcGen/Forests").ToList();
-        mountains =  Resources.LoadAll<PGMountain>("ProcGen/Mountains").ToList();
         instance = this;
     }
     public int getWidth(){
@@ -35,6 +32,13 @@ public class GridManager : MonoBehaviour
     }
     public int getHeight(){
         return height;
+    }
+    public void LoadAssets(){
+        bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+        ponds = Resources.LoadAll<PGBase>("ProcGen/Ponds").ToList();
+        rivers =  Resources.LoadAll<PGBase>("ProcGen/Rivers").ToList();
+        forests =  Resources.LoadAll<PGBase>("ProcGen/Forests").ToList();
+        mountains =  Resources.LoadAll<PGBase>("ProcGen/Mountains").ToList();
     }
     //Generates a grid of width x height of the tilePrefab
     // public void GenerateGridOLD(){
@@ -94,75 +98,107 @@ public class GridManager : MonoBehaviour
     //     GameManager.instance.ChangeState(GameState.SapwnHeroes);
     // }
 
-    public void GenerateGrid(){
-        
+    public void GenerateGrid()
+    {
         tileTypes = new Dictionary<Vector2, TileEditorType>();
-        List<PGBase> bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+
+        Dictionary<Vector2, LayerSize> pondPositions = new();
+        Dictionary<Vector2, LayerSize> riverPositions = new();
+        Dictionary<Vector2, LayerSize> forestPositions = new();
+        Dictionary<Vector2, LayerSize> mountainPositions = new();
 
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
         PGBase pgb = bases[randIndex];
         var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
-        Debug.Log("new array" + (newArray.Width, newArray.Height));
+        var newPondArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        var newForestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        var newRiverArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        var newMountainArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+
+        //        Debug.Log("new array" + (newArray.Width, newArray.Height));
         newArray.DeepCopy(pgb.array);
-        Debug.Log("new array" + (newArray.Width, newArray.Height));
+        newPondArray.DeepCopy(pgb.pondArray);
+        newForestArray.DeepCopy(pgb.forestArray);
+        newRiverArray.DeepCopy(pgb.riverArray);
+        newMountainArray.DeepCopy(pgb.mountainArray);
+
+        //      Debug.Log("new array" + (newArray.Width, newArray.Height));
         //Randomly Flip Layout
-        if (UnityEngine.Random.Range(0, 2) == 1){
+        if (UnityEngine.Random.Range(0, 2) == 1)
+        {
             newArray.FlipX();
+            newPondArray.FlipX();
+            newForestArray.FlipX();
+            newRiverArray.FlipX();
+            newMountainArray.FlipX();
         }
-        else if (UnityEngine.Random.Range(0, 2) == 1){
-           newArray.FlipX();
+        else if (UnityEngine.Random.Range(0, 2) == 1)
+        {
+            newArray.FlipY();
+            newPondArray.FlipY();
+            newForestArray.FlipY();
+            newRiverArray.FlipY();
+            newMountainArray.FlipY();
         }
 
         //Randomly Rotate Layout
         int numRotates = UnityEngine.Random.Range(0, 4);
-        for (int i = 0; i < numRotates; i++){
+        for (int i = 0; i < numRotates; i++)
+        {
             newArray.Rotate();
+            newPondArray.Rotate();
+            newForestArray.Rotate();
+            newRiverArray.Rotate();
+            newMountainArray.Rotate();
         }
 
 
         width = newArray.Width;
         height = newArray.Height;
-        for (int x = 0; x < width; x++){
+        for (int x = 0; x < width; x++)
+        {
             for (int y = 0; y < height; y++)
             {
                 var pos = new Vector2(x, y);
-                int newy = height-1-y;
-                tileTypes[pos] = newArray.grid[newy*width+x];
+                int newy = height - 1 - y;
+                var mtn = pgb.mountainArray.Get(x, y);
+                var riv = pgb.riverArray.Get(x, y);
+                var pnd = pgb.pondArray.Get(x, y);
+                var frs = pgb.forestArray.Get(x, y);
+                Debug.Log(pnd);
+                if (mtn != LayerSize.None)
+                {
+                    mountainPositions.Add(pos, mtn);
+                }
+                if (riv != LayerSize.None)
+                {
+                    riverPositions.Add(pos, mtn);
+                }
+                if (pnd != LayerSize.None)
+                {
+                    pondPositions.Add(pos, mtn);
+                }
+                if (frs != LayerSize.None)
+                {
+                    forestPositions.Add(pos, mtn);
+                }
+                tileTypes[pos] = newArray.grid[newy * width + x];
             }
         }
-        
-        int numPonds = UnityEngine.Random.Range(0, pgb.numPonds+1);
-        int numRivers = UnityEngine.Random.Range(0, pgb.numRivers+1);
-        int numForests = UnityEngine.Random.Range(0, pgb.numForests+1);
-        int numMountains = UnityEngine.Random.Range(0, pgb.numMountains+1);
 
-        Debug.Log(rivers.Count);
+        //        Debug.Log(rivers.Count);
 
-        for (int _ = 0; _ < numPonds; _ ++){
-            int pondIndex =  UnityEngine.Random.Range(0, ponds.Count);
-            PGWater pond = ponds[pondIndex];
-            OverlayPond(pond);
-        }
-        for (int _ = 0; _ < numForests; _ ++){
-            int forestIndex =  UnityEngine.Random.Range(0, forests.Count);
-            var forest = forests[forestIndex];
-            OverlayPond(forest);
-        }
-        for (int _ = 0; _ < numMountains; _ ++){
-            int mountainIndex =  UnityEngine.Random.Range(0, mountains.Count);
-            var mountain = mountains[mountainIndex];
-            OverlayPond(mountain);
-        }
-        for (int _ = 0; _ < numRivers; _ ++){
-            int riverIndex =  UnityEngine.Random.Range(0, rivers.Count);
-            PGWater river = rivers[riverIndex];
-            OverlayRiver(river);
-        }
+        PlaceRandomLayer(pondPositions, ponds, pgb.numPonds);
+        PlaceRandomLayer(riverPositions, rivers, pgb.numRivers);
+        PlaceRandomLayer(forestPositions, forests, pgb.numForests);
+        PlaceRandomLayer(mountainPositions, mountains, pgb.numMountains);
+
         tiles = new();
-        foreach (Vector2 pos in tileTypes.Keys){
+        foreach (Vector2 pos in tileTypes.Keys)
+        {
             int x = (int)pos.x;
             int y = (int)pos.y;
-        
+
             BaseTile randomTile = GetTileFromType(tileTypes[pos]);
             randomTile.SetBGSprite(tileSet.GetRandomFloor());
 
@@ -173,21 +209,47 @@ public class GridManager : MonoBehaviour
             newTile.coordiantes = pos;
             tiles[pos] = newTile;
         }
-        foreach (BaseTile t in tiles.Values){
-            if (t.editorType == TileEditorType.Grass){
+        foreach (BaseTile t in tiles.Values)
+        {
+            if (t.editorType == TileEditorType.Grass)
+            {
                 SetGrassTileSprites(t as FloorTile);
-            }else if (t.editorType == TileEditorType.Mountain){
+            }
+            else if (t.editorType == TileEditorType.Mountain)
+            {
                 SetMountainTileSprites(t as WallTile);
-            }else if (t.editorType == TileEditorType.Forest){
+            }
+            else if (t.editorType == TileEditorType.Forest)
+            {
                 SetForestTileSprites(t as FloorTile);
-            }else if (t.editorType == TileEditorType.Bridge){
+            }
+            else if (t.editorType == TileEditorType.Bridge)
+            {
                 SetBridgeTileSprites(t as FloorTile);
-              }else if (t.editorType == TileEditorType.Water){
+            }
+            else if (t.editorType == TileEditorType.Water)
+            {
                 SetWaterTileSprites(t as WallTile);
             }
         }
-        cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
+        cam.transform.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
+    }
+
+    private void PlaceRandomLayer(Dictionary<Vector2, LayerSize> layerPositions, List<PGBase> layers, int maxLayers)
+    {
+        int randomNum = UnityEngine.Random.Range(0, maxLayers + 1);
+        if (layerPositions.Count <= 0){
+            return;
+        }
+        for (int _ = 0; _ < randomNum; _++) {
+            int layerIndex = UnityEngine.Random.Range(0, layers.Count);
+            int posIndex = UnityEngine.Random.Range(0, layerPositions.Keys.Count);
+            Debug.Log("Num: " + randomNum);
+            Debug.Log("Layers: " + layerPositions.Count);
+            PGBase layer = layers[layerIndex];
+            OverlayLayer(layer, layerPositions.Keys.ToList()[posIndex]);
+        }
     }
 
     //TODO: MAKE 2D ARRAY CLASS THAT DOES THESE THINGS IN AN ORGANAIZED WAY
@@ -250,6 +312,9 @@ public class GridManager : MonoBehaviour
         }
         OverlayLayer(river, randX, randY);
     }
+    private void OverlayLayer(PGBase layer, Vector2 pos){
+        OverlayLayer(layer, (int)pos.x, (int)pos.y);
+    }
     private void OverlayLayer(PGBase layer, int startX, int startY)
     {   
         Debug.Log(layer.name);
@@ -261,7 +326,7 @@ public class GridManager : MonoBehaviour
 
                     if (y >= 0){
                         TileEditorType tileEditorType = layer.GetTileType(layerX, layerY);
-                        Debug.Log((layerX, layerY, tileEditorType));
+//                        Debug.Log((layerX, layerY, tileEditorType));
                         if (tileEditorType != TileEditorType.None){ 
                             Vector2 pos = new(x, y);
                             tileTypes[pos] = tileEditorType;
