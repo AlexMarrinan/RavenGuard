@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 [CustomEditor(typeof(PGBase))]
@@ -12,9 +14,54 @@ public class PGEditor : Editor {
     private int drawLayerIndex = 0, tileTypeIndex = 0, layerSizeIndex = 0, teamSpanwIndex = 0;
     public VisualTreeAsset inspectorXML;
     public VisualElement myInspector;
-    public Texture grass, water, forest, mountain, bridge, none, small, medium, large, team1, team2;
+    public Texture2D grass, water, forest, mountain, bridge, none, small, medium, large, team1, team2;
+    public Dictionary<(TileEditorType, LayerSize), Texture2D> layerSizeTextures;
+    public Dictionary<(TileEditorType, SpawnFaction), Texture2D> spawnFactionTextures;
 
+    private void Awake() {
+        GenerateOverlapTextures();
+    }
 
+    private void GenerateOverlapTextures()
+    {
+        layerSizeTextures = new();
+        spawnFactionTextures = new();
+        Debug.Log("Generating textures..");
+        foreach (TileEditorType tileEditorType in Enum.GetValues(typeof(TileEditorType))){
+            Texture2D tileTexture = TileTypeTexture(tileEditorType);
+            foreach (LayerSize layerSize in Enum.GetValues(typeof(LayerSize))){
+                Texture2D layerTexture = LayerSizeTexture(layerSize);
+                Texture2D newTexture = OverlapTexture(tileTexture, layerTexture);
+                Debug.Log(newTexture);
+                layerSizeTextures.Add((tileEditorType, layerSize), newTexture);
+            }
+            foreach (SpawnFaction faction in Enum.GetValues(typeof(SpawnFaction))){
+                Texture2D factionTexture = SpawnFactionTexture(faction);
+                Texture2D newTexture = OverlapTexture(tileTexture, factionTexture);
+                Debug.Log(newTexture);
+                spawnFactionTextures.Add((tileEditorType, faction), newTexture);
+            }
+        }
+        Debug.Log(spawnFactionTextures.Count);
+        Debug.Log(layerSizeTextures.Count);
+    }
+    private Texture2D TileTypeTexture(TileEditorType tileEditorType){
+        switch (tileEditorType){
+            case TileEditorType.None:
+                return none;
+            case TileEditorType.Grass:
+                return grass;            
+            case TileEditorType.Water:
+                return water;            
+            case TileEditorType.Forest:
+                return forest;            
+            case TileEditorType.Mountain:
+                return mountain;            
+            case TileEditorType.Bridge:
+                return bridge;
+        }
+        return null;
+    }
     //TODO: FIX X/Y DIMMENSIONS SWAPPED
     public override void OnInspectorGUI() {
         
@@ -66,21 +113,9 @@ public class PGEditor : Editor {
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
             for (int x = 0; x < b.array.Width; x++){
-                SpawnFaction size = array.Get(x,y);
-                Texture texture = grass;
-
-                switch (size){
-                    case SpawnFaction.None:
-                        texture = none;
-                        break;
-                    case SpawnFaction.Team1:
-                        texture = team1;
-                        break;
-                    case SpawnFaction.Team2:
-                        texture = team2;
-                        break;
-                }
-                Texture2D texture2D = OverlapTexture(texture as Texture2D, none as Texture2D);
+                SpawnFaction faction = array.Get(x,y);
+                TileEditorType tileType = b.array.Get(x,y);
+                Texture2D texture2D = spawnFactionTextures[(tileType, faction)];
 
                 if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50))){
                     var s = (SpawnFaction)teamSpanwIndex;
@@ -104,33 +139,17 @@ public class PGEditor : Editor {
         for (int y = 0; y < array.Height; y++){
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
-            for (int x = 0; x < array.Width; x++){
-                LayerSize size = array.Get(x,y);
-                Texture texture = grass;
-
-                switch (size){
-                    case LayerSize.None:
-                        texture = none;
-                        break;
-                    case LayerSize.Small:
-                        texture = small;
-                        break;
-                    case LayerSize.Medium:
-                        texture = medium;
-                        break;
-                    case LayerSize.Large:
-                        texture = large;
-                        break;
-                }
-                Texture2D texture2D = OverlapTexture(texture as Texture2D, none as Texture2D);
-
-                // GUIContent content = new GUIContent()
-                // GUILayout.BeginArea(new Rect(i*50, y*50, 50, 50));
-                // GUILayout.Box(none, GUILayout.Width(100));
-                if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50))){
+            for (int x = 0; x < array.Width; x++)
+            {
+                LayerSize size = array.Get(x, y);
+                TileEditorType tileType = b.array.Get(x,y);
+                Texture2D texture2D = layerSizeTextures[(tileType, size)];
+            
+                if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50)))
+                {
                     var l = (LayerSize)layerSizeIndex;
-                    array.Set(x,y,l);
-                    Debug.Log((x,y));
+                    array.Set(x, y, l);
+                    Debug.Log((x, y));
                     Debug.Log(l);
                     // GUILayout.BeginArea()
                 }
@@ -139,6 +158,34 @@ public class PGEditor : Editor {
             GUILayout.EndHorizontal();
             GUILayout.BeginVertical();
         }
+    }
+    private Texture2D SpawnFactionTexture(SpawnFaction faction)
+    {
+        switch (faction)
+        {
+            case SpawnFaction.None:
+                return none;
+            case SpawnFaction.Team1:
+                return team1;
+            case SpawnFaction.Team2:
+                return team2;
+        }
+        return null;;
+    }
+    private Texture2D LayerSizeTexture(LayerSize size)
+    {
+        switch (size)
+        {
+            case LayerSize.None:
+                return none;
+            case LayerSize.Small:
+                return small;
+            case LayerSize.Medium:
+                return medium;
+            case LayerSize.Large:
+                return large;
+        }
+        return null;;
     }
 
     private void DrawStandard(PGBase b)
@@ -154,29 +201,8 @@ public class PGEditor : Editor {
             for (int x = 0; x < b.width; x++)
             { 
                 TileEditorType tileType = b.GetTileType(x,y);
-                Texture texture = grass;
-
-                switch (tileType){
-                    case TileEditorType.Grass:
-                        texture = grass;
-                        break;
-                    case TileEditorType.Water:
-                        texture = water;
-                        break;
-                    case TileEditorType.Mountain:
-                        texture = mountain;
-                        break;         
-                    case TileEditorType.Forest:
-                        texture = forest;
-                        break;              
-                    case TileEditorType.Bridge:
-                        texture = bridge;
-                        break;      
-                    case TileEditorType.None:
-                        texture = none;
-                        break;           
-                }
-                Texture2D texture2D = OverlapTexture(texture as Texture2D, none as Texture2D);
+                Texture texture = TileTypeTexture(tileType);
+                //Texture2D texture2D = OverlapTexture(texture as Texture2D, none as Texture2D);
 
                 GUIStyle style = new GUIStyle
                 {
@@ -186,7 +212,7 @@ public class PGEditor : Editor {
                 // GUIContent content = new GUIContent()
                 // GUILayout.BeginArea(new Rect(i*50, y*50, 50, 50));
                 // GUILayout.Box(none, GUILayout.Width(100));
-                if (GUILayout.Button(texture2D, GUILayout.Width(50), GUILayout.Height(50))){
+                if (GUILayout.Button(texture, GUILayout.Width(50), GUILayout.Height(50))){
                     var t = (TileEditorType)tileTypeIndex;
                     b.array.Set(x,y,t);
                     Debug.Log((x,y));
@@ -199,27 +225,40 @@ public class PGEditor : Editor {
         }
     }
 
-    public Texture2D OverlapTexture(Texture2D background, Texture2D watermark)
-{      
-    return background;
-    // int startX = 0;
-    // int startY = background.height - watermark.height;
+    public Texture2D OverlapTexture(Texture2D background, Texture2D overlay)
+    {      
+        var newbg = Instantiate(new Texture2D(background.width, background.height));
 
-    // for (int x = startX; x < background.width; x++)
-    // {
+        //Deep copy to newbg, so that the old textures are not overwritten
+        for (int x = 0; x < background.width; x++)
+        {
 
-    //     for (int y = startY; y < background.height; y++)
-    //     {
-    //         Color bgColor = background.GetPixel(x, y);
-    //         Color wmColor = watermark.GetPixel(x - startX, y - startY);
+            for (int y = 0; y < background.height; y++)
+            {
+                Color bgColor = background.GetPixel(x, y);
+                bgColor.a = 0.4f;
+                newbg.SetPixel(x, y, bgColor);
+            }
+        }
 
-    //         Color final_color = Color.Lerp(bgColor, wmColor, wmColor.a / 1.0f);
+        int startX = 0;
+        int startY = background.height - overlay.height;
 
-    //         //background.SetPixel(x, y, final_color);
-    //     }
-    // }
+        for (int x = startX; x < newbg.width; x++)
+        {
 
-    // // background.Apply();
-    // return background;
-}
+            for (int y = startY; y < newbg.height; y++)
+            {
+                Color bgColor = newbg.GetPixel(x, y);
+                Color wmColor = overlay.GetPixel(x - startX, y - startY);
+
+                Color final_color = Color.Lerp(bgColor, wmColor, wmColor.a / 1.0f);
+
+                newbg.SetPixel(x, y, final_color);
+            }
+        }
+
+        newbg.Apply();
+        return newbg;
+    }
 }
