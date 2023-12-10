@@ -25,6 +25,7 @@ public class GridManager : MonoBehaviour
     public List<PGBase> mountains;
     public List<PGBase> forests;
     public List<PGBase> bases;
+    public bool testMode = false;
     void Awake(){
         instance = this;
     }
@@ -35,7 +36,11 @@ public class GridManager : MonoBehaviour
         return height;
     }
     public void LoadAssets(){
-        bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+        if (testMode){
+            bases =  Resources.LoadAll<PGBase>("ProcGen/TestBases").ToList();
+        }else{
+            bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+        }
         ponds = Resources.LoadAll<PGBase>("ProcGen/Ponds").ToList();
         rivers =  Resources.LoadAll<PGBase>("ProcGen/Rivers").ToList();
         forests =  Resources.LoadAll<PGBase>("ProcGen/Forests").ToList();
@@ -265,8 +270,6 @@ public class GridManager : MonoBehaviour
             OverlayLayer(layer, layerPositions.Keys.ToList()[posIndex]);
         }
     }
-
-    //TODO: MAKE 2D ARRAY CLASS THAT DOES THESE THINGS IN AN ORGANAIZED WAY
     private BaseTile GetTileFromType(TileEditorType type){
         // float scale = 1f;//0.16f;
         // float actualX = (float)(x * scale);
@@ -360,137 +363,137 @@ public class GridManager : MonoBehaviour
     }
 
     private void SetMountainTileSprites(WallTile wt){
-        int idx = GetBlendTileIndexOLD(wt);
+        int idx = GetBlendTileIndex(wt);
         if (idx == -1){
             wt.SetFGSprite(tileSet.GetRandomWall());
         }else{
-            wt.SetFGSprite(tileSet.floorXWalls[idx]);
+            wt.SetFGSprite(tileSet.walls[idx]);
             wt.SetBGSprite(tileSet.GetRandomFloor());
         }
     }
     //TODO: MAKE NOT ASS HOLY SHIT
-    private int GetBlendTileIndexOLD(BaseTile bt){
-        TileEditorType tileEditorType = bt.editorType;
-        Vector2 pos = bt.coordiantes;
-        var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
-        var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
-        var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
-        var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
+    // private int GetBlendTileIndexOLD(BaseTile bt){
+    //     TileEditorType tileEditorType = bt.editorType;
+    //     Vector2 pos = bt.coordiantes;
+    //     var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
+    //     var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
+    //     var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
+    //     var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
 
-        var u = up != null && up.editorType != tileEditorType;
-        var d = down != null && down.editorType != tileEditorType;
-        var l = left != null && left.editorType != tileEditorType;
-        var r = right != null && right.editorType != tileEditorType;
+    //     var u = up != null && up.editorType != tileEditorType;
+    //     var d = down != null && down.editorType != tileEditorType;
+    //     var l = left != null && left.editorType != tileEditorType;
+    //     var r = right != null && right.editorType != tileEditorType;
 
-        //Single direction walls
-        if (u && !d && !l && !r){
-            return 7;
-        }
-        if (!u && d && !l && !r){
-            return 1;
-        }
-        if (!u && !d && l && !r){
-            return 5;
-        }
-        if (!u && !d && !l && r){
-            return 3;
-        }
+    //     //Single direction walls
+    //     if (u && !d && !l && !r){
+    //         return 7;
+    //     }
+    //     if (!u && d && !l && !r){
+    //         return 1;
+    //     }
+    //     if (!u && !d && l && !r){
+    //         return 5;
+    //     }
+    //     if (!u && !d && !l && r){
+    //         return 3;
+    //     }
 
-        //UP and 
-        if (u && d && !l && !r){
-            return 18;
-        }
-        if (u && !d && l && !r){
-            return 9;
-        }
-        if (u && !d && !l && r){
-            return 10;
-        }
-        //DOWN and 
-        if (!u && d && l && !r){
-            return 12;
-        }
-        if (!u && d && !l && r){
-            return 13;
-        }
-        //LEFT and RIGHT
-        if (!u && !d && l && r){
-            return 14;
-        }
+    //     //UP and 
+    //     if (u && d && !l && !r){
+    //         return 18;
+    //     }
+    //     if (u && !d && l && !r){
+    //         return 9;
+    //     }
+    //     if (u && !d && !l && r){
+    //         return 10;
+    //     }
+    //     //DOWN and 
+    //     if (!u && d && l && !r){
+    //         return 12;
+    //     }
+    //     if (!u && d && !l && r){
+    //         return 13;
+    //     }
+    //     //LEFT and RIGHT
+    //     if (!u && !d && l && r){
+    //         return 14;
+    //     }
 
-        //NOTS
-        if (!u && d && l && r){
-            return 17;
-        }
-        if (u && !d && l && r){
-            return 11;
-        }
-        if (u && d && !l && r){
-            return 16;
-        }
-        if (u && d && l && !r){
-            return 15;
-        }
+    //     //NOTS
+    //     if (!u && d && l && r){
+    //         return 17;
+    //     }
+    //     if (u && !d && l && r){
+    //         return 11;
+    //     }
+    //     if (u && d && !l && r){
+    //         return 16;
+    //     }
+    //     if (u && d && l && !r){
+    //         return 15;
+    //     }
 
-        var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
-        var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
-        var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
-        var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
+    //     var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
+    //     var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
+    //     var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
+    //     var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
 
-        var ul = upleft != null && upleft.editorType != tileEditorType;
-        var dl = downleft != null && downleft.editorType != tileEditorType;
-        var ur = upright != null && upright.editorType != tileEditorType;
-        var dr = downright != null && downright.editorType != tileEditorType;
+    //     var ul = upleft != null && upleft.editorType != tileEditorType;
+    //     var dl = downleft != null && downleft.editorType != tileEditorType;
+    //     var ur = upright != null && upright.editorType != tileEditorType;
+    //     var dr = downright != null && downright.editorType != tileEditorType;
 
-        //single walls
-        if (ul && !dl && !ur && !dr){
-            return 8;
-        }
-        if (!ul && dl && !ur && !dr){
-            return 2;
-        }
-        if (!ul && !dl && ur && !dr){
-            return 6;
-        }
-        if (!ul && !dl && !ur && dr){
-            return 0;
-        }
+    //     //single walls
+    //     if (ul && !dl && !ur && !dr){
+    //         return 8;
+    //     }
+    //     if (!ul && dl && !ur && !dr){
+    //         return 2;
+    //     }
+    //     if (!ul && !dl && ur && !dr){
+    //         return 6;
+    //     }
+    //     if (!ul && !dl && !ur && dr){
+    //         return 0;
+    //     }
         
-        if (ul && dl && !ur && !dr){
-            return 26;
-        }
-        if (ul && !dl && ur && !dr){
-            return 19;
-        }
-        if (ul && !dl && !ur && dr){
-            return 24;
-        }
-        if (!ul && dl && ur && !dr){
-            return 21;
-        }
-        if (!ul && dl && !ur && dr){
-            return 27;
-        }
-        if (!ul && !dl && ur && dr){
-            return 23;
-        }
-        if (ul && dl && ur && !dr){
-            return 20;
-        }
-        if (ul && dl && !ur && dr){
-            return 28;
-        }
-        if (ul && !dl && ur && dr){
-            return 25;
-        }
-        if (!ul && dl && ur && dr){
-            return 29;
-        }
-        if (ul && dl && ur && dr){
-            return 22;
-        }
-        return -1;
-    }
+    //     if (ul && dl && !ur && !dr){
+    //         return 26;
+    //     }
+    //     if (ul && !dl && ur && !dr){
+    //         return 19;
+    //     }
+    //     if (ul && !dl && !ur && dr){
+    //         return 24;
+    //     }
+    //     if (!ul && dl && ur && !dr){
+    //         return 21;
+    //     }
+    //     if (!ul && dl && !ur && dr){
+    //         return 27;
+    //     }
+    //     if (!ul && !dl && ur && dr){
+    //         return 23;
+    //     }
+    //     if (ul && dl && ur && !dr){
+    //         return 20;
+    //     }
+    //     if (ul && dl && !ur && dr){
+    //         return 28;
+    //     }
+    //     if (ul && !dl && ur && dr){
+    //         return 25;
+    //     }
+    //     if (!ul && dl && ur && dr){
+    //         return 29;
+    //     }
+    //     if (ul && dl && ur && dr){
+    //         return 22;
+    //     }
+    //     return -1;
+    // }
     private int GetBlendTileIndex(BaseTile bt){
         TileEditorType tileEditorType = bt.editorType;
         Vector2 pos = bt.coordiantes;
