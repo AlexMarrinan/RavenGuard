@@ -771,7 +771,13 @@ public class GridManager : MonoBehaviour
         return 5;
     }
     private void SetForestTileSprites(FloorTile ft) {
-        ft.SetBGSprite(tileSet.forest[0]);
+        int idx = GetBlendTileIndex(ft);
+        if (idx == -1){
+            // wt.SetFGSprite(tileSet.GetRandomWall());
+        }else{
+            ft.SetFGSprite(tileSet.forest[idx]);
+            ft.SetBGSprite(tileSet.GetRandomFloor());
+        }    
     }
     private void SetBridgeTileSprites(FloorTile ft) {
 

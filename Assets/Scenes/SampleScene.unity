@@ -3326,6 +3326,7 @@ MonoBehaviour:
   mountains: []
   forests: []
   bases: []
+  testMode: 1
 --- !u!4 &816562101
 Transform:
   m_ObjectHideFlags: 0
