@@ -332,17 +332,63 @@ public class GridManager : MonoBehaviour
     private void OverlayLayer(PGBase layer, Vector2 pos){
         OverlayLayer(layer, (int)pos.x, (int)pos.y);
     }
-    private void OverlayLayer(PGBase layer, int startX, int startY)
+    private void OverlayLayer(PGBase pgb, int startX, int startY)
     {   
-        Debug.Log(layer.name);
-        for (int x = startX, layerX = 0; x < startX + layer.width && x < width && layerX < layer.width; x++, layerX++){
+        var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
+        // var newPondArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        // var newForestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        // var newRiverArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        // var newMountainArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        // var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
+
+        //        Debug.Log("new array" + (newArray.Width, newArray.Height));
+        newArray.DeepCopy(pgb.array);
+        // newPondArray.DeepCopy(pgb.pondArray);
+        // newForestArray.DeepCopy(pgb.forestArray);
+        // newRiverArray.DeepCopy(pgb.riverArray);
+        // newMountainArray.DeepCopy(pgb.mountainArray);
+        // newSpawnArray.DeepCopy(pgb.spawnArray);
+        //      Debug.Log("new array" + (newArray.Width, newArray.Height));
+        //Randomly Flip Layout
+        if (UnityEngine.Random.Range(0, 2) == 1)
+        {
+            newArray.FlipX();
+            // newPondArray.FlipX();
+            // newForestArray.FlipX();
+            // newRiverArray.FlipX();
+            // newMountainArray.FlipX();
+            // newSpawnArray.FlipX();
+        }
+        else if (UnityEngine.Random.Range(0, 2) == 1)
+        {
+            newArray.FlipY();
+            // newPondArray.FlipY();
+            // newForestArray.FlipY();
+            // newRiverArray.FlipY();
+            // newMountainArray.FlipY();
+            // newSpawnArray.FlipY();
+        }
+
+        //Randomly Rotate Layout
+        int numRotates = UnityEngine.Random.Range(0, 4);
+        for (int i = 0; i < numRotates; i++)
+        {
+            newArray.Rotate();
+            // newPondArray.Rotate();
+            // newForestArray.Rotate();
+            // newRiverArray.Rotate();
+            // newMountainArray.Rotate();
+            // newSpawnArray.Rotate();
+        }
+        Debug.Log(pgb.name);
+        for (int x = startX, layerX = 0; x < startX + newArray.Width && x < width && layerX < newArray.Width; x++, layerX++){
             if (x >= 0){
-                for (int y = startY, layerY = 0; y < startY + layer.height && y < height && layerY < layer.height; y++, layerY++){
+                for (int y = startY, layerY = 0; y < startY + newArray.Height && y < height && layerY < newArray.Height; y++, layerY++){
                     // Debug.Log("Pos: " + (x, y));
                     // Debug.Log("Layer Pos: " + (layerX, layerY));
 
                     if (y >= 0){
-                        TileEditorType tileEditorType = layer.GetTileType(layerX, layerY);
+                        TileEditorType tileEditorType = newArray.Get(layerX, layerY);
 //                        Debug.Log((layerX, layerY, tileEditorType));
                         if (tileEditorType != TileEditorType.None){ 
                             Vector2 pos = new(x, y);
