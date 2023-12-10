@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859e3708d50bddc4db915ca5ee586567, type: 3}
   m_Name: PG Forest 2
   m_EditorClassIdentifier: 
-  size: 0
+  size: 2
   height: 2
   width: 3
   numRivers: 0
@@ -29,3 +29,5 @@ MonoBehaviour:
     grid: 000000000000000000000000000000000000000000000000
   forestArray:
     grid: 000000000000000000000000000000000000000000000000
+  spawnArray:
+    grid: 

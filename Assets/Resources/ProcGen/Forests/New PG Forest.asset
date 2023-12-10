@@ -29,3 +29,5 @@ MonoBehaviour:
     grid: 
   forestArray:
     grid: 
+  spawnArray:
+    grid: 

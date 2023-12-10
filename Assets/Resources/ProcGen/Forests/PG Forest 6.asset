@@ -9,25 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c323843a0af9714e989377adb687d5b, type: 3}
-  m_Name: New PG Mountain
+  m_Script: {fileID: 11500000, guid: 859e3708d50bddc4db915ca5ee586567, type: 3}
+  m_Name: PG Forest 6
   m_EditorClassIdentifier: 
-  size: 0
-  height: 0
-  width: 0
+  size: 1
+  height: 2
+  width: 2
   numRivers: 0
   numPonds: 0
   numForests: 0
   numMountains: 0
   array:
-    grid: 
+    grid: 04000000040000000400000004000000
   riverArray:
-    grid: 
+    grid: 00000000000000000000000000000000
   pondArray:
-    grid: 
+    grid: 00000000000000000000000000000000
   mountainArray:
-    grid: 
+    grid: 00000000000000000000000000000000
   forestArray:
-    grid: 
+    grid: 00000000000000000000000000000000
   spawnArray:
-    grid: 
+    grid: 00000000000000000000000000000000
