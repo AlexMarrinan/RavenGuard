@@ -74,6 +74,9 @@ public class UnitManager : MonoBehaviour
             UnselectUnit();
             return;
         }
+        if (unit.faction == UnitFaction.Hero){
+            AudioManager.instance.PlaySelect();
+        }
         MenuManager.instance.SelectTile(unit.occupiedTile);
         selectedUnit = unit;
         RemoveAllValidMoves();
@@ -196,11 +199,13 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
+
         if (unit == null){
             yield return null;
         }
         else if (path.Count > 0){
             BaseTile nextTile = path[0];
+            yield return AudioManager.instance.PlayTileSound(unit, nextTile);
             Vector3 nextPos = nextTile.transform.position;
             float elapsedTime = 0;
             while (unit.transform.position != nextPos){

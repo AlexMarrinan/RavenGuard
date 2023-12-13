@@ -32,6 +32,7 @@ public class InputManager : MonoBehaviour
         }
     }
     private void Move(){
+        AudioManager.instance.PlayMove();
         currentMoveFrameDelay = moveFrameDelays;
         if (GameManager.instance.gameState == GameState.MainMenu){
             MainMenuManager.instance.Move(moveVector);
@@ -156,6 +157,7 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        AudioManager.instance.PlayCancel();
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.OnSkilEnd();
             return;

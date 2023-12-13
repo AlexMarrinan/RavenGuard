@@ -103,6 +103,7 @@ public abstract class BaseTile : MonoBehaviour
                 }
                 if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero){
                     //move hero to enemy, kill enemy
+                    AudioManager.instance.PlayConfirm();
                     UnitManager.instance.selectedUnit.Attack(occupiedUnit);
                 }
             }
@@ -110,6 +111,7 @@ public abstract class BaseTile : MonoBehaviour
         //current pressed tile is NOT occupied
         }else{
             if (UnitManager.instance.selectedUnit != null){
+                AudioManager.instance.PlayConfirm();
                 MoveToSelectedTile();
             }
         }

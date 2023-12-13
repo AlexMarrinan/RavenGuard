@@ -15,9 +15,11 @@ public class MainMenuManager : MonoBehaviour
         instance = this;
     }
     public void Move(Vector2 direction){
+        AudioManager.instance.PlayMoveUI();
         mainMenu.Move(direction);
     }
     public void Select(){
+        AudioManager.instance.PlayConfirm();
         mainMenu.Select();
     }
 }

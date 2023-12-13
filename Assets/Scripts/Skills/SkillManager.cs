@@ -189,6 +189,7 @@ public class SkillManager : MonoBehaviour
 
     internal void Select()
     {
+        AudioManager.instance.PlayConfirm();
         currentSkill.OnUse(user);
     }
     internal void OnSkilEnd()

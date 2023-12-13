@@ -39,7 +39,8 @@ public class BaseUnit : MonoBehaviour
     internal AttackEffect attackEffect;
     protected int reducedMovment = 0;
     public Dictionary<UnitStatType, int> duringCombatStats = new();
-
+    [SerializeField]
+    private AudioSource audioSource;
     void Start(){
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
@@ -516,6 +517,11 @@ public class BaseUnit : MonoBehaviour
     internal void ReduceNextMovemnt(int amount){
         Debug.Log("reduced movement: " + amount);
         reducedMovment = amount;
+    }
+
+    public IEnumerator PlaySound(AudioClip audioClip, float volume){
+        audioSource.PlayOneShot(audioClip, volume);
+        yield return null;
     }
 }
 

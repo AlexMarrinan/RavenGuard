@@ -179,7 +179,7 @@ public class GridManager : MonoBehaviour
                 var pnd = newPondArray.Get(x, y);
                 var frs = newForestArray.Get(x, y);
                 var spawn = newSpawnArray.Get(x,y);
-                Debug.Log(pnd);
+//                Debug.Log(pnd);
                 if (mtn != LayerSize.None)
                 {
                     mountainPositions.Add(pos, mtn);
