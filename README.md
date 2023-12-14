@@ -10,12 +10,10 @@ Created for a Computer Science/Interactive Media and Game Design MQP for WPI 202
 - Rose Sand
 ### Audio:
 - Rose Sand
-### Writing:
-- Rose Sand
 ### Art:
 - Michael Weidman
 - Griffin Bowers
-- Alex Marrinan
+- Charles West
 ### MQP Advisors:
 - Walt Yarborough
 - Michael Engling
