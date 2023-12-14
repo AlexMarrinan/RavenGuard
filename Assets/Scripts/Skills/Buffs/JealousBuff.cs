@@ -32,7 +32,7 @@ public class JelousBuff : Buff{
     }
 
     public override void RemoveEffect(){
-        Debug.Log("removing effect...");        
+//        Debug.Log("removing effect...");        
         appliedTo.SetStatChange("JealousAtk", 0);
         appliedTo.SetStatChange("JealousDef", 0);
         appliedTo.SetStatChange("JealousAgl", 0);

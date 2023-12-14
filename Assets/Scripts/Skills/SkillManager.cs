@@ -177,6 +177,7 @@ public class SkillManager : MonoBehaviour
     }
     internal void Move(Vector2 moveVector)
     {
+        AudioManager.instance.PlayMove();
         if (moveVector.x != 0 && moveVector.y != 0){
             return;
         }

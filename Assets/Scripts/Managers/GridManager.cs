@@ -889,6 +889,7 @@ public class GridManager : MonoBehaviour
         }
         var newTile = GetTileAtPosition(hoveredTile.coordiantes + direction);
         if (newTile == null){
+            AudioManager.instance.PlayBlock();
             return;
         }
         MoveHoveredTile(newTile);
@@ -908,13 +909,16 @@ public class GridManager : MonoBehaviour
                 // PathLine.instance.Reset();
                 // PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
             }else{
+                AudioManager.instance.PlayBlock();
                 return;
             }
         }
 
         if (!newTile.IsTileSelectable()){
+            AudioManager.instance.PlayBlock();
             return;
         }
+        AudioManager.instance.PlayMove();
         SetHoveredTile(newTile);
     }
     public void SelectHoveredTile(){

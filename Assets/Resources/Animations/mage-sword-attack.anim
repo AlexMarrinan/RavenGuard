@@ -37,7 +37,7 @@ AnimationClip:
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
       - serializedVersion: 3
-        time: 0.45
+        time: 0.43333334
         value: {x: -0.18, y: 0, z: 0}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
@@ -81,7 +81,7 @@ AnimationClip:
       value: {fileID: 1988003980, guid: 605a0fba198acb94c8eafbff3caade4e, type: 3}
     - time: 0.13333334
       value: {fileID: -305657705, guid: 605a0fba198acb94c8eafbff3caade4e, type: 3}
-    - time: 0.46666667
+    - time: 0.45
       value: {fileID: 962513403, guid: 605a0fba198acb94c8eafbff3caade4e, type: 3}
     - time: 0.53333336
       value: {fileID: 639257627, guid: 605a0fba198acb94c8eafbff3caade4e, type: 3}
@@ -167,7 +167,7 @@ AnimationClip:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.45
+        time: 0.43333334
         value: -0.18
         inSlope: 0
         outSlope: 0
@@ -260,7 +260,14 @@ AnimationClip:
   m_HasGenericRootTransform: 1
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.51666665
+  - time: 0.4
+    functionName: OnCast
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.53333336
     functionName: OnHit
     data: 
     objectReferenceParameter: {fileID: 0}

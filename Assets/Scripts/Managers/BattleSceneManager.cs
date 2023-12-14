@@ -96,12 +96,23 @@ public class BattleSceneManager : MonoBehaviour
         BattleUnit bu = GetBattleUnit(unit);
         return bu != null && bu.attacked;
     }
-
+    internal void OnCast(BattleUnit hitter)
+    {
+        BaseUnit hitterUnit = hitter.assignedUnit;
+        if (hitterUnit is MeleeUnit){
+            AudioManager.instance.PlayMelee();
+        }else if (hitterUnit.weapon.weaponClass == WeaponClass.Archer){
+            AudioManager.instance.PlayArcher();
+        }else{
+            AudioManager.instance.PlayMagic();
+        }
+    }
     public void OnHit(BattleUnit hitter){
         var damaged = leftBU;
         if (hitter == leftBU){
             damaged = rightBU;
         }
+
         int health = damaged.assignedUnit.health;
         damaged.assignedUnit.ReceiveDamage(hitter.assignedUnit);
         int newHealth = damaged.assignedUnit.health;

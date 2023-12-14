@@ -523,6 +523,11 @@ public class BaseUnit : MonoBehaviour
         audioSource.PlayOneShot(audioClip, volume);
         yield return null;
     }
+    public IEnumerator PlayRandomPitchSound(AudioClip audioClip, float volume){
+        audioSource.pitch = UnityEngine.Random.Range(0.6f, 1.4f);
+        audioSource.PlayOneShot(audioClip, volume);
+        yield return null;
+    }
 }
 
 
