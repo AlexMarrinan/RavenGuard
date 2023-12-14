@@ -1,0 +1,18 @@
+RavenGuard MQP Audio
+Github page: https://github.com/AlexMarrinan/RavenGuard
+
+UI:
+ui_move: moving cursor on ui
+ui_select: selecting a ui element
+ui_confirm: confirming a units action
+ui_cancel: canceling a ui element
+ui_block: when you cannot move the cursor further
+
+Enviormental:
+fs_wood1 - 4: played when walking over a bridge tile
+fs_grass1 - 4: played when walking over a grass or forest tile
+
+Combat:
+combat_melee1 - 4: melee weapon hit sound
+combat_arrow1 - 4: bow and arrow attack sound
+combat_magic1 - 4: magic attack sound

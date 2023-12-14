@@ -88,7 +88,7 @@ public class BattlePrediction
             defenderSecondAttack = (defender.GetAgility().total >= attacker.GetAgility().total + 5) && defenderCounterAttack;
         }
 
-        Debug.Log("Counter: " + defenderCounterAttack);
+//        Debug.Log("Counter: " + defenderCounterAttack);
         if (defenderCounterAttack){
             atkHealth -= defender.GetDamage(attacker);
             if (atkHealth <= 0){

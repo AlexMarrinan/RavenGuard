@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: efc3fafeeab912e40b2830e526e47859
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - inspectorXML: {instanceID: 0}
+  - grass: {fileID: 2800000, guid: ecead4cf21ae8214b8f4b937b8a29de1, type: 3}
+  - water: {fileID: 2800000, guid: 5ae580c8e1bf7634eacbfc64b6d64358, type: 3}
+  - forest: {fileID: 2800000, guid: 88f82819caa468640a9a5297fc01ee30, type: 3}
+  - mountain: {fileID: 2800000, guid: 4b89e8cd4c5aec3499b9ffa80d73c16b, type: 3}
+  - bridge: {fileID: 2800000, guid: bd5f30779db07354a90ec6d4718c267f, type: 3}
+  - none: {fileID: 2800000, guid: 6181bb45b91b5424f85dcc0317876b4c, type: 3}
+  - small: {fileID: 2800000, guid: dcb430c45e6bdfe40bc522f2673c5a24, type: 3}
+  - medium: {fileID: 2800000, guid: 61d1e341b2a0ba14cbec68857b62a68b, type: 3}
+  - large: {fileID: 2800000, guid: a3cb0e4b6367a2e449b4cacaa470c7d2, type: 3}
+  - team1: {fileID: 2800000, guid: be0fc8b0d73e9054c9a5a28b0378d3aa, type: 3}
+  - team2: {fileID: 2800000, guid: a2d4230d723ec7546a813ce8e9bebb8e, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

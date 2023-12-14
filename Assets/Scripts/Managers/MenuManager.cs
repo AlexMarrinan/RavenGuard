@@ -115,6 +115,10 @@ public class MenuManager : MonoBehaviour
     }
 
     public void ToggleUnitActionMenu(){
+        if (UnitManager.instance.selectedUnit != null){
+            //TODO: FIGURE OUT WAY TO NOT PLAY THIS SOUND DOUBLE SOMETIMES
+            //AudioManager.instance.PlaySelect();
+        }
         if (menuState == MenuState.UnitAction){
             CloseMenus();
             return;
@@ -172,6 +176,7 @@ public class MenuManager : MonoBehaviour
         menuState = MenuState.None;
     }
     public void Move(Vector2 direction){
+        AudioManager.instance.PlayMoveUI();
         if (menuState == MenuState.None){
             return;
         }
@@ -181,6 +186,7 @@ public class MenuManager : MonoBehaviour
         return menuState != MenuState.None;
     }
     public void Select(){
+        AudioManager.instance.PlaySelect();
         if (menuState == MenuState.None){
             return;
         }

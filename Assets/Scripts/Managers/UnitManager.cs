@@ -11,6 +11,7 @@ public class UnitManager : MonoBehaviour
     private List<BaseUnit> units;
     public BaseUnit selectedUnit;
     public float unitMoveSpeed = .1f;
+    private bool team1heros = false;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
@@ -18,12 +19,14 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnHeroes(){
+        //returns 0 or 1
+        team1heros = 0 == Random.Range(0, 2);
         var heroCount = 5;
         for (int i = 0; i < heroCount; i++){
             var randomPrefab = GetRandomUnit(UnitFaction.Hero);
             var spawnedHero = Instantiate(randomPrefab);
             units.Add(spawnedHero);
-            var randomSpawnTile = GridManager.instance.GetHeroSpawnTile();
+            var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
             randomSpawnTile.SetUnitStart(spawnedHero);
             spawnedHero.SetSkillMethods();
             //TODO: REMOVE AFTER PROVING LINE SHOWS UP
@@ -38,7 +41,7 @@ public class UnitManager : MonoBehaviour
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy);
             var spawnedEnemy = Instantiate(randomPrefab);
             units.Add(spawnedEnemy);
-            var randomSpawnTile = GridManager.instance.GetEnemySpawnTile();
+            var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             randomSpawnTile.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
         }
@@ -71,6 +74,9 @@ public class UnitManager : MonoBehaviour
             UnselectUnit();
             return;
         }
+        if (unit.faction == UnitFaction.Hero){
+            AudioManager.instance.PlaySelect();
+        }
         MenuManager.instance.SelectTile(unit.occupiedTile);
         selectedUnit = unit;
         RemoveAllValidMoves();
@@ -97,7 +103,7 @@ public class UnitManager : MonoBehaviour
     }
     private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         var wantedUnits = units.Where(u => u.faction == faction).ToList();
-        Debug.Log(faction + ": " + wantedUnits.Count);
+        // Debug.Log(faction + ": " + wantedUnits.Count);
         return wantedUnits;
     }
     public List<BaseUnit> GetAllUnits(){
@@ -193,11 +199,13 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
+
         if (unit == null){
             yield return null;
         }
         else if (path.Count > 0){
             BaseTile nextTile = path[0];
+            yield return AudioManager.instance.PlayTileSound(unit, nextTile);
             Vector3 nextPos = nextTile.transform.position;
             float elapsedTime = 0;
             while (unit.transform.position != nextPos){

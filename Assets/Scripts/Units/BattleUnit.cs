@@ -11,6 +11,7 @@ public class BattleUnit : MonoBehaviour
     public FaceDirection faceDirection = FaceDirection.Right;
     public HealthBarMenu healthBar;
     public Transform parentTrans;
+    public AudioSource audioSource;
     public bool attacked = false;
     public int damageDealt;
     public void Start(){
@@ -35,6 +36,9 @@ public class BattleUnit : MonoBehaviour
     }
     private void SetAnimator(){
         animator.runtimeAnimatorController = assignedUnit.animatorController;
+    }
+    public void OnCast(){
+        BattleSceneManager.instance.OnCast(this);
     }
     public void OnHit(){
         BattleSceneManager.instance.OnHit(this);

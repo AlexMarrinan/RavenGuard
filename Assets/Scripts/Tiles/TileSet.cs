@@ -9,6 +9,9 @@ public class TileSet : ScriptableObject
     public List<Sprite> floors;
     public List<Sprite> floorXWalls;
     public List<Sprite> walls;
+    public List<Sprite> water;
+    public List<Sprite> bridge;
+    public List<Sprite> forest;
 
     public Sprite GetRandomWall(){
         int randomIndex = UnityEngine.Random.Range(0, walls.Count);    

@@ -156,6 +156,7 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        AudioManager.instance.PlayCancel();
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.OnSkilEnd();
             return;
