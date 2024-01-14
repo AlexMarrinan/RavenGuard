@@ -6,6 +6,9 @@ using UnityEngine.Events;
 
 namespace Game.Hub.Interactables
 {
+    /// <summary>
+    /// An abstract object that the player can interact with
+    /// </summary>
     public abstract class Interactable : MonoBehaviour
     {
         // Static

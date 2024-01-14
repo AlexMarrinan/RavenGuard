@@ -6,7 +6,10 @@ using UnityEngine.InputSystem;
 
 namespace Game.Hub.Interactables
 {
-    public class PlayerInteraction : MonoBehaviour, IInteractor
+    /// <summary>
+    /// Handles player input and object interactions
+    /// </summary>
+    public class PlayerInteraction : MonoBehaviour
     {
         private CustomInput playerInput= null;
         private List<Interactable> closeInteractables = new();
@@ -20,7 +23,7 @@ namespace Game.Hub.Interactables
 
         private void Update()
         {
-            FindClosestInteractable();
+            SetClosestInteractable();
         }
 
         #region Enable/Disable
@@ -46,7 +49,7 @@ namespace Game.Hub.Interactables
             if (other.TryGetComponent(out Interactable interactable) && !closeInteractables.Contains(interactable))
             {
                 closeInteractables.Add(interactable);
-                FindClosestInteractable();
+                SetClosestInteractable();
             }
         }
         
@@ -55,7 +58,7 @@ namespace Game.Hub.Interactables
             if (other.TryGetComponent(out Interactable interactable) && closeInteractables.Contains(interactable))
             {
                 closeInteractables.Remove(interactable);
-                FindClosestInteractable();
+                SetClosestInteractable();
             }
         }
 
@@ -64,7 +67,7 @@ namespace Game.Hub.Interactables
         /// <summary>
         /// Find and store the closest interactable in range.
         /// </summary>
-        private void FindClosestInteractable()
+        private void SetClosestInteractable()
         {
             Interactable closestInteractable = null;
             float closestDistance = float.MaxValue;
