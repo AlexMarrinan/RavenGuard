@@ -358,11 +358,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onFocus:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 480132439}
+        m_TargetAssemblyTypeName: Game.Hub.Interactables.StoreInteractable, Assembly-CSharp
+        m_MethodName: ChangedColor
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
   onUnfocus:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 480132439}
+        m_TargetAssemblyTypeName: Game.Hub.Interactables.StoreInteractable, Assembly-CSharp
+        m_MethodName: ChangedColor
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   storeUI: {fileID: 567063868}
+  sprite: {fileID: 480132437}
+  focusedColor: {r: 0.0919297, g: 0.9622642, b: 0.06808472, a: 1}
+  unfocusedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!61 &480132440
 BoxCollider2D:
   m_ObjectHideFlags: 0
