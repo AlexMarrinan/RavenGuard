@@ -1,43 +1,73 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Buildings{
     public class Building : MonoBehaviour
     {
-        [SerializeField] private GameObject inside;
-        [SerializeField] private SpriteRenderer outside;
+        [SerializeField] private GameObject interior;
+        [SerializeField] private List<SpriteRenderer> exteriorRenderers;
+        [SerializeField] private float transitionTime;
         private bool isInside;
 
         /// <summary>
-        /// Player enters room
+        /// Toggle whether the player is in the building or not
         /// </summary>
-        public void EnterRoom()
+        public void ToggleBuilding()
         {
-            print("Enter Room");
+            print("Toggle");
+            if(!isInside) EnterBuilding();
+            else ExitBuilding();
+            isInside = !isInside;
+        }
+        
+        /// <summary>
+        /// Player enters building
+        /// </summary>
+        public void EnterBuilding()
+        {
             if (!isInside)
             {
                 isInside = true;
-                LoadBuilding();
+                TweenExterior();
             }
         }
         
         /// <summary>
-        /// Player leaves room
+        /// Player leaves building
         /// </summary>
-        public void ExitRoom()
+        public void ExitBuilding()
         {
-            print("Exit Room");
             if (isInside)
             {
                 isInside = false;
-                LoadBuilding();
+                TweenExterior();
             }
         }
 
-        private void LoadBuilding()
+        /// <summary>
+        /// Tween the building's exterior depending on if the player enters or leaves
+        /// </summary>
+        private void TweenExterior()
         {
-            outside.enabled = !isInside;
+            if (isInside)
+            {
+                foreach (SpriteRenderer renderer in exteriorRenderers)
+                {
+                    interior.SetActive(true);
+                    renderer.DOFade(0, transitionTime).OnComplete(() => { renderer.enabled = false; });
+                }
+            }
+            else
+            {
+                foreach (SpriteRenderer renderer in exteriorRenderers)
+                {
+                    renderer.enabled = true;
+                    renderer.DOFade(1, transitionTime).OnComplete(() => { interior.SetActive(false); });
+                }
+            }
         }
     }
 }
