@@ -1,5 +1,6 @@
 using Game.Hub.Interactables;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Buildings
 {
@@ -8,7 +9,8 @@ namespace Buildings
     /// </summary>
     public class DoorInteractable: Interactable
     {
-        [SerializeField] private Building building;
+        [SerializeField] private UnityEvent onEnter;
+        [SerializeField] private UnityEvent onExit;
         [SerializeField] private bool locked;
         
         
@@ -19,12 +21,12 @@ namespace Buildings
         
         protected override void Interaction()
         {
-            building.EnterBuilding();
+            onEnter.Invoke();
         }
 
         public override void EndInteraction()
         {
-            building.ExitBuilding();
+            onExit.Invoke();
         }
 
         protected override bool CanUseInteraction()
