@@ -5,23 +5,196 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/IInteractor.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/IInteractor.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/Interactable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/Interactable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/StoreInteractable.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/StoreInteractable.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player/CameraController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player/CameraController.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player/PlayerMovement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player/PlayerMovement.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/AYellowpaper.SerializedCollections.Editor.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/AYellowpaper.SerializedCollections.Editor.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets/BurgerMenu@2x.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets/BurgerMenu@2x.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets/KeysGeneratorSelectorWindow.uss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets/KeysGeneratorSelectorWindow.uss.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets/KeysGeneratorSelectorWindow.uxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Assets/KeysGeneratorSelectorWindow.uxml.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data/ElementData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data/ElementData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data/ElementSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data/ElementSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data/PropertyData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Data/PropertyData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/DisplayType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/DisplayType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors/EnumGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors/EnumGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors/IntRangeGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors/IntRangeGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors/IntSteppingGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/Implementors/IntSteppingGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorAttribute.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorCache.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorCache.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorEditor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorEditor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorSelectorWindow.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/KeyListGeneratorSelectorWindow.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/ModificationType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/KeyListGenerators/ModificationType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/PagingElement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/PagingElement.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/EnumMatcher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/EnumMatcher.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/Matcher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/Matcher.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/Matchers.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/Matchers.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/NumericMatcher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/NumericMatcher.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/StringMatcher.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/Matchers/StringMatcher.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/PropertySearchResult.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/PropertySearchResult.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/SearchQuery.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/SearchQuery.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/SearchResultEntry.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Search/SearchResultEntry.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/SerializedDictionaryDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/SerializedDictionaryDrawer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/SerializedDictionaryInstanceDrawer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/SerializedDictionaryInstanceDrawer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Settings.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Settings/EditorUserSettings.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Settings/EditorUserSettings.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Settings/EditorUserSettingsProvider.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Settings/EditorUserSettingsProvider.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States/DefaultListState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States/DefaultListState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States/ListState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States/ListState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States/SearchListState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/States/SearchListState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/GUIEnabledScope.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/GUIEnabledScope.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/LabelWidth.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/LabelWidth.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/RectUtility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/RectUtility.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/SCEditorUtility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/SCEditorUtility.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/SCEnumUtility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Editor/Scripts/Utility/SCEnumUtility.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Readme.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Readme.pdf.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/AYellowpaper.SerializedCollections.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/AYellowpaper.SerializedCollections.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/LookupTables.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/LookupTables/DictionaryLookupTable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/LookupTables/DictionaryLookupTable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/LookupTables/IKeyable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/LookupTables/IKeyable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/AssemblyInfo.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedCollectionsUtility.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedCollectionsUtility.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedDictionary.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedDictionary.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedDictionaryAttribute.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedDictionaryAttribute.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedKeyValuePair.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Runtime/Scripts/SerializedKeyValuePair.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySample.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySample.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySample.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySample.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySample.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySample.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySampleThree.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySampleThree.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySampleTwo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Plugins/SerializedCollections/Sample/SerializedDictionarySampleTwo.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Cutscenes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/DialogueProject.yarnproject" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/DialogueProject.yarnproject.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith/Blacksmith.yarn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith/Blacksmith.yarn.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/DialogueSystem.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/DialogueSystem.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views/Option View.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views/Option View.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views/Portrait Line View.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views/Portrait Line View.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views/Portrait Option View.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Dialogue/Views/Portrait Option View.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Managers/EventDialogueManager.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Managers/EventDialogueManager.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/DialoguePlayback.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/DialoguePlayback.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Enums.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Enums/DialogueCondition.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Enums/DialogueCondition.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Enums/DialoguePrompt.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Enums/DialoguePrompt.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/DialogueNode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/DialogueNode.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/PromptNode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/PromptNode.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/PromptPlayback.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/PromptPlayback.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/SpeakerContext.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/SpeakerContext.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/SpeakerData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/SpeakerData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/AmbientDialogueManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/AmbientDialogueManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/EventDialogueManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/EventDialogueManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/IDialogueManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/IDialogueManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/OptionListView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/OptionListView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/ISpeaker.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/ISpeaker.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/PortraitLineView.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/PortraitLineView.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/SpeakerPortraitHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/SpeakerPortraitHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/TemporaryDialogueTrigger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/TemporaryDialogueTrigger.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ProjectSettings/Packages/dev.yarnspinner/YarnSpinnerProjectSettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/CameraController.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/CameraController.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/PlayerMovement.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/PlayerMovement.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Packages/packages-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Packages/packages-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +205,12 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/IInteractor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../Operation Breadcrumbs/Assets/Game/Scripts/Player/PlayerInteractor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/DialoguePlayback.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/PromptNode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/SpeakerData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/EventDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/Interactable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/StoreInteractable.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -50,27 +228,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "HubInteraction",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DialogueImplementation&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "rider.external.source.directories": [
-      "C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
-      "C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
-      "C:\\Users\\tedon\\AppData\\Local\\Symbols\\src"
+  &quot;keyToStringList&quot;: {
+    &quot;rider.external.source.directories&quot;: [
+      &quot;C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
+      &quot;C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
+      &quot;C:\\Users\\tedon\\AppData\\Local\\Symbols\\src&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.8f1\Editor\Unity.exe" />
@@ -120,6 +298,7 @@
       <workItem from="1704928470045" duration="2084000" />
       <workItem from="1704931386982" duration="596000" />
       <workItem from="1705262917948" duration="992000" />
+      <workItem from="1705444687683" duration="4597000" />
     </task>
     <servers />
   </component>

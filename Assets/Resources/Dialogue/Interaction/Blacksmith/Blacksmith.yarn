@@ -1,0 +1,6 @@
+﻿title: Blacksmith_Greeting_1
+tags:
+---
+Blacksmith: Welcome to my shop!
+<<Interact Blacksmith>>
+===
