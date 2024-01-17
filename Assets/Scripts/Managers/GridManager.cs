@@ -20,10 +20,6 @@ public class GridManager : MonoBehaviour
 
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
-    public List<PGBase> ponds;
-    public List<PGBase> rivers;
-    public List<PGBase> mountains;
-    public List<PGBase> forests;
     public List<PGBase> bases;
     public bool testMode = false;
     void Awake(){
@@ -37,14 +33,10 @@ public class GridManager : MonoBehaviour
     }
     public void LoadAssets(){
         if (testMode){
-            bases =  Resources.LoadAll<PGBase>("ProcGen/TestBases").ToList();
+            bases =  Resources.LoadAll<PGBase>("Levels/TestBases").ToList();
         }else{
-            bases =  Resources.LoadAll<PGBase>("ProcGen/Bases").ToList();
+            bases =  Resources.LoadAll<PGBase>("Levels/Bases").ToList();
         }
-        ponds = Resources.LoadAll<PGBase>("ProcGen/Ponds").ToList();
-        rivers =  Resources.LoadAll<PGBase>("ProcGen/Rivers").ToList();
-        forests =  Resources.LoadAll<PGBase>("ProcGen/Forests").ToList();
-        mountains =  Resources.LoadAll<PGBase>("ProcGen/Mountains").ToList();
     }
     //Generates a grid of width x height of the tilePrefab
     // public void GenerateGridOLD(){
@@ -119,37 +111,25 @@ public class GridManager : MonoBehaviour
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
         PGBase pgb = bases[randIndex];
         var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
-        var newPondArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        var newForestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        var newRiverArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        var newMountainArray = new Array2D<LayerSize>(pgb.width, pgb.height);
+        var newChestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
         var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
 
         //        Debug.Log("new array" + (newArray.Width, newArray.Height));
         newArray.DeepCopy(pgb.array);
-        newPondArray.DeepCopy(pgb.pondArray);
-        newForestArray.DeepCopy(pgb.forestArray);
-        newRiverArray.DeepCopy(pgb.riverArray);
-        newMountainArray.DeepCopy(pgb.mountainArray);
+        newChestArray.DeepCopy(pgb.chestArray);
         newSpawnArray.DeepCopy(pgb.spawnArray);
         //      Debug.Log("new array" + (newArray.Width, newArray.Height));
         //Randomly Flip Layout
         if (UnityEngine.Random.Range(0, 2) == 1)
         {
             newArray.FlipX();
-            newPondArray.FlipX();
-            newForestArray.FlipX();
-            newRiverArray.FlipX();
-            newMountainArray.FlipX();
+            newChestArray.FlipX();
             newSpawnArray.FlipX();
         }
         else if (UnityEngine.Random.Range(0, 2) == 1)
         {
             newArray.FlipY();
-            newPondArray.FlipY();
-            newForestArray.FlipY();
-            newRiverArray.FlipY();
-            newMountainArray.FlipY();
+            newChestArray.FlipY();
             newSpawnArray.FlipY();
         }
 
@@ -158,10 +138,7 @@ public class GridManager : MonoBehaviour
         for (int i = 0; i < numRotates; i++)
         {
             newArray.Rotate();
-            newPondArray.Rotate();
-            newForestArray.Rotate();
-            newRiverArray.Rotate();
-            newMountainArray.Rotate();
+            newChestArray.Rotate();
             newSpawnArray.Rotate();
         }
 
@@ -174,28 +151,10 @@ public class GridManager : MonoBehaviour
             {
                 var pos = new Vector2(x, y);
                 int newy = height - 1 - y;
-                var mtn = newMountainArray.Get(x, y);
-                var riv = newRiverArray.Get(x, y);
-                var pnd = newPondArray.Get(x, y);
-                var frs = newForestArray.Get(x, y);
+                var chest = newChestArray.Get(x, y);
                 var spawn = newSpawnArray.Get(x,y);
-//                Debug.Log(pnd);
-                if (mtn != LayerSize.None)
-                {
-                    mountainPositions.Add(pos, mtn);
-                }
-                if (riv != LayerSize.None)
-                {
-                    riverPositions.Add(pos, mtn);
-                }
-                if (pnd != LayerSize.None)
-                {
-                    pondPositions.Add(pos, mtn);
-                }
-                if (frs != LayerSize.None)
-                {
-                    forestPositions.Add(pos, mtn);
-                }
+                
+                //TODO: SPAWNM CHESTS ACCORDING TO LEVEL PROGRESSION SYSTEM
                 if (spawn == SpawnFaction.Team1){
                     team1spawns.Add(pos);
                 }else if (spawn ==  SpawnFaction.Team2){
@@ -204,13 +163,6 @@ public class GridManager : MonoBehaviour
                 tileTypes[pos] = newArray.grid[newy * width + x];
             }
         }
-
-        //        Debug.Log(rivers.Count);
-
-        PlaceRandomLayer(pondPositions, ponds, pgb.numPonds);
-        PlaceRandomLayer(riverPositions, rivers, pgb.numRivers);
-        PlaceRandomLayer(forestPositions, forests, pgb.numForests);
-        PlaceRandomLayer(mountainPositions, mountains, pgb.numMountains);
 
         tiles = new();
         foreach (Vector2 pos in tileTypes.Keys)
@@ -253,22 +205,6 @@ public class GridManager : MonoBehaviour
         }
         cam.transform.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
-    }
-
-    private void PlaceRandomLayer(Dictionary<Vector2, LayerSize> layerPositions, List<PGBase> layers, int maxLayers)
-    {
-        int randomNum = UnityEngine.Random.Range(0, maxLayers + 1);
-        if (layerPositions.Count <= 0){
-            return;
-        }
-        for (int _ = 0; _ < randomNum; _++) {
-            int layerIndex = UnityEngine.Random.Range(0, layers.Count);
-            int posIndex = UnityEngine.Random.Range(0, layerPositions.Keys.Count);
-            Debug.Log("Num: " + randomNum);
-            Debug.Log("Layers: " + layerPositions.Count);
-            PGBase layer = layers[layerIndex];
-            OverlayLayer(layer, layerPositions.Keys.ToList()[posIndex]);
-        }
     }
     private BaseTile GetTileFromType(TileEditorType type){
         // float scale = 1f;//0.16f;
@@ -329,76 +265,6 @@ public class GridManager : MonoBehaviour
     //     }
     //     OverlayLayer(river, randX, randY);
     // }
-    private void OverlayLayer(PGBase layer, Vector2 pos){
-        OverlayLayer(layer, (int)pos.x, (int)pos.y);
-    }
-    private void OverlayLayer(PGBase pgb, int startX, int startY)
-    {   
-        var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
-        // var newPondArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        // var newForestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        // var newRiverArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        // var newMountainArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        // var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
-
-        //        Debug.Log("new array" + (newArray.Width, newArray.Height));
-        newArray.DeepCopy(pgb.array);
-        // newPondArray.DeepCopy(pgb.pondArray);
-        // newForestArray.DeepCopy(pgb.forestArray);
-        // newRiverArray.DeepCopy(pgb.riverArray);
-        // newMountainArray.DeepCopy(pgb.mountainArray);
-        // newSpawnArray.DeepCopy(pgb.spawnArray);
-        //      Debug.Log("new array" + (newArray.Width, newArray.Height));
-        //Randomly Flip Layout
-        if (UnityEngine.Random.Range(0, 2) == 1)
-        {
-            newArray.FlipX();
-            // newPondArray.FlipX();
-            // newForestArray.FlipX();
-            // newRiverArray.FlipX();
-            // newMountainArray.FlipX();
-            // newSpawnArray.FlipX();
-        }
-        else if (UnityEngine.Random.Range(0, 2) == 1)
-        {
-            newArray.FlipY();
-            // newPondArray.FlipY();
-            // newForestArray.FlipY();
-            // newRiverArray.FlipY();
-            // newMountainArray.FlipY();
-            // newSpawnArray.FlipY();
-        }
-
-        //Randomly Rotate Layout
-        int numRotates = UnityEngine.Random.Range(0, 4);
-        for (int i = 0; i < numRotates; i++)
-        {
-            newArray.Rotate();
-            // newPondArray.Rotate();
-            // newForestArray.Rotate();
-            // newRiverArray.Rotate();
-            // newMountainArray.Rotate();
-            // newSpawnArray.Rotate();
-        }
-        Debug.Log(pgb.name);
-        for (int x = startX, layerX = 0; x < startX + newArray.Width && x < width && layerX < newArray.Width; x++, layerX++){
-            if (x >= 0){
-                for (int y = startY, layerY = 0; y < startY + newArray.Height && y < height && layerY < newArray.Height; y++, layerY++){
-                    // Debug.Log("Pos: " + (x, y));
-                    // Debug.Log("Layer Pos: " + (layerX, layerY));
-
-                    if (y >= 0){
-                        TileEditorType tileEditorType = newArray.Get(layerX, layerY);
-//                        Debug.Log((layerX, layerY, tileEditorType));
-                        if (tileEditorType != TileEditorType.None){ 
-                            Vector2 pos = new(x, y);
-                            tileTypes[pos] = tileEditorType;
-                        }
-                    }
-                }
-            }
-        }
-    }
     private void SetGrassTileSprites(FloorTile ft){
         // int idx = GetBlendTileIndex(ft);
         // if (idx == -1){

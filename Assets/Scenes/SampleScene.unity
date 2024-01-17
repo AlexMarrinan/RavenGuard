@@ -3327,10 +3327,6 @@ MonoBehaviour:
   team1spawns: []
   team2spawns: []
   hoveredTile: {fileID: 0}
-  ponds: []
-  rivers: []
-  mountains: []
-  forests: []
   bases: []
   testMode: 0
 --- !u!4 &816562101
@@ -6813,6 +6809,10 @@ PrefabInstance:
     - target: {fileID: 4369215815965255301, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: audioVolume
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4369215817115670561, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
       propertyPath: m_RootOrder

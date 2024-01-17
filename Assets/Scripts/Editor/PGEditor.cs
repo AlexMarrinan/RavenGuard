@@ -32,18 +32,14 @@ public class PGEditor : Editor {
             foreach (LayerSize layerSize in Enum.GetValues(typeof(LayerSize))){
                 Texture2D layerTexture = LayerSizeTexture(layerSize);
                 Texture2D newTexture = OverlapTexture(tileTexture, layerTexture);
-                Debug.Log(newTexture);
                 layerSizeTextures.Add((tileEditorType, layerSize), newTexture);
             }
             foreach (SpawnFaction faction in Enum.GetValues(typeof(SpawnFaction))){
                 Texture2D factionTexture = SpawnFactionTexture(faction);
                 Texture2D newTexture = OverlapTexture(tileTexture, factionTexture);
-                Debug.Log(newTexture);
                 spawnFactionTextures.Add((tileEditorType, faction), newTexture);
             }
         }
-        Debug.Log(spawnFactionTextures.Count);
-        Debug.Log(layerSizeTextures.Count);
     }
     private Texture2D TileTypeTexture(TileEditorType tileEditorType){
         switch (tileEditorType){
@@ -76,7 +72,7 @@ public class PGEditor : Editor {
         DrawDefaultInspector();
         GUILayout.BeginHorizontal();
         GUILayout.Label("Draw Layer:");
-        drawLayerIndex = EditorGUILayout.Popup(drawLayerIndex, Enum.GetNames(typeof(PGDrawLayer)));
+        drawLayerIndex = EditorGUILayout.Popup(drawLayerIndex, Enum.GetNames(typeof(LEDrawLayer)));
         GUILayout.EndHorizontal();
 
         switch(drawLayerIndex){
@@ -84,18 +80,9 @@ public class PGEditor : Editor {
                 DrawStandard(b);
                 break;
             case 1:
-                DrawLayer(b, b.riverArray);
+                DrawChests(b);
                 break;
             case 2:
-                DrawLayer(b, b.pondArray);
-                break;
-            case 3:
-                DrawLayer(b, b.forestArray);
-                break;
-            case 4:
-                DrawLayer(b, b.mountainArray);
-                break;
-            case 5:
                 DrawSpawn(b);
                 break;
             default:
@@ -129,13 +116,13 @@ public class PGEditor : Editor {
         }
     }
 
-    private void DrawLayer(PGBase b, Array2D<LayerSize> array)
+    private void DrawChests(PGBase b)
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Layer Size:");
         layerSizeIndex = EditorGUILayout.Popup(layerSizeIndex, Enum.GetNames(typeof(LayerSize)));
         GUILayout.EndHorizontal();
-
+        var array = b.chestArray;
         for (int y = 0; y < array.Height; y++){
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
