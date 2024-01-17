@@ -306,29 +306,29 @@ public class GridManager : MonoBehaviour
         return GetTileFromType(type);
     }
 
-    private void OverlayPond(PGBase pond)
-    {
-        int randX = UnityEngine.Random.Range(2-pond.width, width-2);
-        int randY = UnityEngine.Random.Range(2-pond.height, height-2);
-        // Debug.Log("Pond at: " + (randX, randY));
-        // Debug.Log("Total dem " + (width, height));
-        // Debug.Log("Dem: " + (pond.width, pond.height));
+    // private void OverlayPond(PGBase pond)
+    // {
+    //     int randX = UnityEngine.Random.Range(2-pond.width, width-2);
+    //     int randY = UnityEngine.Random.Range(2-pond.height, height-2);
+    //     // Debug.Log("Pond at: " + (randX, randY));
+    //     // Debug.Log("Total dem " + (width, height));
+    //     // Debug.Log("Dem: " + (pond.width, pond.height));
 
-        OverlayLayer(pond, randX, randY);
-    }
-    private void OverlayRiver(PGWater river)
-    {
-        int randX, randY;
-        var tempList = new int[]{-2, -1, 0, 1, 2};
-        if (river.horizontal){
-            randX = UnityEngine.Random.Range(0, tempList.Length);
-            randY = UnityEngine.Random.Range(2-river.height, height-2);
-        }else{
-            randX = UnityEngine.Random.Range(2-river.width, width-2);
-            randY = UnityEngine.Random.Range(0, tempList.Length);
-        }
-        OverlayLayer(river, randX, randY);
-    }
+    //     OverlayLayer(pond, randX, randY);
+    // }
+    // private void OverlayRiver(PGWater river)
+    // {
+    //     int randX, randY;
+    //     var tempList = new int[]{-2, -1, 0, 1, 2};
+    //     if (river.horizontal){
+    //         randX = UnityEngine.Random.Range(0, tempList.Length);
+    //         randY = UnityEngine.Random.Range(2-river.height, height-2);
+    //     }else{
+    //         randX = UnityEngine.Random.Range(2-river.width, width-2);
+    //         randY = UnityEngine.Random.Range(0, tempList.Length);
+    //     }
+    //     OverlayLayer(river, randX, randY);
+    // }
     private void OverlayLayer(PGBase layer, Vector2 pos){
         OverlayLayer(layer, (int)pos.x, (int)pos.y);
     }
