@@ -97,6 +97,9 @@ namespace Game.Hub.Interactables
         /// <param name="callbackContext"></param>
         private void OnInteract(InputAction.CallbackContext callbackContext)
         {
+            if (activeInteractable == null){
+                return;
+            }
             if(!isInteracting) {activeInteractable.TryInteraction();}
             else {activeInteractable.EndInteraction();}
             isInteracting = !isInteracting;
