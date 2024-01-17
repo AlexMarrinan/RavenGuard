@@ -468,26 +468,6 @@ public class GridManager : MonoBehaviour
             wt.SetBGSprite(tileSet.GetRandomFloor());
         }
     }
-    // private int GetWallTileIndex(WallTile wt){
-    //     Vector2 pos = wt.coordiantes;
-    //     var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
-    //     var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
-    //     var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
-    //     var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
-
-    //     var u = up != null && up is WallTile;
-    //     var d = down != null && down is WallTile;
-    //     var l = left != null && left is WallTile;
-    //     var r = right != null && right is WallTile;
-
-    //     if (!u && !d && !l && !r){
-    //         return 5;
-    //     }
-    //     if (u && !d && !l && !r){
-    //         return 4;
-    //     }
-    //     return 0;
-    // }
     public BaseTile GetTileAtPosition(Vector2 pos){
         if (tiles.TryGetValue(pos, out var tile)){
             return tile;
@@ -532,17 +512,18 @@ public class GridManager : MonoBehaviour
         return t;
     }
     
-    public BaseTile GetSpawnTile(bool team1){
+    public (BaseTile, UnitSpawnType) GetSpawnTile(bool team1){
 //        Debug.Log(tiles.Values.Count);
-        List<Vector2> spawnPositions = team1spawns.Keys.ToList();
+        var spawnPositions = team1spawns;
         if (!team1){
-            spawnPositions = team2spawns.Keys.ToList();
+            spawnPositions = team2spawns;
         }
         int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
-        Vector2 pos = spawnPositions[randomIndex];
-        var tile = GridManager.instance.GetTileAtPosition(spawnPositions[randomIndex]);
+        Vector2 pos = spawnPositions.Keys.ToList()[randomIndex];
+        UnitSpawnType spawnType = spawnPositions[pos];
+        var tile = GetTileAtPosition(pos);
         spawnPositions.Remove(pos);
-        return tile;
+        return (tile, spawnType);
     }
     public List<BaseTile> GetAllTiles(){
         return tiles.Values.ToList();
