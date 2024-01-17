@@ -16,7 +16,9 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform cam;
     private Dictionary<Vector2, BaseTile> tiles;
     private Dictionary<Vector2, TileEditorType> tileTypes;
-    public List<Vector2> team1spawns, team2spawns;
+
+    //true if melee, false if ranged
+    public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns;
 
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
@@ -38,72 +40,10 @@ public class GridManager : MonoBehaviour
             bases =  Resources.LoadAll<PGBase>("Levels/Bases").ToList();
         }
     }
-    //Generates a grid of width x height of the tilePrefab
-    // public void GenerateGridOLD(){
-    //     tiles = new Dictionary<Vector2, BaseTile>();
-    //     this.noiseMap = GenerateNoiseMap(NOUSE_MAP_SIZE, NOUSE_MAP_SIZE, 8.0f);
-
-    //     var startX = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-width);
-    //     var startY = UnityEngine.Random.Range(0, NOUSE_MAP_SIZE-height);
-
-    //     for (int x = 0; x < width; x++){
-    //         for (int y = 0; y < height; y++){
-    //             // float scale = 1f;//0.16f;
-    //             // float actualX = (float)(x * scale);
-    //             // float actualY = (float)(y * scale);
-
-    //             //TODO: GET ANY FLOOR/WALL
-    //             BaseTile randomTile = floorPrefab;
-    //             randomTile.SetBGSprite(tileSet.GetRandomFloor());
-
-    //             if (noiseMap[x+startX, y+startY] > 0.6f){
-    //                 randomTile = wallPrefab;
-    //                 randomTile.SetBGSprite(tileSet.walls[0]);
-    //             }
-
-
-                
-    //             // if (randomTile is FloorTile){
-    //             //     int idk = Random.Range(0, 50);
-    //             //     if (idk == 0){
-    //             //         randomTile = tileSet.pits[0];
-    //             //     }else if (idk == 1){
-    //             //         randomTile = tileSet.fences[0];
-    //             //     }
-    //             // }                
-                
-    //             // //TODO: MAKE ACTUALLY SPAWN TILE CORRECTLY
-    //             // var randomTile = Random.Range(0, 6) == 3 ? mountainTile : grassTile;
-                
-    //             var newTile = Instantiate(randomTile, new Vector3(x,y), Quaternion.identity);
-    //             newTile.name = $"Tile {x} {y}";
-                
-    //             newTile.Init(x, y);
-    //             var pos = new Vector2(x,y);
-    //             tiles[pos] = newTile;
-    //             newTile.coordiantes = pos;
-    //         }
-    //     }
-
-    //     foreach (BaseTile t in tiles.Values){
-    //         if (t is FloorTile){
-    //             SetGrassTileSprites(t as FloorTile);
-    //         }else if (t is WallTile){
-    //             SetMountainTileSprites(t as WallTile);
-    //         }
-    //     }
-    //     cam.transform.position = new Vector3((float)width/2 -0.5f, (float)height/2 -0.5f, -10);
-    //     GameManager.instance.ChangeState(GameState.SapwnHeroes);
-    // }
 
     public void GenerateGrid()
     {
         tileTypes = new Dictionary<Vector2, TileEditorType>();
-
-        Dictionary<Vector2, LayerSize> pondPositions = new();
-        Dictionary<Vector2, LayerSize> riverPositions = new();
-        Dictionary<Vector2, LayerSize> forestPositions = new();
-        Dictionary<Vector2, LayerSize> mountainPositions = new();
 
         team1spawns = new();
         team2spawns = new();
@@ -153,12 +93,21 @@ public class GridManager : MonoBehaviour
                 int newy = height - 1 - y;
                 var chest = newChestArray.Get(x, y);
                 var spawn = newSpawnArray.Get(x,y);
-                
+
                 //TODO: SPAWNM CHESTS ACCORDING TO LEVEL PROGRESSION SYSTEM
-                if (spawn == SpawnFaction.Team1){
-                    team1spawns.Add(pos);
-                }else if (spawn ==  SpawnFaction.Team2){
-                    team2spawns.Add(pos);
+                if (spawn == SpawnFaction.BlueMelee){
+                    team1spawns.Add(pos, UnitSpawnType.Melee);
+                } else if (spawn == SpawnFaction.BlueRanged){
+                    team1spawns.Add(pos, UnitSpawnType.Ranged);
+                }else if (spawn == SpawnFaction.BlueEither){
+                    team1spawns.Add(pos, UnitSpawnType.Both);
+                }
+                else if (spawn == SpawnFaction.OrangeMelee){
+                    team2spawns.Add(pos, UnitSpawnType.Melee);
+                } else if (spawn == SpawnFaction.OrangeRanged){
+                    team2spawns.Add(pos, UnitSpawnType.Ranged);
+                }else if (spawn == SpawnFaction.OrangeEither){
+                    team2spawns.Add(pos, UnitSpawnType.Both);
                 }
                 tileTypes[pos] = newArray.grid[newy * width + x];
             }
@@ -242,29 +191,7 @@ public class GridManager : MonoBehaviour
         return GetTileFromType(type);
     }
 
-    // private void OverlayPond(PGBase pond)
-    // {
-    //     int randX = UnityEngine.Random.Range(2-pond.width, width-2);
-    //     int randY = UnityEngine.Random.Range(2-pond.height, height-2);
-    //     // Debug.Log("Pond at: " + (randX, randY));
-    //     // Debug.Log("Total dem " + (width, height));
-    //     // Debug.Log("Dem: " + (pond.width, pond.height));
 
-    //     OverlayLayer(pond, randX, randY);
-    // }
-    // private void OverlayRiver(PGWater river)
-    // {
-    //     int randX, randY;
-    //     var tempList = new int[]{-2, -1, 0, 1, 2};
-    //     if (river.horizontal){
-    //         randX = UnityEngine.Random.Range(0, tempList.Length);
-    //         randY = UnityEngine.Random.Range(2-river.height, height-2);
-    //     }else{
-    //         randX = UnityEngine.Random.Range(2-river.width, width-2);
-    //         randY = UnityEngine.Random.Range(0, tempList.Length);
-    //     }
-    //     OverlayLayer(river, randX, randY);
-    // }
     private void SetGrassTileSprites(FloorTile ft){
         // int idx = GetBlendTileIndex(ft);
         // if (idx == -1){
@@ -283,129 +210,7 @@ public class GridManager : MonoBehaviour
             wt.SetBGSprite(tileSet.GetRandomFloor());
         }
     }
-    //TODO: MAKE NOT ASS HOLY SHIT
-    // private int GetBlendTileIndexOLD(BaseTile bt){
-    //     TileEditorType tileEditorType = bt.editorType;
-    //     Vector2 pos = bt.coordiantes;
-    //     var up = GetAdjecentTile((int)pos.x, (int)pos.y, 0, 1);
-    //     var down = GetAdjecentTile((int)pos.x, (int)pos.y, 0, -1);
-    //     var left = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 0);
-    //     var right = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 0);
 
-    //     var u = up != null && up.editorType != tileEditorType;
-    //     var d = down != null && down.editorType != tileEditorType;
-    //     var l = left != null && left.editorType != tileEditorType;
-    //     var r = right != null && right.editorType != tileEditorType;
-
-    //     //Single direction walls
-    //     if (u && !d && !l && !r){
-    //         return 7;
-    //     }
-    //     if (!u && d && !l && !r){
-    //         return 1;
-    //     }
-    //     if (!u && !d && l && !r){
-    //         return 5;
-    //     }
-    //     if (!u && !d && !l && r){
-    //         return 3;
-    //     }
-
-    //     //UP and 
-    //     if (u && d && !l && !r){
-    //         return 18;
-    //     }
-    //     if (u && !d && l && !r){
-    //         return 9;
-    //     }
-    //     if (u && !d && !l && r){
-    //         return 10;
-    //     }
-    //     //DOWN and 
-    //     if (!u && d && l && !r){
-    //         return 12;
-    //     }
-    //     if (!u && d && !l && r){
-    //         return 13;
-    //     }
-    //     //LEFT and RIGHT
-    //     if (!u && !d && l && r){
-    //         return 14;
-    //     }
-
-    //     //NOTS
-    //     if (!u && d && l && r){
-    //         return 17;
-    //     }
-    //     if (u && !d && l && r){
-    //         return 11;
-    //     }
-    //     if (u && d && !l && r){
-    //         return 16;
-    //     }
-    //     if (u && d && l && !r){
-    //         return 15;
-    //     }
-
-    //     var upleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, 1);
-    //     var downleft = GetAdjecentTile((int)pos.x, (int)pos.y, -1, -1);
-    //     var upright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, 1);
-    //     var downright = GetAdjecentTile((int)pos.x, (int)pos.y, 1, -1);
-
-    //     var ul = upleft != null && upleft.editorType != tileEditorType;
-    //     var dl = downleft != null && downleft.editorType != tileEditorType;
-    //     var ur = upright != null && upright.editorType != tileEditorType;
-    //     var dr = downright != null && downright.editorType != tileEditorType;
-
-    //     //single walls
-    //     if (ul && !dl && !ur && !dr){
-    //         return 8;
-    //     }
-    //     if (!ul && dl && !ur && !dr){
-    //         return 2;
-    //     }
-    //     if (!ul && !dl && ur && !dr){
-    //         return 6;
-    //     }
-    //     if (!ul && !dl && !ur && dr){
-    //         return 0;
-    //     }
-        
-    //     if (ul && dl && !ur && !dr){
-    //         return 26;
-    //     }
-    //     if (ul && !dl && ur && !dr){
-    //         return 19;
-    //     }
-    //     if (ul && !dl && !ur && dr){
-    //         return 24;
-    //     }
-    //     if (!ul && dl && ur && !dr){
-    //         return 21;
-    //     }
-    //     if (!ul && dl && !ur && dr){
-    //         return 27;
-    //     }
-    //     if (!ul && !dl && ur && dr){
-    //         return 23;
-    //     }
-    //     if (ul && dl && ur && !dr){
-    //         return 20;
-    //     }
-    //     if (ul && dl && !ur && dr){
-    //         return 28;
-    //     }
-    //     if (ul && !dl && ur && dr){
-    //         return 25;
-    //     }
-    //     if (!ul && dl && ur && dr){
-    //         return 29;
-    //     }
-    //     if (ul && dl && ur && dr){
-    //         return 22;
-    //     }
-    //     return -1;
-    // }
     private int GetBlendTileIndex(BaseTile bt){
         TileEditorType tileEditorType = bt.editorType;
         Vector2 pos = bt.coordiantes;
@@ -729,9 +534,9 @@ public class GridManager : MonoBehaviour
     
     public BaseTile GetSpawnTile(bool team1){
 //        Debug.Log(tiles.Values.Count);
-        List<Vector2> spawnPositions = GridManager.instance.team1spawns;
+        List<Vector2> spawnPositions = team1spawns.Keys.ToList();
         if (!team1){
-            spawnPositions = GridManager.instance.team2spawns;
+            spawnPositions = team2spawns.Keys.ToList();
         }
         int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
         Vector2 pos = spawnPositions[randomIndex];
@@ -957,4 +762,10 @@ public class GridManager : MonoBehaviour
     } while (toVisit.Count > 0);
     return null;
   }
+}
+
+public enum UnitSpawnType {
+    Both,
+    Melee,
+    Ranged
 }

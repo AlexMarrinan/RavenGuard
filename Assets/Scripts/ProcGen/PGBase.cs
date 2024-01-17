@@ -66,6 +66,10 @@ public enum TileEditorType {
 
 public enum SpawnFaction {
     None,
-    Team1,
-    Team2
+    BlueEither,
+    BlueMelee,
+    BlueRanged,
+    OrangeEither,
+    OrangeMelee,
+    OrangeRanged,
 }
