@@ -50,9 +50,9 @@ public class BaseMenu : MonoBehaviour
                 nextButton = currentButton.leftButton;
             }else if (direction.x > 0.5){
                 nextButton = currentButton.rightButton;
-            }else if (direction.y < -0.5){
+            }else if (direction.y > -0.5){
                 nextButton = currentButton.upButton;
-            }else if (direction.y > 0.5){
+            }else if (direction.y < 0.5){
                 nextButton = currentButton.downButton;
             }
             buttonIndex = buttons.IndexOf(nextButton);
