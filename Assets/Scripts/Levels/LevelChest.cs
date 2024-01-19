@@ -23,13 +23,18 @@ public class LevelChest : MonoBehaviour
         }
         spriteRenderer.sprite = openSprite;
         open = true;
-        //TODO: GIVE PLAYER ITEMS FROM CHEST
+        StartCoroutine(OpenChestAnimation());
+    }
+    IEnumerator OpenChestAnimation(){
+         //TODO: GIVE PLAYER ITEMS FROM CHEST
 
-        //TODO: DELETE CHEST AFTER OPENING
+        yield return new WaitForSeconds(1.0f);
+        DeleteChest();
     }
     public void DeleteChest(){
+        Debug.Log("Deleting Chest!");
         attachedTile.attachedChest = null;
         attachedTile = null;
-        Destroy(this);
+        Destroy(transform.gameObject);
     }
 }
