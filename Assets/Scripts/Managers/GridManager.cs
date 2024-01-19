@@ -23,6 +23,8 @@ public class GridManager : MonoBehaviour
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
     public List<LevelBase> bases;
+    [Range(0.0f, 1.0f)]
+    public float chestSpawnRate = 0.3f;
     public bool testMode = false;
     void Awake(){
         instance = this;
@@ -133,8 +135,12 @@ public class GridManager : MonoBehaviour
             newTile.coordiantes = pos;
             tiles[pos] = newTile;
             if (chestSpawns.ContainsKey(pos)){
-                var newChest = Instantiate(chestPrefab, new Vector3(x, y), Quaternion.identity);
-                newChest.PlaceChest(newTile);
+                float randValue = UnityEngine.Random.value;
+                //TODO: MAKE CHEST SPAWNS ASSOSIATED WITH LEVEL PROGRESSION, NOT PURELY RANDOM
+                if (randValue < chestSpawnRate){
+                    var newChest = Instantiate(chestPrefab, new Vector3(x, y), Quaternion.identity);
+                    newChest.PlaceChest(newTile);
+                }
             }
         }
         foreach (BaseTile t in tiles.Values)
