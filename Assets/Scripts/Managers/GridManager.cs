@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     public static GridManager instance;
     private int width, height;
     [SerializeField] private TileSet tileSet;
-
+    public LevelChest chestPrefab;
     //Predabs
     [SerializeField] private FloorTile floorPrefab;
     [SerializeField] private WallTile wallPrefab;
@@ -19,10 +19,10 @@ public class GridManager : MonoBehaviour
 
     //true if melee, false if ranged
     public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns;
-
+    public Dictionary<Vector2, LayerSize> chestSpawns;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
-    public List<PGBase> bases;
+    public List<LevelBase> bases;
     public bool testMode = false;
     void Awake(){
         instance = this;
@@ -35,9 +35,9 @@ public class GridManager : MonoBehaviour
     }
     public void LoadAssets(){
         if (testMode){
-            bases =  Resources.LoadAll<PGBase>("Levels/TestBases").ToList();
+            bases =  Resources.LoadAll<LevelBase>("Levels/TestBases").ToList();
         }else{
-            bases =  Resources.LoadAll<PGBase>("Levels/Bases").ToList();
+            bases =  Resources.LoadAll<LevelBase>("Levels/Bases").ToList();
         }
     }
 
@@ -47,9 +47,10 @@ public class GridManager : MonoBehaviour
 
         team1spawns = new();
         team2spawns = new();
+        chestSpawns = new();
 
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
-        PGBase pgb = bases[randIndex];
+        LevelBase pgb = bases[randIndex];
         var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
         var newChestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
         var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
@@ -91,10 +92,13 @@ public class GridManager : MonoBehaviour
             {
                 var pos = new Vector2(x, y);
                 int newy = height - 1 - y;
-                var chest = newChestArray.Get(x, y);
-                var spawn = newSpawnArray.Get(x,y);
+                LayerSize chest = newChestArray.Get(x, y);
+                SpawnFaction spawn = newSpawnArray.Get(x,y);
 
                 //TODO: SPAWNM CHESTS ACCORDING TO LEVEL PROGRESSION SYSTEM
+                if (chest != LayerSize.None){
+                    chestSpawns.Add(pos, chest);
+                }
                 if (spawn == SpawnFaction.BlueMelee){
                     team1spawns.Add(pos, UnitSpawnType.Melee);
                 } else if (spawn == SpawnFaction.BlueRanged){
@@ -128,6 +132,10 @@ public class GridManager : MonoBehaviour
             newTile.Init(x, y);
             newTile.coordiantes = pos;
             tiles[pos] = newTile;
+            if (chestSpawns.ContainsKey(pos)){
+                var newChest = Instantiate(chestPrefab, new Vector3(x, y), Quaternion.identity);
+                newChest.PlaceChest(newTile);
+            }
         }
         foreach (BaseTile t in tiles.Values)
         {
@@ -185,7 +193,7 @@ public class GridManager : MonoBehaviour
         randomTile.editorType = type;
         return randomTile;
     }
-    private BaseTile GetTileTypeAtPos(PGBase pgb, int x, int y)
+    private BaseTile GetTileTypeAtPos(LevelBase pgb, int x, int y)
     {
         TileEditorType type = pgb.GetTileType(x, y);
         return GetTileFromType(type);
