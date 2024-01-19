@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,6 +10,7 @@ public class BaseMenu : MonoBehaviour
     public int xCount, yCount;
     public int buttonIndex = 0;
     public MenuDirection menuDirection;
+    public bool sideMenu = false;
     public Image highlighImage;
     public virtual void Move(Vector2 direction){
         if (menuDirection == MenuDirection.Vertical){
@@ -41,6 +43,19 @@ public class BaseMenu : MonoBehaviour
             buttonIndex = buttons.Count -1;
         }else if (buttonIndex >= buttons.Count){
             buttonIndex = 0;
+        }else if (menuDirection == MenuDirection.Flex){
+            MenuButton currentButton = buttons[buttonIndex];
+            MenuButton nextButton = null;
+            if (direction.x < -0.5){
+                nextButton = currentButton.leftButton;
+            }else if (direction.x > 0.5){
+                nextButton = currentButton.rightButton;
+            }else if (direction.y < -0.5){
+                nextButton = currentButton.upButton;
+            }else if (direction.y > 0.5){
+                nextButton = currentButton.downButton;
+            }
+            buttonIndex = buttons.IndexOf(nextButton);
         }
         SetHighlight();
     }
@@ -52,7 +67,15 @@ public class BaseMenu : MonoBehaviour
         SetHighlight();
     }
     protected void SetHighlight(){
-        highlighImage.transform.position = GetCurrentButton().transform.position;
+        if (menuDirection == MenuDirection.Flex){
+            buttons.ForEach(b => b.SetHighlight(false));
+            //buttons.ForEach(b => b.bgimage.color = new Color(255, 255, 255));
+            Debug.Log(buttons[buttonIndex]);
+            buttons[buttonIndex].SetHighlight(true);
+            //buttons[buttonIndex].bgimage.color = c;
+        }else{
+            highlighImage.transform.position = GetCurrentButton().transform.position;
+        }
     }
     public virtual void Select(){
 
@@ -63,4 +86,5 @@ public enum MenuDirection {
     Vertical,
     Horizontal,
     Both,
+    Flex,
 }

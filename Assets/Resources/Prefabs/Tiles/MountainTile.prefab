@@ -148,4 +148,4 @@ MonoBehaviour:
   validPath: []
   depthText: {fileID: 0}
   coordiantes: {x: 0, y: 0}
-  editorType: 3
+  editorType: 2

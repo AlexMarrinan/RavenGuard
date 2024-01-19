@@ -264,8 +264,8 @@ public class GridManager : MonoBehaviour
         for (int _ = 0; _ < randomNum; _++) {
             int layerIndex = UnityEngine.Random.Range(0, layers.Count);
             int posIndex = UnityEngine.Random.Range(0, layerPositions.Keys.Count);
-            Debug.Log("Num: " + randomNum);
-            Debug.Log("Layers: " + layerPositions.Count);
+//            Debug.Log("Num: " + randomNum);
+//            Debug.Log("Layers: " + layerPositions.Count);
             PGBase layer = layers[layerIndex];
             OverlayLayer(layer, layerPositions.Keys.ToList()[posIndex]);
         }
@@ -380,7 +380,7 @@ public class GridManager : MonoBehaviour
             // newMountainArray.Rotate();
             // newSpawnArray.Rotate();
         }
-        Debug.Log(pgb.name);
+//        Debug.Log(pgb.name);
         for (int x = startX, layerX = 0; x < startX + newArray.Width && x < width && layerX < newArray.Width; x++, layerX++){
             if (x >= 0){
                 for (int y = startY, layerY = 0; y < startY + newArray.Height && y < height && layerY < newArray.Height; y++, layerY++){

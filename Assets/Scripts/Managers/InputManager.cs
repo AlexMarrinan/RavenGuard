@@ -19,7 +19,9 @@ public class InputManager : MonoBehaviour
         input = new CustomInput();
     }
     private void FixedUpdate() {
-        if (input.Player.Move.IsPressed() && CanMove()){
+        if ((input.Player.Move.IsPressed() || 
+            (input.Player.MoveMenu.IsPressed() && MenuManager.instance.InMenu())) 
+            && CanMove()){
             Move();
         }
         currentMoveFrameDelay--;
@@ -55,6 +57,9 @@ public class InputManager : MonoBehaviour
         input.Player.Move.performed += OnMovePerformed;
         input.Player.Move.canceled += OnMoveCanceled;
 
+        input.Player.MoveMenu.performed += OnMoveMenuPerformed;
+        input.Player.MoveMenu.canceled += OnMoveMenuCanceled;
+        
         input.Player.Select.performed += OnSelectPerformed;
         input.Player.Select.canceled += OnSelectCancled;
 
@@ -82,39 +87,56 @@ public class InputManager : MonoBehaviour
         input.Player.SkipTurn.performed += OnSkipTurnPerformed;
         input.Player.SkipTurn.canceled += OnSkipTurnCanceled;
     }
-
-    private void OnDisable() {
-        input.Disable();
-        input.Player.Move.performed -= OnMovePerformed;
-        input.Player.Move.canceled -= OnMoveCanceled;
-        
-        input.Player.Select.performed -= OnSelectPerformed;
-        input.Player.Select.canceled -= OnSelectCancled;
-
-        input.Player.Back.performed -= OnBackPerformed;
-        input.Player.Back.canceled -= OnBackCancled;
-
-        input.Player.Pause.performed -= OnPausePerformed;
-        input.Player.Pause.canceled -= OnPauseCanceled;
-
-        input.Player.PanCamera.performed -= OnPanCameraPerformed;
-        input.Player.PanCamera.canceled -= OnPanCameraCanceled;
-
-        input.Player.Previous.performed -= OnPreviousPerformed;
-        input.Player.Previous.canceled -= OnPreviousCanceled;
-
-        input.Player.Next.performed -= OnNextPerformed;
-        input.Player.Next.canceled -= OnNextCanceled;
-        
-        input.Player.UnitMenu.performed -= OnUnitMenuPerformed;
-        input.Player.UnitMenu.canceled -= OnUnitMenuCanceled;
-
-        input.Player.InventoryMenu.performed -= OnInventoryMenuPerformed;
-        input.Player.InventoryMenu.canceled -= OnInventoryMenuCanceled;
-
-        input.Player.SkipTurn.performed -= OnSkipTurnPerformed;
-        input.Player.SkipTurn.canceled -= OnSkipTurnCanceled;
+    private void OnMoveMenuPerformed(InputAction.CallbackContext context)
+    {
+        if (MenuManager.instance.unitStatsMenu.enabled && !MenuManager.instance.InMenu()){
+            Debug.Log("Moving menu...");
+            MenuManager.instance.unitStatsMenu.Move(context.ReadValue<Vector2>());
+        }
+        else { //if (MenuManager.instance.InMenu()){
+            moveVector = context.ReadValue<Vector2>();
+            FixMoveVector();
+        }
     }
+    private void OnMoveMenuCanceled(InputAction.CallbackContext context)
+    {
+        
+    }
+
+
+
+    // private void OnDisable() {
+    //     input.Disable();
+    //     input.Player.Move.performed -= OnMovePerformed;
+    //     input.Player.Move.canceled -= OnMoveCanceled;
+        
+    //     input.Player.Select.performed -= OnSelectPerformed;
+    //     input.Player.Select.canceled -= OnSelectCancled;
+
+    //     input.Player.Back.performed -= OnBackPerformed;
+    //     input.Player.Back.canceled -= OnBackCancled;
+
+    //     input.Player.Pause.performed -= OnPausePerformed;
+    //     input.Player.Pause.canceled -= OnPauseCanceled;
+
+    //     input.Player.PanCamera.performed -= OnPanCameraPerformed;
+    //     input.Player.PanCamera.canceled -= OnPanCameraCanceled;
+
+    //     input.Player.Previous.performed -= OnPreviousPerformed;
+    //     input.Player.Previous.canceled -= OnPreviousCanceled;
+
+    //     input.Player.Next.performed -= OnNextPerformed;
+    //     input.Player.Next.canceled -= OnNextCanceled;
+        
+    //     input.Player.UnitMenu.performed -= OnUnitMenuPerformed;
+    //     input.Player.UnitMenu.canceled -= OnUnitMenuCanceled;
+
+    //     input.Player.InventoryMenu.performed -= OnInventoryMenuPerformed;
+    //     input.Player.InventoryMenu.canceled -= OnInventoryMenuCanceled;
+
+    //     input.Player.SkipTurn.performed -= OnSkipTurnPerformed;
+    //     input.Player.SkipTurn.canceled -= OnSkipTurnCanceled;
+    // }
 
     private void OnSkipTurnCanceled(InputAction.CallbackContext context)
     {
