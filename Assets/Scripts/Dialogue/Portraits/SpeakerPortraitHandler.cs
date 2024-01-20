@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using Game.Hub.Interactables;
 using UnityEngine;
 using Yarn.Unity;
 
@@ -12,12 +13,19 @@ namespace Game.Dialogue.Portraits
     public class SpeakerPortraitHandler : MonoBehaviour
     {
         // References
+        [SerializeField] private NPC npc;
         [SerializeField] private SpeakerData speakerData;
 
         void Awake()
         {
+            if(npc) speakerData = npc.speakerData;
             gameObject.name = speakerData.name;
             
+            
+        }
+
+        private void Start()
+        {
             // Event Subscriptions
             EventDialogueManager.Instance.portraitLineView.onNameUpdate += ShouldSetSprite;
         }

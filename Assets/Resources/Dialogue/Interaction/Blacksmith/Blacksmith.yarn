@@ -1,9 +1,0 @@
-﻿title: Mage_Greeting_1
-tags:
----
-Player:...
-Mage: Welcome to my shop!
--> Look at items
-    <<Interact Mage>>
--> Leave
-===
