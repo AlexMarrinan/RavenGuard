@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Game.Dialogue.Portraits;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,6 @@ namespace Game.Dialogue
     /// <summary>
     /// Manages the playback of event dialogue (e.g. cutscenes, interactions) for Visual Novel style format.
     /// </summary>
-    [RequireComponent(typeof(DialogueRunner)), RequireComponent(typeof(InMemoryVariableStorage))]
     public class EventDialogueManager :  MonoBehaviour, IDialogueManager
     {
         // Internal
@@ -31,6 +31,7 @@ namespace Game.Dialogue
         [SerializeField] private UnityEvent onConversationEnds;
 
         public static EventDialogueManager Instance;
+        private List<SpeakerPortraitHandler> availableSpeakerPortraits;
 
 
         protected void Awake()
@@ -40,10 +41,6 @@ namespace Game.Dialogue
             } else {
                 DestroyImmediate(gameObject);
             }
-            
-            // References
-            dialogueRunner = GetComponent<DialogueRunner>();
-            variableStorage = GetComponent<InMemoryVariableStorage>();
         }
 
         private void Start()
@@ -55,10 +52,29 @@ namespace Game.Dialogue
             dialogueRunner.onDialogueComplete.AddListener(EndDialogue);
             
             // Event Subscriptions
+            portraitLineView.onNameUpdate += CheckForSpeaker;
             portraitLineView.onNameNotPresent += HideSpeaker;
         }
 
         #region Speaker Sprites
+        /// <summary>
+        /// Check to make sure the character with the given speakerName has a
+        /// SpeakerPortraitHandler. If it doesn't, it won't have a portrait so
+        /// hide the speaker portraits.
+        /// </summary>
+        /// <param name="speakerName">The name of the character speaking.</param>
+        private void CheckForSpeaker(string speakerName)
+        {
+            foreach (SpeakerPortraitHandler speaker in availableSpeakerPortraits)
+            {
+                if (speaker.name == speakerName)
+                {
+                    return;
+                }
+            }
+            HideSpeaker();
+        }
+        
         /// <summary>
         /// Hides the speaker image.
         /// </summary>
@@ -128,7 +144,7 @@ namespace Game.Dialogue
         public void StartDialogue(string node)
         {
             // TODO: Disable player input when conversation starts
-            print("Start Dialogue");
+            availableSpeakerPortraits = FindObjectsOfType<SpeakerPortraitHandler>(false).ToList();
             onConversationStarts.Invoke();
             dialogueRunner.StartDialogue(node);
         }

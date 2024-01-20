@@ -16,7 +16,7 @@ namespace Game.Dialogue
         public string characterName;
         
         [Tooltip("The portraits of the character.")]
-        [SerializeField] private SerializedDictionary<PortraitEmotion, Sprite> characterPortraits;
+        [SerializeField] private SerializedDictionary<PortraitType, Sprite> characterPortraits;
 
 
         #region ISpeaker Implementation
@@ -25,16 +25,16 @@ namespace Game.Dialogue
             return characterName;
         }
 
-        public Sprite GetPortrait(PortraitEmotion portraitEmotion)
+        public Sprite GetPortrait(PortraitType portraitType)
         {
-            if (characterPortraits.ContainsKey(portraitEmotion))
+            if (characterPortraits.ContainsKey(portraitType))
             {
-                return characterPortraits[portraitEmotion];
+                return characterPortraits[portraitType];
             }
 
             // Attempt to use neutral sprite if no sprite is found
             Sprite defaultSprite;
-            characterPortraits.TryGetValue(PortraitEmotion.Neutral, out defaultSprite);
+            characterPortraits.TryGetValue(PortraitType.Default, out defaultSprite);
             return defaultSprite;
         }
         #endregion

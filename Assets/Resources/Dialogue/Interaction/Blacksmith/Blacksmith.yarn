@@ -1,6 +1,9 @@
-﻿title: Blacksmith_Greeting_1
+﻿title: Mage_Greeting_1
 tags:
 ---
-Blacksmith: Welcome to my shop!
-<<Interact Blacksmith>>
+Player:...
+Mage: Welcome to my shop!
+-> Look at items
+    <<Interact Mage>>
+-> Leave
 ===

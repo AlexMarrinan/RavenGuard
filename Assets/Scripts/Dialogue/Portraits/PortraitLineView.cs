@@ -346,9 +346,11 @@ namespace Game.Dialogue.Portraits
 
                 if (characterNameText != null)
                 {
-                    print(dialogueLine.CharacterName);
-                    print(onNameUpdate==null);
-                    onNameUpdate.Invoke(currentName);
+                    if (currentName != dialogueLine.CharacterName)
+                    {
+                        currentName = dialogueLine.CharacterName;
+                        onNameUpdate.Invoke(currentName);
+                    }
                     // If we have a character name text view, show the character
                     // name in it, and show the rest of the text in our main
                     // text view.

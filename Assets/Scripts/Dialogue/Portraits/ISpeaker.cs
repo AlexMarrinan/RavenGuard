@@ -6,14 +6,11 @@ using Yarn.Unity;
 namespace Game.Dialogue.Portraits
 {
     /// <summary>
-    /// Enum for valid character portraits.
+    /// Enum allows characters to have multiple portraits
     /// </summary>
-    public enum PortraitEmotion
+    public enum PortraitType
     {
-        Neutral,
-        Happy,
-        Sad,
-        Frustrated
+        Default
     }
     
     /// <summary>
@@ -33,7 +30,7 @@ namespace Game.Dialogue.Portraits
         /// <param name="portraitEmotion">The emotion displayed in the portrait</param>
         /// <returns>If the given portraitEmotion is a key in characterPortraits, return value.
         /// Otherwise, return null</returns>
-        public Sprite GetPortrait(PortraitEmotion portraitEmotion = PortraitEmotion.Neutral);
+        public Sprite GetPortrait(PortraitType portraitEmotion = PortraitType.Default);
     }
 }
 

@@ -8,13 +8,16 @@ namespace Game.Dialogue.Portraits
     /// <summary>
     /// Updates and manages portrait for a speaker during dialogue.
     /// </summary>
+    [RequireComponent(typeof(DialogueCharacterNameView))]
     public class SpeakerPortraitHandler : MonoBehaviour
     {
-        // Internal
-        private ISpeaker speaker;
-        
-        private void Start()
+        // References
+        [SerializeField] private SpeakerData speakerData;
+
+        void Awake()
         {
+            gameObject.name = speakerData.name;
+            
             // Event Subscriptions
             EventDialogueManager.Instance.portraitLineView.onNameUpdate += ShouldSetSprite;
         }
@@ -29,45 +32,34 @@ namespace Game.Dialogue.Portraits
         }
 
         /// <summary>
-        /// Initialize a portrait handler for the character.
-        /// </summary>
-        /// <param name="speaker">A speaker involved in dialogue.</param>
-        public void Initialize(ISpeaker speaker)
-        {
-            this.speaker = speaker;
-            gameObject.name = speaker.GetName();
-        }
-
-        /// <summary>
         /// If name equals characterName, trigger SetSprite.
         /// </summary>
         /// <param name="speakerName">The name of a speaker from dialogue</param>
         private void ShouldSetSprite(string speakerName)
         {
-            print(speakerName);
             if (speakerName == name)
             {
-                SetSprite("Neutral");
+                SetSprite("Default");
             }
         }
         
         /// <summary>
-        /// Sets the portrait of the speaker based on the given PortraitEmotion.
+        /// Sets the portrait of the speaker based on the given PortraitType.
         /// </summary>
-        /// <param name="portraitEmotion">The emotion of the speaker.</param>
+        /// <param name="portraitType">The emotion of the speaker.</param>
         [YarnCommand("SetSprite")]
-        public void SetSprite(string portraitEmotion)
+        public void SetSprite(string portraitType)
         {
-            PortraitEmotion emotion;
+            PortraitType portrait;
             TextInfo textInfo = new CultureInfo("en-US",false).TextInfo;
-            if (Enum.TryParse(textInfo.ToTitleCase(portraitEmotion), out emotion))
+            if (Enum.TryParse(textInfo.ToTitleCase(portraitType), out portrait))
             {
-                EventDialogueManager.Instance.SetSpeaker(speaker.GetPortrait(emotion));
+                EventDialogueManager.Instance.SetSpeaker(speakerData.GetPortrait(portrait));
             }
             else
             {
                 EventDialogueManager.Instance.HideSpeaker();
-                Debug.LogError($"PortraitEmotion not found for the specified: {portraitEmotion}.");
+                Debug.LogError($"PortraitEmotion not found for the specified: {portraitType}.");
             }
         }
     }
