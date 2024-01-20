@@ -17,7 +17,6 @@ namespace Buildings{
         /// </summary>
         public void ToggleBuilding()
         {
-            print("Toggle");
             if(!isInside) EnterBuilding();
             else ExitBuilding();
             isInside = !isInside;
@@ -52,6 +51,7 @@ namespace Buildings{
         /// </summary>
         private void TweenExterior()
         {
+            StopTweening();
             if (isInside)
             {
                 foreach (SpriteRenderer renderer in exteriorRenderers)
@@ -67,6 +67,17 @@ namespace Buildings{
                     renderer.enabled = true;
                     renderer.DOFade(1, transitionTime).OnComplete(() => { interior.SetActive(false); });
                 }
+            }
+        }
+
+        /// <summary>
+        /// Stop active tweening
+        /// </summary>
+        private void StopTweening()
+        {
+            foreach (SpriteRenderer renderer in exteriorRenderers)
+            {
+                renderer.DOKill();
             }
         }
     }
