@@ -17,3 +17,10 @@ MonoBehaviour:
     _serializedList:
     - Key: 0
       Value: {fileID: -1066349898, guid: 39b78213d7db03540b5e0e2f22872894, type: 3}
+  yarnScripts:
+  - {fileID: -8253061345870894857, guid: a4e31daaf60b18e4da4f1d2f133dff96, type: 3}
+  availableNodes:
+    _serializedList:
+    - Key: 0
+      Value:
+      - Mage_Greeting_1
