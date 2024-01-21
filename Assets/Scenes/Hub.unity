@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &464637354 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1211546966627457693, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
-  m_PrefabInstance: {fileID: 1211546966739769143}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &480132436
 GameObject:
   m_ObjectHideFlags: 0
@@ -238,7 +227,7 @@ MonoBehaviour:
   onUnfocus:
     m_PersistentCalls:
       m_Calls: []
-  storeUI: {fileID: 567063868}
+  uiController: {fileID: 1105881528}
   sprite: {fileID: 480132437}
   focusedColor: {r: 0, g: 0, b: 0, a: 0}
   unfocusedColor: {r: 0, g: 0, b: 0, a: 0}
@@ -268,36 +257,22 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!1 &567063864 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1211546967272153615, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
-  m_PrefabInstance: {fileID: 1211546966739769143}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &567063865 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1211546967272153614, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
   m_PrefabInstance: {fileID: 1211546966739769143}
   m_PrefabAsset: {fileID: 0}
---- !u!223 &567063868 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 1211546967272153611, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
+--- !u!114 &567063869 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 567063869, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
   m_PrefabInstance: {fileID: 1211546966739769143}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &567063869
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 567063864}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56be45faaad440f29ac453c378933136, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerMoney: {fileID: 464637354}
-  itemParent: {fileID: 1877675462}
-  itemPrefab: {fileID: 8514240279501096730, guid: 045665417f450754b839c48f3689da91, type: 3}
 --- !u!1 &618906929
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,6 +579,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 049be3aa517d410a8ea6d89dd554f184, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBalance: 100
   upgradableItems:
   - {fileID: 11400000, guid: dcaa2b5a8511c0d4b9cd4b3761bfa16b, type: 2}
   - {fileID: 11400000, guid: 6fd42c86fc4caef41bdd81a9dec995a7, type: 2}
@@ -691,11 +667,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &1877675462 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1211546968444295921, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
-  m_PrefabInstance: {fileID: 1211546966739769143}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1211546966739769143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -959,6 +930,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Upgrade UI
       objectReference: {fileID: 0}
+    - target: {fileID: 1211546967288552705, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1105881528}
     - target: {fileID: 1211546967288552706, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

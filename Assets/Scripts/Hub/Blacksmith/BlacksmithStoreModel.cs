@@ -13,7 +13,6 @@ namespace Hub.Blacksmith
     {
         public int playerBalance;
         public List<Item> upgradableItems;
-        public UnityEvent<int> updatePlayerBalance;
 
         public void AddItem(Item item)
         {
@@ -23,7 +22,6 @@ namespace Hub.Blacksmith
         public void UpdatePlayerBalance(int deposit)
         {
             playerBalance += deposit;
-            updatePlayerBalance.Invoke(playerBalance);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Hub.Blacksmith
     public class BlacksmithItem:MonoBehaviour
     {
         // Internal
-        private Item item;
+        private Item itemData;
         
         // References
         [SerializeField] private Button button;
@@ -19,18 +19,24 @@ namespace Hub.Blacksmith
         [SerializeField] private Image skillIconPrefab;
         [SerializeField] private Transform skillIconParent;
 
+        /// <summary>
+        /// Loads the item's data into the references
+        /// </summary>
+        /// <param name="item"></param>
+        /// <param name="seeDetails">Opens the detail view if invoked</param>
         public void Init(Item item, Action<Item> seeDetails)
         {
-            this.item = item;
+            itemData = item;
             itemName.text = item.itemName;
             itemIcon.sprite = item.itemIcon;
+            
             foreach (Sprite sprite in item.skillIcons)
             {
                 skillIconPrefab.sprite = sprite;
                 Instantiate(skillIconPrefab,skillIconParent);
             }
-
-            button.onClick.AddListener(delegate { seeDetails.Invoke(this.item); });
+            
+            button.onClick.AddListener(delegate { seeDetails.Invoke(itemData); });
         }
     }
 }

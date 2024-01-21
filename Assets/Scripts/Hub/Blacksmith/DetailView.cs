@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 namespace Hub.Blacksmith
 {
+    /// <summary>
+    /// A detailed view of an item
+    /// </summary>
     public class DetailView:MonoBehaviour
     {
         private Item itemData;
@@ -15,9 +18,14 @@ namespace Hub.Blacksmith
         [SerializeField] private TextMeshProUGUI itemDesc;
         [SerializeField] private Image skillIconPrefab;
         [SerializeField] private Transform skillIconParent;
-        public void SetItem(Item oldBlacksmithItem)
+        
+        /// <summary>
+        /// Loads the item's information into references
+        /// </summary>
+        /// <param name="item"></param>
+        public void SetItem(Item item)
         {
-            itemData = oldBlacksmithItem;
+            itemData = item;
             itemName.text = itemData.itemName;
             itemDesc.text = itemData.desc;
             itemIcon.sprite = itemData.itemIcon;

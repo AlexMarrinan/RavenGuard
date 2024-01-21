@@ -55,6 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd3a369e108b4382acce150f922ef952, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 7229953854249073581}
   itemIcon: {fileID: 2215823679652571403}
   itemName: {fileID: 2215823680618781337}
   skillIconPrefab: {fileID: 9001756154791686103, guid: cd79179388aa7df4cab44df9a035e313, type: 3}

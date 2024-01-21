@@ -1175,7 +1175,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_1x_157
+      name: silver
       rect:
         serializedVersion: 2
         x: 64
@@ -1217,7 +1217,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_1x_159
+      name: diamond
       rect:
         serializedVersion: 2
         x: 80
@@ -1532,7 +1532,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: GUI_1x_0
+      name: gold
       rect:
         serializedVersion: 2
         x: 73
@@ -1600,6 +1600,7 @@ TextureImporter:
       frame_15: -392715382
       GUI_1x_36: -1497656958
       GUI_1x_87: -2076608606
+      diamond: -1128503718
       GUI_1x_89: -1449166742
       frame_4: -581559050
       GUI_1x_32: -983890489
@@ -1631,6 +1632,7 @@ TextureImporter:
       GUI_1x_17: 1144210541
       GUI_1x_156: -117495165
       GUI_1x_111: 69931761
+      gold: -1580073928
       GUI_1x_61: -1167064876
       GUI_1x_172: 2030961294
       GUI_1x_78: 1169439849
@@ -1672,7 +1674,6 @@ TextureImporter:
       GUI_1x_28: -813098181
       GUI_1x_162: 1703590970
       GUI_1x_21: -1046746233
-      GUI_1x_159: -1128503718
       GUI_1x_136: -984440844
       GUI_1x_198: 212234578
       GUI_1x_202: -1248849117
@@ -1689,7 +1690,6 @@ TextureImporter:
       GUI_1x_24: 1599525320
       GUI_1x_127: -351680181
       GUI_1x_196: 1160542954
-      GUI_1x_0: -1580073928
       GUI_1x_181: -236897573
       GUI_1x_129: 1163370734
       GUI_1x_187: 1818594576
@@ -1774,11 +1774,11 @@ TextureImporter:
       frame_3: 560841230
       GUI_1x_64: -126279623
       GUI_1x_53: -1847085626
-      GUI_1x_157: -287172892
       GUI_1x_167: 1191219878
       GUI_1x_46: 489841834
       GUI_1x_33: -179949954
       GUI_1x_165: 2125489074
+      silver: -287172892
       GUI_1x_58: 625439108
       GUI_1x_79: -1096034651
       GUI_1x_81: 593745575
