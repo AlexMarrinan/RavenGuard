@@ -926,10 +926,10 @@ TextureImporter:
       name: GUI_0
       rect:
         serializedVersion: 2
-        x: 133
-        y: 262
-        width: 5
-        height: 6
+        x: 147
+        y: 260
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -947,10 +947,10 @@ TextureImporter:
       name: GUI_1
       rect:
         serializedVersion: 2
-        x: 150
-        y: 262
-        width: 5
-        height: 6
+        x: 131
+        y: 260
+        width: 10
+        height: 10
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
