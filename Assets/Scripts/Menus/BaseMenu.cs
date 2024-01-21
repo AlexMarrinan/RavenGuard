@@ -63,7 +63,7 @@ public class BaseMenu : MonoBehaviour
         return buttons[buttonIndex];
     }
     public virtual void Reset(){
-        buttonIndex = 0;
+        buttonIndex = 1;
         SetHighlight();
     }
     protected void SetHighlight(){
