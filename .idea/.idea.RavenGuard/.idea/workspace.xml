@@ -5,23 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/UI.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/UI/Controller.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/UI/Controller.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/UI/View.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/UI/View.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Item.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Item.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Details View.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Details View.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Left Column.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Left Column.prefab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Upgrade UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Upgrade UI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Cryo Art/GUI/GUI/GUI_1x.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Cryo Art/GUI/GUI/GUI_1x.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Cryo Art/GUI/Buttons/buttons_4x.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Cryo Art/GUI/Buttons/buttons_4x.png.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithItem.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithItem.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/DetailView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/DetailView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/StoreInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/StoreInteractable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +110,7 @@
       <workItem from="1704928470045" duration="2084000" />
       <workItem from="1704931386982" duration="596000" />
       <workItem from="1705262917948" duration="992000" />
-      <workItem from="1705806492471" duration="9418000" />
+      <workItem from="1705806492471" duration="10173000" />
     </task>
     <servers />
   </component>

@@ -16,6 +16,7 @@ namespace Hub.Blacksmith
     {
         [SerializeField] private TextMeshProUGUI playerMoney;
         [SerializeField] private Transform itemParent;
+        [SerializeField] private GameObject sortParent;
         
         [Header("Detail View")] 
         [SerializeField] private GameObject detailViewParent;
@@ -81,6 +82,11 @@ namespace Hub.Blacksmith
         public void HideDetailView()
         {
             detailViewParent.SetActive(false);
+        }
+
+        public void ToggleSort()
+        {
+            sortParent.SetActive(!sortParent.activeSelf);
         }
     }
 }
