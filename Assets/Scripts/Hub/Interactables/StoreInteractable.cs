@@ -29,7 +29,6 @@ namespace Game.Hub.Interactables
 
         protected override void Interaction()
         {
-            Debug.Log("Store Interaction");
             storeUI.gameObject.SetActive(true);
         }
 
