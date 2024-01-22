@@ -16,10 +16,16 @@ MonoBehaviour:
   skillName: CripplingAim
   description: If unit deals at least 10 damage during combat, reduces foe's movement
     by 2 through their next action.
+  menuIcon: {fileID: 21300000, guid: f86062e0808bb9646a2cea83707616b4, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   unitClass: 0
   weaponClass: 3
   centered: 0
   shape: 0
   range1: 1
   range2: 1
+  tileMoveType: 0
   passiveSkillType: 3

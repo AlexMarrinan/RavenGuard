@@ -17,10 +17,16 @@ MonoBehaviour:
   description: Applies a -4 debuff to any stats higher than unit's to foes in the
     same row or colum as unit who also have lower foresight stat.  This affects all
     units, even allies.
+  menuIcon: {fileID: 21300000, guid: 03699e449679cd846a94b620744217af, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   unitClass: 0
   weaponClass: 0
   centered: 0
   shape: 0
   range1: 1
   range2: 1
+  tileMoveType: 0
   passiveSkillType: 0

@@ -15,10 +15,16 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: b566fc1f9fd05814ba0e36b08667b89c, type: 3}
   skillName: Crossfire
   description: Units adjacent to foe take 20% of damage dealt by unit after combat.
+  menuIcon: {fileID: 21300000, guid: b566fc1f9fd05814ba0e36b08667b89c, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   unitClass: 0
   weaponClass: 2
   centered: 0
   shape: 0
   range1: 1
   range2: 1
+  tileMoveType: 0
   passiveSkillType: 3

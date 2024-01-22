@@ -16,6 +16,11 @@ MonoBehaviour:
   skillName: CondensedFlow
   description: Unit cannot make a follow-up attack during combat.  The damage unit
     deals during combat is multiplied by 1.5.
+  menuIcon: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   unitClass: 0
   weaponClass: 4
   centered: 0

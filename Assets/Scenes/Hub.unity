@@ -580,7 +580,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBalance: 100
-  upgradableSkill: []
+  upgradableSkill:
+  - {fileID: 11400000, guid: 05d71841e6128b942a52cc756f1e91be, type: 2}
+  - {fileID: 11400000, guid: 2c3bde3c3787cf54fa10efbd80c1bcd0, type: 2}
+  - {fileID: 11400000, guid: c34d2e78d6e337f45adf61f98954ff87, type: 2}
+  - {fileID: 11400000, guid: 6fd97d031d505a94db5722e76055c82c, type: 2}
+  - {fileID: 11400000, guid: 8d085454e388a4542a9d064cb0d148f4, type: 2}
+  - {fileID: 11400000, guid: 0f6dc50443cc8ff4ba244ab65905456c, type: 2}
+  - {fileID: 11400000, guid: 72da6607b66d99e498903293fe49d165, type: 2}
+  - {fileID: 11400000, guid: 84101b74117eeed4289321c965b66b94, type: 2}
+  - {fileID: 11400000, guid: b12dbad82c607df4e873d438379409b9, type: 2}
+  - {fileID: 11400000, guid: db6025ea8a701e64d96dfb30b83e7e5b, type: 2}
+  - {fileID: 11400000, guid: a2b6312a16ddd7c47b59049e3b062d68, type: 2}
+  - {fileID: 11400000, guid: 1ad4f5f2ed739cd42a48b09d6ed81f3a, type: 2}
+  - {fileID: 11400000, guid: 104f64efd9f98654d9beeda10c7d7bb2, type: 2}
+  - {fileID: 11400000, guid: d8a19c2c535920f43aa005b761320edd, type: 2}
+  - {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
+  - {fileID: 11400000, guid: c8ee1636f404cd24190a6dbf39a649c8, type: 2}
 --- !u!114 &1105881528
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -984,7 +1000,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1211546968444295921, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 2946618267671895432, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
       propertyPath: m_AnchorMax.y

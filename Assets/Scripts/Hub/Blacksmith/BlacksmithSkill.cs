@@ -21,6 +21,13 @@ namespace Hub.Blacksmith
         [SerializeField] private Transform skillIconParent;
         [SerializeField] private GameObject skillCostParent;
 
+        public static Action toggleCost;
+
+        private void Awake()
+        {
+            toggleCost += ToggleCost;
+        }
+
         /// <summary>
         /// Loads the skill's data into the references
         /// </summary>
@@ -40,13 +47,10 @@ namespace Hub.Blacksmith
                 skillIconPrefab.sprite = sprite;
                 Instantiate(skillIconPrefab,skillIconParent);
             }
-
-
-            seeDetails += ToggleCost;
-            button.onClick.AddListener(delegate { seeDetails.Invoke(skillData); });
+            button.onClick.AddListener(delegate { toggleCost.Invoke();});
         }
 
-        private void ToggleCost(BaseSkill baseSkill)
+        private void ToggleCost()
         {
             skillCostParent.SetActive(!skillCostParent.activeSelf);
         }
