@@ -92,6 +92,9 @@ public class InputManager : MonoBehaviour
         if (MenuManager.instance.unitStatsMenu.enabled && !MenuManager.instance.InMenu()){
             Debug.Log("Moving menu...");
             MenuManager.instance.unitStatsMenu.Move(context.ReadValue<Vector2>());
+            if (MenuManager.instance.otherUnitStatsMenu.enabled && !MenuManager.instance.InMenu()){
+                MenuManager.instance.otherUnitStatsMenu.Move(context.ReadValue<Vector2>());
+            }
         }
         else { //if (MenuManager.instance.InMenu()){
             moveVector = context.ReadValue<Vector2>();
