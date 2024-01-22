@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Game.Inventory;
 using Hub.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Hub.Blacksmith
@@ -25,13 +25,14 @@ namespace Hub.Blacksmith
         [SerializeField] private Button confirmUpgrade;
         [SerializeField] private TextMeshProUGUI newItemCost;
 
+        [FormerlySerializedAs("itemPrefab")]
         [Header("Prefabs")] 
-        [SerializeField] private BlacksmithItem itemPrefab;
+        [SerializeField] private BlacksmithSkill skillPrefab;
 
-        public void Init(int money, List<Item> items, Action<Item> seeDetails)
+        public void Init(int money, List<BaseSkill> skills, Action<BaseSkill> seeDetails)
         {
             playerMoney.text = money.ToString();
-            LoadItems(items, seeDetails);
+            LoadItems(skills, seeDetails);
         }
 
         /// <summary>
@@ -44,36 +45,36 @@ namespace Hub.Blacksmith
         }
 
         /// <summary>
-        /// Instantiates the given item
+        /// Instantiates the given skill
         /// </summary>
-        /// <param name="items">The item</param>
+        /// <param name="skills">The skill</param>
         /// <param name="seeDetails">If the item is clicked on, open the detail view</param>
-        private void LoadItems(List<Item> items, Action<Item> seeDetails)
+        private void LoadItems(List<BaseSkill> skills, Action<BaseSkill> seeDetails)
         {
-            foreach (Item item in items)
+            foreach (BaseSkill skill in skills)
             {
-                BlacksmithItem blacksmithItem=Instantiate(itemPrefab, itemParent);
-                blacksmithItem.Init(item,seeDetails);
+                BlacksmithSkill blacksmithSkill=Instantiate(skillPrefab, itemParent);
+                blacksmithSkill.Init(skill,seeDetails);
             }
         }
 
         /// <summary>
         /// Open the detail view and set its info
         /// </summary>
-        /// <param name="oldBlacksmithItem">The item potentially being upgraded.</param>
-        /// <param name="newBlacksmithItem">The next version of the old item.</param>
+        /// <param name="oldBlacksmithSkill">The item potentially being upgraded.</param>
+        /// <param name="newBlacksmithSkill">The next version of the old item.</param>
         /// <param name="playerBalance">How much money the player has.</param>
         /// <param name="upgradeCost">How much the upgrade will cost.</param>
         /// <param name="upgradeItem">Triggers upgrade logic if invoked.</param>
-        public void OpenDetailView(Item oldBlacksmithItem, Item newBlacksmithItem, int playerBalance,int upgradeCost, Action<Item,int> upgradeItem)
+        public void OpenDetailView(BaseSkill oldBlacksmithSkill, BaseSkill newBlacksmithSkill, int playerBalance,int upgradeCost, Action<BaseSkill,int> upgradeItem)
         {
-            oldItem.SetItem(oldBlacksmithItem);
-            newItem.SetItem(newBlacksmithItem);
+            oldItem.SetItem(oldBlacksmithSkill);
+            newItem.SetItem(newBlacksmithSkill);
             newItemCost.text = upgradeCost.ToString();
             detailViewParent.SetActive(true);
 
             confirmUpgrade.interactable=playerBalance>=upgradeCost;
-            confirmUpgrade.onClick.AddListener(delegate { upgradeItem.Invoke(newBlacksmithItem,upgradeCost); });
+            confirmUpgrade.onClick.AddListener(delegate { upgradeItem.Invoke(newBlacksmithSkill,upgradeCost); });
         }
 
         /// <summary>

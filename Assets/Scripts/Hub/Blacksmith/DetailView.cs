@@ -1,6 +1,6 @@
-using Game.Inventory;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Hub.Blacksmith
@@ -10,29 +10,38 @@ namespace Hub.Blacksmith
     /// </summary>
     public class DetailView:MonoBehaviour
     {
-        private Item itemData;
+        private BaseSkill skillData;
         
         // References
-        [SerializeField] private Image itemIcon;
-        [SerializeField] private TextMeshProUGUI itemName;
-        [SerializeField] private TextMeshProUGUI itemDesc;
+        [SerializeField] private Image skillIcon;
+        [SerializeField] private TextMeshProUGUI skillName;
+        [SerializeField] private TextMeshProUGUI skillDesc;
         [SerializeField] private Image skillIconPrefab;
         [SerializeField] private Transform skillIconParent;
         
         /// <summary>
         /// Loads the item's information into references
         /// </summary>
-        /// <param name="item"></param>
-        public void SetItem(Item item)
+        /// <param name="skill"></param>
+        public void SetItem(BaseSkill skill)
         {
-            itemData = item;
-            itemName.text = itemData.itemName;
-            itemDesc.text = itemData.desc;
-            itemIcon.sprite = itemData.itemIcon;
-            foreach (Sprite sprite in itemData.skillIcons)
+            ClearOldInfo();
+            skillData = skill;
+            skillName.text = skillData.skillName;
+            skillDesc.text = skillData.description;
+            skillIcon.sprite = skillData.menuIcon;
+            foreach (Sprite sprite in skillData.skillIcons)
             {
                 skillIconPrefab.sprite = sprite;
                 Instantiate(skillIconPrefab,skillIconParent);
+            }
+        }
+
+        private void ClearOldInfo()
+        {
+            while( skillIconParent.transform.childCount != 0)
+            {
+                Destroy(skillIconParent.transform.GetChild(0).transform);
             }
         }
     }

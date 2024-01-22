@@ -1,9 +1,6 @@
 using System;
-using Game.Inventory;
 using Hub.UI;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Hub.Blacksmith
 {
@@ -15,33 +12,33 @@ namespace Hub.Blacksmith
         [SerializeField] private BlacksmithStoreModel model;
         [SerializeField] private BlacksmithStoreView view;
 
-        private Action<Item, int> upgradeItem;
-        private Action<Item> seeDetails;
+        private Action<BaseSkill, int> upgradeItem;
+        private Action<BaseSkill> seeDetails;
 
         private void Awake()
         {
-            upgradeItem += UpgradeItem;
+            upgradeItem += UpgradeSkill;
             seeDetails += OpenDetail;
-            view.Init(model.playerBalance, model.upgradableItems, seeDetails);
+            view.Init(model.playerBalance, model.upgradableSkill, seeDetails);
         }
 
         /// <summary>
-        /// Gets the upgradable version of the given item and opens the detail view.
+        /// Gets the upgradable version of the given skill and opens the detail view.
         /// </summary>
-        /// <param name="item">Item potentially being upgraded.</param>
-        private void OpenDetail(Item item)
+        /// <param name="skill">Item potentially being upgraded.</param>
+        private void OpenDetail(BaseSkill skill)
         {
             //Get upgrade info from model
-            Item newItem = item;
-            view.OpenDetailView(item,newItem,model.playerBalance,5,upgradeItem);
+            BaseSkill newSkill = skill;
+            view.OpenDetailView(skill,newSkill,model.playerBalance,5,upgradeItem);
         }
 
         /// <summary>
-        /// Add the given item to model and subtract the cost from playerBalance
+        /// Add the given skill to model and subtract the cost from playerBalance
         /// </summary>
-        /// <param name="item">The item being added</param>
-        /// <param name="cost">The cost of the item</param>
-        private void UpgradeItem(Item item, int cost)
+        /// <param name="skill">The new skill</param>
+        /// <param name="cost">The cost of the skill</param>
+        private void UpgradeSkill(BaseSkill skill, int cost)
         {
             model.UpdatePlayerBalance(-1*cost);
             view.UpdatePlayerBalance(model.playerBalance);

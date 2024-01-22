@@ -299,7 +299,7 @@ GameObject:
   - component: {fileID: 925655219038996947}
   - component: {fileID: 3422887852089227166}
   m_Layer: 5
-  m_Name: Item Info
+  m_Name: Available Skills
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

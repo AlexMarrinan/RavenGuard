@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Game.Inventory;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,11 +11,11 @@ namespace Hub.Blacksmith
     public class BlacksmithStoreModel:MonoBehaviour
     {
         public int playerBalance;
-        public List<Item> upgradableItems;
+        public List<BaseSkill> upgradableSkill;
 
-        public void AddItem(Item item)
+        public void AddItem(BaseSkill skill)
         {
-            upgradableItems.Add(item);
+            upgradableSkill.Add(skill);
         }
 
         public void UpdatePlayerBalance(int deposit)

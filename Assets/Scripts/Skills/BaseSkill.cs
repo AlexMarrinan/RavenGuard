@@ -6,9 +6,16 @@ using UnityEngine;
 using System.Linq;
 using System.Reflection;
 
-public class BaseSkill : BaseItem {
+public class BaseSkill : BaseItem
+{
+
+    [Header("Menu Info")] 
     public string skillName;
     public string description;
+    public Sprite menuIcon;
+    public List<Sprite> skillIcons;
+    
+    [Header("General Info")]
     public UnitClass unitClass;
     public WeaponClass weaponClass;
     protected MethodInfo methodInfo;
