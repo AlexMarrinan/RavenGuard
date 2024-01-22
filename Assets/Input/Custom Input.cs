@@ -134,6 +134,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""080f395d-9834-404e-b4ca-c6ca8a8ca87c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -499,6 +508,28 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""SkipTurn"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""52fd805d-f148-44ae-8979-7ce1c17c2c6f"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""324639de-e900-47cb-9403-fa89ada1b9b1"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -519,6 +550,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_UnitMenu = m_Player.FindAction("UnitMenu", throwIfNotFound: true);
         m_Player_InventoryMenu = m_Player.FindAction("InventoryMenu", throwIfNotFound: true);
         m_Player_SkipTurn = m_Player.FindAction("SkipTurn", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -590,6 +622,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_UnitMenu;
     private readonly InputAction m_Player_InventoryMenu;
     private readonly InputAction m_Player_SkipTurn;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -606,6 +639,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @UnitMenu => m_Wrapper.m_Player_UnitMenu;
         public InputAction @InventoryMenu => m_Wrapper.m_Player_InventoryMenu;
         public InputAction @SkipTurn => m_Wrapper.m_Player_SkipTurn;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -651,6 +685,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @SkipTurn.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkipTurn;
                 @SkipTurn.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkipTurn;
                 @SkipTurn.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSkipTurn;
+                @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
+                @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -691,6 +728,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @SkipTurn.started += instance.OnSkipTurn;
                 @SkipTurn.performed += instance.OnSkipTurn;
                 @SkipTurn.canceled += instance.OnSkipTurn;
+                @Interact.started += instance.OnInteract;
+                @Interact.performed += instance.OnInteract;
+                @Interact.canceled += instance.OnInteract;
             }
         }
     }
@@ -709,5 +749,6 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnUnitMenu(InputAction.CallbackContext context);
         void OnInventoryMenu(InputAction.CallbackContext context);
         void OnSkipTurn(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
