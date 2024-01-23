@@ -5,45 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Canvas.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Canvas.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Data.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Data/Button.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Data/Text.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Data/View.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Layouts.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Layouts/Columns.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Layouts/Columns.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Layouts/Rows.prefab" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/UI ToolKit/Layouts/Rows.prefab.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/UI.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/UI/Text.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/ScriptableObjects/UI/View.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/Inspector.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/Inspector/UIElementInspector.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/Inspector/UIElementInspector.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/Button.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/Text.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/Text/TextSO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/Text/TextSO.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/UIElement.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/UIElement.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View/ColumnView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View/ColumnView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View/RowView.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View/RowView.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View/ViewSO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Element/View/ViewSO.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Style.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/Style.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ThemeSO.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/UI/ThemeSO.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/Inspector/SkillProgressionGroupInspector.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/Inspector/SkillProgressionGroupInspector.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/SkillProgressionGroup.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/SkillProgressionGroup.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Skill.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Skill.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Editor/PGEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Editor/PGEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skills/BaseSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/BaseSkill.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +130,7 @@
       <workItem from="1705262917948" duration="992000" />
       <workItem from="1705806492471" duration="10173000" />
       <workItem from="1706026481137" duration="2052000" />
+      <workItem from="1706041719186" duration="3943000" />
     </task>
     <servers />
   </component>

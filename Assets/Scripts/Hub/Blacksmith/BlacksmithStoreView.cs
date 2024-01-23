@@ -14,27 +14,33 @@ namespace Hub.Blacksmith
     /// </summary>
     public class BlacksmithStoreView:View
     {
+        [SerializeField] private BlacksmithStoreController controller;
         [SerializeField] private TextMeshProUGUI playerMoney;
-        [SerializeField] private Transform itemParent;
+        [SerializeField] private Transform skillParent;
         [SerializeField] private GameObject sortParent;
         
         [Header("Detail View")] 
         [SerializeField] private GameObject detailViewParent;
         [SerializeField] private DetailView oldItem;
         [SerializeField] private DetailView newItem;
+        [SerializeField] private Button leaveDetailedView;
         [SerializeField] private Button confirmUpgrade;
         [SerializeField] private TextMeshProUGUI newItemCost;
 
-        [FormerlySerializedAs("itemPrefab")]
         [Header("Prefabs")] 
         [SerializeField] private BlacksmithSkill skillPrefab;
+        
+        // Internals
+        private UpgradableSkill currentSkills;
+        private List<BlacksmithSkill> blacksmithSkills = new List<BlacksmithSkill>();
 
-        public void Init(int money, List<BaseSkill> skills, Action<BaseSkill> seeDetails)
+        public void Init(int money, List<UpgradableSkill> skills, BlacksmithStoreController blacksmithStoreController)
         {
             playerMoney.text = money.ToString();
-            LoadItems(skills, seeDetails);
+            controller = blacksmithStoreController;
+            LoadSkills(skills);
         }
-
+        
         /// <summary>
         /// Updates the playerMoney text to match the playerBalance.
         /// </summary>
@@ -44,37 +50,62 @@ namespace Hub.Blacksmith
             playerMoney.text = playerBalance+"G";
         }
 
-        /// <summary>
-        /// Instantiates the given skill
-        /// </summary>
-        /// <param name="skills">The skill</param>
-        /// <param name="seeDetails">If the item is clicked on, open the detail view</param>
-        private void LoadItems(List<BaseSkill> skills, Action<BaseSkill> seeDetails)
+        #region Skills
+        
+        private void ShowSkillCost(bool showCost)
         {
-            foreach (BaseSkill skill in skills)
+            foreach (BlacksmithSkill skill in blacksmithSkills)
             {
-                BlacksmithSkill blacksmithSkill=Instantiate(skillPrefab, itemParent);
-                blacksmithSkill.Init(skill,seeDetails);
+                skill.ShowCost(showCost);
             }
         }
 
+        public void ConfirmSkillUpgrade()
+        {
+            controller.ConfirmSkillUpgrade();
+            
+        }
+
+        #endregion
+
+        #region Detail View
+
+        public void ToggleDetailView(UpgradableSkill skill)
+        {
+            if (currentSkills.newSkill != skill.newSkill)
+            {
+                currentSkills = skill;
+                controller.currentSkill = skill;
+
+                OpenDetailView();
+                detailViewParent.SetActive(true);
+                ShowSkillCost(false);
+            }
+            else
+            {
+                detailViewParent.SetActive(false);
+                ShowSkillCost(true);
+            }
+        }
+        
         /// <summary>
         /// Open the detail view and set its info
         /// </summary>
-        /// <param name="oldBlacksmithSkill">The item potentially being upgraded.</param>
-        /// <param name="newBlacksmithSkill">The next version of the old item.</param>
-        /// <param name="playerBalance">How much money the player has.</param>
-        /// <param name="upgradeCost">How much the upgrade will cost.</param>
-        /// <param name="upgradeItem">Triggers upgrade logic if invoked.</param>
-        public void OpenDetailView(BaseSkill oldBlacksmithSkill, BaseSkill newBlacksmithSkill, int playerBalance,int upgradeCost, Action<BaseSkill,int> upgradeItem)
+        private void OpenDetailView()
         {
-            oldItem.SetItem(oldBlacksmithSkill);
-            newItem.SetItem(newBlacksmithSkill);
-            newItemCost.text = upgradeCost.ToString();
+            //Updates skill info
+            oldItem.SetItem(currentSkills.oldSkill);
+            newItem.SetItem(currentSkills.newSkill);
+            newItemCost.text = currentSkills.cost+"G";
+            
+            //If the player has enough money, they can upgrade the skill
+            confirmUpgrade.interactable=controller.GetPlayerBalance()>=currentSkills.cost;
+            
+            // Show the detail view
             detailViewParent.SetActive(true);
-
-            confirmUpgrade.interactable=playerBalance>=upgradeCost;
-            confirmUpgrade.onClick.AddListener(delegate { upgradeItem.Invoke(newBlacksmithSkill,upgradeCost); });
+            
+            //Hide each skill upgrade cost
+            ShowSkillCost(false);
         }
 
         /// <summary>
@@ -85,9 +116,49 @@ namespace Hub.Blacksmith
             detailViewParent.SetActive(false);
         }
 
+        #endregion
+
+        #region Instantiating Skills
+
+        /// <summary>
+        /// Instantiates the given skill
+        /// </summary>
+        /// <param name="skills">The skill</param>
+        private void LoadSkills(List<UpgradableSkill> skills)
+        {
+            ClearOldSkills();
+            foreach (UpgradableSkill skill in skills)
+            {
+                BlacksmithSkill blacksmithSkill=Instantiate(skillPrefab, skillParent);
+                blacksmithSkill.Init(skill,this);
+                blacksmithSkills.Add(blacksmithSkill);
+            }
+        }
+        
+        /// <summary>
+        /// Removes skills if present
+        /// </summary>
+        private void ClearOldSkills()
+        {
+            while(skillParent.transform.childCount != 0)
+            {
+                Destroy(skillParent.transform.GetChild(0).transform);
+            }
+        }
+
+        public void ReloadSkills(List<UpgradableSkill> skills)
+        {
+            ClearOldSkills();
+            LoadSkills(skills);
+        }
+
+        #endregion
+
         public void ToggleSort()
         {
             sortParent.SetActive(!sortParent.activeSelf);
         }
+        
+        
     }
 }

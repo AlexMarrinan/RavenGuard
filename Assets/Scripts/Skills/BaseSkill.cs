@@ -14,6 +14,8 @@ public class BaseSkill : BaseItem
     public string description;
     public Sprite menuIcon;
     public List<Sprite> skillIcons;
+
+    [Header("Skill Progression")] public SkillProgressionGroup progressionGroup;
     
     [Header("General Info")]
     public UnitClass unitClass;

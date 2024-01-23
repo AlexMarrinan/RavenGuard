@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Hub.Blacksmith
 {
@@ -11,16 +12,42 @@ namespace Hub.Blacksmith
     public class BlacksmithStoreModel:MonoBehaviour
     {
         public int playerBalance;
-        public List<BaseSkill> upgradableSkill;
+        [FormerlySerializedAs("upgradableSkill")] public List<SkillProgressionGroup> upgradableSkillGroups;
 
-        public void AddItem(BaseSkill skill)
+        public List<UpgradableSkill> GetUpgradableSkills()
         {
-            upgradableSkill.Add(skill);
+            List<UpgradableSkill> skills = new List<UpgradableSkill>();
+            foreach (SkillProgressionGroup skillGroup in upgradableSkillGroups)
+            {
+                //TODO: Integrate with save system to get the current skill index
+                int currentSkillIndex = 0;
+                
+                // Avoids putting skills in when the skill is maxed out
+                if (currentSkillIndex < skillGroup.skillProgression.Count)
+                {
+                    UpgradableSkill upgradableSkill = new UpgradableSkill();
+                    upgradableSkill.oldSkill = skillGroup.skillProgression[currentSkillIndex].skill;
+                    upgradableSkill.newSkill = skillGroup.skillProgression[currentSkillIndex+1].skill;
+                    upgradableSkill.cost = skillGroup.skillProgression[currentSkillIndex + 1].cost;
+                    skills.Add(upgradableSkill);
+                }
+            }
+
+            return skills;
         }
 
-        public void UpdatePlayerBalance(int deposit)
+        public List<UpgradableSkill> UpdateSkills(UpgradableSkill skill)
         {
-            playerBalance += deposit;
+            // TODO: Update skill index in save system
+            playerBalance -= skill.cost;
+            return GetUpgradableSkills();
         }
+    }
+
+    public struct UpgradableSkill
+    {
+        public int cost;
+        public BaseSkill oldSkill;
+        public BaseSkill newSkill;
     }
 }
