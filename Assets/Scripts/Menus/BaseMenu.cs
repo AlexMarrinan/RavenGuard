@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -63,7 +62,7 @@ public class BaseMenu : MonoBehaviour
         return buttons[buttonIndex];
     }
     public virtual void Reset(){
-        buttonIndex = 1;
+        buttonIndex = 0;
         SetHighlight();
     }
     protected void SetHighlight(){
