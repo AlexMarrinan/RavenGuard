@@ -89,12 +89,13 @@ public class InputManager : MonoBehaviour
     }
     private void OnMoveMenuPerformed(InputAction.CallbackContext context)
     {
-        if (MenuManager.instance.unitStatsMenu.enabled && !MenuManager.instance.InMenu()){
+        if (MenuManager.instance.unitStatsMenu.gameObject.activeSelf
+         && !MenuManager.instance.InMenu()){
+            if (MenuManager.instance.otherUnitStatsMenu.gameObject.activeSelf){
+                return;
+            }
             Debug.Log("Moving menu...");
             MenuManager.instance.unitStatsMenu.Move(context.ReadValue<Vector2>());
-            if (MenuManager.instance.otherUnitStatsMenu.enabled && !MenuManager.instance.InMenu()){
-                MenuManager.instance.otherUnitStatsMenu.Move(context.ReadValue<Vector2>());
-            }
         }
         else { //if (MenuManager.instance.InMenu()){
             moveVector = context.ReadValue<Vector2>();

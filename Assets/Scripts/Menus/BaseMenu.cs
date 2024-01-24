@@ -67,6 +67,7 @@ public class BaseMenu : MonoBehaviour
         SetHighlight();
     }
     protected void SetHighlight(){
+        EnableHighlight(true);
         if (menuDirection == MenuDirection.Flex){
             buttons.ForEach(b => b.SetHighlight(false));
             //buttons.ForEach(b => b.bgimage.color = new Color(255, 255, 255));
@@ -76,6 +77,16 @@ public class BaseMenu : MonoBehaviour
         }else{
             highlighImage.transform.position = GetCurrentButton().transform.position;
         }
+    }
+    public void EnableHighlight(bool enable=true){
+        if (menuDirection == MenuDirection.Flex){
+            buttons.ForEach(b => b.SetHighlight(false));
+            //buttons.ForEach(b => b.bgimage.color = new Color(255, 255, 255));
+            Debug.Log(buttons[buttonIndex]);
+            buttons[buttonIndex].SetHighlight(enable);
+        }else{
+            highlighImage.gameObject.SetActive(enable);
+        }    
     }
     public virtual void Select(){
 
