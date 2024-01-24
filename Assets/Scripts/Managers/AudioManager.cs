@@ -85,21 +85,21 @@ public class AudioManager : MonoBehaviour
     {
         Debug.Log("Melee sound played");
         source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
-        source.PlayOneShot(meleeClips[UnityEngine.Random.Range(0, meleeClips.Count)], 0.75f);
+        source.PlayOneShot(meleeClips[UnityEngine.Random.Range(0, meleeClips.Count)], 0.75f * audioVolume);
     }
 
     internal void PlayArcher()
     {
         Debug.Log("Arrow sound played");
         source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
-        source.PlayOneShot(arrowClips[UnityEngine.Random.Range(0, arrowClips.Count)], 0.75f);
+        source.PlayOneShot(arrowClips[UnityEngine.Random.Range(0, arrowClips.Count)], 0.75f * audioVolume);
     }
 
     internal void PlayMagic()
     {
          Debug.Log("Magic sound played");
         source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
-        source.PlayOneShot(magicClips[UnityEngine.Random.Range(0, magicClips.Count)], 0.75f);
+        source.PlayOneShot(magicClips[UnityEngine.Random.Range(0, magicClips.Count)], 0.75f * audioVolume);
     }
 
 
