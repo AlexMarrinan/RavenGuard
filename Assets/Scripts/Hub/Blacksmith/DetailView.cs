@@ -1,48 +1,75 @@
+using Hub.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Hub.Blacksmith
 {
-    /// <summary>
-    /// A detailed view of an item
-    /// </summary>
     public class DetailView:MonoBehaviour
     {
-        private BaseSkill skillData;
-        
-        // References
-        [SerializeField] private Image skillIcon;
-        [SerializeField] private TextMeshProUGUI skillName;
-        [SerializeField] private TextMeshProUGUI skillDesc;
-        [SerializeField] private Image skillIconPrefab;
-        [SerializeField] private Transform skillIconParent;
-        
-        /// <summary>
-        /// Loads the item's information into references
-        /// </summary>
-        /// <param name="skill"></param>
-        public void SetItem(BaseSkill skill)
+        [SerializeField] private GameObject windowParent;
+        [SerializeField] private DetailViewWindow oldView;
+        [SerializeField] private DetailViewWindow newView;
+        [SerializeField] private TextMeshProUGUI skillCost;
+        [SerializeField] private Button confirmUpgradeButton;
+        [SerializeField] private Button backButton;
+
+        private BlacksmithStoreView view;
+        private BlacksmithStoreController controller;
+        private UpgradableSkill currentSkills;
+
+        public void Init(BlacksmithStoreController blacksmithStoreController,BlacksmithStoreView blacksmithStoreView)
         {
-            ClearOldInfo();
-            skillData = skill;
-            skillName.text = skillData.skillName;
-            skillDesc.text = skillData.description;
-            skillIcon.sprite = skillData.menuIcon;
-            foreach (Sprite sprite in skillData.skillIcons)
+            controller = blacksmithStoreController;
+            view = blacksmithStoreView;
+            ResetCurrentSkill();
+            confirmUpgradeButton.onClick.AddListener(delegate { view.ConfirmSkillUpgrade(currentSkills); });
+            backButton.onClick.AddListener(delegate { HideDetailView(); });
+        }
+        
+        public void ToggleDetailView(UpgradableSkill skill)
+        {
+            if ( skill != null && currentSkills != skill)
             {
-                skillIconPrefab.sprite = sprite;
-                Instantiate(skillIconPrefab,skillIconParent);
+                currentSkills = skill;
+                ShowDetailView();
+            }
+            else
+            {
+                HideDetailView();
             }
         }
 
-        private void ClearOldInfo()
+        public void ResetCurrentSkill()
         {
-            while( skillIconParent.transform.childCount != 0)
-            {
-                Destroy(skillIconParent.transform.GetChild(0).transform);
-            }
+            currentSkills = null;
+        }
+        
+        /// <summary>
+        /// Open the detail view and set its info
+        /// </summary>
+        private void ShowDetailView()
+        {
+            //Updates skill info
+            oldView.SetItem(currentSkills.oldSkill);
+            newView.SetItem(currentSkills.newSkill);
+            skillCost.text = currentSkills.cost+"G";
+            
+            //If the player has enough money, they can upgrade the skill
+            confirmUpgradeButton.interactable=controller.GetPlayerBalance()>=currentSkills.cost;
+            
+            // Show the detail view
+            windowParent.SetActive(true);
+        }
+
+        /// <summary>
+        /// Hides the detail view
+        /// </summary>
+        public void HideDetailView()
+        {
+            print("HideDetailView()");
+            ResetCurrentSkill();
+            windowParent.SetActive(false);
         }
     }
 }

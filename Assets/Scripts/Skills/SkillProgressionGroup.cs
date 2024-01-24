@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -10,6 +11,7 @@ using UnityEngine;
 public class SkillProgressionGroup : ScriptableObject
 {
     public List<SkillCost> skillProgression;
+    public int index { get; private set; }
 
     public void SetReferences()
     {
@@ -17,6 +19,19 @@ public class SkillProgressionGroup : ScriptableObject
         {
             skillCost.skill.progressionGroup = this;
         }
+    }
+
+    public bool ContainsSkill(BaseSkill skill)
+    {
+        foreach (SkillCost skillCost in skillProgression)
+        {
+            if (skill == skillCost.skill)
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
 

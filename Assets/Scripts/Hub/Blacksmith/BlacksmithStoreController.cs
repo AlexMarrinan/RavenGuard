@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Hub.UI;
 using UnityEngine;
 
@@ -12,9 +13,6 @@ namespace Hub.Blacksmith
         [SerializeField] private BlacksmithStoreModel model;
         [SerializeField] private BlacksmithStoreView view;
 
-        public UpgradableSkill currentSkill;
-        private Action<BaseSkill> seeDetails;
-
         private void Awake()
         {
             view.Init(model.playerBalance, model.GetUpgradableSkills(), this);
@@ -23,15 +21,15 @@ namespace Hub.Blacksmith
         /// <summary>
         /// Confirm skill upgrade
         /// </summary>
-        public void ConfirmSkillUpgrade()
+        /// <param name="upgradableSkill"></param>
+        public UpgradableSkill ConfirmSkillUpgrade(UpgradableSkill upgradableSkill)
         {
-            print("ConfirmSkillUpgrade()");
-            if (currentSkill.newSkill != null)
+            if (upgradableSkill.newSkill != null)
             {
-                print("New skill");
-                model.UpdateSkills(currentSkill);
-                view.UpdatePlayerBalance(model.playerBalance);
+                return model.UpdateSkills(upgradableSkill);
             }
+
+            return null;
         }
 
         public int GetPlayerBalance()
