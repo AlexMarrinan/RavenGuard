@@ -518,6 +518,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b743370ac3e4ec2a1668f5455a8ef8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &796204403 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 855513943946683803, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
+  m_PrefabInstance: {fileID: 1211546966739769143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &840023437
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +742,7 @@ MonoBehaviour:
   - progressionGroup: {fileID: 11400000, guid: 9ef3d6bb290276b48aa1291ae176c69b, type: 2}
     index: 0
   - progressionGroup: {fileID: 11400000, guid: 233ffb0601a62a14684e49bd9d6c5ea1, type: 2}
-    index: 0
+    index: 1
   upgradableSkills: []
 --- !u!114 &1105881528
 MonoBehaviour:
@@ -747,6 +758,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: {fileID: 1105881527}
   view: {fileID: 567063869}
+--- !u!114 &1172924536 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3054991308805715227, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
+  m_PrefabInstance: {fileID: 1211546966739769143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1352647077 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5237791432499862656, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
@@ -768,6 +790,9 @@ MonoBehaviour:
   rarityDropdown: {fileID: 2027384842}
   skillType: {fileID: 731896559}
   skillRestrictions: {fileID: 697905801}
+  sortByCost: {fileID: 1849847916}
+  sortByRarity: {fileID: 796204403}
+  sortByRank: {fileID: 1172924536}
 --- !u!1 &1806812738
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,6 +898,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1849847916 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6035019705441699684, guid: 2652409d3c627a248aeac082c872cff7, type: 3}
+  m_PrefabInstance: {fileID: 1211546966739769143}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2027384842 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3388092272753882229, guid: 2652409d3c627a248aeac082c872cff7, type: 3}

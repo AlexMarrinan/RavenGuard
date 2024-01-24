@@ -47,7 +47,7 @@ namespace Hub.Blacksmith
             {
                 BaseSkill currentSkill= skillCosts[currentSkillIndex].skill;
                 SkillCost newSkill = skillGroup.skillProgression[currentSkillIndex + 1];
-                return new UpgradableSkill(newSkill.cost,currentSkill,newSkill.skill);
+                return new UpgradableSkill(newSkill.cost,currentSkillIndex + 1,currentSkill,newSkill.skill);
             }
 
             return null;
@@ -113,7 +113,7 @@ namespace Hub.Blacksmith
             {
                 BaseSkill currentSkill = skillProgression.GetCurrentSkillCost().skill;
                 SkillCost skillCost = skillProgression.GetNextSkillCost();
-                return new UpgradableSkill(skillCost.cost, currentSkill, skillCost.skill);
+                return new UpgradableSkill(skillCost.cost,skillProgression.index, currentSkill, skillCost.skill);
             }
             RemoveSkill(skillProgression);
             return null;

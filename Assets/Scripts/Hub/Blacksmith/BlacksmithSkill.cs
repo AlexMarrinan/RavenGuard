@@ -10,6 +10,8 @@ namespace Hub.Blacksmith
     {
         // Internal
         public BaseSkill skillData;
+        public int cost;
+        public int rank;
         private UpgradableSkill upgradableSkill;
         private BlacksmithStoreView view;
         
@@ -44,6 +46,8 @@ namespace Hub.Blacksmith
         {
             //Remembers what it is able to upgrade into and what it currently is
             upgradableSkill = skill;
+            cost = skill.cost;
+            rank = skill.rank;
             skillCost.text = skill.cost + "G";
             
             //The skill it currently is

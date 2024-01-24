@@ -11,14 +11,19 @@ namespace Hub.Blacksmith
         [SerializeField] private TMP_Dropdown rarityDropdown;
         [SerializeField] private TMP_Dropdown skillType;
         [SerializeField] private TMP_Dropdown skillRestrictions;
+        [SerializeField] private Button sortByCost;
+        [SerializeField] private Button sortByRarity;
+        [SerializeField] private Button sortByRank;
 
         private void Awake()
         {
             rarityDropdown.onValueChanged.AddListener(delegate(int arg0) { OnRarityChange(); });
             skillType.onValueChanged.AddListener(delegate(int arg0) { OnSkillTypeChange(); });
             skillRestrictions.onValueChanged.AddListener(delegate(int arg0) { OnSkillRestrictions(); });
+            sortByCost.onClick.AddListener(delegate { view.SortSkillsBy((SortBy.Cost)); });
+            sortByRank.onClick.AddListener(delegate { view.SortSkillsBy((SortBy.Rank)); });
+            sortByRarity.onClick.AddListener(delegate { view.SortSkillsBy((SortBy.Rarity)); });
         }
-
         private void OnRarityChange()
         {
             RarityFilter rarityValue=(RarityFilter) Enum.Parse(typeof(RarityFilter), rarityDropdown.captionText.text);
@@ -36,6 +41,13 @@ namespace Hub.Blacksmith
             SkillRestrictionsFilter filter=(SkillRestrictionsFilter)Enum.Parse(typeof(SkillRestrictionsFilter), skillRestrictions.captionText.text);
             view.FilterSkillRestrictions(filter);
         }
+    }
+
+    public enum SortBy
+    {
+        Cost,
+        Rarity,
+        Rank
     }
     
     public enum SkillRestrictionsFilter

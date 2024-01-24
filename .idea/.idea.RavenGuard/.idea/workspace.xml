@@ -5,28 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression 1.asset" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression 1.asset.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Active/SwitchAS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Active/SwitchAS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Active/WhirlwindAS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Active/WhirlwindAS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CleansePS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CleansePS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/AdrenalineBurstPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/AdrenalineBurstPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/CondensedFlowPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/CondensedFlowPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/PatiencePS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/PatiencePS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingAimPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingAimPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingJealousyPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingJealousyPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CrossfirePS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CrossfirePS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/HunkerDownPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/HunkerDownPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/PoisonArrowsPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/PoisonArrowsPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/RecoveryPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/RecoveryPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/WeakpointManipulationPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/WeakpointManipulationPS.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression 1.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression 1.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skills/BaseSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/BaseSkill.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skills/UpgradableSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/UpgradableSkill.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +22,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/7d303c2bf72cd4cec95665b89c457d265d2b8ef3ed6da17cd4f85587c2f9de7/System.Linq.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Operation Breadcrumbs/Assets/Game/Scripts/Player/PlayerInteractor.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/DialoguePlayback.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/PromptNode.cs" root0="FORCE_HIGHLIGHTING" />

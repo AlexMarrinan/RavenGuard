@@ -17,3 +17,5 @@ MonoBehaviour:
     cost: 0
   - skill: {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
     cost: 0
+  - skill: {fileID: 11400000, guid: 72da6607b66d99e498903293fe49d165, type: 2}
+    cost: 0

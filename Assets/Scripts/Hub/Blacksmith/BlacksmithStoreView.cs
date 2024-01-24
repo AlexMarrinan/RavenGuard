@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Hub.UI;
 using Skills;
 using TMPro;
@@ -124,7 +125,49 @@ namespace Hub.Blacksmith
             sortParent.SetActive(!sortParent.activeSelf);
         }
 
-        #region Filtration
+        #region Sorting & Filtration
+
+        public void SortSkillsBy(SortBy sortBy, bool isDescending = true)
+        {
+            if (sortBy == SortBy.Cost)
+            {
+                if (isDescending)
+                {
+                    blacksmithSkills=blacksmithSkills.OrderByDescending(skill => skill.cost).ToList();
+                }
+                else
+                {
+                    blacksmithSkills=blacksmithSkills.OrderBy(skill => skill.cost).ToList();
+                }
+            }else if (sortBy == SortBy.Rarity)
+            {
+                if (isDescending)
+                {
+                    blacksmithSkills=blacksmithSkills.OrderByDescending(skill => skill.skillData.rarity).ToList();
+                }
+                else
+                {
+                    blacksmithSkills=blacksmithSkills.OrderBy(skill => skill.skillData.rarity).ToList();
+                }
+            }else if (sortBy == SortBy.Rank)
+            {
+                if (isDescending)
+                {
+                    blacksmithSkills=blacksmithSkills.OrderByDescending(skill => skill.rank).ToList();
+                }
+                else
+                {
+                    blacksmithSkills=blacksmithSkills.OrderBy(skill => skill.rank).ToList();
+                }
+            }
+
+            for (int i = 0; i < blacksmithSkills.Count; i++)
+            {
+                blacksmithSkills[i].transform.SetSiblingIndex(i);
+            }
+        }
+        
+        
         public void FilterRarity(RarityFilter filter)
         {
             if (filter == RarityFilter.None)
