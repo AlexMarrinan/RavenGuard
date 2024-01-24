@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Hub.UI;
 using Skills;
@@ -109,11 +110,6 @@ namespace Hub.Blacksmith
 
         #endregion
 
-        public void ToggleSort()
-        {
-            sortParent.SetActive(!sortParent.activeSelf);
-        }
-
         /// <summary>
         /// Toggles the detail view on or off
         /// </summary>
@@ -122,5 +118,81 @@ namespace Hub.Blacksmith
         {
             detailView.ToggleDetailView(upgradableSkill);
         }
+        
+        public void ToggleSort()
+        {
+            sortParent.SetActive(!sortParent.activeSelf);
+        }
+
+        #region Filtration
+        public void FilterRarity(RarityFilter filter)
+        {
+            if (filter == RarityFilter.None)
+            {
+                FilterNone();
+            }
+            else
+            {
+                foreach (BlacksmithSkill blacksmithSkill in blacksmithSkills)
+                {
+                    if(blacksmithSkill.skillData.rarity != filter)
+                    {
+                        blacksmithSkill.gameObject.SetActive(false);
+                    }else
+                    {
+                        blacksmithSkill.gameObject.SetActive(true);
+                    }
+                }
+            }
+        }
+        
+        public void FilterSkillType(SkillTypeFilter filter)
+        {
+            if (filter == SkillTypeFilter.None)
+            {
+                FilterNone();
+            }else{
+                foreach (BlacksmithSkill blacksmithSkill in blacksmithSkills)
+                {
+                    if(blacksmithSkill.skillData.skillType != filter)
+                    {
+                        blacksmithSkill.gameObject.SetActive(false);
+                    }else
+                    {
+                        blacksmithSkill.gameObject.SetActive(true);
+                    }
+                }
+            }
+        }
+
+        public void FilterSkillRestrictions(SkillRestrictionsFilter filter)
+        {
+            if (filter == SkillRestrictionsFilter.None)
+            {
+                FilterNone();
+            }else{
+                foreach (BlacksmithSkill blacksmithSkill in blacksmithSkills)
+                {
+                    if(blacksmithSkill.skillData.skillRestrictions != filter)
+                    {
+                        blacksmithSkill.gameObject.SetActive(false);
+                    }else
+                    {
+                        blacksmithSkill.gameObject.SetActive(true);
+                    }
+                }
+            }
+        }
+
+        private void FilterNone()
+        {
+            foreach (BlacksmithSkill blacksmithSkill in blacksmithSkills)
+            {
+                blacksmithSkill.gameObject.SetActive(true);
+            }
+        }
+        #endregion
     }
+
+    
 }

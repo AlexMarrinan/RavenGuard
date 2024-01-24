@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
 using System.Reflection;
+using Hub.Blacksmith;
 
 public class BaseSkill : BaseItem
 {
@@ -14,6 +15,9 @@ public class BaseSkill : BaseItem
     public string description;
     public Sprite menuIcon;
     public List<Sprite> skillIcons;
+    public RarityFilter rarity;
+    public SkillTypeFilter skillType;
+    public SkillRestrictionsFilter skillRestrictions;
 
     [Header("Skill Progression")] public SkillProgressionGroup progressionGroup;
     

@@ -5,23 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage/Mage.yarn" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage/Mage.yarn.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression 1.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Progression Groups/Skill Progression 1.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith/Blacksmith.yarn" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith/Blacksmith.yarn.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Mage.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Mage.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/SpeakerPortraitHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/SpeakerPortraitHandler.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/TemporaryDialogueTrigger.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/TemporaryDialogueTrigger.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/ShopkeeperInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/CharacterInteractable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/ShopkeeperInteractable.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/CharacterInteractable.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Active/SwitchAS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Active/SwitchAS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Active/WhirlwindAS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Active/WhirlwindAS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CleansePS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CleansePS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/AdrenalineBurstPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/AdrenalineBurstPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/CondensedFlowPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/CondensedFlowPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/PatiencePS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/Combat/PatiencePS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingAimPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingAimPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingJealousyPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CripplingJealousyPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CrossfirePS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/CrossfirePS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/HunkerDownPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/HunkerDownPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/PoisonArrowsPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/PoisonArrowsPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/RecoveryPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/RecoveryPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/WeakpointManipulationPS.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Skills/Passive/WeakpointManipulationPS.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Skills/BaseSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/BaseSkill.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,27 +63,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;DialogueImplementation&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Sorting&&Filtration",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\tedon\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\tedon\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.8f1\Editor\Unity.exe" />

@@ -21,6 +21,10 @@ MonoBehaviour:
   - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  rarity: 0
+  skillType: 2
+  skillRestrictions: 0
+  progressionGroup: {fileID: 0}
   unitClass: 0
   weaponClass: 4
   centered: 0
