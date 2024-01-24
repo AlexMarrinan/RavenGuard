@@ -27,6 +27,13 @@ public class UnitStatsMenu : BaseMenu
     }
     public void SetUnit(BaseUnit unit){
         this.unit = unit;
+        this.buttonIndex = 1;
+        if (MenuManager.instance.otherUnitStatsMenu.gameObject.activeSelf){
+            MenuManager.instance.unitStatsMenu.EnableHighlight(false);
+            MenuManager.instance.otherUnitStatsMenu.EnableHighlight(false);
+        }else{
+            SetHighlight();
+        }
         DisplayUnit();
     }
 

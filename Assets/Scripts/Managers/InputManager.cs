@@ -19,7 +19,9 @@ public class InputManager : MonoBehaviour
         input = new CustomInput();
     }
     private void FixedUpdate() {
-        if (input.Player.Move.IsPressed() && CanMove()){
+        if ((input.Player.Move.IsPressed() || 
+            (input.Player.MoveMenu.IsPressed() && MenuManager.instance.InMenu())) 
+            && CanMove()){
             Move();
         }
         currentMoveFrameDelay--;
@@ -55,6 +57,9 @@ public class InputManager : MonoBehaviour
         input.Player.Move.performed += OnMovePerformed;
         input.Player.Move.canceled += OnMoveCanceled;
 
+        input.Player.MoveMenu.performed += OnMoveMenuPerformed;
+        input.Player.MoveMenu.canceled += OnMoveMenuCanceled;
+        
         input.Player.Select.performed += OnSelectPerformed;
         input.Player.Select.canceled += OnSelectCancled;
 
@@ -82,12 +87,36 @@ public class InputManager : MonoBehaviour
         input.Player.SkipTurn.performed += OnSkipTurnPerformed;
         input.Player.SkipTurn.canceled += OnSkipTurnCanceled;
     }
+    private void OnMoveMenuPerformed(InputAction.CallbackContext context)
+    {
+        if (MenuManager.instance.unitStatsMenu.gameObject.activeSelf
+         && !MenuManager.instance.InMenu()){
+            if (MenuManager.instance.otherUnitStatsMenu.gameObject.activeSelf){
+                return;
+            }
+            Debug.Log("Moving menu...");
+            MenuManager.instance.unitStatsMenu.Move(context.ReadValue<Vector2>());
+        }
+        else { //if (MenuManager.instance.InMenu()){
+            moveVector = context.ReadValue<Vector2>();
+            FixMoveVector();
+        }
+    }
+    private void OnMoveMenuCanceled(InputAction.CallbackContext context)
+    {
+        
+    }
+
+
 
     private void OnDisable() {
         input.Disable();
         input.Player.Move.performed -= OnMovePerformed;
         input.Player.Move.canceled -= OnMoveCanceled;
         
+        input.Player.MoveMenu.performed -= OnMoveMenuPerformed;
+        input.Player.MoveMenu.canceled -= OnMoveMenuCanceled;
+
         input.Player.Select.performed -= OnSelectPerformed;
         input.Player.Select.canceled -= OnSelectCancled;
 

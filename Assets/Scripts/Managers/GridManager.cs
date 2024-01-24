@@ -190,8 +190,6 @@ public class GridManager : MonoBehaviour
         TileEditorType type = pgb.GetTileType(x, y);
         return GetTileFromType(type);
     }
-
-
     private void SetGrassTileSprites(FloorTile ft){
         // int idx = GetBlendTileIndex(ft);
         // if (idx == -1){
