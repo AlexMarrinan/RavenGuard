@@ -15,7 +15,7 @@ namespace Hub.Blacksmith
 
         private void Awake()
         {
-            view.Init(model.playerBalance, model.GetUpgradableSkills(), this);
+            view.Init(model.playerBalance, model.LoadUpgradableSkills(), this);
         }
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace Hub.Blacksmith
         /// <param name="upgradableSkill"></param>
         public UpgradableSkill ConfirmSkillUpgrade(UpgradableSkill upgradableSkill)
         {
-            if (upgradableSkill.newSkill != null)
+            if (upgradableSkill.next != null)
             {
                 return model.UpdateSkills(upgradableSkill);
             }

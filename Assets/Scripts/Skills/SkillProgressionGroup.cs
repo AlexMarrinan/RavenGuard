@@ -36,7 +36,7 @@ public class SkillProgressionGroup : ScriptableObject
 }
 
 [Serializable]
-public struct SkillCost
+public class SkillCost
 {
     public BaseSkill skill;
     public int cost;

@@ -51,8 +51,8 @@ namespace Hub.Blacksmith
         private void ShowDetailView()
         {
             //Updates skill info
-            oldView.SetItem(currentSkills.oldSkill);
-            newView.SetItem(currentSkills.newSkill);
+            oldView.SetItem(currentSkills.current);
+            newView.SetItem(currentSkills.next);
             skillCost.text = currentSkills.cost+"G";
             
             //If the player has enough money, they can upgrade the skill

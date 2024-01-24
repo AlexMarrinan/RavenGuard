@@ -700,8 +700,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBalance: 100
-  skillProgressionGroups:
-  - {fileID: 11400000, guid: 9ef3d6bb290276b48aa1291ae176c69b, type: 2}
+  skillProgressionList:
+  - progressionGroup: {fileID: 11400000, guid: 9ef3d6bb290276b48aa1291ae176c69b, type: 2}
+    index: 0
   upgradableSkills: []
 --- !u!114 &1105881528
 MonoBehaviour:

@@ -51,7 +51,7 @@ namespace Hub.Blacksmith
             skillCost.text = skill.cost + "G";
             
             //The skill it currently is
-            skillData = skill.newSkill;
+            skillData = skill.next;
             skillName.text = skillData.skillName;
             skillIcon.sprite = skillData.menuIcon;
             skillCostParent.SetActive(true);

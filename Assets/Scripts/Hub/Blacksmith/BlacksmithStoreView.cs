@@ -53,13 +53,14 @@ namespace Hub.Blacksmith
             int money = controller.GetPlayerBalance();
             UpdatePlayerBalance(money);
             UpdateSkillGameObject(upgradableSkill,skill);
+            detailView.HideDetailView();
         }
 
         private void UpdateSkillGameObject(UpgradableSkill oldSkill,UpgradableSkill newSkill)
         {
             foreach (BlacksmithSkill blacksmithSkill in blacksmithSkills)
             {
-                if (blacksmithSkill.skillData == oldSkill.newSkill)
+                if (blacksmithSkill.skillData == oldSkill.next)
                 {
                     if (newSkill == null)
                     {
