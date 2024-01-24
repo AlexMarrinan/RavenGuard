@@ -5,18 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/SkillProgression.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/SkillProgression.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/UpgradableSkill.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Skills/UpgradableSkill.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage/Mage.yarn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage/Mage.yarn.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Temp Art/Fonts/MinimalPixelFont SDF.asset" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithSkill.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithSkill.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/DetailView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/DetailView.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/DetailViewWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/DetailViewWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith/Blacksmith.yarn" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Blacksmith/Blacksmith.yarn.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Mage.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Mage.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/SpeakerPortraitHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Portraits/SpeakerPortraitHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/TemporaryDialogueTrigger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/TemporaryDialogueTrigger.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/BlacksmithInteractable.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/ShopkeeperInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/CharacterInteractable.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/ShopkeeperInteractable.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/CharacterInteractable.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,8 +32,17 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Operation Breadcrumbs/Assets/Game/Scripts/Player/PlayerInteractor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/DialoguePlayback.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/Nodes/PromptNode.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Data/SpeakerData.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/EventDialogueManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/Tools/Inspector/SpeakerDataInspector.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/Interactable.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/StoreInteractable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@1ebd52fe24/Runtime/Commands/Actions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/dev.yarnspinner.unity@1ebd52fe24/Runtime/DialogueRunner.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -47,16 +61,14 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Discover.Launch.Via.Unity&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;BlacksmithUI&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;DialogueImplementation&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;rider.run.widget.enabled.cache&quot;: &quot;false&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
   &quot;keyToStringList&quot;: {
@@ -80,14 +92,6 @@
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.8f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\tedon\OneDrive\Documents\Coding\RavenGuard -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
       <option name="WORKING_DIRECTORY" value="C:\Users\tedon\OneDrive\Documents\Coding\RavenGuard" />
-      <option name="PASS_PARENT_ENVS" value="1" />
-      <option name="USE_EXTERNAL_CONSOLE" value="0" />
-      <method v="2" />
-    </configuration>
-    <configuration name="UnitTests (batch mode)" type="RunUnityExe" factoryName="Unity Executable">
-      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2021.3.8f1\Editor\Unity.exe" />
-      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\tedon\OneDrive\Documents\RavenGuard -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
-      <option name="WORKING_DIRECTORY" value="C:\Users\tedon\OneDrive\Documents\RavenGuard" />
       <option name="PASS_PARENT_ENVS" value="1" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
@@ -124,29 +128,15 @@
       <workItem from="1704928470045" duration="2084000" />
       <workItem from="1704931386982" duration="596000" />
       <workItem from="1705262917948" duration="992000" />
-      <workItem from="1705806492471" duration="10173000" />
-      <workItem from="1706026481137" duration="2052000" />
-      <workItem from="1706041719186" duration="18035000" />
+      <workItem from="1705444687683" duration="4597000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
-  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="Both" />
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
