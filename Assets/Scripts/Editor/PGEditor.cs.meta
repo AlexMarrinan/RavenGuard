@@ -14,8 +14,12 @@ MonoImporter:
   - small: {fileID: 2800000, guid: dcb430c45e6bdfe40bc522f2673c5a24, type: 3}
   - medium: {fileID: 2800000, guid: 61d1e341b2a0ba14cbec68857b62a68b, type: 3}
   - large: {fileID: 2800000, guid: a3cb0e4b6367a2e449b4cacaa470c7d2, type: 3}
-  - team1: {fileID: 2800000, guid: be0fc8b0d73e9054c9a5a28b0378d3aa, type: 3}
-  - team2: {fileID: 2800000, guid: a2d4230d723ec7546a813ce8e9bebb8e, type: 3}
+  - orange: {fileID: 2800000, guid: 02b2befe45e14a840a1272647ed84227, type: 3}
+  - orangeRanged: {fileID: 2800000, guid: e7427aeb3b1203e43adf57ac1f761f8f, type: 3}
+  - orangeMelee: {fileID: 2800000, guid: e3dfcb1f8203c174caa65ae1ad23e46d, type: 3}
+  - blue: {fileID: 2800000, guid: 0c8ebebbe69634b4e85b89beaa3a83c6, type: 3}
+  - blueRanged: {fileID: 2800000, guid: 70c4e61c2b10ee34fb2ea24c26c011d6, type: 3}
+  - blueMelee: {fileID: 2800000, guid: 1a25d9cc0f821144198008a87d119f5b, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

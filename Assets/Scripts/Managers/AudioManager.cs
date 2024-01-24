@@ -15,20 +15,22 @@ public class AudioManager : MonoBehaviour
     private List<AudioClip> grassClips, bridgeClips, meleeClips, arrowClips, magicClips; 
     [SerializeField]
     private AudioSource source;
+    [Range(0.0f, 1.0f)]
+    public float audioVolume = 1f;
     void Awake()
     {
-        Debug.Log("Audio awake");
+//        Debug.Log("Audio awake");
         instance = this;
     }
     private void PlaySound(AudioClip clip){
-        PlaySound(clip, 0.75f);
+        PlaySound(clip, 0.75f * audioVolume);
     }
     private void PlaySound(AudioClip clip, float pitch){
         source.pitch = 1.0f;
         source.PlayOneShot(clip, pitch);
     }
     public void PlayConfirm(){
-        PlaySound(confirmSound, 0.55f);
+        PlaySound(confirmSound, 0.55f * audioVolume);
     }
     public void PlaySelect(){
         PlaySound(selectSound);

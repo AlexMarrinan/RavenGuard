@@ -33,7 +33,7 @@ public class Array2D<T> {
     }
     public void Rotate()
     {   
-//        Debug.Log("Rotated");
+        //Debug.Log("Rotated");
         var newGrid = new T[grid.Length];
         
         for (int x = 0; x < width; x++) {
@@ -53,7 +53,7 @@ public class Array2D<T> {
 
     public void FlipX()
     {   
-    //    Debug.Log("X Flipped");
+        //Debug.Log("X Flipped");
         var newGrid = new T[grid.Length];
 
         for (int x = 0; x < width; x++) {
@@ -70,7 +70,7 @@ public class Array2D<T> {
 
     public void FlipY()
     {
-    //    Debug.Log("Y Flipped");
+        //Debug.Log("Y Flipped");
         var newGrid = new T[grid.Length];
 
         for (int x = 0; x < width; x++) {

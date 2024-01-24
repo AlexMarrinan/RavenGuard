@@ -9,12 +9,14 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 [CustomEditor(typeof(PGBase))]
-public class PGEditor : Editor {
+public class PGEditor : UnityEditor.Editor {
     //public DropdownField tileTypeField;
     private int drawLayerIndex = 0, tileTypeIndex = 0, layerSizeIndex = 0, teamSpanwIndex = 0;
     public VisualTreeAsset inspectorXML;
     public VisualElement myInspector;
-    public Texture2D grass, water, forest, mountain, bridge, none, small, medium, large, team1, team2;
+    public Texture2D grass, water, forest, mountain, bridge, none, small, medium, large;
+    public Texture2D orange, orangeRanged, orangeMelee; 
+    public Texture2D blue, blueRanged, blueMelee; 
     public Dictionary<(TileEditorType, LayerSize), Texture2D> layerSizeTextures;
     public Dictionary<(TileEditorType, SpawnFaction), Texture2D> spawnFactionTextures;
 
@@ -32,18 +34,14 @@ public class PGEditor : Editor {
             foreach (LayerSize layerSize in Enum.GetValues(typeof(LayerSize))){
                 Texture2D layerTexture = LayerSizeTexture(layerSize);
                 Texture2D newTexture = OverlapTexture(tileTexture, layerTexture);
-                Debug.Log(newTexture);
                 layerSizeTextures.Add((tileEditorType, layerSize), newTexture);
             }
             foreach (SpawnFaction faction in Enum.GetValues(typeof(SpawnFaction))){
                 Texture2D factionTexture = SpawnFactionTexture(faction);
                 Texture2D newTexture = OverlapTexture(tileTexture, factionTexture);
-                Debug.Log(newTexture);
                 spawnFactionTextures.Add((tileEditorType, faction), newTexture);
             }
         }
-        Debug.Log(spawnFactionTextures.Count);
-        Debug.Log(layerSizeTextures.Count);
     }
     private Texture2D TileTypeTexture(TileEditorType tileEditorType){
         switch (tileEditorType){
@@ -76,7 +74,7 @@ public class PGEditor : Editor {
         DrawDefaultInspector();
         GUILayout.BeginHorizontal();
         GUILayout.Label("Draw Layer:");
-        drawLayerIndex = EditorGUILayout.Popup(drawLayerIndex, Enum.GetNames(typeof(PGDrawLayer)));
+        drawLayerIndex = EditorGUILayout.Popup(drawLayerIndex, Enum.GetNames(typeof(LEDrawLayer)));
         GUILayout.EndHorizontal();
 
         switch(drawLayerIndex){
@@ -84,18 +82,9 @@ public class PGEditor : Editor {
                 DrawStandard(b);
                 break;
             case 1:
-                DrawLayer(b, b.riverArray);
+                DrawChests(b);
                 break;
             case 2:
-                DrawLayer(b, b.pondArray);
-                break;
-            case 3:
-                DrawLayer(b, b.forestArray);
-                break;
-            case 4:
-                DrawLayer(b, b.mountainArray);
-                break;
-            case 5:
                 DrawSpawn(b);
                 break;
             default:
@@ -129,13 +118,13 @@ public class PGEditor : Editor {
         }
     }
 
-    private void DrawLayer(PGBase b, Array2D<LayerSize> array)
+    private void DrawChests(PGBase b)
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Layer Size:");
         layerSizeIndex = EditorGUILayout.Popup(layerSizeIndex, Enum.GetNames(typeof(LayerSize)));
         GUILayout.EndHorizontal();
-
+        var array = b.chestArray;
         for (int y = 0; y < array.Height; y++){
             GUILayout.EndHorizontal();
             GUILayout.BeginHorizontal();
@@ -165,10 +154,18 @@ public class PGEditor : Editor {
         {
             case SpawnFaction.None:
                 return none;
-            case SpawnFaction.Team1:
-                return team1;
-            case SpawnFaction.Team2:
-                return team2;
+            case SpawnFaction.BlueMelee:
+                return blueMelee;
+            case SpawnFaction.BlueRanged:
+                return blueRanged;
+            case SpawnFaction.BlueEither:
+                return blue;
+            case SpawnFaction.OrangeMelee:
+                return orangeMelee;
+            case SpawnFaction.OrangeRanged:
+                return orangeRanged;
+            case SpawnFaction.OrangeEither:
+                return orange;
         }
         return null;;
     }

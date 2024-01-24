@@ -23,14 +23,12 @@ public class UnitManager : MonoBehaviour
         team1heros = 0 == Random.Range(0, 2);
         var heroCount = 5;
         for (int i = 0; i < heroCount; i++){
-            var randomPrefab = GetRandomUnit(UnitFaction.Hero);
+            var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
+            var randomPrefab = GetRandomUnit(UnitFaction.Hero, randomSpawnTile.Item2);
             var spawnedHero = Instantiate(randomPrefab);
             units.Add(spawnedHero);
-            var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
-            randomSpawnTile.SetUnitStart(spawnedHero);
+            randomSpawnTile.Item1.SetUnitStart(spawnedHero);
             spawnedHero.SetSkillMethods();
-            //TODO: REMOVE AFTER PROVING LINE SHOWS UP
-            //PathLine.instance.AddTile(randomSpawnTile);
         }
         GameManager.instance.ChangeState(GameState.SpawnEnemies);
     }
@@ -38,18 +36,26 @@ public class UnitManager : MonoBehaviour
     public void SpawnEnemies(){
         var enemyCount = 5;
         for (int i = 0; i < enemyCount; i++){
-            var randomPrefab = GetRandomUnit(UnitFaction.Enemy);
+            var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
+            var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
             var spawnedEnemy = Instantiate(randomPrefab);
             units.Add(spawnedEnemy);
-            var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
-            randomSpawnTile.SetUnitStart(spawnedEnemy);
+            randomSpawnTile.Item1.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
         }
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
-    private BaseUnit GetRandomUnit(UnitFaction faction){
+    private BaseUnit GetRandomUnit(UnitFaction faction, UnitSpawnType spawnType)
+    {
         var units = unitPrefabs.OrderBy(o => Random.value);
         var unit = units.First().unitPrefab;
+        if (spawnType == UnitSpawnType.Ranged){
+            unit = units.Where(u => u.unitPrefab is RangedUnit).First().unitPrefab;
+        }else if (spawnType == UnitSpawnType.Melee){
+            unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
+        }
+
+        //TODO: MAKE AI USE RANGED UNITS TOO
         if (faction == UnitFaction.Enemy){
             unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
         }
