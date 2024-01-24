@@ -1,10 +1,13 @@
-using Hub.UI;
+using Skills;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Hub.Blacksmith
 {
+    /// <summary>
+    /// Manages the Blacksmith's detail windows
+    /// </summary>
     public class DetailView:MonoBehaviour
     {
         [SerializeField] private GameObject windowParent;
@@ -27,6 +30,10 @@ namespace Hub.Blacksmith
             backButton.onClick.AddListener(delegate { HideDetailView(); });
         }
         
+        /// <summary>
+        /// Toggles the detail view on and off and updates the skill info
+        /// </summary>
+        /// <param name="skill">The skill being shown</param>
         public void ToggleDetailView(UpgradableSkill skill)
         {
             if ( skill != null && currentSkills != skill)
@@ -67,7 +74,6 @@ namespace Hub.Blacksmith
         /// </summary>
         public void HideDetailView()
         {
-            print("HideDetailView()");
             ResetCurrentSkill();
             windowParent.SetActive(false);
         }

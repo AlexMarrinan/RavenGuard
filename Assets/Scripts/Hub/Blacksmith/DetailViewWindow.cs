@@ -34,6 +34,10 @@ namespace Hub.Blacksmith
             SetIcons();
         }
 
+        /// <summary>
+        /// Set the prefab's icon images
+        /// Instantiation is too expensive
+        /// </summary>
         void SetIcons()
         {
             for (int i = 0; i < skillMiniIcon.Count; i++)

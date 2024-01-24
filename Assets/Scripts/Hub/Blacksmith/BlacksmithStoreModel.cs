@@ -1,9 +1,6 @@
-using System;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using Skills;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 namespace Hub.Blacksmith
 {
@@ -35,6 +32,12 @@ namespace Hub.Blacksmith
             return skills;
         }
         
+        /// <summary>
+        /// Get the UpgradableSkill from the skillProgressionGroup at the given skillIndex
+        /// </summary>
+        /// <param name="skillGroup">The skill group with the needed skill</param>
+        /// <param name="currentSkillIndex">The index of the current skill</param>
+        /// <returns>The next skill in the progression, or null if one does not exist</returns>
         private UpgradableSkill GetUpgradableSkill(SkillProgressionGroup skillGroup, int currentSkillIndex)
         {
             List<SkillCost> skillCosts = skillGroup.skillProgression;
@@ -44,7 +47,6 @@ namespace Hub.Blacksmith
             {
                 BaseSkill currentSkill= skillCosts[currentSkillIndex].skill;
                 SkillCost newSkill = skillGroup.skillProgression[currentSkillIndex + 1];
-                print(newSkill.skill.skillName);
                 return new UpgradableSkill(newSkill.cost,currentSkill,newSkill.skill);
             }
 
@@ -53,6 +55,11 @@ namespace Hub.Blacksmith
 
         #endregion
 
+        /// <summary>
+        /// Gets the skillProgression element that holds the given skill
+        /// </summary>
+        /// <param name="skill"></param>
+        /// <returns></returns>
         private SkillProgression GetSkillProgression(UpgradableSkill skill)
         {
             foreach (SkillProgression skillProgression in skillProgressionList)
@@ -66,6 +73,11 @@ namespace Hub.Blacksmith
             return null;
         }
 
+        /// <summary>
+        /// Updates the skills
+        /// </summary>
+        /// <param name="skill">The skill being upgraded</param>
+        /// <returns>Return the upgraded skill</returns>
         public UpgradableSkill UpdateSkills(UpgradableSkill skill)
         {
             SkillProgression progression = GetSkillProgression(skill);
@@ -77,6 +89,11 @@ namespace Hub.Blacksmith
             UpgradableSkill nextSkill=GetNextUpgradableSkill(progression);
             return nextSkill;
         }
+        
+        /// <summary>
+        /// Removes the given skillProgression from the list
+        /// </summary>
+        /// <param name="progression">The skillProgression being removed</param>
 
         private void RemoveSkill(SkillProgression progression)
         {
@@ -91,72 +108,17 @@ namespace Hub.Blacksmith
         /// <returns></returns>
         private UpgradableSkill GetNextUpgradableSkill(SkillProgression skillProgression)
         {
-            BaseSkill currentSkill = skillProgression.progressionGroup.skillProgression[skillProgression.index].skill;
-            SkillCost skillCost = GetNextSkillCost(skillProgression);
-            if (skillCost != null) return new UpgradableSkill(skillCost.cost, currentSkill, skillCost.skill);
+            skillProgression.index++;
+            if (skillProgression.CanProgress())
+            {
+                BaseSkill currentSkill = skillProgression.GetCurrentSkillCost().skill;
+                SkillCost skillCost = skillProgression.GetNextSkillCost();
+                return new UpgradableSkill(skillCost.cost, currentSkill, skillCost.skill);
+            }
             RemoveSkill(skillProgression);
             return null;
         }
-
-        /// <summary>
-        /// Gets the next skill and its cost in the given progression
-        /// </summary>
-        /// <param name="progression"></param>
-        /// <returns></returns>
-        private SkillCost GetNextSkillCost(SkillProgression progression)
-        {
-            int nextSkillIndex = progression.index+2;
-            List<SkillCost> skillCosts = progression.progressionGroup.skillProgression;
-            if (skillCosts.Count != nextSkillIndex)
-            {
-                // TODO: Update skill index in save system
-                progression.index++;
-                return skillCosts[progression.index+1];
-            }
-            return null;
-        }
-        /*
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="progression"></param>
-        /// <param name="skill"></param>
-        /// <returns></returns>
-        private UpgradableSkill AddNextSkill(SkillProgression progression, UpgradableSkill skill)
-        {
-            BaseSkill oldSkill = skill.next;
-            upgradableSkills.Remove(skill);
-            SkillProgressionGroup progressionGroup = progression.progressionGroup;
-            progression.index++;
-            if (progression.index == progressionGroup.skillProgression.Count) return null;
-
-            SkillCost newSkill = progressionGroup.skillProgression[progression.index];
-            UpgradableSkill upgradableSkill = new UpgradableSkill(newSkill.cost,oldSkill,newSkill.skill);
-            upgradableSkills.Add(upgradableSkill);
-            return upgradableSkill;
-        }*/
-    }
-
-    [Serializable]
-    public class SkillProgression
-    {
-        public SkillProgressionGroup progressionGroup;
-        public int index;
-    }
-
-    [Serializable]
-    public class UpgradableSkill
-    {
-        public int cost;
-        public BaseSkill current;
-        public BaseSkill next;
-
-        public UpgradableSkill(int cost, BaseSkill current, BaseSkill next)
-        {
-            this.cost = cost;
-            this.current = current;
-            this.next = next;
-        }
+        
+        
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Hub.UI;
+using Skills;
 using TMPro;
 using UnityEngine;
 
@@ -56,6 +57,11 @@ namespace Hub.Blacksmith
             detailView.HideDetailView();
         }
 
+        /// <summary>
+        /// Updates the oldSkill game object with the newSkill's information. If newSkill is null, destroy the game object
+        /// </summary>
+        /// <param name="oldSkill">The skill being replaced</param>
+        /// <param name="newSkill">The skill replacing the oldSkill</param>
         private void UpdateSkillGameObject(UpgradableSkill oldSkill,UpgradableSkill newSkill)
         {
             foreach (BlacksmithSkill blacksmithSkill in blacksmithSkills)
@@ -108,7 +114,10 @@ namespace Hub.Blacksmith
             sortParent.SetActive(!sortParent.activeSelf);
         }
 
-
+        /// <summary>
+        /// Toggles the detail view on or off
+        /// </summary>
+        /// <param name="upgradableSkill">Skill that could be shown in detail view</param>
         public void ToggleDetailView(UpgradableSkill upgradableSkill)
         {
             detailView.ToggleDetailView(upgradableSkill);

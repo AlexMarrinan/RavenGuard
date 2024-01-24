@@ -1,11 +1,8 @@
-using System;
 using System.Collections.Generic;
+using Skills;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
-using Debug = System.Diagnostics.Debug;
 
 namespace Hub.Blacksmith
 {
@@ -21,7 +18,6 @@ namespace Hub.Blacksmith
         [SerializeField] private Image skillIcon;
         [SerializeField] private TextMeshProUGUI skillName;
         [SerializeField] private TextMeshProUGUI skillCost;
-        [SerializeField] private Transform skillIconParent;
         [SerializeField] private GameObject skillCostParent;
         [SerializeField] private List<Image> skillMiniIcon;
 
@@ -58,12 +54,11 @@ namespace Hub.Blacksmith
             
             SetIcons();
         }
-
-        public void ShowCost(bool showCost)
-        {
-            skillCostParent.SetActive(showCost);
-        }
         
+        /// <summary>
+        /// Set the prefab's icon images
+        /// Instantiation is too expensive
+        /// </summary>
         void SetIcons()
         {
             for (int i = 0; i < skillMiniIcon.Count; i++)
