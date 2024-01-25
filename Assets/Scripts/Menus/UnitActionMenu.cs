@@ -28,22 +28,23 @@ public class UnitActionMenu : BaseMenu
         BaseSkill skill = u.GetBoringSkill();
         if (skill == null)
         {
-            buttons[1].image.sprite = noSkillSprite;
-            buttons[1].bonusText = "";
+            buttons[3].image.sprite = noSkillSprite;
+            buttons[3].bonusText = "";
         }
         else
         {
-            buttons[1].image.sprite = skill.sprite;
-            buttons[1].bonusText = ": " + skill.skillName;
+            buttons[3].image.sprite = skill.sprite;
+            buttons[3].bonusText = ": " + skill.skillName;
         }
-        SetSkill(u, 1);
-        SetSkill(u, 2);
-        SetSkill(u, 3);
+        SetSkill(u, 4);
+        SetSkill(u, 5);
+        SetSkill(u, 6);
     }
 
     private void SetSkill(BaseUnit u, int index)
     {
-        var skill = u.GetSkill(index-1);
+        Debug.Log("seting skill:" + index);
+        var skill = u.GetSkill(index-4);
         if (skill == null) {
             buttons[index].image.sprite = noSkillSprite;
             buttons[index].bonusText = "";
@@ -52,7 +53,7 @@ public class UnitActionMenu : BaseMenu
             skill.SetMethod();
             buttons[index].image.sprite = skill.sprite;
             buttons[index].bonusText = ": " + skill.skillName;
-            Image skillBG = skillBackgrounds[index-1];
+            Image skillBG = skillBackgrounds[index-4];
             if (skill is ActiveSkill){
                 skillBG.color = SkillManager.instance.activeSkillColor;
             }else{
@@ -68,10 +69,23 @@ public class UnitActionMenu : BaseMenu
         }
         if (buttonIndex >= 0){
             if (buttonIndex == 0){
+                //MOVE
+                MenuManager.instance.CloseMenus();
+                GridManager.instance.SelectHoveredTile();
+            }
+            else if (buttonIndex == 1){
+                //ATACK
+                u.FinishTurn();
+                MenuManager.instance.CloseMenus();
+            }else if (buttonIndex == 2){
+                //WAIT
+                u.FinishTurn();
+                MenuManager.instance.CloseMenus();
+            }else if (buttonIndex == 2){
                 u.FinishTurn();
                 MenuManager.instance.CloseMenus();
             }else{
-                var s = u.GetSkill(buttonIndex - 1);
+                var s = u.GetSkill(buttonIndex - 4);
                 if (s != null){
                     s.OnSelect(u);
                 }
@@ -79,6 +93,7 @@ public class UnitActionMenu : BaseMenu
         }
     }
     private void SetNameText(){
+        return;
         var b = GetCurrentButton();
         buttonNameText.text = b.buttonName + b.bonusText;
         if (buttonIndex > 0){
