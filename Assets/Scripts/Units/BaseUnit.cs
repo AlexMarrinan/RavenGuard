@@ -252,6 +252,7 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         if (faction == UnitFaction.Hero){
+            Debug.Log(uiDot);
             uiDot.SetColor(Color.cyan);
         }else{
             uiDot.SetColor(Color.red);

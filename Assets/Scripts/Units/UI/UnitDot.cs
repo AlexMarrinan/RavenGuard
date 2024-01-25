@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,10 +7,8 @@ using UnityEngine.UI;
 public class UnitDot : MonoBehaviour
 {
     public BaseUnit unit;
+    [SerializeField]
     private Image image;
-    public void Start(){
-        image = GetComponent<Image>();
-    }
     public void SetColor(Color color){
         image.color = color;
     }
