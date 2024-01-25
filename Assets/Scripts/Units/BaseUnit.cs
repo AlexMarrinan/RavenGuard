@@ -41,6 +41,7 @@ public class BaseUnit : MonoBehaviour
     public Dictionary<UnitStatType, int> duringCombatStats = new();
     [SerializeField]
     private AudioSource audioSource;
+    public UnitDot uiDot;
     void Start(){
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
@@ -240,9 +241,23 @@ public class BaseUnit : MonoBehaviour
     }
     public void ResetMovment(){
         InitializeFaction();
+        ResetUIDot();
         moveAmount = maxMoveAmount;
         hasMoved = false;
     }
+
+    private void ResetUIDot()
+    {
+        if (uiDot == null){
+            return;
+        }
+        if (faction == UnitFaction.Hero){
+            uiDot.SetColor(Color.cyan);
+        }else{
+            uiDot.SetColor(Color.red);
+        }
+    }
+
     public void FinishMovement(){
         // moveAmount = 0;
         Debug.Log("movment over");
@@ -258,6 +273,10 @@ public class BaseUnit : MonoBehaviour
     public void FinishTurn(){
         // moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        
+        if (uiDot != null){
+            uiDot.SetColor(new Color(1.0f, 1.0f, 1.0f));
+        }
 //        Debug.Log("turn over");
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
@@ -527,6 +546,14 @@ public class BaseUnit : MonoBehaviour
         audioSource.pitch = UnityEngine.Random.Range(0.6f, 1.4f);
         audioSource.PlayOneShot(audioClip, volume * AudioManager.instance.audioVolume);
         yield return null;
+    }
+
+    internal void HighlightDot()
+    {
+        if (uiDot == null){
+            return;
+        }
+        UnitManager.instance.HighlightDot(this.uiDot);
     }
 }
 

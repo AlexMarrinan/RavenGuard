@@ -55,6 +55,7 @@ public class MenuManager : MonoBehaviour
             if (UnitManager.instance.selectedUnit == null){
                 unitStatsMenu.gameObject.SetActive(true);
                 unitStatsMenu.SetUnit(tile.occupiedUnit);
+                tile.occupiedUnit.HighlightDot();
             }else if (tile.occupiedUnit.faction == UnitFaction.Enemy){
                 UnitManager.instance.selectedUnit.ResetCombatStats();
                 BattlePrediction bp = new BattlePrediction(UnitManager.instance.selectedUnit, tile.occupiedUnit);

@@ -10,6 +10,8 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> unitPrefabs;
     private List<BaseUnit> units;
     public BaseUnit selectedUnit;
+    public List<UnitDot> heroDots, enemyDots;
+    public GameObject heroDotHighlight, enemyDotHighlight;
     public float unitMoveSpeed = .1f;
     private bool team1heros = false;
     void Awake(){
@@ -29,6 +31,7 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedHero);
             randomSpawnTile.Item1.SetUnitStart(spawnedHero);
             spawnedHero.SetSkillMethods();
+            SetDot(spawnedHero, i, UnitFaction.Hero);
         }
         GameManager.instance.ChangeState(GameState.SpawnEnemies);
     }
@@ -42,6 +45,7 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedEnemy);
             randomSpawnTile.Item1.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
+            SetDot(spawnedEnemy, i, UnitFaction.Enemy);
         }
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
@@ -64,6 +68,9 @@ public class UnitManager : MonoBehaviour
     }
     public void DeleteUnit(BaseUnit unit){
         units.Remove(unit);
+        if (unit.uiDot != null){
+            unit.uiDot.SetColor(Color.gray);
+        }
         Object.Destroy(unit.healthBar.gameObject);
         Object.Destroy(unit.gameObject);
         if (GetAllEnemies().Count <= 0){
@@ -255,6 +262,21 @@ public class UnitManager : MonoBehaviour
         foreach (BaseUnit u in units){
             u.DecrementBuffs();
         }
-        
+    }
+
+    internal void SetDot(BaseUnit unit, int index, UnitFaction unitFaction)
+    {
+        if (unitFaction == UnitFaction.Hero){
+            unit.uiDot = heroDots[index];
+            heroDots[index].unit = unit;
+        }else{
+            unit.uiDot = enemyDots[index];
+            enemyDots[index].unit = unit;
+        }
+    }
+
+    internal void HighlightDot(UnitDot uiDot)
+    {
+        heroDotHighlight.transform.position = uiDot.transform.position;
     }
 }
