@@ -20,7 +20,7 @@ namespace Game.Dialogue
         
         // References
         [SerializeField] private DialogueRunner dialogueRunner;
-        private InMemoryVariableStorage variableStorage;
+        [SerializeField] private InMemoryVariableStorage variableStorage;
         
         [Header("Internal References")]
         [SerializeField] internal PortraitLineView portraitLineView;
@@ -99,7 +99,6 @@ namespace Game.Dialogue
         }
         #endregion
         
-        // TODO: (OB-339) Replace later with permanent variable storage solution !!!
         #region Variables
         /// <summary>
         /// If variable doesn't exist, add it to stringVariables. Otherwise, set the variable to the given value.
@@ -109,6 +108,7 @@ namespace Game.Dialogue
         public void AddVariable(string key, string value)
         {
             stringVariables[key] = value;
+            LoadVariables();
         }
         
         /// <summary>
@@ -119,6 +119,7 @@ namespace Game.Dialogue
         public void AddVariable(string key, float value)
         {
             floatVariables[key] = value;
+            LoadVariables();
         }
         
         /// <summary>
@@ -129,6 +130,7 @@ namespace Game.Dialogue
         public void AddVariable(string key, bool value)
         {
             boolVariables[key] = value;
+            LoadVariables();
         }
         
         /// <summary>

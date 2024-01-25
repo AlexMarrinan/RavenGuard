@@ -26,7 +26,7 @@ namespace Game.Hub.Interactables
 
         protected override bool CanUseInteraction()
         {
-            return !EventDialogueManager.Instance.IsRunning() && !npc.IsDisplayOn();
+            return npc.CanInteract();
         }
     }
 }

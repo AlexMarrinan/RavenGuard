@@ -1,30 +1,27 @@
 using Game.Dialogue;
 using UnityEngine;
+using UnityEngine.UI;
 using Yarn.Unity;
 
 namespace Game.Hub.Interactables
 {
     public class NPC : MonoBehaviour
     {
-        public SpeakerData speakerData;
-        [SerializeField] private Canvas display;
+        [SerializeField] public SpeakerData speakerData;
+        [SerializeField] protected SpriteRenderer image;
 
-        public void StartCutscene()
+        public virtual void StartCutscene()
         {
             string node = speakerData.GetDialogue(DialogueNodeType.Greeting);
             EventDialogueManager.Instance.StartDialogue(node);
         }
         
-        [YarnCommand("OpenDisplay")]
-        public void OpenDisplay() {
-            display.gameObject.SetActive(true);
-        }
+        [YarnCommand("Interact")]
+        public virtual void Interact() {}
 
-        public void CloseDisplay()
+        public virtual bool CanInteract()
         {
-            display.gameObject.SetActive(false);
+            return true;
         }
-
-        public bool IsDisplayOn() => display.gameObject.activeSelf;
     }
 }
