@@ -277,6 +277,9 @@ public class UnitManager : MonoBehaviour
 
     internal void HighlightDot(UnitDot uiDot)
     {
+        if (uiDot.unit.faction == UnitFaction.Enemy){
+            return;
+        }
         heroDotHighlight.transform.position = uiDot.transform.position;
     }
 }
