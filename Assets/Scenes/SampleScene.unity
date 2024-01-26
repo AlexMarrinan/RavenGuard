@@ -175,10 +175,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 10845413}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Do Nothing
   buttonDescription: Do no other action
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &10845413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,10 +410,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 71037919}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &71037919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -611,10 +623,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 159556117}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &159556117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,10 +728,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 190693957}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &190693957
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,10 +971,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 204015215}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &204015215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1182,10 +1212,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 254342340}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &254342340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,10 +1312,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 330952472}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &330952472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1555,10 +1597,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 379363627}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &379363627
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1903,7 +1951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectedUnit: {fileID: 0}
-  unitMoveSpeed: 0.25
+  unitMoveSpeed: 0.05
 --- !u!4 &560670129
 Transform:
   m_ObjectHideFlags: 0
@@ -1971,10 +2019,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 578805792}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Skill
   buttonDescription: Use your universal passive skil
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &578805792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2065,10 +2119,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 614282525}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &614282525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2160,10 +2220,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 622269461}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &622269461
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2567,10 +2633,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 663580296}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &663580296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2662,10 +2734,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 695038441}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &695038441
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2756,10 +2834,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 771083459}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &771083459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2850,10 +2934,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 772217664}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &772217664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3155,10 +3245,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 801523493}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &801523493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3249,10 +3345,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 802340914}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &802340914
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3530,10 +3632,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 844439201}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &844439201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,10 +3817,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 854724165}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &854724165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4138,10 +4252,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1151022667}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1151022667
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4232,10 +4352,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1157317901}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Skill
   buttonDescription: Use your universal passive skil
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1157317901
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4467,10 +4593,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1241715861}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1241715861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4561,10 +4693,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1290765153}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1290765153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4655,10 +4793,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1298780961}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1298780961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5098,10 +5242,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1425334853}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Skill
   buttonDescription: Use your universal passive skil
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1425334853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5305,10 +5455,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1471642383}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Skill
   buttonDescription: Use your universal passive skil
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1471642383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6092,10 +6248,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1764472183}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1764472183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6238,10 +6400,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1803746876}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &1803746876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6485,6 +6653,7 @@ MonoBehaviour:
   yCount: 4
   buttonIndex: 0
   menuDirection: 2
+  sideMenu: 0
   highlighImage: {fileID: 647794772}
   buttonNameText: {fileID: 369560819}
   unitSummaries:
@@ -6551,6 +6720,7 @@ MonoBehaviour:
   yCount: 1
   buttonIndex: 0
   menuDirection: 0
+  sideMenu: 0
   highlighImage: {fileID: 1361967022}
 --- !u!1 &2094306547
 GameObject:
@@ -6666,6 +6836,7 @@ MonoBehaviour:
   yCount: 1
   buttonIndex: 0
   menuDirection: 1
+  sideMenu: 0
   highlighImage: {fileID: 1332606668}
   noSkillSprite: {fileID: 21300000, guid: 6181bb45b91b5424f85dcc0317876b4c, type: 3}
   buttonNameText: {fileID: 793171994}
