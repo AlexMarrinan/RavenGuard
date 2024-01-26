@@ -227,6 +227,9 @@ public class UnitManager : MonoBehaviour
                 yield return null;
             }
             path.RemoveAt(0);
+            if (unit.faction == UnitFaction.Hero && nextTile.attachedChest != null){
+                nextTile.attachedChest.OpenChest();
+            }
             if (path.Count > 0){
                 yield return AnimateUnitMove(unit, path, moveOver);
             }else{
