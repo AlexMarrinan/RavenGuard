@@ -3530,7 +3530,7 @@ MonoBehaviour:
   hoveredTile: {fileID: 0}
   bases: []
   chestSpawnRate: 0.3
-  testMode: 1
+  testMode: 0
 --- !u!4 &816562101
 Transform:
   m_ObjectHideFlags: 0
