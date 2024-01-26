@@ -41,13 +41,8 @@ public class RangedUnit : BaseUnit
         }
         return TileMoveType.Move;
     }
-    public override void Attack(BaseUnit otherUnit){
-        // int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);
-
-        // if (distance >= base.moveAmount){
-        //     base.MoveToTileAtDistance(distance - base.moveAmount);
-        // }
-        MoveToAttackTile(otherUnit);
+    public override void Attack(BaseUnit otherUnit){    
+        //TODO: ADD ANIMATION TO SHOW UNIT GETTING ATTACKED
         BattleSceneManager.instance.StartBattle(this, otherUnit);
     }
 
@@ -73,6 +68,11 @@ public class RangedUnit : BaseUnit
             var temp = (adj, TileMoveType.Attack);
             if (returns.Contains(temp)){
                 returns.Remove(temp);
+                continue;
+            }
+            var temp2 = (adj, TileMoveType.InAttackRange);
+            if (returns.Contains(temp2)){
+                returns.Remove(temp2);
             }
         }
         return returns;

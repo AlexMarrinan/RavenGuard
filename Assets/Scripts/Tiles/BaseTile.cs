@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 public abstract class BaseTile : MonoBehaviour
 {
@@ -194,6 +195,9 @@ public abstract class BaseTile : MonoBehaviour
         if (occupiedUnit != null && occupiedUnit.faction != attacker.faction){
             highlightSprite.color = MenuManager.instance.attackColor;
             moveType = TileMoveType.Attack;
+        } else if (editorType == TileEditorType.Mountain){
+            validMoveHighlight.SetActive(false);
+            moveType = TileMoveType.NotValid;
         } else {
             highlightSprite.color = MenuManager.instance.inRangeColor;
             moveType = TileMoveType.InAttackRange;

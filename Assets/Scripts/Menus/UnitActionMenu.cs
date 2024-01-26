@@ -115,6 +115,7 @@ public class UnitActionMenu : BaseMenu
                 GridManager.instance.SelectHoveredTile();
                 UnitManager.instance.RemoveAllValidMoves();
                 UnitManager.instance.SetValidAttacks(u);
+                PathLine.instance.Reset();
                 Debug.Log("attacking...");
             }else if (buttonIndex == 2){
                 //WAIT
