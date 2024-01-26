@@ -69,13 +69,13 @@ public class AudioManager : MonoBehaviour
         yield return null;
     }
     internal IEnumerator PlayGrass(BaseUnit unit){
-        Debug.Log("Grass sound played");
+//        Debug.Log("Grass sound played");
         int randomIndex = UnityEngine.Random.Range(0, grassClips.Count);
         yield return unit.PlayRandomPitchSound(grassClips[randomIndex], 0.2f * audioVolume);
         //source.clip = grassClips[randomIndex];
     }
     internal IEnumerator PlayBridge(BaseUnit unit){
-        Debug.Log("Bridge sound played");
+  //      Debug.Log("Bridge sound played");
         int randomIndex = UnityEngine.Random.Range(0, bridgeClips.Count);
         yield return unit.PlayRandomPitchSound(bridgeClips[randomIndex], 0.5f * audioVolume);
         //source.clip = grassClips[randomIndex];
@@ -83,21 +83,21 @@ public class AudioManager : MonoBehaviour
 
     internal void PlayMelee()
     {
-        Debug.Log("Melee sound played");
+    //    Debug.Log("Melee sound played");
         source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
         source.PlayOneShot(meleeClips[UnityEngine.Random.Range(0, meleeClips.Count)], 0.75f * audioVolume);
     }
 
     internal void PlayArcher()
     {
-        Debug.Log("Arrow sound played");
+      //  Debug.Log("Arrow sound played");
         source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
         source.PlayOneShot(arrowClips[UnityEngine.Random.Range(0, arrowClips.Count)], 0.75f * audioVolume);
     }
 
     internal void PlayMagic()
     {
-         Debug.Log("Magic sound played");
+        // Debug.Log("Magic sound played");
         source.pitch = UnityEngine.Random.Range(0.7f, 1.3f);
         source.PlayOneShot(magicClips[UnityEngine.Random.Range(0, magicClips.Count)], 0.75f * audioVolume);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class UnitManager : MonoBehaviour
 {
@@ -87,6 +88,7 @@ public class UnitManager : MonoBehaviour
             UnselectUnit();
             return;
         }
+
         if (unit.faction == UnitFaction.Hero){
             AudioManager.instance.PlaySelect();
         }
@@ -94,7 +96,7 @@ public class UnitManager : MonoBehaviour
         selectedUnit = unit;
         RemoveAllValidMoves();
         if (unit.hasMoved){
-            MenuManager.instance.ToggleUnitActionMenu();
+            // UnselectUnit();
             return;
         }
         SetValidMoves(unit);
@@ -153,13 +155,14 @@ public class UnitManager : MonoBehaviour
         }   
         return validMoves;
     }
+
     public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){
         int max = unit.MaxTileRange();
         var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = newTile.GetAdjacentTiles();
-        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        next.ForEach(t => GVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
         return validMoves;
     }
@@ -170,12 +173,12 @@ public class UnitManager : MonoBehaviour
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = tile.GetAdjacentTiles();
-        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        next.ForEach(t => GVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
         return validMoves;
     }
 
-    private void SVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
+    private void GVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
         if (depth >= max ){
             return;
         }
@@ -192,8 +195,19 @@ public class UnitManager : MonoBehaviour
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
         var next = tile.GetAdjacentTiles();   
-        next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile, startUnit));
+        next.ForEach(t => GVMHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
+    }
+    public void SetValidAttacks(BaseUnit unit){
+        var validAttacks = unit.GetValidAttacks();
+        foreach (var atk in validAttacks){
+            atk.Item1.SetPossibleAttack(unit);
+        }
+    }
+
+    private List<BaseTile> GetValidAttacks(BaseUnit unit)
+    {
+        return null;
     }
 
     public void RemoveAllValidMoves(){

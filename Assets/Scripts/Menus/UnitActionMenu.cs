@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,9 +23,14 @@ public class UnitActionMenu : BaseMenu
         SetNameText();
         buttons.ForEach(b => b.SetOn());
         var u = UnitManager.instance.selectedUnit;
+        Debug.Log(u);
         if (u == null)
         {
             return;
+        }
+
+        if (u.NumValidAttacks() <= 0){
+            buttons[1].SetOn(false);
         }
         BaseSkill skill = u.GetBoringSkill();
         if (skill == null)
@@ -41,7 +47,11 @@ public class UnitActionMenu : BaseMenu
         if (u.hasMoved == true){
             //Disable Move Button
             buttons[0].SetOn(false);
-            buttonIndex = 1;
+            if (buttons[1].IsOn()){
+                buttonIndex = 1;
+            }else{
+                buttonIndex = 2;
+            }
         }else{
             buttons[0].SetOn(true);
         }
@@ -53,7 +63,7 @@ public class UnitActionMenu : BaseMenu
 
     private void SetSkill(BaseUnit u, int index)
     {
-        Debug.Log("seting skill:" + index);
+//        Debug.Log("seting skill:" + index);
         var skill = u.GetSkill(index-4);
         MenuButton b = buttons[index];
         Image skillBG = skillBackgrounds[index-4];
@@ -90,6 +100,10 @@ public class UnitActionMenu : BaseMenu
             }
             else if (buttonIndex == 1){
                 //ATACK
+                MenuManager.instance.CloseMenus();
+                GridManager.instance.SelectHoveredTile();
+                UnitManager.instance.RemoveAllValidMoves();
+                UnitManager.instance.SetValidAttacks(u);
                 Debug.Log("attacking...");
             }else if (buttonIndex == 2){
                 //WAIT

@@ -56,7 +56,7 @@ public class MenuManager : MonoBehaviour
                 unitStatsMenu.gameObject.SetActive(true);
                 unitStatsMenu.SetUnit(tile.occupiedUnit);
                 tile.occupiedUnit.HighlightDot();
-            }else if (tile.occupiedUnit.faction == UnitFaction.Enemy){
+            }else if (tile.occupiedUnit.faction == UnitFaction.Enemy && tile.moveType != TileMoveType.NotValid){
                 UnitManager.instance.selectedUnit.ResetCombatStats();
                 BattlePrediction bp = new BattlePrediction(UnitManager.instance.selectedUnit, tile.occupiedUnit);
                 unitStatsMenu.SetUnit(UnitManager.instance.selectedUnit);
@@ -73,6 +73,8 @@ public class MenuManager : MonoBehaviour
                 }else{
                     otherUnitStatsMenu.healthBar.SetHealth(bp.defHealth);
                 }
+            }else{
+                otherUnitStatsMenu.gameObject.SetActive(false);
             }
         }else{
             if (UnitManager.instance.selectedUnit == null){
@@ -124,8 +126,10 @@ public class MenuManager : MonoBehaviour
             CloseMenus();
             return;
         }
+        Debug.Log(UnitManager.instance.selectedUnit);
         if (UnitManager.instance.selectedUnit == null){
             var temp = GridManager.instance.hoveredTile.occupiedUnit;
+            Debug.Log(temp);
             if (temp != null && temp.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(temp)){
                 UnitManager.instance.SetSeclectedUnit(temp);
             }else{

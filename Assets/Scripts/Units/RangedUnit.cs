@@ -20,22 +20,25 @@ public class RangedUnit : BaseUnit
         base.weapon = rangedWeapon;
     }
     public override int MaxTileRange(){
-        //TOOD: FIX WHEN RANGED UNITS NEED FIXING;
-        return  rangedWeapon.maxRange - (base.maxMoveAmount - base.moveAmount);
+        if (reducedMovment != 0){
+            int newMove = moveAmount - reducedMovment;
+            return newMove < 1 ? 1 : newMove;
+        }
+        return moveAmount;
     }
     public override TileMoveType GetMoveTypeAt(BaseTile otherTile)
     {
-        int distance = otherTile.DistanceFrom(base.occupiedTile);
-        TileMoveType tempType;
-        if (distance < base.moveAmount){
-            tempType = TileMoveType.Move;
-        }else{
-            tempType = TileMoveType.InAttackRange;
-        }
+        // int distance = otherTile.DistanceFrom(base.occupiedTile);
+        // TileMoveType tempType;
+        // if (distance < base.moveAmount){
+        //     tempType = TileMoveType.Move;
+        // }else{
+        //     tempType = TileMoveType.InAttackRange;
+        // }
         if (otherTile.occupiedUnit != null && otherTile.occupiedUnit.faction != TurnManager.instance.currentFaction){
-            tempType = TileMoveType.Attack;
+            return TileMoveType.NotValid;
         }
-        return tempType;
+        return TileMoveType.Move;
     }
     public override void Attack(BaseUnit otherUnit){
         // int distance = otherUnit.occupiedTile.GetPathLengthFrom(base.occupiedTile);

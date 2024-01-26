@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.Linq;
 public class BaseUnit : MonoBehaviour
 {
     public string unitName;
@@ -252,7 +252,7 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         if (faction == UnitFaction.Hero){
-            Debug.Log(uiDot);
+//            Debug.Log(uiDot);
             uiDot.SetColor(Color.cyan);
         }else{
             uiDot.SetColor(Color.red);
@@ -264,8 +264,12 @@ public class BaseUnit : MonoBehaviour
         Debug.Log("movment over");
         hasMoved = true;
         UsePassiveSkills(PassiveSkillType.OnMovement);
-        UnitManager.instance.SetSeclectedUnit(null);
-        if (GetActiveSkills().Count <= 0 || this.faction == UnitFaction.Enemy){
+        UnitManager.instance.UnselectUnit();
+        //TODO ADD OTHER END CONDITIONS:
+        //No active skills ready
+        //No avaliable attacks
+    
+        if (/*GetActiveSkills().Count <= 0 || */this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
             GridManager.instance.SetHoveredTile(this.occupiedTile);
@@ -555,6 +559,14 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         UnitManager.instance.HighlightDot(this.uiDot);
+    }
+
+    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks()
+    {
+        return new ();
+    }
+    public int NumValidAttacks(){
+        return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
     }
 }
 

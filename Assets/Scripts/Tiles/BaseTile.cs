@@ -167,6 +167,8 @@ public abstract class BaseTile : MonoBehaviour
                 highlightSprite.color = MenuManager.instance.inRangeColor;
             } else if (moveType == TileMoveType.Support){
                 highlightSprite.color = MenuManager.instance.supportColor;
+            }else if (moveType == TileMoveType.NotValid){
+                validMoveHighlight.SetActive(false);
             }
         }else{
             moveType = TileMoveType.NotValid;
@@ -177,6 +179,17 @@ public abstract class BaseTile : MonoBehaviour
             if (!SkillManager.instance.selectingSkill){
                 validPath = GetPathFrom(startPos);
             }
+        }
+    }
+    public void SetPossibleAttack(BaseUnit attacker){
+        validMoveHighlight.SetActive(true);
+        //determine if attack or move    
+        //set color if attack or move
+        var highlightSprite = validMoveHighlight.GetComponent<SpriteRenderer>();
+        if (occupiedUnit != null && occupiedUnit.faction != attacker.faction){
+            highlightSprite.color = MenuManager.instance.attackColor;
+        } else {
+            highlightSprite.color = MenuManager.instance.inRangeColor;
         }
     }
     public List<BaseTile> GetPathFrom(BaseTile startPos){
