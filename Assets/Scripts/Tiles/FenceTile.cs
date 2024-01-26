@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class FenceTile : MultiLayerTile
 {
- 
+    private void Awake(){
+        isWalkable = false;
+        isShootable = true;
+    }
 }

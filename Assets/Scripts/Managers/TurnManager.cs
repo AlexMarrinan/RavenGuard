@@ -297,67 +297,7 @@ public class TurnManager : MonoBehaviour
 
         //TODO: 
         //compare the closest player before the move to the closest player after the move
-
     }
-
-    // IEnumerator MoveEnemiesOLD(List<BaseUnit> list){
-    //     BaseUnit enemy = list[0];
-    //     MenuManager.instance.unitStatsMenu.gameObject.SetActive(true);
-    //     MenuManager.instance.unitStatsMenu.SetUnit(enemy);
-    //     GameManager.instance.PanCamera(enemy.transform.position);
-    //     List<BaseTile> validMoves = UnitManager.instance.SetValidMoves(enemy);
-    //     yield return new WaitForSeconds(0.8f);
-    //     //yield return MoveWithAnimation(unit);
-    //     BaseUnit heroToAttack = null;
-    //     BaseTile final = null;
-    //     foreach (BaseTile t in validMoves){
-    //         if (t.occupiedUnit != null && t.occupiedUnit.faction == UnitFaction.Hero){
-    //             var adjTiles = GridManager.instance.GetAdjacentTiles(t.coordiantes);
-    //             if (adjTiles.Contains(enemy.occupiedTile)){
-    //                 final = enemy.occupiedTile;
-    //                 heroToAttack = t.occupiedUnit;
-    //                 break;
-    //             }
-    //             foreach (BaseTile t2 in adjTiles){
-    //                 if (validMoves.Contains(t2) && t2.occupiedUnit == null){
-    //                     final = t2;
-    //                     heroToAttack = t.occupiedUnit;
-    //                     break;
-    //                 }
-    //             }
-    //             if (final != null){
-    //                 break;
-    //             }
-    //         }
-    //     }
-    //     if (final == null){
-    //         int tileIndex = Random.Range(0, validMoves.Count);
-    //         final = validMoves[tileIndex];
-    //     }
-    //     if (final != enemy.occupiedTile){
-    //         PathLine.instance.RenderLine(enemy.occupiedTile, final);
-    //         yield return new WaitForSeconds(0.1f);
-    //         final.MoveUnitToTile(enemy);
-
-    //     }else{
-    //         UnitManager.instance.RemoveAllValidMoves();
-    //     }
-    //     yield return new WaitForSeconds(0.35f);
-    //     list.RemoveAt(0);
-    //     if (heroToAttack != null){
-    //         enemy.Attack(heroToAttack);
-    //         while (MenuManager.instance.menuState == MenuState.Battle){
-    //             yield return null;
-    //         }
-    //         yield return new WaitForSeconds(0.35f);
-    //     }
-    //     if (list.Count > 0){
-    //         yield return MoveEnemies(list);
-    //     }else{
-    //         GameManager.instance.ChangeState(GameState.HeroesTurn);
-    //     }
-    //     yield return null;
-    // }
     
     public void GoToNextUnit(){
         GoToUnit(+1);

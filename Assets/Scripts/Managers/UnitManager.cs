@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class UnitManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class UnitManager : MonoBehaviour
     private List<ScriptableUnit> unitPrefabs;
     private List<BaseUnit> units;
     public BaseUnit selectedUnit;
+    public List<UnitDot> heroDots, enemyDots;
+    public GameObject heroDotHighlight, enemyDotHighlight;
     public float unitMoveSpeed = .1f;
     private bool team1heros = false;
     void Awake(){
@@ -29,6 +32,7 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedHero);
             randomSpawnTile.Item1.SetUnitStart(spawnedHero);
             spawnedHero.SetSkillMethods();
+            SetDot(spawnedHero, i, UnitFaction.Hero);
         }
         GameManager.instance.ChangeState(GameState.SpawnEnemies);
     }
@@ -42,6 +46,7 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedEnemy);
             randomSpawnTile.Item1.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
+            SetDot(spawnedEnemy, i, UnitFaction.Enemy);
         }
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
@@ -64,6 +69,9 @@ public class UnitManager : MonoBehaviour
     }
     public void DeleteUnit(BaseUnit unit){
         units.Remove(unit);
+        if (unit.uiDot != null){
+            unit.uiDot.SetColor(Color.gray);
+        }
         Object.Destroy(unit.healthBar.gameObject);
         Object.Destroy(unit.gameObject);
         if (GetAllEnemies().Count <= 0){
@@ -80,6 +88,7 @@ public class UnitManager : MonoBehaviour
             UnselectUnit();
             return;
         }
+
         if (unit.faction == UnitFaction.Hero){
             AudioManager.instance.PlaySelect();
         }
@@ -87,7 +96,7 @@ public class UnitManager : MonoBehaviour
         selectedUnit = unit;
         RemoveAllValidMoves();
         if (unit.hasMoved){
-            MenuManager.instance.ToggleUnitActionMenu();
+            // UnselectUnit();
             return;
         }
         SetValidMoves(unit);
@@ -146,13 +155,14 @@ public class UnitManager : MonoBehaviour
         }   
         return validMoves;
     }
+
     public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){
         int max = unit.MaxTileRange();
         var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = newTile.GetAdjacentTiles();
-        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        next.ForEach(t => GVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
         return validMoves;
     }
@@ -163,13 +173,13 @@ public class UnitManager : MonoBehaviour
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
         var next = tile.GetAdjacentTiles();
-        next.ForEach(t => SVMHelper(1, max, t, visited, t, unit));
+        next.ForEach(t => GVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
         return validMoves;
     }
 
-    private void SVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
-        if (depth >= max ){
+    private void GVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
+        if (depth >= max){
             return;
         }
         //enemy's are valid moves but block movement
@@ -185,8 +195,19 @@ public class UnitManager : MonoBehaviour
         //if tile is valid, add it to the list of visited tiles and continue
         visited[tile] = depth;
         var next = tile.GetAdjacentTiles();   
-        next.ForEach(t => SVMHelper(depth + 1, max, t, visited, startTile, startUnit));
+        next.ForEach(t => GVMHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
+    }
+    public void SetValidAttacks(BaseUnit unit){
+        var validAttacks = unit.GetValidAttacks();
+        foreach (var atk in validAttacks){
+            atk.Item1.SetPossibleAttack(unit);
+        }
+    }
+
+    private List<BaseTile> GetValidAttacks(BaseUnit unit)
+    {
+        return null;
     }
 
     public void RemoveAllValidMoves(){
@@ -220,17 +241,14 @@ public class UnitManager : MonoBehaviour
                 yield return null;
             }
             path.RemoveAt(0);
-            if (unit.faction == UnitFaction.Hero && nextTile.attachedChest != null){
-                nextTile.attachedChest.OpenChest();
-            }
             if (path.Count > 0){
                 yield return AnimateUnitMove(unit, path, moveOver);
             }else{
-                // while (MenuManager.instance.menuState == MenuState.Battle){
-                //     yield return null;
-                // } 
                 nextTile.occupiedUnit = unit;
                 unit.occupiedTile = nextTile;
+                if (unit.faction == UnitFaction.Hero && nextTile.attachedChest != null){
+                    unit.occupiedTile.attachedChest.OpenChest();
+                }
                 if (moveOver){
                     unit.FinishMovement();
                 }
@@ -258,6 +276,24 @@ public class UnitManager : MonoBehaviour
         foreach (BaseUnit u in units){
             u.DecrementBuffs();
         }
-        
+    }
+
+    internal void SetDot(BaseUnit unit, int index, UnitFaction unitFaction)
+    {
+        if (unitFaction == UnitFaction.Hero){
+            unit.uiDot = heroDots[index];
+            heroDots[index].unit = unit;
+        }else{
+            unit.uiDot = enemyDots[index];
+            enemyDots[index].unit = unit;
+        }
+    }
+
+    internal void HighlightDot(UnitDot uiDot)
+    {
+        if (uiDot.unit.faction == UnitFaction.Enemy){
+            return;
+        }
+        heroDotHighlight.transform.position = uiDot.transform.position;
     }
 }

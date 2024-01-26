@@ -47,15 +47,20 @@ public class MenuManager : MonoBehaviour
             UnhighlightTile();
             return;
         }
+        Debug.Log(tile);
+
         highlightObject.transform.position = tile.transform.position;        
         highlightObject.SetActive(true);
         
         if (tile.occupiedUnit != null){
             tile.occupiedUnit.ResetCombatStats();
+            Debug.Log(UnitManager.instance.selectedUnit);
             if (UnitManager.instance.selectedUnit == null){
                 unitStatsMenu.gameObject.SetActive(true);
                 unitStatsMenu.SetUnit(tile.occupiedUnit);
-            }else if (tile.occupiedUnit.faction == UnitFaction.Enemy){
+                tile.occupiedUnit.HighlightDot();
+            }else if (tile.occupiedUnit.faction == UnitFaction.Enemy && tile.moveType != TileMoveType.NotValid){
+                Debug.Log("Showing other usm");
                 UnitManager.instance.selectedUnit.ResetCombatStats();
                 BattlePrediction bp = new BattlePrediction(UnitManager.instance.selectedUnit, tile.occupiedUnit);
                 unitStatsMenu.SetUnit(UnitManager.instance.selectedUnit);
@@ -72,6 +77,8 @@ public class MenuManager : MonoBehaviour
                 }else{
                     otherUnitStatsMenu.healthBar.SetHealth(bp.defHealth);
                 }
+            }else{
+                otherUnitStatsMenu.gameObject.SetActive(false);
             }
         }else{
             if (UnitManager.instance.selectedUnit == null){
@@ -123,9 +130,11 @@ public class MenuManager : MonoBehaviour
             CloseMenus();
             return;
         }
+        Debug.Log(UnitManager.instance.selectedUnit);
         if (UnitManager.instance.selectedUnit == null){
             var temp = GridManager.instance.hoveredTile.occupiedUnit;
-            if (temp != null){
+            Debug.Log(temp);
+            if (temp != null && temp.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(temp)){
                 UnitManager.instance.SetSeclectedUnit(temp);
             }else{
                 return;

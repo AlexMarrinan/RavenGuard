@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.Linq;
 public class BaseUnit : MonoBehaviour
 {
     public string unitName;
@@ -41,6 +41,7 @@ public class BaseUnit : MonoBehaviour
     public Dictionary<UnitStatType, int> duringCombatStats = new();
     [SerializeField]
     private AudioSource audioSource;
+    public UnitDot uiDot;
     void Start(){
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
@@ -240,16 +241,35 @@ public class BaseUnit : MonoBehaviour
     }
     public void ResetMovment(){
         InitializeFaction();
+        ResetUIDot();
         moveAmount = maxMoveAmount;
         hasMoved = false;
     }
+
+    private void ResetUIDot()
+    {
+        if (uiDot == null){
+            return;
+        }
+        if (faction == UnitFaction.Hero){
+//            Debug.Log(uiDot);
+            uiDot.SetColor(Color.cyan);
+        }else{
+            uiDot.SetColor(Color.red);
+        }
+    }
+
     public void FinishMovement(){
         // moveAmount = 0;
         Debug.Log("movment over");
         hasMoved = true;
         UsePassiveSkills(PassiveSkillType.OnMovement);
-        UnitManager.instance.SetSeclectedUnit(null);
-        if (GetActiveSkills().Count <= 0 || this.faction == UnitFaction.Enemy){
+        UnitManager.instance.UnselectUnit();
+        //TODO ADD OTHER END CONDITIONS:
+        //No active skills ready
+        //No avaliable attacks
+    
+        if (/*GetActiveSkills().Count <= 0 || */this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
             GridManager.instance.SetHoveredTile(this.occupiedTile);
@@ -258,6 +278,10 @@ public class BaseUnit : MonoBehaviour
     public void FinishTurn(){
         // moveAmount = 0;
         spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        
+        if (uiDot != null){
+            uiDot.SetColor(new Color(1.0f, 1.0f, 1.0f));
+        }
 //        Debug.Log("turn over");
         UnitManager.instance.SetSeclectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
@@ -527,6 +551,32 @@ public class BaseUnit : MonoBehaviour
         audioSource.pitch = UnityEngine.Random.Range(0.6f, 1.4f);
         audioSource.PlayOneShot(audioClip, volume * AudioManager.instance.audioVolume);
         yield return null;
+    }
+
+    internal void HighlightDot()
+    {
+        if (uiDot == null){
+            return;
+        }
+        UnitManager.instance.HighlightDot(this.uiDot);
+    }
+
+    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks()
+    {
+        return new ();
+    }
+    public int NumValidAttacks(){
+        return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
+    }
+
+
+    protected void SetAttackMove(BaseTile tile, List<(BaseTile, TileMoveType)> returns)
+    {
+        if (tile.occupiedUnit != null && tile.occupiedUnit.faction != this.faction){
+            returns.Add((tile, TileMoveType.Attack));
+        }else if (tile.walkable || tile.occupiedUnit == null){
+            returns.Add((tile, TileMoveType.InAttackRange));
+        }
     }
 }
 
