@@ -50,11 +50,7 @@ public class MeleeUnit : BaseUnit
         List<BaseTile> tiles = GridManager.instance.GetAdjacentTiles(occupiedTile.coordiantes);
         List<(BaseTile, TileMoveType)> returns = new();
         foreach (BaseTile tile in tiles){
-            if (tile.occupiedUnit != null && tile.occupiedUnit.faction != this.faction){
-                returns.Add((tile, TileMoveType.Attack));
-            }else if (tile.walkable || tile.occupiedUnit == null){
-                returns.Add((tile, TileMoveType.InAttackRange));
-            }
+            SetAttackMove(tile, returns);
         }
         return returns;
     }

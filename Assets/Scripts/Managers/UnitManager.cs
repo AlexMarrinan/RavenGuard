@@ -179,7 +179,7 @@ public class UnitManager : MonoBehaviour
     }
 
     private void GVMHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
-        if (depth >= max ){
+        if (depth >= max){
             return;
         }
         //enemy's are valid moves but block movement

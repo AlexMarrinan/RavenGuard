@@ -680,13 +680,17 @@ public class GridManager : MonoBehaviour
     return noiseMap;
   }
 
-  public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine){
+  public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine = false){
     if (start == end){
+        Debug.Log("A0");
         return new List<BaseTile>{start};
     }
+    Debug.Log("A");
     if (end.moveType == TileMoveType.InAttackRange){
+        Debug.Log("B");
         return new();
     }
+    Debug.Log("C");
     List<BaseTile> visited = new();
     Queue<BaseTile> toVisit = new();
     BaseUnit startUnit = start.occupiedUnit;
@@ -724,31 +728,12 @@ public class GridManager : MonoBehaviour
             List<BaseTile> finalTiles = new();
             var finalCurr = current;
             while (finalCurr != null){
-                if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){
+                //if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){
                     //ONLY add tile if its MOVE type;
                     //if its start space, also add
                     finalTiles.Add(finalCurr);
-                }
-                finalCurr = previousTiles[finalCurr];
-            }
-            if (start.occupiedUnit != null && start.occupiedUnit is RangedUnit && end.moveType == TileMoveType.Attack){
-                RangedUnit rangedUnit = start.occupiedUnit as RangedUnit;
-                int distance = end.DistanceFrom(start);
-                Debug.Log("ranged ataack distance " + distance);
-                // if (distance >= rangedUnit.maxMoveAmount){
-                int max = rangedUnit.maxMoveAmount - 1;
-                int extraPathLength = distance - max;
-                Debug.Log("pathLength " + extraPathLength);
-
-                if (extraPathLength >= 0){
-                    max = rangedUnit.rangedWeapon.maxRange - 1;
-                    int range = max - distance; //+ rangedUnit.rangedWeapon.minRange;
-                    if (range > finalTiles.Count){
-                        range = finalTiles.Count;
-                    }
-                    finalTiles.RemoveRange(0, range);
-                }
                 // }
+                finalCurr = previousTiles[finalCurr];
             }
             return finalTiles;
         }

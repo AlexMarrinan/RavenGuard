@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
+using System;
 public class RangedUnit : BaseUnit
 {
     public RangedWeapon rangedWeapon;
@@ -48,5 +49,56 @@ public class RangedUnit : BaseUnit
         // }
         MoveToAttackTile(otherUnit);
         BattleSceneManager.instance.StartBattle(this, otherUnit);
+    }
+
+    public override List<(BaseTile, TileMoveType)> GetValidAttacks(){
+        var visited = new Dictionary<BaseTile, int>();
+
+        //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
+        Debug.Log(occupiedTile);
+        var next = occupiedTile.GetAdjacentTiles();
+        Debug.Log(rangedWeapon.maxRange);
+        next.ForEach(t => GVAHelper(1, this.rangedWeapon.maxRange, t, visited, t, this));
+        Debug.Log(visited.Count);
+        List<(BaseTile, TileMoveType)> returns = new();
+        foreach (BaseTile tile in visited.Keys){
+            int distnace = GridManager.instance.ShortestPathBetweenTiles(occupiedTile, tile, false).Count();
+            Debug.Log(distnace);
+            if (distnace >= rangedWeapon.minRange){
+                SetAttackMove(tile, returns);
+            }
+        }
+        List<BaseTile> adjTiles = GridManager.instance.GetAdjacentTiles(occupiedTile.coordiantes);
+        foreach(var adj in adjTiles){
+            var temp = (adj, TileMoveType.Attack);
+            if (returns.Contains(temp)){
+                returns.Remove(temp);
+            }
+        }
+        return returns;
+    }
+
+    private void GVAHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
+        if (depth >= max){
+            return;
+        }
+        if (tile == null){
+            return;
+        }
+        // //enemy's are valid moves but block movement
+        // if (tile != null && tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
+        //     visited[tile] = depth;
+        //     return;
+        // }
+        // //if tile is not valid, continue
+        // if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        //     return;
+        // }
+
+        //if tile is valid, add it to the list of visited tiles and continue
+        visited[tile] = depth;
+        var next = tile.GetAdjacentTiles();   
+        next.ForEach(t => GVAHelper(depth + 1, max, t, visited, startTile, startUnit));
+        return;
     }
 }

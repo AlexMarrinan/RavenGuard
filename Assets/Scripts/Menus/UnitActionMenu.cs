@@ -15,6 +15,14 @@ public class UnitActionMenu : BaseMenu
     {
         base.Move(direction);
         SetNameText();
+        var u = UnitManager.instance.selectedUnit;
+        UnitManager.instance.RemoveAllValidMoves();
+        if (buttonIndex == 0){
+            UnitManager.instance.SetValidMoves(u);
+        }
+        else if (buttonIndex == 1){
+            UnitManager.instance.SetValidAttacks(u);
+        }
     }
 
     public override void Reset()
@@ -49,8 +57,11 @@ public class UnitActionMenu : BaseMenu
             buttons[0].SetOn(false);
             if (buttons[1].IsOn()){
                 buttonIndex = 1;
+                UnitManager.instance.RemoveAllValidMoves();
+                UnitManager.instance.SetValidAttacks(u);
             }else{
                 buttonIndex = 2;
+                UnitManager.instance.RemoveAllValidMoves();
             }
         }else{
             buttons[0].SetOn(true);

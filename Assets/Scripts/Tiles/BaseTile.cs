@@ -81,16 +81,16 @@ public abstract class BaseTile : MonoBehaviour
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }
-        Debug.Log("1");
+//        Debug.Log("1");
         if (!IsTileSelectable()){
             return;
         }
-        Debug.Log("2");
+//       Debug.Log("2");
         Debug.Log(moveType);
         if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){
             return;
         }
-        Debug.Log("3");
+ //       Debug.Log("3");
         //current pressed tile is occupied
         if (occupiedUnit != null){
             //if the unit is not awaiting orders, do not allow selection

@@ -568,6 +568,16 @@ public class BaseUnit : MonoBehaviour
     public int NumValidAttacks(){
         return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
     }
+
+
+    protected void SetAttackMove(BaseTile tile, List<(BaseTile, TileMoveType)> returns)
+    {
+        if (tile.occupiedUnit != null && tile.occupiedUnit.faction != this.faction){
+            returns.Add((tile, TileMoveType.Attack));
+        }else if (tile.walkable || tile.occupiedUnit == null){
+            returns.Add((tile, TileMoveType.InAttackRange));
+        }
+    }
 }
 
 
