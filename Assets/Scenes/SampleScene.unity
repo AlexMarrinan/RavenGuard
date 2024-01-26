@@ -409,6 +409,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &71037919
@@ -804,6 +805,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &159556117
@@ -909,6 +911,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &190693957
@@ -1152,6 +1155,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &204015215
@@ -1393,6 +1397,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &254342340
@@ -1493,6 +1498,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &330952472
@@ -1778,6 +1784,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &379363627
@@ -2347,6 +2354,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &614282525
@@ -2448,6 +2456,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &622269461
@@ -2861,6 +2870,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &663580296
@@ -2962,6 +2972,7 @@ MonoBehaviour:
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &695038441
@@ -3062,6 +3073,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &771083459
@@ -3162,6 +3174,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &772217664
@@ -3338,6 +3351,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &801523493
@@ -3438,6 +3452,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &802340914
@@ -3680,6 +3695,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &844439201
@@ -3881,6 +3897,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &854724165
@@ -4240,6 +4257,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &1151022667
@@ -4481,6 +4499,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &1241715861
@@ -4581,6 +4600,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &1290765153
@@ -4681,6 +4701,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &1298780961
@@ -5966,6 +5987,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &1764472183
@@ -6118,6 +6140,7 @@ MonoBehaviour:
   buttonName: slotbutton
   buttonDescription: slotbutton
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!114 &1803746876
@@ -6800,13 +6823,13 @@ MonoBehaviour:
   image: {fileID: 2104837695}
 --- !u!4 &2106963951 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
-  m_PrefabInstance: {fileID: 6261877254114085763}
+  m_CorrespondingSourceObject: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+  m_PrefabInstance: {fileID: 7502583897709710839}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2106963952 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6261877255799323763, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
-  m_PrefabInstance: {fileID: 6261877254114085763}
+  m_CorrespondingSourceObject: {fileID: 7502583895772641799, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+  m_PrefabInstance: {fileID: 7502583897709710839}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -7107,62 +7130,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e167a91ba94af0344afd04a6193f1f43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &6261877254114085763
+--- !u!1001 &7502583897709710839
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 1892320690}
     m_Modifications:
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 303
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalPosition.y
       value: 237
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323756, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583895772641816, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323757, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583897132458402, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_Name
       value: UnitActionMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 6261877255799323757, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
+    - target: {fileID: 7502583897132458402, guid: 4f8e17d313a4ac940b9130bca9d67dcc, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

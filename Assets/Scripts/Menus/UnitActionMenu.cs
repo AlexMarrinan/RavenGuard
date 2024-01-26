@@ -20,6 +20,7 @@ public class UnitActionMenu : BaseMenu
     {
         base.Reset();
         SetNameText();
+        buttons.ForEach(b => b.SetOn());
         var u = UnitManager.instance.selectedUnit;
         if (u == null)
         {
@@ -36,28 +37,41 @@ public class UnitActionMenu : BaseMenu
             buttons[3].image.sprite = skill.sprite;
             buttons[3].bonusText = ": " + skill.skillName;
         }
+        if (u.hasMoved == true){
+            //Disable Move Button
+            buttons[0].SetOn(false);
+            buttonIndex = 1;
+        }else{
+            buttons[0].SetOn(true);
+        }
         SetSkill(u, 4);
         SetSkill(u, 5);
         SetSkill(u, 6);
+        SetHighlight();
     }
 
     private void SetSkill(BaseUnit u, int index)
     {
         Debug.Log("seting skill:" + index);
         var skill = u.GetSkill(index-4);
+        MenuButton b = buttons[index];
+        Image skillBG = skillBackgrounds[index-4];
         if (skill == null) {
-            buttons[index].image.sprite = noSkillSprite;
-            buttons[index].bonusText = "";
+            b.image.sprite = noSkillSprite;
+            b.buttonText.text = "Empty Skill Slot";
+            b.bonusText = "";
+            skillBG.color = Color.white;
+            b.SetOn(false);
         }
         else {
             skill.SetMethod();
-            buttons[index].image.sprite = skill.sprite;
-            buttons[index].bonusText = ": " + skill.skillName;
-            Image skillBG = skillBackgrounds[index-4];
+            b.buttonText.text = skill.skillName;
+            b.image.sprite = skill.sprite;
             if (skill is ActiveSkill){
                 skillBG.color = SkillManager.instance.activeSkillColor;
             }else{
                 skillBG.color = SkillManager.instance.passiveSkillColor;
+                b.SetOn(false);
             }
         }
     }
@@ -75,15 +89,13 @@ public class UnitActionMenu : BaseMenu
             }
             else if (buttonIndex == 1){
                 //ATACK
-                u.FinishTurn();
-                MenuManager.instance.CloseMenus();
+                Debug.Log("attacking...");
             }else if (buttonIndex == 2){
                 //WAIT
                 u.FinishTurn();
                 MenuManager.instance.CloseMenus();
-            }else if (buttonIndex == 2){
-                u.FinishTurn();
-                MenuManager.instance.CloseMenus();
+            }else if (buttonIndex == 3){
+                Debug.Log("boring skill...");
             }else{
                 var s = u.GetSkill(buttonIndex - 4);
                 if (s != null){

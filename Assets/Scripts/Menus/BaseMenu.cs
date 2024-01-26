@@ -56,6 +56,10 @@ public class BaseMenu : MonoBehaviour
             }
             buttonIndex = buttons.IndexOf(nextButton);
         }
+        if (!buttons[buttonIndex].IsOn()){
+            Move(direction);
+            return;
+        }
         SetHighlight();
     }
     protected MenuButton GetCurrentButton(){

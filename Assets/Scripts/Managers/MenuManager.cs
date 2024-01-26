@@ -126,7 +126,7 @@ public class MenuManager : MonoBehaviour
         }
         if (UnitManager.instance.selectedUnit == null){
             var temp = GridManager.instance.hoveredTile.occupiedUnit;
-            if (temp != null){
+            if (temp != null && temp.faction == UnitFaction.Hero){
                 UnitManager.instance.SetSeclectedUnit(temp);
             }else{
                 return;
