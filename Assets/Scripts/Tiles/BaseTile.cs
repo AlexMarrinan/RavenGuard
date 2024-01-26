@@ -51,9 +51,10 @@ public abstract class BaseTile : MonoBehaviour
         //if a unit is selected
         if (UnitManager.instance.selectedUnit != null){
             if (moveType == TileMoveType.NotValid && UnitManager.instance.selectedUnit.occupiedTile != this) {
-                return;
+                PathLine.instance.Reset();
+            }else{
+                RerenderLine();
             }
-            RerenderLine();
         }
         if (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit)){
             TurnManager.instance.SetPreviousUnit(occupiedUnit);

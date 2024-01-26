@@ -31,6 +31,7 @@ public class UnitActionMenu : BaseMenu
         {
             buttons[3].image.sprite = noSkillSprite;
             buttons[3].bonusText = "";
+            buttons[3].SetOn(false);
         }
         else
         {

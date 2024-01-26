@@ -562,21 +562,21 @@ public class GridManager : MonoBehaviour
         
         BaseUnit sUnit = UnitManager.instance.selectedUnit;
         //if a unit is selected, dont move to tiles that arent valid moves
-        if (sUnit != null && newTile.moveType == TileMoveType.NotValid){
-            //if the next tile is the tile occupied by the selected unit, move one past it
-            if (newTile.occupiedUnit == sUnit){
-                // newTile = GetTileAtPosition(newTile.coordiantes + direction);
-                // if (newTile == null){
-                //     return;
-                // }
-                // //remove hovered tile from path
-                // PathLine.instance.Reset();
-                // PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
-            }else{
-                AudioManager.instance.PlayBlock();
-                return;
-            }
-        }
+        // if (sUnit != null && newTile.moveType == TileMoveType.NotValid){
+        //     //if the next tile is the tile occupied by the selected unit, move one past it
+        //     if (newTile.occupiedUnit == sUnit){
+        //         // newTile = GetTileAtPosition(newTile.coordiantes + direction);
+        //         // if (newTile == null){
+        //         //     return;
+        //         // }
+        //         // //remove hovered tile from path
+        //         // PathLine.instance.Reset();
+        //         // PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
+        //     }else{
+        //         AudioManager.instance.PlayBlock();
+        //         return;
+        //     }
+        // }
 
         if (!newTile.IsTileSelectable()){
             AudioManager.instance.PlayBlock();
