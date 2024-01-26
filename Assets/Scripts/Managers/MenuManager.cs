@@ -47,16 +47,20 @@ public class MenuManager : MonoBehaviour
             UnhighlightTile();
             return;
         }
+        Debug.Log(tile);
+
         highlightObject.transform.position = tile.transform.position;        
         highlightObject.SetActive(true);
         
         if (tile.occupiedUnit != null){
             tile.occupiedUnit.ResetCombatStats();
+            Debug.Log(UnitManager.instance.selectedUnit);
             if (UnitManager.instance.selectedUnit == null){
                 unitStatsMenu.gameObject.SetActive(true);
                 unitStatsMenu.SetUnit(tile.occupiedUnit);
                 tile.occupiedUnit.HighlightDot();
             }else if (tile.occupiedUnit.faction == UnitFaction.Enemy && tile.moveType != TileMoveType.NotValid){
+                Debug.Log("Showing other usm");
                 UnitManager.instance.selectedUnit.ResetCombatStats();
                 BattlePrediction bp = new BattlePrediction(UnitManager.instance.selectedUnit, tile.occupiedUnit);
                 unitStatsMenu.SetUnit(UnitManager.instance.selectedUnit);

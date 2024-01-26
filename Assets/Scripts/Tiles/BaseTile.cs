@@ -77,16 +77,20 @@ public abstract class BaseTile : MonoBehaviour
         OnSelectTile();
     }
     public void OnSelectTile(){
+        Debug.Log("Selecting tile...");
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }
+        Debug.Log("1");
         if (!IsTileSelectable()){
             return;
         }
+        Debug.Log("2");
+        Debug.Log(moveType);
         if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){
             return;
         }
-
+        Debug.Log("3");
         //current pressed tile is occupied
         if (occupiedUnit != null){
             //if the unit is not awaiting orders, do not allow selection
@@ -100,6 +104,7 @@ public abstract class BaseTile : MonoBehaviour
             }
             //current unit is enemy, AND selected is enemy,
             else if (occupiedUnit.faction == UnitFaction.Enemy){
+                Debug.Log("Selected unit is enemy!");
                 if (UnitManager.instance.selectedUnit == null){
                   return;
                 }
@@ -188,8 +193,10 @@ public abstract class BaseTile : MonoBehaviour
         var highlightSprite = validMoveHighlight.GetComponent<SpriteRenderer>();
         if (occupiedUnit != null && occupiedUnit.faction != attacker.faction){
             highlightSprite.color = MenuManager.instance.attackColor;
+            moveType = TileMoveType.Attack;
         } else {
             highlightSprite.color = MenuManager.instance.inRangeColor;
+            moveType = TileMoveType.InAttackRange;
         }
     }
     public List<BaseTile> GetPathFrom(BaseTile startPos){
