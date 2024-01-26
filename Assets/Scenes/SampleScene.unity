@@ -3423,12 +3423,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tileSet: {fileID: 11400000, guid: 528ee551749d1d3479cb036ffe604345, type: 2}
+  chestPrefab: {fileID: 7334755353920521287, guid: f8c5751d3384925409756884f26b7188, type: 3}
   floorPrefab: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
   wallPrefab: {fileID: 1682275154842417547, guid: d258b296c79ea8c47b92c7a5ac33fad4, type: 3}
   cam: {fileID: 519420032}
   hoveredTile: {fileID: 0}
   bases: []
-  testMode: 0
+  testMode: 1
 --- !u!4 &816562101
 Transform:
   m_ObjectHideFlags: 0

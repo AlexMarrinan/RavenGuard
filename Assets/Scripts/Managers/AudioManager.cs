@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
         PlaySound(blockSound);
     }
     public IEnumerator PlayTileSound(BaseUnit unit, BaseTile tile){
-        Debug.Log(tile.editorType);
+//        Debug.Log(tile.editorType);
         switch (tile.editorType){
             case TileEditorType.Grass:
                 yield return PlayGrass(unit);
@@ -71,13 +71,13 @@ public class AudioManager : MonoBehaviour
     internal IEnumerator PlayGrass(BaseUnit unit){
         Debug.Log("Grass sound played");
         int randomIndex = UnityEngine.Random.Range(0, grassClips.Count);
-        yield return unit.PlayRandomPitchSound(grassClips[randomIndex], 0.2f);
+        yield return unit.PlayRandomPitchSound(grassClips[randomIndex], 0.2f * audioVolume);
         //source.clip = grassClips[randomIndex];
     }
     internal IEnumerator PlayBridge(BaseUnit unit){
         Debug.Log("Bridge sound played");
         int randomIndex = UnityEngine.Random.Range(0, bridgeClips.Count);
-        yield return unit.PlayRandomPitchSound(bridgeClips[randomIndex], 0.5f);
+        yield return unit.PlayRandomPitchSound(bridgeClips[randomIndex], 0.5f * audioVolume);
         //source.clip = grassClips[randomIndex];
     }
 

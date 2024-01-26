@@ -24,6 +24,7 @@ public abstract class BaseTile : MonoBehaviour
     public TMP_Text depthText;
     public Vector2 coordiantes;
     public TileEditorType editorType;
+    public LevelChest attachedChest;
     private void FixedUpdate(){
         //depthText.text = moveType.ToString();
     }
