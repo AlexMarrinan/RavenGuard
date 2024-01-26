@@ -9,7 +9,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
 [CustomEditor(typeof(LevelBase))]
-public class PGEditor : Editor {
+public class PGEditor : UnityEditor.Editor {
     //public DropdownField tileTypeField;
     private int drawLayerIndex = 0, tileTypeIndex = 0, layerSizeIndex = 0, teamSpanwIndex = 0;
     public VisualTreeAsset inspectorXML;

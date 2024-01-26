@@ -3529,6 +3529,7 @@ MonoBehaviour:
   cam: {fileID: 519420032}
   hoveredTile: {fileID: 0}
   bases: []
+  chestSpawnRate: 0.3
   testMode: 1
 --- !u!4 &816562101
 Transform:
