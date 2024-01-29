@@ -3,7 +3,7 @@ tags:
 ---
 Mage: Welcome to my shop!
 -> Look at items
-    <<OpenDisplay Mage>>
+    <<Interact Mage>>
 -> Leave
 ===
 title: Mage_Greeting_2
@@ -13,6 +13,6 @@ Mage: Oof, you look like you could use some upgrades!
 Player:...
 Mage: Why don't you take a look at what I have in stock
 -> Look at items
-    <<OpenDisplay Mage>>
+    <<Interact Mage>>
 -> Leave
 ===

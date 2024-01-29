@@ -1,0 +1,7 @@
+﻿title: VariableDeclaration
+tags:
+---
+
+// Yarn Spinner will throw a fit if this is removed
+<<declare $CharacterName = "Name" as String>>
+===

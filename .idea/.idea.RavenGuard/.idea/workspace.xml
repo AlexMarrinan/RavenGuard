@@ -5,11 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c50b0d8-ce1f-418f-bfba-21c77886a6e7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Paragon.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Paragon/Paragon.yarn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Paragon/Paragon.yarn.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/VariableDeclaration.yarn" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/VariableDeclaration.yarn.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Character.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Character.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Paragon.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Paragon.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeepers.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeepers/Blacksmith Character Variant.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeepers/Blacksmith Character Variant.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeepers/Shopkeeper.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeepers/Shopkeeper.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Paragon.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Paragon/Mage Paragon.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Scriptable Objects/Speakers/Paragon/Mage Paragon.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Tate's Review Scenes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Tate's Review Scenes/RG-17.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Tate's Review Scenes/RG-17.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Tate's Review Scenes/RGT-72.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scenes/Tate's Review Scenes/RGT-72.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/Paragon.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/Paragon.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/ParagonInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/ParagonInfo.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/Shopkeeper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/Shopkeeper.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player/PlayerCharacter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Player/PlayerCharacter.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RavenGuard/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Left Column.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Components/Left Column.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Upgrade UI.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/UI/Blacksmith UI/Upgrade UI.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithFilter.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Blacksmith/BlacksmithStoreView.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/DialogueProject.yarnproject" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/DialogueProject.yarnproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage/Mage.yarn" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Resources/Dialogue/Interaction/Mage/Mage.yarn" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeeper.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Resources/Prefabs/Characters/Shopkeeper.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Hub.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/RG-17.unity.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/EventDialogueManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Dialogue/Managers/EventDialogueManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Characters/NPC.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/CharacterInteractable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Hub/Interactables/CharacterInteractable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,18 +83,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Sorting&amp;&amp;Filtration&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "BlacksmithUI",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
   },
   &quot;keyToStringList&quot;: {
     &quot;rider.external.source.directories&quot;: [
@@ -118,8 +154,7 @@
       <workItem from="1704931386982" duration="596000" />
       <workItem from="1705262917948" duration="992000" />
       <workItem from="1705444687683" duration="4597000" />
-      <workItem from="1706560307973" duration="471000" />
-      <workItem from="1706560815855" duration="1532000" />
+      <workItem from="1706212554308" duration="3314000" />
     </task>
     <servers />
   </component>

@@ -1,0 +1,8 @@
+﻿title: Paragon
+tags:
+---
+Would you like to switch to {$CharacterName}?
+-> Yes
+    <<Interact {$CharacterName}>>
+-> No
+===
