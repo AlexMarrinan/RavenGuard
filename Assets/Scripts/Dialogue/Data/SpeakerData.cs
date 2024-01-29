@@ -4,7 +4,11 @@ using System.IO;
 using System.Linq;
 using AYellowpaper.SerializedCollections;
 using Game.Dialogue.Portraits;
+
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
+
 using UnityEngine;
 using Random = System.Random;
 
@@ -47,6 +51,7 @@ namespace Game.Dialogue
             return "";
         }
 
+        #if UNITY_EDITOR
         /// <summary>
         /// Parses all the yarn scripts for yarn nodes
         /// </summary>
@@ -54,7 +59,9 @@ namespace Game.Dialogue
         {
             foreach (TextAsset file in yarnScripts)
             {
+
                 string path = AssetDatabase.GetAssetPath(file);
+                
                 StreamReader reader = File.OpenText(path);
                 string line;
                 List<string> nodeTitles = new List<string>();
@@ -76,7 +83,8 @@ namespace Game.Dialogue
                 CleanAvailableNodes(nodeTitles);
             }
         }
-        
+        #endif
+
         /// <summary>
         /// Create new nodes for the playback object that don't already exist. 
         /// </summary>

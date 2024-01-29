@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour
     public static GridManager instance;
     private int width, height;
     [SerializeField] private TileSet tileSet;
-
+    public LevelChest chestPrefab;
     //Predabs
     [SerializeField] private FloorTile floorPrefab;
     [SerializeField] private WallTile wallPrefab;
@@ -19,10 +19,12 @@ public class GridManager : MonoBehaviour
 
     //true if melee, false if ranged
     public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns;
-
+    public Dictionary<Vector2, LayerSize> chestSpawns;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
-    public List<PGBase> bases;
+    public List<LevelBase> bases;
+    [Range(0.0f, 1.0f)]
+    public float chestSpawnRate = 0.3f;
     public bool testMode = false;
     void Awake(){
         instance = this;
@@ -35,9 +37,9 @@ public class GridManager : MonoBehaviour
     }
     public void LoadAssets(){
         if (testMode){
-            bases =  Resources.LoadAll<PGBase>("Levels/TestBases").ToList();
+            bases =  Resources.LoadAll<LevelBase>("Levels/TestBases").ToList();
         }else{
-            bases =  Resources.LoadAll<PGBase>("Levels/Bases").ToList();
+            bases =  Resources.LoadAll<LevelBase>("Levels/Bases").ToList();
         }
     }
 
@@ -47,9 +49,10 @@ public class GridManager : MonoBehaviour
 
         team1spawns = new();
         team2spawns = new();
+        chestSpawns = new();
 
         int randIndex = UnityEngine.Random.Range(0, bases.Count);
-        PGBase pgb = bases[randIndex];
+        LevelBase pgb = bases[randIndex];
         var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
         var newChestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
         var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
@@ -91,10 +94,13 @@ public class GridManager : MonoBehaviour
             {
                 var pos = new Vector2(x, y);
                 int newy = height - 1 - y;
-                var chest = newChestArray.Get(x, y);
-                var spawn = newSpawnArray.Get(x,y);
+                LayerSize chest = newChestArray.Get(x, y);
+                SpawnFaction spawn = newSpawnArray.Get(x,y);
 
                 //TODO: SPAWNM CHESTS ACCORDING TO LEVEL PROGRESSION SYSTEM
+                if (chest != LayerSize.None){
+                    chestSpawns.Add(pos, chest);
+                }
                 if (spawn == SpawnFaction.BlueMelee){
                     team1spawns.Add(pos, UnitSpawnType.Melee);
                 } else if (spawn == SpawnFaction.BlueRanged){
@@ -128,6 +134,14 @@ public class GridManager : MonoBehaviour
             newTile.Init(x, y);
             newTile.coordiantes = pos;
             tiles[pos] = newTile;
+            if (chestSpawns.ContainsKey(pos)){
+                float randValue = UnityEngine.Random.value;
+                //TODO: MAKE CHEST SPAWNS ASSOSIATED WITH LEVEL PROGRESSION, NOT PURELY RANDOM
+                if (randValue < chestSpawnRate){
+                    var newChest = Instantiate(chestPrefab, new Vector3(x, y), Quaternion.identity);
+                    newChest.PlaceChest(newTile);
+                }
+            }
         }
         foreach (BaseTile t in tiles.Values)
         {
@@ -185,13 +199,11 @@ public class GridManager : MonoBehaviour
         randomTile.editorType = type;
         return randomTile;
     }
-    private BaseTile GetTileTypeAtPos(PGBase pgb, int x, int y)
+    private BaseTile GetTileTypeAtPos(LevelBase pgb, int x, int y)
     {
         TileEditorType type = pgb.GetTileType(x, y);
         return GetTileFromType(type);
     }
-
-
     private void SetGrassTileSprites(FloorTile ft){
         // int idx = GetBlendTileIndex(ft);
         // if (idx == -1){
@@ -550,21 +562,21 @@ public class GridManager : MonoBehaviour
         
         BaseUnit sUnit = UnitManager.instance.selectedUnit;
         //if a unit is selected, dont move to tiles that arent valid moves
-        if (sUnit != null && newTile.moveType == TileMoveType.NotValid){
-            //if the next tile is the tile occupied by the selected unit, move one past it
-            if (newTile.occupiedUnit == sUnit){
-                // newTile = GetTileAtPosition(newTile.coordiantes + direction);
-                // if (newTile == null){
-                //     return;
-                // }
-                // //remove hovered tile from path
-                // PathLine.instance.Reset();
-                // PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
-            }else{
-                AudioManager.instance.PlayBlock();
-                return;
-            }
-        }
+        // if (sUnit != null && newTile.moveType == TileMoveType.NotValid){
+        //     //if the next tile is the tile occupied by the selected unit, move one past it
+        //     if (newTile.occupiedUnit == sUnit){
+        //         // newTile = GetTileAtPosition(newTile.coordiantes + direction);
+        //         // if (newTile == null){
+        //         //     return;
+        //         // }
+        //         // //remove hovered tile from path
+        //         // PathLine.instance.Reset();
+        //         // PathLine.instance.AddTile(UnitManager.instance.selectedUnit.occupiedTile);
+        //     }else{
+        //         AudioManager.instance.PlayBlock();
+        //         return;
+        //     }
+        // }
 
         if (!newTile.IsTileSelectable()){
             AudioManager.instance.PlayBlock();
@@ -668,13 +680,17 @@ public class GridManager : MonoBehaviour
     return noiseMap;
   }
 
-  public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine){
+  public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine = false){
     if (start == end){
+        Debug.Log("A0");
         return new List<BaseTile>{start};
     }
+    Debug.Log("A");
     if (end.moveType == TileMoveType.InAttackRange){
+        Debug.Log("B");
         return new();
     }
+    Debug.Log("C");
     List<BaseTile> visited = new();
     Queue<BaseTile> toVisit = new();
     BaseUnit startUnit = start.occupiedUnit;
@@ -712,31 +728,12 @@ public class GridManager : MonoBehaviour
             List<BaseTile> finalTiles = new();
             var finalCurr = current;
             while (finalCurr != null){
-                if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){
+                //if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){
                     //ONLY add tile if its MOVE type;
                     //if its start space, also add
                     finalTiles.Add(finalCurr);
-                }
-                finalCurr = previousTiles[finalCurr];
-            }
-            if (start.occupiedUnit != null && start.occupiedUnit is RangedUnit && end.moveType == TileMoveType.Attack){
-                RangedUnit rangedUnit = start.occupiedUnit as RangedUnit;
-                int distance = end.DistanceFrom(start);
-                Debug.Log("ranged ataack distance " + distance);
-                // if (distance >= rangedUnit.maxMoveAmount){
-                int max = rangedUnit.maxMoveAmount - 1;
-                int extraPathLength = distance - max;
-                Debug.Log("pathLength " + extraPathLength);
-
-                if (extraPathLength >= 0){
-                    max = rangedUnit.rangedWeapon.maxRange - 1;
-                    int range = max - distance; //+ rangedUnit.rangedWeapon.minRange;
-                    if (range > finalTiles.Count){
-                        range = finalTiles.Count;
-                    }
-                    finalTiles.RemoveRange(0, range);
-                }
                 // }
+                finalCurr = previousTiles[finalCurr];
             }
             return finalTiles;
         }

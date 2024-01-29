@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using System;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Tilemaps;
 
 public abstract class BaseTile : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public abstract class BaseTile : MonoBehaviour
     public TMP_Text depthText;
     public Vector2 coordiantes;
     public TileEditorType editorType;
+    public LevelChest attachedChest;
     private void FixedUpdate(){
         //depthText.text = moveType.ToString();
     }
@@ -50,9 +52,10 @@ public abstract class BaseTile : MonoBehaviour
         //if a unit is selected
         if (UnitManager.instance.selectedUnit != null){
             if (moveType == TileMoveType.NotValid && UnitManager.instance.selectedUnit.occupiedTile != this) {
-                return;
+                PathLine.instance.Reset();
+            }else{
+                RerenderLine();
             }
-            RerenderLine();
         }
         if (occupiedUnit != null && occupiedUnit.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit)){
             TurnManager.instance.SetPreviousUnit(occupiedUnit);
@@ -75,16 +78,20 @@ public abstract class BaseTile : MonoBehaviour
         OnSelectTile();
     }
     public void OnSelectTile(){
+        Debug.Log("Selecting tile...");
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }
+//        Debug.Log("1");
         if (!IsTileSelectable()){
             return;
         }
+//       Debug.Log("2");
+        Debug.Log(moveType);
         if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){
             return;
         }
-
+ //       Debug.Log("3");
         //current pressed tile is occupied
         if (occupiedUnit != null){
             //if the unit is not awaiting orders, do not allow selection
@@ -98,6 +105,7 @@ public abstract class BaseTile : MonoBehaviour
             }
             //current unit is enemy, AND selected is enemy,
             else if (occupiedUnit.faction == UnitFaction.Enemy){
+                Debug.Log("Selected unit is enemy!");
                 if (UnitManager.instance.selectedUnit == null){
                   return;
                 }
@@ -165,6 +173,8 @@ public abstract class BaseTile : MonoBehaviour
                 highlightSprite.color = MenuManager.instance.inRangeColor;
             } else if (moveType == TileMoveType.Support){
                 highlightSprite.color = MenuManager.instance.supportColor;
+            }else if (moveType == TileMoveType.NotValid){
+                validMoveHighlight.SetActive(false);
             }
         }else{
             moveType = TileMoveType.NotValid;
@@ -175,6 +185,22 @@ public abstract class BaseTile : MonoBehaviour
             if (!SkillManager.instance.selectingSkill){
                 validPath = GetPathFrom(startPos);
             }
+        }
+    }
+    public void SetPossibleAttack(BaseUnit attacker){
+        validMoveHighlight.SetActive(true);
+        //determine if attack or move    
+        //set color if attack or move
+        var highlightSprite = validMoveHighlight.GetComponent<SpriteRenderer>();
+        if (occupiedUnit != null && occupiedUnit.faction != attacker.faction){
+            highlightSprite.color = MenuManager.instance.attackColor;
+            moveType = TileMoveType.Attack;
+        } else if (editorType == TileEditorType.Mountain){
+            validMoveHighlight.SetActive(false);
+            moveType = TileMoveType.NotValid;
+        } else {
+            highlightSprite.color = MenuManager.instance.inRangeColor;
+            moveType = TileMoveType.InAttackRange;
         }
     }
     public List<BaseTile> GetPathFrom(BaseTile startPos){

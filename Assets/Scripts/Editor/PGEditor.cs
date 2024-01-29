@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 
-[CustomEditor(typeof(PGBase))]
+[CustomEditor(typeof(LevelBase))]
 public class PGEditor : UnityEditor.Editor {
     //public DropdownField tileTypeField;
     private int drawLayerIndex = 0, tileTypeIndex = 0, layerSizeIndex = 0, teamSpanwIndex = 0;
@@ -63,7 +63,7 @@ public class PGEditor : UnityEditor.Editor {
     //TODO: FIX X/Y DIMMENSIONS SWAPPED
     public override void OnInspectorGUI() {
         
-        PGBase b = (PGBase)target;
+        LevelBase b = (LevelBase)target;
         b.SetHeight(b.height);
         b.SetWidth(b.width);
         EditorUtility.SetDirty(b);
@@ -91,7 +91,7 @@ public class PGEditor : UnityEditor.Editor {
                 break;
         }
     }
-    private void DrawSpawn(PGBase b)
+    private void DrawSpawn(LevelBase b)
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Spawn Faction:");
@@ -118,7 +118,7 @@ public class PGEditor : UnityEditor.Editor {
         }
     }
 
-    private void DrawChests(PGBase b)
+    private void DrawChests(LevelBase b)
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Layer Size:");
@@ -185,7 +185,7 @@ public class PGEditor : UnityEditor.Editor {
         return null;;
     }
 
-    private void DrawStandard(PGBase b)
+    private void DrawStandard(LevelBase b)
     {
         GUILayout.BeginHorizontal();
         GUILayout.Label("Brush Tile Type:");

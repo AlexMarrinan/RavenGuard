@@ -44,4 +44,14 @@ public class MeleeUnit : BaseUnit
         MoveToAttackTile(otherUnit);
         BattleSceneManager.instance.StartBattle(this, otherUnit);
     }
+
+    public override List<(BaseTile, TileMoveType)> GetValidAttacks()
+    {
+        List<BaseTile> tiles = GridManager.instance.GetAdjacentTiles(occupiedTile.coordiantes);
+        List<(BaseTile, TileMoveType)> returns = new();
+        foreach (BaseTile tile in tiles){
+            SetAttackMove(tile, returns);
+        }
+        return returns;
+    }
 }

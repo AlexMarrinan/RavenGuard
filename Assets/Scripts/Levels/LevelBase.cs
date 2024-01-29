@@ -4,8 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-[CreateAssetMenu(fileName = "New PG Base", menuName = "Procedural Geneartion/Base")]
-public class PGBase : ScriptableObject
+[CreateAssetMenu(fileName = "New Level Base", menuName = "Levels/Base")]
+public class LevelBase : ScriptableObject
 {
     public LayerSize size;
     public int height, width;
@@ -13,9 +13,8 @@ public class PGBase : ScriptableObject
     [HideInInspector]
     public  Array2D<TileEditorType> array;
     [HideInInspector]
-    //TODO: CHANGE NAME TO CHEST ARRAY, NOT USED FOR RIVERS ANYMORE
     public Array2D<LayerSize> chestArray;
-    //[HideInInspector]
+    [HideInInspector]
     public Array2D<SpawnFaction> spawnArray;
 
     public TileEditorType GetTileType(int layerX, int layerY)
