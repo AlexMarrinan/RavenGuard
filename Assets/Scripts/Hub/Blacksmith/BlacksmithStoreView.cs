@@ -170,7 +170,7 @@ namespace Hub.Blacksmith
         
         public void FilterRarity(RarityFilter filter)
         {
-            if (filter == RarityFilter.None)
+            if (filter == RarityFilter.Rarity)
             {
                 FilterNone();
             }
@@ -191,7 +191,7 @@ namespace Hub.Blacksmith
         
         public void FilterSkillType(SkillTypeFilter filter)
         {
-            if (filter == SkillTypeFilter.None)
+            if (filter == SkillTypeFilter.Type)
             {
                 FilterNone();
             }else{
@@ -210,7 +210,7 @@ namespace Hub.Blacksmith
 
         public void FilterSkillRestrictions(SkillRestrictionsFilter filter)
         {
-            if (filter == SkillRestrictionsFilter.None)
+            if (filter == SkillRestrictionsFilter.Restrictions)
             {
                 FilterNone();
             }else{
