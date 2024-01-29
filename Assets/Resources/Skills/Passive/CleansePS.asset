@@ -16,10 +16,20 @@ MonoBehaviour:
   skillName: Cleanse
   description: Upon ending unit's action or end of combat, adjacent allies are cleansed
     of all clearable debuffs.
+  menuIcon: {fileID: 21300000, guid: d7cd740a07ded7b44a077fa0d25a478d, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  rarity: 3
+  skillType: 2
+  skillRestrictions: 0
+  progressionGroup: {fileID: 0}
   unitClass: 1
   weaponClass: 0
   centered: 0
   shape: 0
   range1: 1
   range2: 1
+  tileMoveType: 0
   passiveSkillType: 4

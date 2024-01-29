@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Hub.UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Game.Hub.Interactables
 {
@@ -10,7 +12,7 @@ namespace Game.Hub.Interactables
     /// </summary>
     public class StoreInteractable : Interactable
     {
-        [SerializeField] private Canvas storeUI;
+        [SerializeField] public Controller uiController;
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Color focusedColor;
         [SerializeField] private Color unfocusedColor;
@@ -29,12 +31,12 @@ namespace Game.Hub.Interactables
 
         protected override void Interaction()
         {
-            storeUI.gameObject.SetActive(true);
+            uiController.ToggleView();
         }
 
         public override void EndInteraction()
         {
-            storeUI.gameObject.SetActive(false);
+            uiController.ToggleView();
         }
 
         protected override bool CanUseInteraction()
