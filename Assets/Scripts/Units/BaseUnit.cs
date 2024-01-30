@@ -16,6 +16,10 @@ public class BaseUnit : MonoBehaviour
     public int maxMoveAmount;
     public int health;
     public int maxHealth;
+    public int currentXP = 0;
+    public int maxXP = 100;
+    private int droppedXP = 100;
+    public int level = 1;
     public bool hasMoved;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
@@ -577,6 +581,48 @@ public class BaseUnit : MonoBehaviour
         }else if (tile.walkable || tile.occupiedUnit == null){
             returns.Add((tile, TileMoveType.InAttackRange));
         }
+    }
+
+    public void GainXP(int amount){
+        if (this.faction == UnitFaction.Enemy){
+            return;
+        }
+        int newXP = currentXP + amount;
+        while (newXP >= maxXP){
+            LevelUpBarAnimation();
+            LevelUp();
+            newXP -= maxXP;
+        }
+        AnimateXPBar(newXP);
+        currentXP = newXP;
+    }
+
+    private void AnimateXPBar(int xp)
+    {
+
+    }
+
+    private void LevelUpBarAnimation()
+    {
+        
+    }
+
+    private void LevelUp(){
+        Debug.Log(this.ToString() + " LEVEL UP!");
+        level++;
+        int statIncrease = 2;
+        //TOOD: INCREASE STATS CORRECTLY
+        attack += statIncrease;
+        defense += statIncrease;
+        agility += statIncrease;
+        attunment += statIncrease;
+        foresight += statIncrease;
+        luck += statIncrease;
+
+    }
+
+    public int GetDroppedXP(){
+        return droppedXP;
     }
 }
 

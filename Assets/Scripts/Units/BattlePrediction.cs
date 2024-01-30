@@ -203,7 +203,7 @@ public class BattlePrediction
                 break;
             case CombatPSActionType.CounterAttack:
                 if (unit == defender){
-                    Debug.Log("can counter cattack: " + boolValue);
+//                    Debug.Log("can counter cattack: " + boolValue);
                     defenderCAttackLocked = true;
                     defenderCounterAttack = boolValue;
                 }
@@ -218,7 +218,7 @@ public class BattlePrediction
                 break;
             case CombatPSActionType.FollowUpAttack:
                 if (unit == attacker){
-                    Debug.Log("attacker second attack: " + boolValue);
+ //                   Debug.Log("attacker second attack: " + boolValue);
                     attackerSAttackLocked = true;
                     attackerSecondAttack = boolValue;
                 }else{

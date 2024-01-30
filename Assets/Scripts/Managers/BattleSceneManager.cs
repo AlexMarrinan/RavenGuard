@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -168,25 +169,25 @@ public class BattleSceneManager : MonoBehaviour
         ResetBattleUnitsPos();
         yield return new WaitForSeconds(0.4f);
         if (state == BattleSceneState.FirstAttack && prediction.defenderCounterAttack){
-            Debug.Log("counter attack!");
+//            Debug.Log("counter attack!");
             state = BattleSceneState.CounterAttack;
             damaged.Attack();
             yield return null;
         }
         else if (state == BattleSceneState.FirstAttack && prediction.attackerSecondAttack){
-            Debug.Log("attacker second attack!");
+ //           Debug.Log("attacker second attack!");
             state = BattleSceneState.SecondAttack;
             hitter.Attack();
             yield return null;
         }
         else if (state == BattleSceneState.CounterAttack) {
             if (prediction.attackerSecondAttack) {
-                Debug.Log("attacker second attack!");
+   //             Debug.Log("attacker second attack!");
                 state = BattleSceneState.SecondAttack;
                 damaged.Attack();
                 yield return null;
             }else if (prediction.defenderSecondAttack) {
-                Debug.Log("defender second attack!");
+   //             Debug.Log("defender second attack!");
                 state = BattleSceneState.SecondAttack;
                 hitter.Attack();
                 yield return null;
@@ -211,7 +212,7 @@ public class BattleSceneManager : MonoBehaviour
     private void OnBattlEnd(){
         leftBU.assignedUnit.tempStatChanges = null;
         rightBU.assignedUnit.tempStatChanges = null;
-
+        
         MenuManager.instance.menuState = MenuState.None;
         if (startingUnit.faction == TurnManager.instance.currentFaction){
             //startingUnit.moveAmount = 0;
@@ -228,9 +229,11 @@ public class BattleSceneManager : MonoBehaviour
             rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
         if (leftBU.assignedUnit.health <= 0){
+            rightBU.assignedUnit.GainXP(leftBU.assignedUnit.GetDroppedXP());
             UnitManager.instance.DeleteUnit(leftBU.assignedUnit);
         }
         if (rightBU.assignedUnit.health <= 0){
+            leftBU.assignedUnit.GainXP(rightBU.assignedUnit.GetDroppedXP());
             UnitManager.instance.DeleteUnit(rightBU.assignedUnit);
         }
         UnitManager.instance.ShowUnitHealthbars(true);
