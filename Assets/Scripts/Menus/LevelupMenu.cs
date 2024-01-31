@@ -14,7 +14,7 @@ public class LevelupMenu : BaseMenu
     public int atk, def, agl, atu, frs, lck;
     public int atk2, def2, agl2, atu2, frs2, lck2;
     public TMP_Text levelText;
-    private readonly int addAmount = 3;
+    private int addAmount = 3;
     private int remainingAdds = 2;
     private BaseUnit unit;
     public override void Move(Vector2 direction)
@@ -63,6 +63,7 @@ public class LevelupMenu : BaseMenu
 
 
     public override void Select(){
+        addAmount = UnityEngine.Random.Range(1, 5);
         switch(buttonIndex){
             case 0: AddATK();
                 break;
