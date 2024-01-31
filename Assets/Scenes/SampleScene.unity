@@ -3530,7 +3530,7 @@ MonoBehaviour:
   hoveredTile: {fileID: 0}
   bases: []
   chestSpawnRate: 0.3
-  testMode: 1
+  testMode: 0
 --- !u!4 &816562101
 Transform:
   m_ObjectHideFlags: 0
@@ -7162,7 +7162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331823815138140232, guid: 307b5d3063cffc24fad487d3356a1067, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5331823815138140233, guid: 307b5d3063cffc24fad487d3356a1067, type: 3}
       propertyPath: m_Pivot.x
@@ -7230,7 +7230,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5331823815138140233, guid: 307b5d3063cffc24fad487d3356a1067, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -584
+      value: 651
       objectReference: {fileID: 0}
     - target: {fileID: 5331823815138140233, guid: 307b5d3063cffc24fad487d3356a1067, type: 3}
       propertyPath: m_AnchoredPosition.y
