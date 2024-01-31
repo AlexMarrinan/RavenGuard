@@ -10,7 +10,6 @@ using UnityEngine.UI;
 public class BattleSceneManager : MonoBehaviour
 {
     public static BattleSceneManager instance;
-    public BattleMenu battleMenu;
     public BattleUnit leftBU;
     public BattleUnit rightBU;
     private Vector3 leftStartPos;
@@ -22,6 +21,7 @@ public class BattleSceneManager : MonoBehaviour
     public GameObject sceneBackground;
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
     public BattlePrediction prediction;
+    public bool waitForXP = false;
     void Awake()
     {
         instance = this;
@@ -212,30 +212,46 @@ public class BattleSceneManager : MonoBehaviour
     private void OnBattlEnd(){
         leftBU.assignedUnit.tempStatChanges = null;
         rightBU.assignedUnit.tempStatChanges = null;
-        
-        MenuManager.instance.menuState = MenuState.None;
-        if (startingUnit.faction == TurnManager.instance.currentFaction){
-            //startingUnit.moveAmount = 0;
-            startingUnit.FinishTurn();
-        }else if (GetOtherBattleUnit(startingUnit).assignedUnit.faction  == TurnManager.instance.currentFaction){
-            GetOtherBattleUnit(startingUnit).assignedUnit.FinishTurn();
-        }else{
-            TurnManager.instance.GoToNextUnit();
-        }
+        waitForXP = false;
+        // if (startingUnit.faction == TurnManager.instance.currentFaction){
+        //     //startingUnit.moveAmount = 0;
+        //     startingUnit.FinishTurn();
+        // }else if (GetOtherBattleUnit(startingUnit).assignedUnit.faction  == TurnManager.instance.currentFaction){
+        //     GetOtherBattleUnit(startingUnit).assignedUnit.FinishTurn();
+        // }else{
+        //     TurnManager.instance.GoToNextUnit();
+        // }
         if (leftBU.assignedUnit.health > 0){
             leftBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
         if (rightBU.assignedUnit.health > 0){
             rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
-        if (leftBU.assignedUnit.health <= 0){
-            rightBU.assignedUnit.GainXP(leftBU.assignedUnit.GetDroppedXP());
+        if (leftBU.assignedUnit.health <= 0 && leftBU.assignedUnit.faction == UnitFaction.Hero){
+            if (leftBU.assignedUnit.faction == UnitFaction.Hero){
+                waitForXP = true;
+                MenuManager.instance.levelupMenu.transform.localPosition = new Vector2(-650, 0);
+                rightBU.assignedUnit.GainXP(leftBU.assignedUnit.GetDroppedXP());
+            }
             UnitManager.instance.DeleteUnit(leftBU.assignedUnit);
         }
         if (rightBU.assignedUnit.health <= 0){
-            leftBU.assignedUnit.GainXP(rightBU.assignedUnit.GetDroppedXP());
+            if (leftBU.assignedUnit.faction == UnitFaction.Hero){
+                waitForXP = true;
+                MenuManager.instance.levelupMenu.transform.localPosition = new Vector2(650, 0);
+                leftBU.assignedUnit.GainXP(rightBU.assignedUnit.GetDroppedXP());
+            }
             UnitManager.instance.DeleteUnit(rightBU.assignedUnit);
         }
+        if (!waitForXP){
+            CloseBattleScene();
+        }
+        //battleMenu.gameObject.SetActive(true);
+        //battleMenu.SetRandomEnemy();
+    }
+
+    public void CloseBattleScene(){
+        MenuManager.instance.menuState = MenuState.None;
         UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();
         leftBU.spriteRenderer.color = Color.white;
@@ -246,8 +262,14 @@ public class BattleSceneManager : MonoBehaviour
         sceneBackground.SetActive(false);
         UnitManager.instance.UnselectUnit();
         MenuManager.instance.highlightObject.SetActive(true);
-        //battleMenu.gameObject.SetActive(true);
-        //battleMenu.SetRandomEnemy();
+        if (startingUnit.faction == TurnManager.instance.currentFaction){
+            //startingUnit.moveAmount = 0;
+            startingUnit.FinishTurn();
+        }else if (GetOtherBattleUnit(startingUnit).assignedUnit.faction  == TurnManager.instance.currentFaction){
+            GetOtherBattleUnit(startingUnit).assignedUnit.FinishTurn();
+        }else{
+            TurnManager.instance.GoToNextUnit();
+        }
     }
     private void ResetBattleUnitsPos(){
         leftNewPos = leftStartPos;

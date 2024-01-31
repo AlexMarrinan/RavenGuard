@@ -16,7 +16,7 @@ public class MenuManager : MonoBehaviour
     public UnitActionMenu unitActionMenu;
     public InventoryMenu inventoryMenu;
     public PauseMenu pauseMenu;
-    public BattleMenu battleMenu;
+    public LevelupMenu levelupMenu;
     private Dictionary<MenuState, BaseMenu> menuMap;
     public UnitStatsMenu unitStatsMenu, otherUnitStatsMenu;
     private int textFrames = 0;
@@ -33,7 +33,7 @@ public class MenuManager : MonoBehaviour
         menuMap.Add(MenuState.Pause, pauseMenu);
         menuMap.Add(MenuState.Inventory, inventoryMenu);
         menuMap.Add(MenuState.UnitAction, unitActionMenu);
-        menuMap.Add(MenuState.Battle, battleMenu);
+        menuMap.Add(MenuState.Battle, levelupMenu);
     }
     private void FixedUpdate() {
         if (textFrames <= 0){
@@ -181,6 +181,7 @@ public class MenuManager : MonoBehaviour
         unitActionMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
         inventoryMenu.gameObject.SetActive(false);
+        levelupMenu.gameObject.SetActive(false);
         UnitManager.instance.UnselectUnit();
         menuState = MenuState.None;
     }
@@ -189,7 +190,9 @@ public class MenuManager : MonoBehaviour
         if (menuState == MenuState.None){
             return;
         }
-        menuMap[menuState].Move(direction);
+        if (menuMap[menuState].gameObject.activeSelf){
+            menuMap[menuState].Move(direction);
+        }
     }
     public bool InMenu(){
         return menuState != MenuState.None;

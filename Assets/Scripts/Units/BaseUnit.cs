@@ -320,6 +320,44 @@ public class BaseUnit : MonoBehaviour
     }
     #endregion
 
+    public int GetBaseATK(){
+        return attack;
+    }
+    public int GetBaseDEF(){
+        return defense;
+    }
+    public int GetBaseAGL(){
+        return agility;
+    }
+    public int GetBaseATU(){
+        return attunment;
+    }
+    public int GetBaseFOR(){
+        return foresight;
+    }
+    public int GetBaseLCK(){
+        return luck;
+    }
+
+    public void SetBaseATK(int value){
+        attack = value;
+    }
+    public void SetBaseDEF(int value){
+        defense = value;
+    }
+    public void SetBaseAGL(int value){
+        agility = value;
+    }    
+    public void SetBaseATU(int value){
+        attunment = value;
+    }    
+    public void SetBaseFOR(int value){
+        foresight = value;
+    }    
+    public void SetBaseLCK(int value){
+        luck = value;
+    }
+
 
     public Sprite GetSprite(){
         return spriteRenderer.sprite;
@@ -585,40 +623,36 @@ public class BaseUnit : MonoBehaviour
 
     public void GainXP(int amount){
         if (this.faction == UnitFaction.Enemy){
+            BattleSceneManager.instance.waitForXP = false;
             return;
         }
         int newXP = currentXP + amount;
         while (newXP >= maxXP){
-            LevelUpBarAnimation();
-            LevelUp();
+            StartCoroutine(LevelUpBarAnimation());
             newXP -= maxXP;
         }
-        AnimateXPBar(newXP);
         currentXP = newXP;
+        StartCoroutine(AnimateXPBar(newXP));
     }
 
-    private void AnimateXPBar(int xp)
+    private IEnumerator AnimateXPBar(int xp)
     {
-
+        yield return new WaitForSeconds(1f);
     }
 
-    private void LevelUpBarAnimation()
+    private IEnumerator LevelUpBarAnimation()
     {
-        
+        yield return new WaitForSeconds(0.2f);
+        LevelUp();
     }
 
     private void LevelUp(){
         Debug.Log(this.ToString() + " LEVEL UP!");
         level++;
-        int statIncrease = 2;
-        //TOOD: INCREASE STATS CORRECTLY
-        attack += statIncrease;
-        defense += statIncrease;
-        agility += statIncrease;
-        attunment += statIncrease;
-        foresight += statIncrease;
-        luck += statIncrease;
-
+        var menu = MenuManager.instance.levelupMenu;
+        menu.Reset();
+        menu.SetUnit(this);
+        menu.gameObject.SetActive(true);
     }
 
     public int GetDroppedXP(){
