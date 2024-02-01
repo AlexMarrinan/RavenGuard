@@ -277,7 +277,6 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
-        return;
         MenuManager.instance.ToggleInventoryMenu();
     }
 
