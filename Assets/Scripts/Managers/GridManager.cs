@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
+using UnityEngine.Tilemaps;
 
 public class GridManager : MonoBehaviour
 {
@@ -25,7 +26,7 @@ public class GridManager : MonoBehaviour
     public List<LevelBase> bases;
     [Range(0.0f, 1.0f)]
     public float chestSpawnRate = 0.3f;
-    public bool testMode = false;
+    public bool testMode = false, newMode = false;
     void Awake(){
         instance = this;
     }
@@ -45,6 +46,39 @@ public class GridManager : MonoBehaviour
 
     public void GenerateGrid()
     {
+        //TODO: REMOVE OLD GRID GENERATION LOGIC
+        if (newMode){
+            tiles = new();
+            var foundTiles = FindObjectsOfType<BaseTile>().ToList();
+            
+            team1spawns = new();
+            team2spawns = new();
+            chestSpawns = new();
+
+            foreach (BaseTile bt in foundTiles){
+                var pos = bt.transform.position;
+                bt.coordiantes = pos;
+                var spawn = bt.spawnTeam;
+                tiles.Add(pos, bt);
+
+                if (spawn == SpawnFaction.BlueMelee){
+                    team1spawns.Add(pos, UnitSpawnType.Melee);
+                } else if (spawn == SpawnFaction.BlueRanged){
+                    team1spawns.Add(pos, UnitSpawnType.Ranged);
+                }else if (spawn == SpawnFaction.BlueEither){
+                    team1spawns.Add(pos, UnitSpawnType.Both);
+                }
+                else if (spawn == SpawnFaction.OrangeMelee){
+                    team2spawns.Add(pos, UnitSpawnType.Melee);
+                } else if (spawn == SpawnFaction.OrangeRanged){
+                    team2spawns.Add(pos, UnitSpawnType.Ranged);
+                }else if (spawn == SpawnFaction.OrangeEither){
+                    team2spawns.Add(pos, UnitSpawnType.Both);
+                }
+            }
+            GameManager.instance.ChangeState(GameState.SapwnHeroes);
+            return;
+        }
         tileTypes = new Dictionary<Vector2, TileEditorType>();
 
         team1spawns = new();

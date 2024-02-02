@@ -26,6 +26,7 @@ public abstract class BaseTile : MonoBehaviour
     public Vector2 coordiantes;
     public TileEditorType editorType;
     public LevelChest attachedChest;
+    public SpawnFaction spawnTeam;
     private void FixedUpdate(){
         //depthText.text = moveType.ToString();
     }

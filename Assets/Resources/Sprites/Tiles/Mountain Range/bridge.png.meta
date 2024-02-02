@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -955,7 +955,7 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       bridge_14: -313897347
-      bridge_35: 1763314780
+      bridge_24: 1015453442
       bridge_29: 1422168432
       bridge_23: 708213407
       bridge_27: 585170814
@@ -988,12 +988,12 @@ TextureImporter:
       bridge_33: -1365763475
       bridge_32: -1550045464
       bridge_37: -1299757119
+      bridge_35: 1763314780
       bridge_8: -1152029122
-      bridge_11: -1063923902
       bridge_21: 633913376
+      bridge_11: -1063923902
       bridge_28: -372109911
       bridge_12: 1475007584
-      bridge_24: 1015453442
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

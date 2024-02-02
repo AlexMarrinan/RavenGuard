@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -1163,19 +1163,19 @@ TextureImporter:
       forest_15: -816095830
       forest_1: 410348430
       forest_10: 1339543451
+      forest_42: -1964142520
       forest_25: -1550734363
       forest_39: 1447684294
-      forest_19: 2098194489
       forest_12: -1647390453
-      forest_36: 1537241444
+      forest_19: 2098194489
       forest_11: 1203400053
       forest_18: 1445426231
+      forest_36: 1537241444
       forest_23: 192647189
       forest_35: 266836645
       forest_5: -754841208
       forest_17: -1882517980
       forest_26: -1130271323
-      forest_42: -1964142520
       forest_4: -1746786440
       forest_0: 353696837
       forest_2: -239061182
