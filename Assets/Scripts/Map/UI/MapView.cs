@@ -30,20 +30,17 @@ namespace Assets.Scripts.Map.UI
             Setup(levels);
             
             Vector2 position = GetLevelPosition(0, orientation);
-            print($"Width: {canvasWidth} Height: {canvasHeight}");
             for (int i = 0; i < levels; i++)
             {
                 MapLevel level = Instantiate(mapLevelPrefab, levelParent);
-                mapLevels.Add(level);
                 position = GetLevelPosition(i, orientation);
                 level.Init(roomsPerLevel,levelWidth,levelHeight,position);
+                mapLevels.Add(level);
             }
         }
 
         private void Setup(int levels)
         {
-            float yOffset = levelParent.offsetMin.y-levelParent.offsetMax.y;
-            print(yOffset);
             canvasHeight = levelParent.rect.height;
             canvasWidth = levelParent.rect.width;
             levelWidth = canvasWidth / levels;
@@ -53,19 +50,15 @@ namespace Assets.Scripts.Map.UI
         }
 
 
+        /// <summary>
+        /// Gets the position for a level with the given index in and a map in the given orientation
+        /// </summary>
+        /// <param name="index">Index of the level in the map</param>
+        /// <param name="orientation">Orientation of the map</param>
+        /// <returns>The level position</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private Vector2 GetLevelPosition(int index, Orientation orientation)
         {
-            float horizontalX=(index*levelWidth)+halfLevelWidth;
-            float verticalY = (index * levelHeight)+halfLevelHeight;
-            
-            float topOffset=levelParent.offsetMax.y;
-            float bottomOffset = levelParent.offsetMin.y;
-            float rightOffset=levelParent.offsetMax.x;
-            float leftOffset = levelParent.offsetMin.x;
-
-            float x;
-            float y;
-            
             switch (orientation)
             {
                 case Orientation.BOTTOM_TO_TOP or Orientation.TOP_TO_BOTTOM:
@@ -77,6 +70,13 @@ namespace Assets.Scripts.Map.UI
             }
         }
         
+        /// <summary>
+        /// Gets the position for a level with the given index in and a map in the given vertical orientation
+        /// </summary>
+        /// <param name="index">Index of the level in the map</param>
+        /// <param name="orientation">Orientation of the map</param>
+        /// <returns>The level position</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private Vector2 GetVerticalPosition(int index, Orientation orientation)
         {
             levelWidth = canvasWidth;
@@ -97,6 +97,13 @@ namespace Assets.Scripts.Map.UI
             }
         }
 
+        /// <summary>
+        /// Gets the position for a level with the given index in and a map in the given horizontal orientation
+        /// </summary>
+        /// <param name="index">Index of the level in the map</param>
+        /// <param name="orientation">Orientation of the map</param>
+        /// <returns>The level position</returns>
+        /// <exception cref="ArgumentOutOfRangeException"></exception>
         private Vector2 GetHorizontalPosition(int index, Orientation orientation)
         {
             levelHeight = canvasHeight;
@@ -117,15 +124,7 @@ namespace Assets.Scripts.Map.UI
             }
         }
     }
-
-    public struct Bounds
-    {
-        public float left;
-        public float right;
-        public float up;
-        public float down;
-    }
-
+    
     [Serializable]
     public enum Orientation
     {
