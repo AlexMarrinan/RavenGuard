@@ -28,13 +28,12 @@ namespace Assets.Scripts.Map.UI
         public void Init(int levels, int roomsPerLevel, Orientation orientation=Orientation.LEFT_TO_RIGHT)
         {
             Setup(levels);
-            
-            Vector2 position = GetLevelPosition(0, orientation);
+
             for (int i = 0; i < levels; i++)
             {
                 MapLevel level = Instantiate(mapLevelPrefab, levelParent);
-                position = GetLevelPosition(i, orientation);
-                level.Init(roomsPerLevel,levelWidth,levelHeight,position);
+                Vector2 position = GetLevelPosition(i, orientation);
+                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation,i==levels);
                 mapLevels.Add(level);
             }
         }

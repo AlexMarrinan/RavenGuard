@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4650020645965957051}
   - component: {fileID: 2105337252402446044}
   - component: {fileID: 1465988002955678781}
+  - component: {fileID: 154003305381640625}
   m_Layer: 0
   m_Name: MapLevel
   m_TagString: Untagged
@@ -51,6 +52,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79bb642503347c4448e10099015a3de4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 1465988002955678781}
   rectTransform: {fileID: 7300103567316820890}
   mapNodePrefab: {fileID: 3729408753557660750, guid: 81df23405a4f8f94d81df6e625f4e02d, type: 3}
 --- !u!222 &2105337252402446044
@@ -68,7 +70,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4068196231488923489}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -81,7 +83,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 3bfc4e3d32160aa4ebca88f6545a6711, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -91,3 +93,14 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!210 &154003305381640625
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4068196231488923489}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
