@@ -7,10 +7,12 @@ using UnityEngine.UI;
 
 public class UnitSummaryMenu : BaseMenu
 {
-    public Image unitIcon, healthBarTop, healthBarBottom, weaponImage, skill1image, skill2image, skill3image;
+    public Image unitIcon, healthBarTop, healthBarBottom;
+    public ItemButton weaponButton;
     public TextMeshProUGUI healthText, weaponClassText, unitClassText;
     public XPMenu xpBar;
     public TMP_Text atkT, defT, aglT, atuT, frsT, lckT;
+    public List<ItemButton> itemButtons = new();
     public void Init(BaseUnit unit){
         xpBar.SetUnit(unit);
         unitIcon.sprite = unit.GetSprite();
@@ -19,21 +21,11 @@ public class UnitSummaryMenu : BaseMenu
         healthText.text = unit.health + " / " + unit.maxHealth;
         weaponClassText.text = unit.weaponClass.ToString();
         unitClassText.text = unit.unitClass.ToString();
-        weaponImage.sprite = unit.weapon.sprite;
-        var skill1 = unit.GetSkill(0);
-        if (skill1 != null){
-            skill1image.sprite = skill1.sprite;
-        }
-        var skill2 = unit.GetSkill(1);
-        if (skill2 != null){
-            skill2image.sprite = skill2.sprite;
-        }
-        var skill3 = unit.GetSkill(2);
-        if (skill3 != null){
-            skill3image.sprite = skill3.sprite;
-        }
 
-
+        weaponButton.SetItem(unit.weapon);
+        itemButtons[0].SetItem(unit.GetSkill(0));
+        itemButtons[1].SetItem(unit.GetSkill(1));
+        itemButtons[2].SetItem(unit.GetSkill(2));
 
         var atk = unit.GetAttack();
         atkT.text = atk.total.ToString();

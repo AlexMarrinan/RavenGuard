@@ -251,15 +251,27 @@ public class InputManager : MonoBehaviour
     
     private void OnPreviousPerformed(InputAction.CallbackContext value)
     {
-        TurnManager.instance.GoToPreviousUnit();
+        var mm = MenuManager.instance;
+        if (mm.menuState == MenuState.None){
+            TurnManager.instance.GoToPreviousUnit();
+        }
+        if (mm.menuState == MenuState.Inventory){
+            mm.InventoryShowUntis();
+        }    
     }
     private void OnPreviousCanceled(InputAction.CallbackContext context)
     {
         
     }
     private void OnNextPerformed(InputAction.CallbackContext value)
-    {
-        TurnManager.instance.GoToNextUnit();
+    {   
+        var mm = MenuManager.instance;
+        if (mm.menuState == MenuState.None){
+            TurnManager.instance.GoToNextUnit();
+        }
+        if (mm.menuState == MenuState.Inventory){
+            mm.InventoryShowItems();
+        }
     }
     private void OnNextCanceled(InputAction.CallbackContext context)
     {
