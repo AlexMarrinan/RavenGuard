@@ -13,6 +13,7 @@ namespace Assets.Scripts.Map.UI
     {
         [Header("References")] 
         [SerializeField] private RectTransform levelParent;
+        [SerializeField] private Canvas canvas;
         
         [Header("Prefabs")] 
         [SerializeField] private MapLevel mapLevelPrefab;
@@ -35,7 +36,7 @@ namespace Assets.Scripts.Map.UI
             {
                 MapLevel level = Instantiate(mapLevelPrefab, levelParent);
                 Vector2 position = GetLevelPosition(i, orientation);
-                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation,i==levels);
+                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation,canvas);
                 mapLevels.Add(level);
             }
             

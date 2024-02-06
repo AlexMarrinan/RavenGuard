@@ -19,13 +19,15 @@ namespace Assets.Scripts.Map.Locations
         [SerializeField] private UILine linePrefab;
         
         //Internal
+        private Canvas canvas;
         private NodeData data;
         private bool isSelected;
         
-        public void Init(MapLevel level,NodeData nodeData)
+        public void Init(MapLevel level, Canvas canvas, NodeData nodeData)
         {
             mapLevel = level;
             data = nodeData;
+            this.canvas = canvas;
             if (data == null) return;
             image.sprite = data.nodeSprite;
         }
@@ -45,36 +47,26 @@ namespace Assets.Scripts.Map.Locations
             if (paths != null) return paths;
             paths = new List<List<MapNode>>();
             foreach (MapNode node in closestNodes)
-                        {
-                            foreach (List<MapNode> list in node.GetPaths())
-                            {
-                                paths.Add(list);
-                            }
-                        }
+            {
+                foreach (List<MapNode> list in node.GetPaths())
+                {
+                    paths.Add(list);
+                }
+            }
             return paths;
         }
 
         public void DrawPath()
         {
             image.color=Color.red;
-            /*paths = GetPaths();
-            if(paths.Count==0) return;
-            foreach (List<MapNode> path in paths)
-            {
-                List<Vector2> nodeTransforms = new List<Vector2>() { transform.position };
-                foreach (MapNode node in path)
-                {
-                    nodeTransforms.Append(node.transform.position);
-                }
-                UILine line = Instantiate(linePrefab, transform.parent);
-                line.SetLine(nodeTransforms);
-            }*/
             List<MapNode> closestNodes = GetNextClosestNodes();
             if(closestNodes==null) return;
             foreach (MapNode node in closestNodes)
             {
-                UILine path = Instantiate(linePrefab, transform);
-                path.SetLine(new List<Vector2>(){transform.position,node.transform.position});
+                Vector2 thisPos = new Vector2(transform.position.x -canvas.pixelRect.width/2, transform.position.y-canvas.pixelRect.height/2);
+                Vector2 nextPos = new Vector2(node.transform.position.x -canvas.pixelRect.width/2, node.transform.position.y-canvas.pixelRect.height/2);
+                UILine path = Instantiate(linePrefab, transform.parent.parent);
+                path.SetLine(new List<Vector2>(){thisPos,nextPos});
                 node.DrawPath();
                 node.hasPath = true;
             }
