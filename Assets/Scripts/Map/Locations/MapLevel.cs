@@ -21,8 +21,9 @@ namespace Assets.Scripts.Map.Locations
         private float nodeWidthChunk;
         private float nodeHeightChunk;
 
-        public void Init(int levelIndex, int roomsPerLevel, float width, float height, Vector2 position, Orientation orientation, Canvas canvas)
+        public void Init(int levelIndex, int roomsPerLevel, float width, float height, Vector2 position, Orientation orientation)
         {
+            name = "Level "+levelIndex;
             rectTransform.sizeDelta = new Vector2(width,height);
 			nodeWidthChunk = width /roomsPerLevel;
             nodeHeightChunk = height/roomsPerLevel;
@@ -31,7 +32,7 @@ namespace Assets.Scripts.Map.Locations
             {
                 MapNode node=Instantiate(mapNodePrefab, transform);
                 transform.position = position;
-                node.Init(this,canvas,null);
+                node.Init(this,null);
                 node.transform.localPosition = GetNodePosition(i, orientation, width,height,node);
                 nodes.Add(node);
             }

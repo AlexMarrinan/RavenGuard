@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Map.Locations;
+using Assets.Scripts.UI;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,11 +16,14 @@ namespace Assets.Scripts.Map.UI
         [Header("References")] 
         [SerializeField] private RectTransform levelParent;
         [SerializeField] private Canvas canvas;
+        public int numBranches = 2;
         
         [Header("Prefabs")] 
+        [SerializeField] private UILine linePrefab;
         [SerializeField] private MapLevel mapLevelPrefab;
         
         // Internal
+        private List<List<MapNode>> mapPaths=new List<List<MapNode>>();
         private List<MapLevel> mapLevels=new List<MapLevel>();
         private Bounds levelParentBounds;
         private float canvasHeight;
@@ -36,7 +41,7 @@ namespace Assets.Scripts.Map.UI
             {
                 MapLevel level = Instantiate(mapLevelPrefab, levelParent);
                 Vector2 position = GetLevelPosition(i, orientation);
-                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation,canvas);
+                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation);
                 mapLevels.Add(level);
             }
             
@@ -47,8 +52,9 @@ namespace Assets.Scripts.Map.UI
                     mapLevels[i].nextLevel = mapLevels[i + 1];
                 }
             }
-            
-            mapLevels[0].nodes[0].DrawPath();
+
+            GetPath();
+            //mapLevels[0].nodes[0].DrawPath();
         }
 
         private void Setup(int levels)
@@ -59,6 +65,52 @@ namespace Assets.Scripts.Map.UI
             levelHeight = canvasHeight / levels;
             halfLevelWidth = levelWidth / 2;
             halfLevelHeight = levelHeight / 2;
+        }
+
+        private void GetPath()
+        {
+            List<MapNode> startingNodes=mapLevels[0].nodes[0].GetNextClosestNodes(1);
+            List<MapNode> path = new List<MapNode>() { mapLevels[0].nodes[0] };
+            foreach (MapNode pathNode in startingNodes)
+            {
+                path=GetPath(1,path,pathNode);
+            }
+            mapPaths.Add(path);
+            DrawAllPaths();
+        }
+
+        private List<MapNode> GetPath(int num,List<MapNode> currentPath, MapNode mapNode)
+        {
+            List<MapNode> nextClosest = mapNode.GetNextClosestNodes(num);
+            List<MapNode> path = currentPath;
+            if (nextClosest == null)
+            {
+                path.Add(mapNode);
+                return path;
+            }
+            path.AddRange(nextClosest);
+            return GetPath(num,path,nextClosest[0]);
+        }
+
+        private void DrawAllPaths()
+        {
+            foreach (List<MapNode> paths in mapPaths)
+            {
+                DrawPath(paths);
+            }
+        }
+
+        private void DrawPath(List<MapNode> nodeList)
+        {
+            List<Vector2> positions = new List<Vector2>();
+            foreach (MapNode node in nodeList)
+            {
+                float x=node.transform.position.x -canvas.pixelRect.width/2;
+                float y=node.transform.position.y-canvas.pixelRect.height/2;
+                positions.Add(new Vector2(x,y));
+            }
+            UILine path = Instantiate(linePrefab, transform);
+            path.SetLine(positions);
         }
 
 
