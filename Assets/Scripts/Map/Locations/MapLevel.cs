@@ -10,13 +10,14 @@ namespace Assets.Scripts.Map.Locations
     public class MapLevel : MonoBehaviour
     {
         public Image image;
+        public MapLevel nextLevel;
         
         [Header("References")] 
         [SerializeField] private RectTransform rectTransform;
         [Header("Prefabs")] 
         [SerializeField] private MapNode mapNodePrefab;
         //Internal
-        private List<MapNode> nodes = new List<MapNode>();
+        public List<MapNode> nodes = new List<MapNode>();
         private float nodeWidthChunk;
         private float nodeHeightChunk;
 
@@ -30,12 +31,18 @@ namespace Assets.Scripts.Map.Locations
             {
                 MapNode node=Instantiate(mapNodePrefab, transform);
                 transform.position = position;
-                node.Init(null);
+                node.Init(this,null);
                 node.transform.localPosition = GetNodePosition(i, orientation, width,height,node);
                 nodes.Add(node);
             }
 
             if (levelIndex == 0) ChooseFirstNode(roomsPerLevel);
+        }
+
+        public List<MapNode> GetNextLevelNodes()
+        {
+            if (nextLevel == null) return null;
+            return nextLevel.nodes;
         }
 
         private Vector2 GetNodePosition(int index,Orientation orientation,float width, float height, MapNode node)
@@ -64,15 +71,16 @@ namespace Assets.Scripts.Map.Locations
             return new Vector2(x, y);
         }
 
+        
         private void ChooseFirstNode(int roomNum)
         {
             Random random = new Random();
             int index = random.Next(0, roomNum);
             for(int i=0; i < nodes.Count; i++)
             {
-                if (i != index)
+                if (i == index)
                 {
-                    nodes[i].gameObject.SetActive(false);
+                    nodes[i].hasPath = true;
                 }
             }
             RemoveUnusedNodes();
@@ -83,7 +91,7 @@ namespace Assets.Scripts.Map.Locations
             List<MapNode> temp = new List<MapNode>();
             foreach (MapNode node in nodes)
             {
-                if(node.isPathless || !node.gameObject.activeSelf) temp.Add(node);
+                if(!node.hasPath || !node.gameObject.activeSelf) temp.Add(node);
             }
             foreach (MapNode node  in temp)
             {

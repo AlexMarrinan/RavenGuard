@@ -350,7 +350,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapView: {fileID: 1421158365}
   levelsNum: 4
-  roomsPerLevel: 4
+  roomsPerLevel: 5
   mapOrientation: 2
 --- !u!1 &1421158360
 GameObject:

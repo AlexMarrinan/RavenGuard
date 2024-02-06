@@ -38,6 +38,16 @@ namespace Assets.Scripts.Map.UI
                 level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation,i==levels);
                 mapLevels.Add(level);
             }
+            
+            for (int i = 0; i < levels; i++)
+            {
+                if (i + 1 != levels)
+                {
+                    mapLevels[i].nextLevel = mapLevels[i + 1];
+                }
+            }
+            
+            mapLevels[0].nodes[0].DrawPath();
         }
 
         private void Setup(int levels)
