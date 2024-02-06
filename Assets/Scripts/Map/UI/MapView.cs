@@ -14,6 +14,7 @@ namespace Assets.Scripts.Map.UI
     public class MapView : MonoBehaviour
     {
         [Header("References")] 
+        [SerializeField] private RectTransform lineParent;
         [SerializeField] private RectTransform levelParent;
         [SerializeField] private Canvas canvas;
         public int numBranches = 2;
@@ -54,7 +55,6 @@ namespace Assets.Scripts.Map.UI
             }
 
             GetPath();
-            //mapLevels[0].nodes[0].DrawPath();
         }
 
         private void Setup(int levels)
@@ -69,11 +69,11 @@ namespace Assets.Scripts.Map.UI
 
         private void GetPath()
         {
-            List<MapNode> startingNodes=mapLevels[0].nodes[0].GetNextClosestNodes(1);
+            List<MapNode> startingNodes=mapLevels[0].nodes[0].GetNextClosestNodes(numBranches);
             List<MapNode> path = new List<MapNode>() { mapLevels[0].nodes[0] };
             foreach (MapNode pathNode in startingNodes)
             {
-                path=GetPath(1,path,pathNode);
+                path=GetPath(numBranches,path,pathNode);
             }
             mapPaths.Add(path);
             DrawAllPaths();
@@ -109,7 +109,7 @@ namespace Assets.Scripts.Map.UI
                 float y=node.transform.position.y-canvas.pixelRect.height/2;
                 positions.Add(new Vector2(x,y));
             }
-            UILine path = Instantiate(linePrefab, transform);
+            UILine path = Instantiate(linePrefab, lineParent);
             path.SetLine(positions);
         }
 

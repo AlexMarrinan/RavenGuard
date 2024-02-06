@@ -53,8 +53,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 1465988002955678781}
+  nextLevel: {fileID: 0}
   rectTransform: {fileID: 7300103567316820890}
   mapNodePrefab: {fileID: 3729408753557660750, guid: 81df23405a4f8f94d81df6e625f4e02d, type: 3}
+  nodes: []
 --- !u!222 &2105337252402446044
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -70,7 +72,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4068196231488923489}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
