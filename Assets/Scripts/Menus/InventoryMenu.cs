@@ -17,6 +17,8 @@ public class InventoryMenu : BaseMenu
     private Vector3 itemScreenNextPos;
     public float itemScreenSpeed;
     private bool menuMoving;
+    private BaseItem hoveredItem;
+    public ItemButton hoveredItemButton;
     public override void Move(Vector2 direction)
     {
         if (menuMoving){
@@ -35,8 +37,10 @@ public class InventoryMenu : BaseMenu
     public override void Reset()
     {
         SetNameText();
+        hoveredItemButton.Reset();
         this.xCount = 4;
         this.yCount = 5;
+        hoveredItem = null;
         unitButtons = new();
         itemsScreen.transform.localPosition = new(860, 180);
         itemScreenNextPos = itemsScreen.transform.localPosition;
@@ -63,15 +67,27 @@ public class InventoryMenu : BaseMenu
     }
     public override void Select()
     {
-        //Debug.Log(buttonNameText.text);
+        MenuButton menuButton = buttons[buttonIndex];
+        if (menuButton is not ItemButton){
+            return;
+        }
+        ItemButton ib = menuButton as ItemButton;
+        hoveredItem = ib.GetItem();
+        hoveredItemButton.SetItem(hoveredItem);
+        ChangeInventoryScreen();
     }
-    public void ChangeInventoryScreen(){
 
+    public void ChangeInventoryScreen(){
+        if (currentInventoryScreen == InventoryScreen.Items){
+            ShowUnits();
+        }else{
+            ShowItems();
+        }
     }
     private void SetNameText(){
         buttonNameText.text = InventoryManager.instance.GetItemName(buttonIndex);
     }
-
+    
     internal void ShowUnits()
     {
         if (menuMoving){

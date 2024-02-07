@@ -10,10 +10,24 @@ public class ItemButton : MenuButton
     public BaseUnit unit;
     public BaseItem item;
     public Image bgImage;
+    public int index;
+    public void Reset(){
+        unit = null;
+        item = null;
+        image.sprite = null;
+        bgImage.color = Color.white;
+    }
     public override void OnPress(){
         //TODO PICKUP ITEM AND MOVE TO OTHER MENU
     }
-    public virtual void SetItem(BaseItem item){
+    public BaseItem GetItem(){
+        return item;
+    }
+    public virtual void SetUnit(BaseUnit unit){
+        this.unit = unit;
+    }
+    public virtual void SetItem(BaseItem item, int index = -1){
+        this.index = index;
         if (item == null){
             return;
         }
