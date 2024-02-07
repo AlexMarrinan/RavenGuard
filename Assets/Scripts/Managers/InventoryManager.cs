@@ -22,6 +22,9 @@ public class InventoryManager : MonoBehaviour
             return "<No Item>";
         }
         BaseItem item = items[index];
+        if (item == null){
+            return "<Null Item>";
+        }
         if (item is BaseSkill){
             return (item as BaseSkill).skillName;
         }

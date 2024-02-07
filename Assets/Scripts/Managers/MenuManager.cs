@@ -208,6 +208,21 @@ public class MenuManager : MonoBehaviour
     public bool InPauseMenu(){
         return menuState == MenuState.Pause;
     }
+    
+    public void InventoryShowUntis(){
+        if (inventoryMenu.currentInventoryScreen == InventoryScreen.Units){
+            AudioManager.instance.PlayCancel();
+            return;
+        }
+        inventoryMenu.ShowUnits();
+    }
+    public void InventoryShowItems(){
+        if (inventoryMenu.currentInventoryScreen == InventoryScreen.Items){
+            AudioManager.instance.PlayCancel();
+            return;
+        }
+        inventoryMenu.ShowItems();
+    }
 }
 
 
