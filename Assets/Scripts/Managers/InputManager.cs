@@ -185,6 +185,9 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
         AudioManager.instance.PlayCancel();
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.OnSkilEnd();
