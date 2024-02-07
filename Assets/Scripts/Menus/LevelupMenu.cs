@@ -63,6 +63,9 @@ public class LevelupMenu : BaseMenu
 
 
     public override void Select(){
+        if (remainingAdds <= 0){
+            return;
+        }
         addAmount = UnityEngine.Random.Range(1, 5);
         switch(buttonIndex){
             case 0: AddATK();
