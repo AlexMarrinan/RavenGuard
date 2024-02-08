@@ -507,7 +507,7 @@ MonoBehaviour:
   lineParent: {fileID: 1081908797}
   levelParent: {fileID: 180535275}
   canvas: {fileID: 1421158364}
-  numBranches: 1
+  numBranches: 3
   linePrefab: {fileID: 7072063803070148884, guid: 532a3a425bd4ba743b9b5da8452264f5, type: 3}
   mapLevelPrefab: {fileID: 4650020645965957051, guid: b1a494dbbf931ca42bffb9911b0b25e6, type: 3}
 --- !u!1 &1603504145

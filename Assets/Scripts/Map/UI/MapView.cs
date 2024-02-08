@@ -24,6 +24,7 @@ namespace Assets.Scripts.Map.UI
         [SerializeField] private MapLevel mapLevelPrefab;
         
         // Internal
+        private List<List<Vector2>> mapLines=new List<List<Vector2>>();
         private List<List<MapNode>> mapPaths=new List<List<MapNode>>();
         private List<MapLevel> mapLevels=new List<MapLevel>();
         private Bounds levelParentBounds;
@@ -69,27 +70,29 @@ namespace Assets.Scripts.Map.UI
 
         private void GetPath()
         {
-            List<MapNode> startingNodes=mapLevels[0].nodes[0].GetNextClosestNodes(numBranches);
-            List<MapNode> path = new List<MapNode>() { mapLevels[0].nodes[0] };
-            foreach (MapNode pathNode in startingNodes)
+            MapNode firstNode = mapLevels[0].nodes[0];
+            List<MapNode> startingNodes=firstNode.GetNextClosestNodes(numBranches);
+            for (int i = 0; i < numBranches; i++)
             {
-                path=GetPath(numBranches,path,pathNode);
+                MapNode nextNode = startingNodes[i];
+                List<MapNode> newPath = new List<MapNode>() { firstNode,nextNode };
+                GetPath(1,nextNode,newPath);
+                mapPaths.Add(newPath);
             }
-            mapPaths.Add(path);
+            
             DrawAllPaths();
         }
 
-        private List<MapNode> GetPath(int num,List<MapNode> currentPath, MapNode mapNode)
+        private void GetPath(int num, MapNode node, List<MapNode> currentPath)
         {
-            List<MapNode> nextClosest = mapNode.GetNextClosestNodes(num);
-            List<MapNode> path = currentPath;
-            if (nextClosest == null)
+            List<MapNode> newNodes = node.GetNextClosestNodes(num);
+            List<MapNode> pathNodes=currentPath;
+            if (newNodes != null)
             {
-                path.Add(mapNode);
-                return path;
+                MapNode nextNode = newNodes[0];
+                pathNodes.Add(nextNode);
+                GetPath(1, nextNode, pathNodes);
             }
-            path.AddRange(nextClosest);
-            return GetPath(num,path,nextClosest[0]);
         }
 
         private void DrawAllPaths()
@@ -102,18 +105,39 @@ namespace Assets.Scripts.Map.UI
 
         private void DrawPath(List<MapNode> nodeList)
         {
-            List<Vector2> positions = new List<Vector2>();
+            List<Vector2> line = new List<Vector2>();
             foreach (MapNode node in nodeList)
             {
-                float x=node.transform.position.x -canvas.pixelRect.width/2;
-                float y=node.transform.position.y-canvas.pixelRect.height/2;
-                positions.Add(new Vector2(x,y));
+                float x=node.transform.position.x - canvas.pixelRect.width/2;
+                float y=node.transform.position.y - canvas.pixelRect.height/2;
+                line.Add(new Vector2(x,y));
             }
             UILine path = Instantiate(linePrefab, lineParent);
-            path.SetLine(positions);
+            path.name = nodeList[^1].name + " line";
+            path.SetLine(line);
         }
 
+        private bool HasIntersection(List<Vector2> positions)
+        {
+            foreach (List<Vector2> line in mapLines)
+            {
+                for (int i = 1; i < positions.Count; i++)
+                {
+                    bool intersection = lineSegmentsIntersect(positions[i-1], positions[i], line[i-1], line[i]);    
+                    if (!intersection)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
 
+        public static bool lineSegmentsIntersect(Vector2 lineOneA, Vector2 lineOneB, Vector2 lineTwoA, Vector2 lineTwoB)
+        {
+            return (((lineTwoB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x) > (lineTwoA.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)) != ((lineTwoB.y - lineOneB.y) * (lineTwoA.x - lineOneB.x) > (lineTwoA.y - lineOneB.y) * (lineTwoB.x - lineOneB.x)) && ((lineTwoA.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x)) != ((lineTwoB.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)));
+        }
+        
         /// <summary>
         /// Gets the position for a level with the given index in and a map in the given orientation
         /// </summary>

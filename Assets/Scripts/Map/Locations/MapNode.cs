@@ -10,8 +10,7 @@ namespace Assets.Scripts.Map.Locations
 {
     public class MapNode : MonoBehaviour
     {
-        public List<MapNode> closestNodes;
-        public List<List<MapNode>> paths;
+        public List<MapNode> closestNodes=null;
         public bool hasPath;
         public MapLevel mapLevel;
         
@@ -20,12 +19,13 @@ namespace Assets.Scripts.Map.Locations
         [SerializeField] private UILine linePrefab;
         
         //Internal
+        private bool loadedNodes;
         private NodeData data;
         private bool isSelected;
         
-        public void Init(MapLevel level, NodeData nodeData)
+        public void Init(MapLevel level, int num, NodeData nodeData)
         {
-            name = level.name + " Map Node";
+            name = level.name + " Map Node "+num;
             mapLevel = level;
             data = nodeData;
             if (data == null) return;
@@ -34,12 +34,21 @@ namespace Assets.Scripts.Map.Locations
 
         public List<MapNode> GetNextClosestNodes(int nodeCount=2)
         {
-            if (closestNodes.Count != 0) return closestNodes;
+            if (!loadedNodes)
+            {
+                closestNodes = LoadClosestNodes(nodeCount);
+            }
+            return closestNodes;
+        }
+
+        private List<MapNode> LoadClosestNodes(int num)
+        {
+            loadedNodes = true;
             List<MapNode> nextLevelNodes=mapLevel.GetNextLevelNodes();
-            if (nextLevelNodes == null) return null;
-            closestNodes = nextLevelNodes
+            List<MapNode> nodes = nextLevelNodes
                 .OrderBy((node) => (node.transform.position - transform.position).sqrMagnitude).ToList();
-            return closestNodes.GetRange(0,nodeCount);
+            if(nodes.Count>0) return nodes.GetRange(0, num);
+            return null;
         }
 
         public Vector2 GetNodeWidth()

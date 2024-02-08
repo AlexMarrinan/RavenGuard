@@ -32,7 +32,7 @@ namespace Assets.Scripts.Map.Locations
             {
                 MapNode node=Instantiate(mapNodePrefab, transform);
                 transform.position = position;
-                node.Init(this,null);
+                node.Init(this,i,null);
                 node.transform.localPosition = GetNodePosition(i, orientation, width,height,node);
                 nodes.Add(node);
             }
@@ -42,7 +42,10 @@ namespace Assets.Scripts.Map.Locations
 
         public List<MapNode> GetNextLevelNodes()
         {
-            if (nextLevel == null) return null;
+            if (nextLevel == null)
+            {
+                return new List<MapNode>();
+            }
             return nextLevel.nodes;
         }
 
