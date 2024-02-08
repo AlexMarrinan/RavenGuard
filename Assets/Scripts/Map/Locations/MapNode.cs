@@ -54,7 +54,9 @@ namespace Assets.Scripts.Map.Locations
             List<MapNode> nextLevelNodes=mapLevel.GetNextLevelNodes();
             List<MapNode> nodes = nextLevelNodes
                 .OrderBy((node) => (node.transform.position - transform.position).sqrMagnitude).ToList();
-            if(nodes.Count>0) return nodes.GetRange(0, num);
+            int amount= num;
+            if (nodes.Count < num) amount = nodes.Count;
+            if(nodes.Count>0) return nodes.GetRange(0, amount);
             return null;
         }
 

@@ -48,7 +48,8 @@ namespace Assets.Scripts.Map.UI
             {
                 MapLevel level = Instantiate(mapLevelPrefab, levelParent);
                 Vector2 position = GetLevelPosition(i, orientation);
-                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation);
+                bool onlyOneNode = i == 0 || i == levels - 1;
+                level.Init(i,roomsPerLevel,levelWidth,levelHeight,position,orientation,onlyOneNode);
                 mapLevels.Add(level);
             }
             
@@ -108,15 +109,20 @@ namespace Assets.Scripts.Map.UI
         private void MakePath(List<MapNode> currentPath)
         {
             List<MapNode> newNodes = currentPath[^1].GetNextClosestNodes(numBranches);
-            List<MapNode> path = currentPath;
             if (newNodes != null)
             {
-                MapNode nextNode = newNodes[0];
-                AddBranchingNodes(newNodes);
-                path.Add(nextNode);
-                MakePath(currentPath);
-                return;
+                if (newNodes.Count>0)
+                {
+                    MapNode nextNode = newNodes[0];
+                    AddBranchingNodes(newNodes);
+                
+                    List<MapNode> path = currentPath;
+                    path.Add(nextNode);
+                    MakePath(currentPath);
+                    return;
+                }
             }
+            
             AddPath(currentPath);
         }
         

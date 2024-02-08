@@ -21,7 +21,7 @@ namespace Assets.Scripts.Map.Locations
         private float nodeWidthChunk;
         private float nodeHeightChunk;
 
-        public void Init(int levelIndex, int roomsPerLevel, float width, float height, Vector2 position, Orientation orientation)
+        public void Init(int levelIndex, int roomsPerLevel, float width, float height, Vector2 position, Orientation orientation, bool oneNode=false)
         {
             name = "Level "+levelIndex;
             rectTransform.sizeDelta = new Vector2(width,height);
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Map.Locations
                 nodes.Add(node);
             }
 
-            if (levelIndex == 0) ChooseFirstNode(roomsPerLevel);
+            if (oneNode) OnlyOneNode(roomsPerLevel);
         }
 
         public List<MapNode> GetNextLevelNodes()
@@ -84,7 +84,7 @@ namespace Assets.Scripts.Map.Locations
         }
 
         
-        private void ChooseFirstNode(int roomNum)
+        private void OnlyOneNode(int roomNum)
         {
             int index = nodes.Count / 2;
             nodes[index].hasPath = true;
