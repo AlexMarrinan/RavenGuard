@@ -90,31 +90,31 @@ public class BaseUnit : MonoBehaviour
     public virtual void ApplyWeapon(){
 
     }
-    private void InitializeUnitClass()
+    protected virtual void InitializeUnitClass()
     {
-        switch (unitClass){
-            case UnitClass.Infantry:
-                armorType = ArmorType.Medium;
-                break;
-            case UnitClass.Knight:
-                armorType = ArmorType.Heavy;
-                break;
-            case UnitClass.Assassin:
-                armorType = ArmorType.Light;
-                break;
-           case UnitClass.Mage:
-                armorType = ArmorType.Medium;
-                break;
-            case UnitClass.Sage:
-                armorType = ArmorType.Light;
-                break;
-            case UnitClass.Cavalry:
-                armorType = ArmorType.Medium;
-                break;
-            case UnitClass.Paladin:
-                armorType = ArmorType.Heavy;
-                break;
-        }
+        // switch (unitClass){
+        //     case UnitClass.Infantry:
+        //         armorType = ArmorType.Medium;
+        //         break;
+        //     case UnitClass.Knight:
+        //         armorType = ArmorType.Heavy;
+        //         break;
+        //     case UnitClass.Assassin:
+        //         armorType = ArmorType.Light;
+        //         break;
+        //    case UnitClass.Mage:
+        //         armorType = ArmorType.Medium;
+        //         break;
+        //     case UnitClass.Sage:
+        //         armorType = ArmorType.Light;
+        //         break;
+        //     case UnitClass.Cavalry:
+        //         armorType = ArmorType.Medium;
+        //         break;
+        //     case UnitClass.Paladin:
+        //         armorType = ArmorType.Heavy;
+        //         break;
+        // }
     }
 
     public virtual int MaxTileRange(){
@@ -657,6 +657,32 @@ public class BaseUnit : MonoBehaviour
 
     public int GetDroppedXP(){
         return droppedXP;
+    }
+
+    public bool CanUseSkill(BaseItem item){
+        if (item is not BaseSkill){
+            return false;
+        }
+        return CanUseSkill(item as BaseSkill);
+    }
+    public bool CanUseSkill(BaseSkill newSkill){
+        if (newSkill.weaponClass != this.weaponClass && newSkill.weaponClass != WeaponClass.None){
+            return false;
+        }
+        if (newSkill.unitClass != this.unitClass && newSkill.unitClass != UnitClass.None){
+            return false;
+        }
+        return true;
+    }
+
+    public bool CanUseWeapon(BaseItem item){
+        if (item is not BaseWeapon){
+            return false;
+        }
+        return CanUseWeapon(item as BaseWeapon);
+    }
+    public bool CanUseSkill(BaseWeapon newWeapon){
+        return newWeapon.weaponClass == this.weaponClass;
     }
 }
 

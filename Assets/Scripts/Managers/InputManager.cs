@@ -256,6 +256,7 @@ public class InputManager : MonoBehaviour
             TurnManager.instance.GoToPreviousUnit();
         }
         if (mm.menuState == MenuState.Inventory){
+            mm.inventoryMenu.UnhoverItem();
             mm.InventoryShowUntis();
         }    
     }
@@ -270,6 +271,7 @@ public class InputManager : MonoBehaviour
             TurnManager.instance.GoToNextUnit();
         }
         if (mm.menuState == MenuState.Inventory){
+            mm.inventoryMenu.UnhoverItem();
             mm.InventoryShowItems();
         }
     }
