@@ -76,6 +76,7 @@ namespace Assets.Scripts.Map.UI
             {
                 MapNode nextNode = startingNodes[i];
                 List<MapNode> newPath = new List<MapNode>() { firstNode,nextNode };
+                firstNode.hasPath = true;
                 GetPath(1,nextNode,newPath);
                 mapPaths.Add(newPath);
             }
@@ -91,7 +92,21 @@ namespace Assets.Scripts.Map.UI
             {
                 MapNode nextNode = newNodes[0];
                 pathNodes.Add(nextNode);
-                GetPath(1, nextNode, pathNodes);
+                GetPath(num, nextNode, pathNodes);
+            }
+        }
+
+        private void HideUnusedAreas()
+        {
+            foreach (MapLevel level in mapLevels)
+            {
+                foreach (MapNode node in level.nodes)
+                {
+                    if (!node.hasPath)
+                    {
+                        node.gameObject.SetActive(false);
+                    }
+                }
             }
         }
 
@@ -101,6 +116,8 @@ namespace Assets.Scripts.Map.UI
             {
                 DrawPath(paths);
             }
+
+            HideUnusedAreas();
         }
 
         private void DrawPath(List<MapNode> nodeList)
@@ -112,9 +129,18 @@ namespace Assets.Scripts.Map.UI
                 float y=node.transform.position.y - canvas.pixelRect.height/2;
                 line.Add(new Vector2(x,y));
             }
-            UILine path = Instantiate(linePrefab, lineParent);
-            path.name = nodeList[^1].name + " line";
-            path.SetLine(line);
+
+            if (!HasIntersection(line))
+            {
+                foreach (MapNode node in nodeList)
+                {
+                    node.hasPath = true;
+                }
+                UILine path = Instantiate(linePrefab, lineParent);
+                path.name = nodeList[^1].name + " line";
+                path.SetLine(line);
+            }
+            
         }
 
         private bool HasIntersection(List<Vector2> positions)
