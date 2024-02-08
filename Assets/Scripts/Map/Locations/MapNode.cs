@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,17 @@ namespace Assets.Scripts.Map.Locations
     {
         public List<MapNode> closestNodes=null;
         public bool hasPath;
-        public MapLevel mapLevel;
-        
+
         [Header("References")] 
+        [SerializeField] public Button button;
         [SerializeField] public Image image;
         [SerializeField] private UILine linePrefab;
         
         //Internal
+        private List<List<MapNode>> paths = new List<List<MapNode>>();
+        public List<MapNode> nextNodes;//Nodes that this node is connected to
+        private MapLevel mapLevel;
+        private MapNodeStatus status=MapNodeStatus.Locked;
         private bool loadedNodes;
         private NodeData data;
         private bool isSelected;
@@ -26,11 +31,13 @@ namespace Assets.Scripts.Map.Locations
         public void Init(MapLevel level, int num, NodeData nodeData)
         {
             name = level.name + " Map Node "+num;
+            SetStatus();
             mapLevel = level;
             data = nodeData;
             if (data == null) return;
             image.sprite = data.nodeSprite;
         }
+        
 
         public List<MapNode> GetNextClosestNodes(int nodeCount=2)
         {
@@ -60,11 +67,54 @@ namespace Assets.Scripts.Map.Locations
             return new Vector2(image.rectTransform.rect.width, image.rectTransform.rect.height);
         }
 
+        public void AddPath(List<MapNode> path)
+        {
+            hasPath = true;
+            paths.Add(path);
+            int index = path.IndexOf(this);
+            if (path.Count > index + 1)
+            {
+                nextNodes.Add(path[index+1]);
+            }
+        }
+
+        public void SetStatus(MapNodeStatus nodeStatus=MapNodeStatus.Locked)
+        {
+            button.interactable = nodeStatus == MapNodeStatus.Unlocked;
+            status = nodeStatus;
+            switch (nodeStatus)
+            {
+                case MapNodeStatus.Locked:
+                    image.color = Color.blue;
+                    break;
+                case MapNodeStatus.Unlocked:
+                    image.color = Color.green;
+                    break;
+                case MapNodeStatus.Completed:
+                    image.color = Color.black;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(nodeStatus), nodeStatus, null);
+            }
+        }
+
         public void Select()
         {
-            if (isSelected) return;
-            isSelected = true;
-            print("Select Node");
+            if (status != MapNodeStatus.Unlocked) return;
+            mapLevel.LockNodes();
+            SetStatus(MapNodeStatus.Completed);
+            foreach (MapNode node in nextNodes)
+            {
+                node.SetStatus(MapNodeStatus.Unlocked);
+            }
         }
+    }
+
+    [Serializable]
+    public enum MapNodeStatus
+    {
+        Locked,
+        Unlocked,
+        Completed
     }
 }

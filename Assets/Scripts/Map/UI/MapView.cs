@@ -18,15 +18,20 @@ namespace Assets.Scripts.Map.UI
         [SerializeField] private RectTransform levelParent;
         [SerializeField] private Canvas canvas;
         public int numBranches = 2;
+        public int maxNodesInLevel=3;
         
         [Header("Prefabs")] 
         [SerializeField] private UILine linePrefab;
         [SerializeField] private MapLevel mapLevelPrefab;
         
         // Internal
+        // Paths
+        private List<MapNode> mapBranchNodes=new List<MapNode>();
         private List<List<Vector2>> mapLines=new List<List<Vector2>>();
         private List<List<MapNode>> mapPaths=new List<List<MapNode>>();
         private List<MapLevel> mapLevels=new List<MapLevel>();
+        
+        // Orientation info
         private Bounds levelParentBounds;
         private float canvasHeight;
         private float canvasWidth;
@@ -78,14 +83,19 @@ namespace Assets.Scripts.Map.UI
         private void MakeMap()
         {
             MapNode firstNode = mapLevels[0].nodes[0];
+            firstNode.SetStatus(MapNodeStatus.Unlocked);
             List<MapNode> startingNodes=firstNode.GetNextClosestNodes(numBranches);
             for (int i = 0; i < numBranches; i++)
             {
+                AddBranchingNode(startingNodes[i]);
                 MapNode nextNode = startingNodes[i];
                 firstNode.hasPath = true;
                 MakePath(new List<MapNode>() { firstNode,nextNode});
             }
 
+            MakeBranchingPaths();
+            
+            
             DrawMap();
         }
 
@@ -102,11 +112,44 @@ namespace Assets.Scripts.Map.UI
             if (newNodes != null)
             {
                 MapNode nextNode = newNodes[0];
+                AddBranchingNodes(newNodes);
                 path.Add(nextNode);
                 MakePath(currentPath);
                 return;
             }
             AddPath(currentPath);
+        }
+        
+        private void AddBranchingNode(MapNode branchNode)
+        {
+            if (branchNode==null || mapBranchNodes.Contains(branchNode)) return;
+            mapBranchNodes.Add(branchNode);
+        }
+
+        private void AddBranchingNodes(List<MapNode> branchNodes)
+        {
+            branchNodes.Remove(branchNodes[0]);
+            if (branchNodes.Count == 0) return;
+            foreach (MapNode node in branchNodes)
+            {
+                AddBranchingNode(node);
+            }
+        }
+
+        private void MakeBranchingPaths()
+        {
+            foreach (MapNode branchNode in mapBranchNodes)
+            {
+                List<MapNode> startingNodes=branchNode.GetNextClosestNodes(numBranches);
+                if (startingNodes != null)
+                {
+                    for (int i = 0; i < startingNodes.Count-1; i++)
+                    {
+                        MapNode nextNode = startingNodes[i];
+                        MakePath(new List<MapNode>() { branchNode,nextNode});
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -132,7 +175,7 @@ namespace Assets.Scripts.Map.UI
         /// <returns>Whether the path should be added</returns>
         private bool ShouldAddPath(List<MapNode> path)
         {
-            return NoDuplicates(path) && NotPartOfPath(path);
+            return NoDuplicates(path) && NotPartOfPath(path) && path.Count>1;
         }
 
         /// <summary>
@@ -180,7 +223,7 @@ namespace Assets.Scripts.Map.UI
         /// <returns>Whether or not the given path overlaps with any path in mapPaths</returns>
         private bool HasIntersection(List<Vector2> path)
         {
-            foreach (List<Vector2> line in mapLines)
+            /*foreach (List<Vector2> line in mapLines)
             {
                 for (int i = 1; i < path.Count; i++)
                 {
@@ -190,7 +233,7 @@ namespace Assets.Scripts.Map.UI
                         return true;
                     }
                 }
-            }
+            }*/
             return false;
         }
 
@@ -239,6 +282,7 @@ namespace Assets.Scripts.Map.UI
         /// </summary>
         private void DrawAllPaths()
         {
+            mapPaths=mapPaths.OrderBy(list=>list.Count).ToList();
             foreach (List<MapNode> paths in mapPaths)
             {
                 DrawPath(paths);
@@ -258,18 +302,22 @@ namespace Assets.Scripts.Map.UI
                 float y=node.transform.position.y - canvas.pixelRect.height/2;
                 line.Add(new Vector2(x,y));
             }
-
             if (!HasIntersection(line))
             {
-                foreach (MapNode node in nodeList)
-                {
-                    node.hasPath = true;
-                }
+                SetMapNode(nodeList);
                 UILine path = Instantiate(linePrefab, lineParent);
                 path.name = nodeList[^1].name + " line";
                 path.SetLine(line);
             }
             
+        }
+
+        private void SetMapNode(List<MapNode> nodeList)
+        {
+            for (int i = 0; i < nodeList.Count; i++)
+            {
+                nodeList[i].AddPath(nodeList);
+            }
         }
 
         #endregion

@@ -75,10 +75,21 @@ namespace Assets.Scripts.Map.Locations
             return new Vector2(x, y);
         }
 
+        public void LockNodes()
+        {
+            foreach (MapNode node in nodes)
+            {
+                node.SetStatus();
+            }
+        }
+
         
         private void ChooseFirstNode(int roomNum)
         {
-            Random random = new Random();
+            int index = nodes.Count / 2;
+            nodes[index].hasPath = true;
+            
+            /*Random random = new Random();
             int index = random.Next(0, roomNum);
             for(int i=0; i < nodes.Count; i++)
             {
@@ -86,7 +97,7 @@ namespace Assets.Scripts.Map.Locations
                 {
                     nodes[i].hasPath = true;
                 }
-            }
+            }*/
             RemoveUnusedNodes();
         }
 
