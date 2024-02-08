@@ -61,6 +61,7 @@ public class InventoryMenu : BaseMenu
 
         itemsScreen.transform.localPosition = new(860, 180);
         itemScreenNextPos = itemsScreen.transform.localPosition;
+        menuMoving = false;
         ResetButtons();
         currentInventoryScreen = InventoryScreen.Units;
         buttons = unitButtons;
@@ -127,7 +128,6 @@ public class InventoryMenu : BaseMenu
         hoveredItem = ib.GetItem();
         if (currentInventoryScreen == InventoryScreen.Units){
             hoveredItemButton.unit = ib.unit;
-            ItemType iType;
             //WHEN SWAPPING TO ITEMS
             if (hoveredItem is BaseWeapon){
                 InventoryManager.instance.SortInventory(ib.unit, ItemType.Weapon);
@@ -296,9 +296,7 @@ public class InventoryMenu : BaseMenu
         }else{
             currentInventoryScreen = InventoryScreen.Units;
         }
-        Move(Vector2.zero);
-
-//        Debug.Log(buttonIndex);        
+        Move(Vector2.zero);     
         yield return null;
     }
 
