@@ -55,9 +55,13 @@ namespace Assets.Scripts.Map.UI
                 }
             }
 
-            GetPath();
+            MakeMap();
         }
 
+        /// <summary>
+        /// Set up the canvas sizing variables
+        /// </summary>
+        /// <param name="levels">The number of levels</param>
         private void Setup(int levels)
         {
             canvasHeight = levelParent.rect.height;
@@ -67,35 +71,156 @@ namespace Assets.Scripts.Map.UI
             halfLevelWidth = levelWidth / 2;
             halfLevelHeight = levelHeight / 2;
         }
-
-        private void GetPath()
+        
+        /// <summary>
+        /// Start drawing the map paths
+        /// </summary>
+        private void MakeMap()
         {
             MapNode firstNode = mapLevels[0].nodes[0];
             List<MapNode> startingNodes=firstNode.GetNextClosestNodes(numBranches);
             for (int i = 0; i < numBranches; i++)
             {
                 MapNode nextNode = startingNodes[i];
-                List<MapNode> newPath = new List<MapNode>() { firstNode,nextNode };
                 firstNode.hasPath = true;
-                GetPath(1,nextNode,newPath);
-                mapPaths.Add(newPath);
+                MakePath(new List<MapNode>() { firstNode},nextNode);
             }
-            
-            DrawAllPaths();
+
+            DrawMap();
         }
 
-        private void GetPath(int num, MapNode node, List<MapNode> currentPath)
+        #region Path Generating
+
+        /// <summary>
+        /// Make a path that uses the given path and node
+        /// </summary>
+        /// <param name="currentPath">The path</param>
+        /// <param name="node">A node that you can use to get to the next nodes</param>
+        private void MakePath(List<MapNode> currentPath, MapNode node)
         {
-            List<MapNode> newNodes = node.GetNextClosestNodes(num);
-            List<MapNode> pathNodes=currentPath;
+            List<MapNode> newNodes = node.GetNextClosestNodes(numBranches);
+            List<MapNode> path = currentPath;
             if (newNodes != null)
             {
                 MapNode nextNode = newNodes[0];
-                pathNodes.Add(nextNode);
-                GetPath(num, nextNode, pathNodes);
+                path.Add(nextNode);
+                MakePath(currentPath, nextNode);
+                return;
+            }
+            AddPath(currentPath);
+        }
+
+        /// <summary>
+        /// Adds the given path to mapPaths if it isn't in already
+        /// </summary>
+        /// <param name="path">The path being added</param>
+        private void AddPath(List<MapNode> path)
+        {
+            if (ShouldAddPath(path))
+            {
+                mapPaths.Add(path);
             }
         }
 
+        #endregion
+
+        #region Path Bool Checks
+
+        /// <summary>
+        /// Checks if the given path should be added to mapPaths
+        /// </summary>
+        /// <param name="path">The path potentially being added</param>
+        /// <returns>Whether the path should be added</returns>
+        private bool ShouldAddPath(List<MapNode> path)
+        {
+            return NoDuplicates(path) && NotPartOfPath(path);
+        }
+
+        /// <summary>
+        /// Checks to see if mapPaths contains path
+        /// </summary>
+        /// <param name="path">The path being checked</param>
+        /// <returns>True if mapPaths doesn't contain path</returns>
+        private bool NoDuplicates(List<MapNode> path)
+        {
+            return !mapPaths.Contains(path);
+        }
+        
+        /// <summary>
+        /// Checks to see if the given path is apart of mapPaths
+        /// </summary>
+        /// <param name="path">The path that could be part of a path in mapPaths</param>
+        /// <returns>Whether the given path is part of mapPaths</returns>
+        private bool NotPartOfPath(List<MapNode> path)
+        {
+            foreach (List<MapNode> acceptedPaths in mapPaths)
+            {
+                if (PartOfPath(acceptedPaths, path))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// Checks to see if the given smallerPath is part of the given biggerPath
+        /// </summary>
+        /// <param name="biggerPath">The path that could potentially contain the smallerPath</param>
+        /// <param name="smallerPath">The path that could be part of the biggerPath</param>
+        /// <returns>Whether the biggerPath contains the smallerPath</returns>
+        private bool PartOfPath(List<MapNode> biggerPath, List<MapNode> smallerPath)
+        {
+            return biggerPath.Intersect(smallerPath).Count() == smallerPath.Count();
+        }
+        
+        /// <summary>
+        /// Checks to see if path crosses over any of the accepted paths
+        /// </summary>
+        /// <param name="path">The list of points on a path</param>
+        /// <returns>Whether or not the given path overlaps with any path in mapPaths</returns>
+        private bool HasIntersection(List<Vector2> path)
+        {
+            foreach (List<Vector2> line in mapLines)
+            {
+                for (int i = 1; i < path.Count; i++)
+                {
+                    bool intersection = LineSegmentsIntersect(path[i-1], path[i], line[i-1], line[i]);    
+                    if (!intersection)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Checks to see if line intersects
+        /// </summary>
+        /// <param name="lineOneA">The start of line 1</param>
+        /// <param name="lineOneB">The end of line 1</param>
+        /// <param name="lineTwoA">The start of line 2</param>
+        /// <param name="lineTwoB">The end of line 2</param>
+        /// <returns>True if an intersection exists</returns>
+        private static bool LineSegmentsIntersect(Vector2 lineOneA, Vector2 lineOneB, Vector2 lineTwoA, Vector2 lineTwoB)
+        {
+            return (((lineTwoB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x) > (lineTwoA.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)) != ((lineTwoB.y - lineOneB.y) * (lineTwoA.x - lineOneB.x) > (lineTwoA.y - lineOneB.y) * (lineTwoB.x - lineOneB.x)) && ((lineTwoA.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x)) != ((lineTwoB.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)));
+        }
+
+        #endregion
+
+        #region Draw Map
+
+        private void DrawMap()
+        {
+            DrawAllPaths();
+            HideUnusedAreas();
+        }
+
+        /// <summary>
+        /// Hide nodes that aren't a part of a path
+        /// </summary>
         private void HideUnusedAreas()
         {
             foreach (MapLevel level in mapLevels)
@@ -110,16 +235,21 @@ namespace Assets.Scripts.Map.UI
             }
         }
 
+        /// <summary>
+        /// Draw all the paths
+        /// </summary>
         private void DrawAllPaths()
         {
             foreach (List<MapNode> paths in mapPaths)
             {
                 DrawPath(paths);
             }
-
-            HideUnusedAreas();
         }
 
+        /// <summary>
+        /// Draw the given path
+        /// </summary>
+        /// <param name="nodeList">The path being drawn</param>
         private void DrawPath(List<MapNode> nodeList)
         {
             List<Vector2> line = new List<Vector2>();
@@ -143,27 +273,10 @@ namespace Assets.Scripts.Map.UI
             
         }
 
-        private bool HasIntersection(List<Vector2> positions)
-        {
-            foreach (List<Vector2> line in mapLines)
-            {
-                for (int i = 1; i < positions.Count; i++)
-                {
-                    bool intersection = lineSegmentsIntersect(positions[i-1], positions[i], line[i-1], line[i]);    
-                    if (!intersection)
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
+        #endregion
 
-        public static bool lineSegmentsIntersect(Vector2 lineOneA, Vector2 lineOneB, Vector2 lineTwoA, Vector2 lineTwoB)
-        {
-            return (((lineTwoB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x) > (lineTwoA.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)) != ((lineTwoB.y - lineOneB.y) * (lineTwoA.x - lineOneB.x) > (lineTwoA.y - lineOneB.y) * (lineTwoB.x - lineOneB.x)) && ((lineTwoA.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoA.x - lineOneA.x)) != ((lineTwoB.y - lineOneA.y) * (lineOneB.x - lineOneA.x) > (lineOneB.y - lineOneA.y) * (lineTwoB.x - lineOneA.x)));
-        }
-        
+        #region Map Orientation
+
         /// <summary>
         /// Gets the position for a level with the given index in and a map in the given orientation
         /// </summary>
@@ -237,6 +350,8 @@ namespace Assets.Scripts.Map.UI
                     throw new ArgumentOutOfRangeException(nameof(orientation), orientation, null);
             }
         }
+
+        #endregion
     }
     
     [Serializable]
