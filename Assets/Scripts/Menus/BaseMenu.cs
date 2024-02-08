@@ -97,7 +97,6 @@ public class BaseMenu : MonoBehaviour
     public void SetFirstIndex(){
         int index = 0;
         foreach (MenuButton menuButton in buttons){
-            Debug.Log(index);
             if (menuButton.IsOn()){
                 buttonIndex = index;
                 return;

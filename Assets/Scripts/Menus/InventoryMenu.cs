@@ -70,9 +70,10 @@ public class InventoryMenu : BaseMenu
         }
     }
 
-    private void ResetItemButtons()
+    private void ResetItemButtons(bool start = true)
     {
         inventoryButtons.ForEach(ib => ib.SetOn(false));
+        inventoryButtons.ForEach(ib => (ib as ItemButton).Reset());
         for (int i = 0; i < InventoryManager.instance.ItemCount(); i++)
         {
             var b = inventoryButtons[i];
@@ -104,22 +105,23 @@ public class InventoryMenu : BaseMenu
 
         //TODO: ONLY HIGHLIGHT OBJECTS THAT CAN BE SWAPPED
         ChangeInventoryScreen();
-         hoveredItem = ib.GetItem();
+        hoveredItem = ib.GetItem();
         if (currentInventoryScreen == InventoryScreen.Units){
             hoveredItemButton.unit = ib.unit;
             ItemType iType;
             //WHEN SWAPPING TO ITEMS
             if (hoveredItem is BaseWeapon){
+                InventoryManager.instance.SortInventory(ib.unit, ItemType.Weapon);
+                ResetItemButtons();
                 hoveredItemButton.SetItem(hoveredItem, 3);
                 HighlightWeapons(hoveredItem as BaseWeapon);
-                iType = ItemType.Weapon;
             }else{
+                InventoryManager.instance.SortInventory(ib.unit, ItemType.Skill);
+                ResetItemButtons();
                 hoveredItemButton.SetItem(hoveredItem, ib.index);
                 HighlightItemSkills(hoveredItem as BaseSkill);
-                iType = ItemType.Skill;
             }
-            InventoryManager.instance.SortInventory(ib.unit, iType);
-            ResetItemButtons();
+
             hoveredItemButton.SetItem(hoveredItem);
         }else{
             //WHEN SWAPPING TO UNITS
@@ -184,7 +186,7 @@ public class InventoryMenu : BaseMenu
                 continue;
             }
             BaseWeapon weapon = item as BaseWeapon;
-            if (weapon.weaponClass == hoveredWeapon.weaponClass){
+            if (weapon != null && weapon.weaponClass == hoveredWeapon.weaponClass){
                 ub.SetOn(true);
             }else{
                 ub.SetOn(false);
@@ -277,7 +279,7 @@ public class InventoryMenu : BaseMenu
         }
         Move(Vector2.zero);
 
-        Debug.Log(buttonIndex);        
+//        Debug.Log(buttonIndex);        
         yield return null;
     }
 

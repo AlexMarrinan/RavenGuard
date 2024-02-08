@@ -660,12 +660,15 @@ public class BaseUnit : MonoBehaviour
     }
 
     public bool CanUseSkill(BaseItem item){
-        if (item is not BaseSkill){
+        if (item == null || item is not BaseSkill){
             return false;
         }
         return CanUseSkill(item as BaseSkill);
     }
     public bool CanUseSkill(BaseSkill newSkill){
+        if (newSkill == null){
+            return false;
+        }
         if (newSkill.weaponClass != this.weaponClass && newSkill.weaponClass != WeaponClass.None){
             return false;
         }
@@ -676,12 +679,15 @@ public class BaseUnit : MonoBehaviour
     }
 
     public bool CanUseWeapon(BaseItem item){
-        if (item is not BaseWeapon){
+        if (item == null || item is not BaseWeapon){
             return false;
         }
         return CanUseWeapon(item as BaseWeapon);
     }
-    public bool CanUseSkill(BaseWeapon newWeapon){
+    public bool CanUseWeapon(BaseWeapon newWeapon){
+        if (newWeapon == null){
+            return false;
+        }        
         return newWeapon.weaponClass == this.weaponClass;
     }
 }

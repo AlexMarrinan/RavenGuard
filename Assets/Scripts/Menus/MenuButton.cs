@@ -29,6 +29,7 @@ public class MenuButton : MonoBehaviour
     public bool IsOn(){
         return isOn;
     }
+
     public void SetOn(bool on = true){
         isOn = on;
         float alpha = on ? 1.0f : 0.25f;
