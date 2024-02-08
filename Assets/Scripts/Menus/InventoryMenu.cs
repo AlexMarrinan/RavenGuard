@@ -26,7 +26,26 @@ public class InventoryMenu : BaseMenu
         }
         base.Move(direction);
         SetNameText();
+        if (currentInventoryScreen == InventoryScreen.Items){
+            HighlightUnits();
+        }
     }
+
+    private void HighlightUnits()
+    {
+        var button = GetCurrentButton();
+        if (button is not ItemButton){
+            return;
+        }
+        BaseItem i = (button as ItemButton).GetItem();
+        foreach (UnitSummaryMenu usm in unitSummaries){
+            usm.unitHighlightImage.gameObject.SetActive(false);
+            if (usm.unit.CanUseSkill(i) || usm.unit.CanUseWeapon(i)){
+                usm.unitHighlightImage.gameObject.SetActive(true);
+            }
+        }
+    }
+
     public void Update(){
         if (itemScreenNextPos != itemsScreen.transform.localPosition){
             itemsScreen.transform.localPosition = Vector2.Lerp(itemsScreen.transform.localPosition, itemScreenNextPos, itemScreenSpeed*Time.deltaTime);
