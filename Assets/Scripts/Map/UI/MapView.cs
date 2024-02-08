@@ -83,7 +83,7 @@ namespace Assets.Scripts.Map.UI
             {
                 MapNode nextNode = startingNodes[i];
                 firstNode.hasPath = true;
-                MakePath(new List<MapNode>() { firstNode},nextNode);
+                MakePath(new List<MapNode>() { firstNode,nextNode});
             }
 
             DrawMap();
@@ -92,19 +92,18 @@ namespace Assets.Scripts.Map.UI
         #region Path Generating
 
         /// <summary>
-        /// Make a path that uses the given path and node
+        /// Make a path that uses the given path 
         /// </summary>
         /// <param name="currentPath">The path</param>
-        /// <param name="node">A node that you can use to get to the next nodes</param>
-        private void MakePath(List<MapNode> currentPath, MapNode node)
+        private void MakePath(List<MapNode> currentPath)
         {
-            List<MapNode> newNodes = node.GetNextClosestNodes(numBranches);
+            List<MapNode> newNodes = currentPath[^1].GetNextClosestNodes(numBranches);
             List<MapNode> path = currentPath;
             if (newNodes != null)
             {
                 MapNode nextNode = newNodes[0];
                 path.Add(nextNode);
-                MakePath(currentPath, nextNode);
+                MakePath(currentPath);
                 return;
             }
             AddPath(currentPath);
