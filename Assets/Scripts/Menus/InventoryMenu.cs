@@ -218,8 +218,7 @@ public class InventoryMenu : BaseMenu
                 ub.SetOn(false);
                 continue;
             }
-            BaseWeapon weapon = item as BaseWeapon;
-            if (weapon != null && weapon.weaponClass == hoveredWeapon.weaponClass){
+            if (ub.unit.weaponClass == hoveredWeapon.weaponClass){
                 ub.SetOn(true);
             }else{
                 ub.SetOn(false);
@@ -318,6 +317,30 @@ public class InventoryMenu : BaseMenu
     {
         hoveredItem = null;
         hoveredItemButton.Reset();
+        ResetButtons();
+    }
+
+    internal void UnequipItem()
+    {
+        if (currentInventoryScreen == InventoryScreen.Items){
+            return;
+        }
+        var menuButton = GetCurrentButton();
+        if (menuButton is not ItemButton){
+            return;
+        }
+        ItemButton ib = menuButton as ItemButton;
+
+        var item = ib.GetItem();
+        if (item == null){
+            return;
+        }
+        InventoryManager.instance.AddItem(item);
+        if (item is BaseWeapon){
+            ib.unit.weapon = null;
+        } else {
+            ib.unit.skills[ib.index] = null;
+        }
         ResetButtons();
     }
 }

@@ -29,6 +29,8 @@ public class ItemButton : MenuButton
     public virtual void SetItem(BaseItem item, int index = -1){
         this.index = index;
         if (item == null){
+            this.image.sprite = null;
+            this.item = null;
             return;
         }
         this.item = item;

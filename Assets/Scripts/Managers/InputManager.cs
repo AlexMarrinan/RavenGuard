@@ -194,6 +194,9 @@ public class InputManager : MonoBehaviour
             return;
         }
         if (MenuManager.instance.InMenu()){
+            if (MenuManager.instance.menuState == MenuState.Inventory){
+                //TODO: MAKE INVENTORY MENU CLOSE SUBMENUS
+            }
             MenuManager.instance.CloseMenus();
             return;
         }
@@ -283,6 +286,13 @@ public class InputManager : MonoBehaviour
 
     private void OnUnitMenuPerformed(InputAction.CallbackContext context)
     {
+        if (MenuManager.instance.menuState == MenuState.Inventory){
+            MenuManager.instance.inventoryMenu.UnequipItem();
+            return;
+        }
+        if (MenuManager.instance.InMenu()){
+            return;
+        }
         MenuManager.instance.ToggleUnitActionMenu();
     }
     private void OnUnitMenuCanceled(InputAction.CallbackContext context)

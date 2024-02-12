@@ -43,7 +43,11 @@ public class UnitStatsMenu : BaseMenu
         unitIcon.sprite = unit.GetSprite();
         unitNameText.text = unit.unitName;
         unitClassText.text = unit.unitClass.ToString();
-        weaponImage.sprite = unit.weapon.sprite;
+        if (unit.weapon != null){
+            weaponImage.sprite = unit.weapon.sprite;
+        }else{
+            weaponImage.sprite = null;
+        }
         weaponText.text = unit.weapon.weaponName;
         weaponClassText.text = unit.weapon.weaponClass.ToString();
         
