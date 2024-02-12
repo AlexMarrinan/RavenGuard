@@ -70,6 +70,7 @@ public class InventoryMenu : BaseMenu
 
     private void ResetButtons()
     {
+        hoveredItemButton.gameObject.SetActive(false);
         hoveredItem = null;
         hoveredItemButton.Reset();
         unitButtons = new();
@@ -134,12 +135,13 @@ public class InventoryMenu : BaseMenu
             }
         }
         //IF NOT UNITS CAN USE IT, DO NOT SWAP MENUS
-        if (noUnits){
+        if (noUnits && currentInventoryScreen == InventoryScreen.Items){
             buttonNameText.text = "No units found that can use that item!";
             hoveredItem = null;
             //Debug.Log("no units found that can use that item!");
             return;
         }
+        hoveredItemButton.gameObject.SetActive(true);
         ChangeInventoryScreen();
         if (currentInventoryScreen == InventoryScreen.Units){
             hoveredItemButton.unit = ib.unit;
@@ -155,7 +157,6 @@ public class InventoryMenu : BaseMenu
                 hoveredItemButton.SetItem(hoveredItem, ib.index);
                 HighlightItemSkills(hoveredItem as BaseSkill);
             }
-            hoveredItemButton.SetItem(hoveredItem);
         }else{
             //WHEN SWAPPING TO UNITS
             hoveredItemButton.SetItem(hoveredItem);
