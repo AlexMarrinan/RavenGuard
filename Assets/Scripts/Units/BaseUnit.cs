@@ -666,7 +666,7 @@ public class BaseUnit : MonoBehaviour
         return CanUseSkill(item as BaseSkill);
     }
     public bool CanUseSkill(BaseSkill newSkill){
-        if (newSkill == null){
+        if (newSkill == null || skills.Contains(newSkill)){
             return false;
         }
         if (newSkill.weaponClass != this.weaponClass && newSkill.weaponClass != WeaponClass.None){
