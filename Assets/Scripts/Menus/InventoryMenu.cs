@@ -124,8 +124,23 @@ public class InventoryMenu : BaseMenu
         }
 
         //TODO: ONLY HIGHLIGHT OBJECTS THAT CAN BE SWAPPED
-        ChangeInventoryScreen();
         hoveredItem = ib.GetItem();
+        //CHECK IF ANY UNITS CAN USE THIS ITEM
+        bool noUnits = true;
+        foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
+            if (unit.CanUseSkill(hoveredItem) || unit.CanUseWeapon(hoveredItem)){
+                noUnits = false;
+                break;
+            }
+        }
+        //IF NOT UNITS CAN USE IT, DO NOT SWAP MENUS
+        if (noUnits){
+            buttonNameText.text = "No units found that can use that item!";
+            hoveredItem = null;
+            //Debug.Log("no units found that can use that item!");
+            return;
+        }
+        ChangeInventoryScreen();
         if (currentInventoryScreen == InventoryScreen.Units){
             hoveredItemButton.unit = ib.unit;
             //WHEN SWAPPING TO ITEMS
@@ -140,7 +155,6 @@ public class InventoryMenu : BaseMenu
                 hoveredItemButton.SetItem(hoveredItem, ib.index);
                 HighlightItemSkills(hoveredItem as BaseSkill);
             }
-
             hoveredItemButton.SetItem(hoveredItem);
         }else{
             //WHEN SWAPPING TO UNITS
