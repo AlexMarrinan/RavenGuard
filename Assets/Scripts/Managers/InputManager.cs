@@ -301,6 +301,9 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
+        if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
         MenuManager.instance.ToggleInventoryMenu();
     }
 
