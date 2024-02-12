@@ -213,16 +213,27 @@ public class InventoryMenu : BaseMenu
             if (mb is not ItemButton){
                 return;
             }
-            ItemButton ub = mb as ItemButton;
-            BaseItem item = ub.GetItem();
+            ItemButton ib = mb as ItemButton;
+            BaseItem item = ib.GetItem();
             if (item is BaseSkill){
-                ub.SetOn(false);
+                ib.SetOn(false);
                 continue;
             }
-            if (ub.unit.weaponClass == hoveredWeapon.weaponClass){
-                ub.SetOn(true);
-            }else{
-                ub.SetOn(false);
+            BaseWeapon weapon = item as BaseWeapon;
+            if (ib.unit == null){
+                // Debug.Log(ib.unit);
+                // Debug.Log(hoveredWeapon);
+                if (weapon != null && weapon.weaponClass == hoveredWeapon.weaponClass){
+                    ib.SetOn(true);
+                }else{
+                    ib.SetOn(false);
+                }
+            }else {
+                if (ib.unit.weaponClass == hoveredWeapon.weaponClass){
+                    ib.SetOn(true);
+                }else{
+                    ib.SetOn(false);
+                }
             }
         }
     }
