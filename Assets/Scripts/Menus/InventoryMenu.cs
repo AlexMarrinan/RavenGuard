@@ -17,7 +17,7 @@ public class InventoryMenu : BaseMenu
     private Vector3 itemScreenNextPos;
     public float itemScreenSpeed;
     private bool menuMoving;
-    private BaseItem hoveredItem;
+    public BaseItem hoveredItem;
     public ItemButton hoveredItemButton;
     public DescriptionMenu descriptionMenu;
     public override void Move(Vector2 direction)

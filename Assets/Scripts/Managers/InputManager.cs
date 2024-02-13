@@ -194,8 +194,9 @@ public class InputManager : MonoBehaviour
             return;
         }
         if (MenuManager.instance.InMenu()){
-            if (MenuManager.instance.menuState == MenuState.Inventory){
-                //TODO: MAKE INVENTORY MENU CLOSE SUBMENUS
+            if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.hoveredItem != null){
+                MenuManager.instance.inventoryMenu.UnhoverItem();
+                return;
             }
             MenuManager.instance.CloseMenus();
             return;
