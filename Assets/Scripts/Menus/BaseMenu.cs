@@ -63,6 +63,9 @@ public class BaseMenu : MonoBehaviour
         SetHighlight();
     }
     protected MenuButton GetCurrentButton(){
+        if (buttonIndex >= buttons.Count || buttonIndex < 0){
+            return null;
+        }
         return buttons[buttonIndex];
     }
     public virtual void Reset(){

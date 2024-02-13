@@ -19,6 +19,7 @@ public class InventoryMenu : BaseMenu
     private bool menuMoving;
     private BaseItem hoveredItem;
     public ItemButton hoveredItemButton;
+    public DescriptionMenu descriptionMenu;
     public override void Move(Vector2 direction)
     {
         if (menuMoving){
@@ -283,6 +284,29 @@ public class InventoryMenu : BaseMenu
     }
     private void SetNameText(){
         buttonNameText.text = InventoryManager.instance.GetItemName(buttonIndex);
+        MenuButton button = GetCurrentButton();
+        if (button == null || button is not ItemButton){
+            return;
+        }
+        ItemButton ib = button as ItemButton;
+        if (ib.item == null){
+            descriptionMenu.descriptionText.text = "";
+            descriptionMenu.nameText.text = "";
+            descriptionMenu.gameObject.SetActive(false);
+            return;
+        }
+        if (ib.item is BaseWeapon){
+            descriptionMenu.descriptionText.text = "";
+            descriptionMenu.nameText.text = "";
+            descriptionMenu.gameObject.SetActive(false);
+        }else{
+            BaseSkill skill = ib.item as BaseSkill;
+            descriptionMenu.gameObject.SetActive(true);
+            descriptionMenu.descriptionText.text = skill.description;
+            descriptionMenu.weaponClassText.text = "Weapon: " + skill.weaponClass;
+            descriptionMenu.unitClassText.text = "Unit: " + skill.unitClass;
+            descriptionMenu.nameText.text = skill.skillName;
+        }
     }
     
     internal void ShowUnits()
@@ -310,6 +334,7 @@ public class InventoryMenu : BaseMenu
     }
     IEnumerator WhileMoving(){
         menuMoving = true;
+        descriptionMenu.gameObject.SetActive(false);
         highlighImage.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.5f);
         highlighImage.gameObject.SetActive(true);

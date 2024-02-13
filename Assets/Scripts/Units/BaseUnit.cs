@@ -669,10 +669,10 @@ public class BaseUnit : MonoBehaviour
         if (newSkill == null || skills.Contains(newSkill)){
             return false;
         }
-        if (newSkill.weaponClass != this.weaponClass && newSkill.weaponClass != WeaponClass.None){
+        if (newSkill.weaponClass != this.weaponClass && newSkill.weaponClass != WeaponClass.Any){
             return false;
         }
-        if (newSkill.unitClass != this.unitClass && newSkill.unitClass != UnitClass.None){
+        if (newSkill.unitClass != this.unitClass && newSkill.unitClass != UnitClass.Any){
             return false;
         }
         return true;
@@ -704,7 +704,7 @@ public enum UnitStatType {
 }
 
 public enum UnitClass {
-    None,
+    Any,
     Infantry,
     Knight,
     Assassin,
