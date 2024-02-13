@@ -194,9 +194,15 @@ public class InputManager : MonoBehaviour
             return;
         }
         if (MenuManager.instance.InMenu()){
-            if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.hoveredItem != null){
-                MenuManager.instance.inventoryMenu.UnhoverItem();
-                return;
+            if (MenuManager.instance.menuState == MenuState.Inventory ) {
+                if (MenuManager.instance.inventoryMenu.hoveredItem != null){
+                    MenuManager.instance.inventoryMenu.UnhoverItem();
+                    return;
+                }
+                if (MenuManager.instance.inventoryMenu.currentInventoryScreen == InventoryScreen.Items){
+                    MenuManager.instance.inventoryMenu.ChangeInventoryScreen();
+                    return;
+                }
             }
             MenuManager.instance.CloseMenus();
             return;
