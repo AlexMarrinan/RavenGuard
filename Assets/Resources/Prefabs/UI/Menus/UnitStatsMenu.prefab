@@ -170,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1354543333722566129
 RectTransform:
   m_ObjectHideFlags: 0
@@ -250,6 +250,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!1 &2184025287864663958
@@ -511,7 +512,7 @@ Transform:
   m_Children:
   - {fileID: 8740440746132427809}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5706689950570963213
 MonoBehaviour:
@@ -534,6 +535,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 7912941766343557166}
 --- !u!1 &3415910815110716126
@@ -592,6 +594,7 @@ MonoBehaviour:
   buttonName: Weapon Button
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 7744847469309806852}
 --- !u!1 &3447364897062614399
@@ -650,6 +653,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 4838154081213000634}
 --- !u!1 &3523614993147511616
@@ -683,7 +687,7 @@ Transform:
   m_Children:
   - {fileID: 945856131600104765}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 21
+  m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7099161173134065706
 MonoBehaviour:
@@ -706,6 +710,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 7618372927349988479}
 --- !u!1 &4054591452543028805
@@ -815,7 +820,7 @@ Transform:
   m_Children:
   - {fileID: 895238450515192291}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 22
+  m_RootOrder: 23
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6986461707469212690
 MonoBehaviour:
@@ -838,6 +843,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 2972786714989359507}
 --- !u!1 &4838154081213000634
@@ -972,6 +978,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 2184025287864663958}
 --- !u!1 &5529430852170573060
@@ -1005,7 +1012,7 @@ Transform:
   m_Children:
   - {fileID: 1169389025178664816}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5624738200652859159
 MonoBehaviour:
@@ -1028,6 +1035,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 2494203568042511344}
 --- !u!1 &6166866729402316519
@@ -1061,7 +1069,7 @@ Transform:
   m_Children:
   - {fileID: 1574532072140609894}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 20
+  m_RootOrder: 21
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4503828075748938492
 MonoBehaviour:
@@ -1084,6 +1092,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 874949439563743234}
 --- !u!1 &6714998037095449745
@@ -1142,6 +1151,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 4054591452543028805}
 --- !u!1 &6899567972816295972
@@ -1327,7 +1337,7 @@ Transform:
   m_Children:
   - {fileID: 423460825781356526}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 23
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7326349105230057650
 MonoBehaviour:
@@ -1350,6 +1360,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 7425136822119263568}
 --- !u!1 &7618372927349988479
@@ -1611,7 +1622,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1898,7 +1909,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2038,6 +2049,7 @@ Transform:
   - {fileID: 5982513600417115055}
   - {fileID: 1867917145800586050}
   - {fileID: 4688324482809968782}
+  - {fileID: 1324979811346172683}
   - {fileID: 7630637652909709828}
   - {fileID: 7630637653279983008}
   - {fileID: 7630637653570694680}
@@ -2109,6 +2121,7 @@ MonoBehaviour:
   weaponClassText: {fileID: 7630637652561581411}
   unitClassText: {fileID: 7630637653570694681}
   healthBar: {fileID: 7630637653071563044}
+  xpBar: {fileID: 1102393063563415095}
 --- !u!1 &7630637652399193476
 GameObject:
   m_ObjectHideFlags: 0
@@ -2292,7 +2305,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2427,7 +2440,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2562,7 +2575,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2832,7 +2845,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2967,7 +2980,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3383,7 +3396,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3518,7 +3531,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3729,7 +3742,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4009,6 +4022,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!1 &7912941766343557166
@@ -4142,6 +4156,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 380791137998995438}
 --- !u!1 &8721426155449433500
@@ -4242,6 +4257,7 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 0}
 --- !u!1 &9195266288663943840
@@ -4275,7 +4291,7 @@ Transform:
   m_Children:
   - {fileID: 20523639878761662}
   m_Father: {fileID: 366887693587469710}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4252545757411850504
 MonoBehaviour:
@@ -4298,5 +4314,79 @@ MonoBehaviour:
   buttonName: 
   buttonDescription: 
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
   buttonHighlight: {fileID: 6899567972816295972}
+--- !u!1001 &3336529878643965305
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 366887693587469710}
+    m_Modifications:
+    - target: {fileID: 2513949708058700259, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_Name
+      value: XPBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -400
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -460.07144
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 25.136131
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+--- !u!114 &1102393063563415095 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2378393844736701262, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+  m_PrefabInstance: {fileID: 3336529878643965305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44505f93e23a1f94fb4e8242fe9fe4ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1324979811346172683 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4336678512906122866, guid: a14f75fb7864ce443973d00c336b6f79, type: 3}
+  m_PrefabInstance: {fileID: 3336529878643965305}
+  m_PrefabAsset: {fileID: 0}

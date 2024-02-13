@@ -15,6 +15,7 @@ public class UnitStatsMenu : BaseMenu
     public TextMeshProUGUI unitNameText, weaponText, attackText, defenseText, agilityText, attunementText, forsightText, luckText;
     public TextMeshProUGUI weaponClassText, unitClassText;
     public HealthBarMenu healthBar;
+    public XPMenu xpBar;
     public void Start(){
         if (faceDirection == FaceDirection.Left){
             unitIcon.transform.localScale = new Vector3(-1, 1, 1);
@@ -47,6 +48,12 @@ public class UnitStatsMenu : BaseMenu
         weaponClassText.text = unit.weapon.weaponClass.ToString();
         
         healthBar.SetUnit(unit);
+        if (unit.faction == UnitFaction.Enemy){
+            xpBar.gameObject.SetActive(false);
+        }else{
+            xpBar.gameObject.SetActive(true);
+            xpBar.SetUnit(unit);
+        }
 
         var atk = unit.GetAttack();
         attackText.text = atk.total.ToString();

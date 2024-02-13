@@ -16,6 +16,10 @@ public class BaseUnit : MonoBehaviour
     public int maxMoveAmount;
     public int health;
     public int maxHealth;
+    public int currentXP = 0;
+    public int maxXP = 100;
+    private int droppedXP = 100;
+    public int level = 1;
     public bool hasMoved;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
@@ -316,6 +320,44 @@ public class BaseUnit : MonoBehaviour
     }
     #endregion
 
+    public int GetBaseATK(){
+        return attack;
+    }
+    public int GetBaseDEF(){
+        return defense;
+    }
+    public int GetBaseAGL(){
+        return agility;
+    }
+    public int GetBaseATU(){
+        return attunment;
+    }
+    public int GetBaseFOR(){
+        return foresight;
+    }
+    public int GetBaseLCK(){
+        return luck;
+    }
+
+    public void SetBaseATK(int value){
+        attack = value;
+    }
+    public void SetBaseDEF(int value){
+        defense = value;
+    }
+    public void SetBaseAGL(int value){
+        agility = value;
+    }    
+    public void SetBaseATU(int value){
+        attunment = value;
+    }    
+    public void SetBaseFOR(int value){
+        foresight = value;
+    }    
+    public void SetBaseLCK(int value){
+        luck = value;
+    }
+
 
     public Sprite GetSprite(){
         return spriteRenderer.sprite;
@@ -577,6 +619,44 @@ public class BaseUnit : MonoBehaviour
         }else if (tile.walkable || tile.occupiedUnit == null){
             returns.Add((tile, TileMoveType.InAttackRange));
         }
+    }
+
+    public void GainXP(int amount){
+        if (this.faction == UnitFaction.Enemy){
+            BattleSceneManager.instance.waitForXP = false;
+            return;
+        }
+        int newXP = currentXP + amount;
+        while (newXP >= maxXP){
+            StartCoroutine(LevelUpBarAnimation());
+            newXP -= maxXP;
+        }
+        currentXP = newXP;
+        StartCoroutine(AnimateXPBar(newXP));
+    }
+
+    private IEnumerator AnimateXPBar(int xp)
+    {
+        yield return new WaitForSeconds(1f);
+    }
+
+    private IEnumerator LevelUpBarAnimation()
+    {
+        yield return new WaitForSeconds(0.2f);
+        LevelUp();
+    }
+
+    private void LevelUp(){
+        Debug.Log(this.ToString() + " LEVEL UP!");
+        level++;
+        var menu = MenuManager.instance.levelupMenu;
+        menu.Reset();
+        menu.SetUnit(this);
+        menu.gameObject.SetActive(true);
+    }
+
+    public int GetDroppedXP(){
+        return droppedXP;
     }
 }
 
