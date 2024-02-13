@@ -40,6 +40,9 @@ public class InventoryMenu : BaseMenu
         }
         BaseItem i = (button as ItemButton).GetItem();
         foreach (UnitSummaryMenu usm in unitSummaries){
+            if (usm.unit == null){
+                continue;
+            }
             usm.unitHighlightImage.gameObject.SetActive(false);
             if (usm.unit.CanUseSkill(i) || usm.unit.CanUseWeapon(i)){
                 usm.unitHighlightImage.gameObject.SetActive(true);
@@ -58,7 +61,7 @@ public class InventoryMenu : BaseMenu
         SetNameText();
         hoveredItemButton.Reset();
         this.xCount = 4;
-        this.yCount = 5;
+        this.yCount = UnitManager.instance.GetAllHeroes().Count;
 
         itemsScreen.transform.localPosition = new(860, 180);
         itemScreenNextPos = itemsScreen.transform.localPosition;
@@ -78,9 +81,12 @@ public class InventoryMenu : BaseMenu
         //DISPLAY INVENTORY ITEMS CODE
         ResetItemButtons();
         var heroes = UnitManager.instance.GetAllHeroes();
+        unitSummaries.ForEach(summary => summary.unit = null);
+        unitSummaries.ForEach(summary => summary.gameObject.SetActive(false));
         for (int i = 0; i < heroes.Count; i++)
         {
             UnitSummaryMenu summary = unitSummaries[i];
+            summary.gameObject.SetActive(true);
             summary.Init(heroes[i]);
             unitButtons.Add(summary.weaponButton);
             summary.weaponButton.SetOn(true);
@@ -317,7 +323,7 @@ public class InventoryMenu : BaseMenu
         itemScreenNextPos += new Vector3(1700, 0);
         buttons = unitButtons;
         this.xCount = 4;
-        this.yCount = 5;
+        this.yCount = UnitManager.instance.GetAllHeroes().Count;
         StartCoroutine(WhileMoving());
     }
 
