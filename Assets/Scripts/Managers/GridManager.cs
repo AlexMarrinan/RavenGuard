@@ -75,6 +75,14 @@ public class GridManager : MonoBehaviour
                 }else if (spawn == SpawnFaction.OrangeEither){
                     team2spawns.Add(pos, UnitSpawnType.Both);
                 }
+                if (bt.spawnChest){
+                    float randValue = UnityEngine.Random.value;
+                //TODO: MAKE CHEST SPAWNS ASSOSIATED WITH LEVEL PROGRESSION, NOT PURELY RANDOM
+                    if (randValue < chestSpawnRate){
+                        var newChest = Instantiate(chestPrefab, new Vector3(bt.coordiantes.x, bt.coordiantes.y), Quaternion.identity);
+                        newChest.PlaceChest(bt);
+                    }
+                }
             }
             GameManager.instance.ChangeState(GameState.SapwnHeroes);
             return;
