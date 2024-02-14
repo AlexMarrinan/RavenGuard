@@ -128,7 +128,7 @@ public class LevelupMenu : BaseMenu
         BattleSceneManager.instance.CloseBattleScene();
         MenuManager.instance.CloseMenus();
         if (UnitManager.instance.GetAllEnemies().Count <= 0){
-            GameManager.instance.LoadNextLevel();
+            MenuManager.instance.ToggleLevelEndMenu();
         }
     }
 

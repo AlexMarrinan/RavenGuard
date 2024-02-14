@@ -47,7 +47,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
-        var enemyCount = 5;
+        var enemyCount = 2;
         for (int i = 0; i < enemyCount; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
@@ -114,6 +114,9 @@ public class UnitManager : MonoBehaviour
     }
 
     public void UnselectUnit(){
+        if (selectedUnit == null){
+            return;
+        }
         MenuManager.instance.UnselectTile();
         selectedUnit = null;
         PathLine.instance.Reset();

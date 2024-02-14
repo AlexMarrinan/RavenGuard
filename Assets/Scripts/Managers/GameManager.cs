@@ -118,6 +118,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        MenuManager.instance.CloseMenus();
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);
         }

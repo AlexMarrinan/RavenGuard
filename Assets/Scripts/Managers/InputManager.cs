@@ -188,6 +188,9 @@ public class InputManager : MonoBehaviour
         if (MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
+        if (MenuManager.instance.menuState == MenuState.LevelEnd){
+            return;
+        }
         AudioManager.instance.PlayCancel();
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.OnSkilEnd();
@@ -237,6 +240,9 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.LevelEnd){
+            return;
+        }
         if (GameManager.instance.gameState == GameState.BattleScene){
             SceneManager.LoadScene("MainMenu");
             return;
@@ -309,6 +315,9 @@ public class InputManager : MonoBehaviour
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
         if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
+        if (MenuManager.instance.menuState == MenuState.LevelEnd){
             return;
         }
         MenuManager.instance.ToggleInventoryMenu();

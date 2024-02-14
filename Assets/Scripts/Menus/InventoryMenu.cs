@@ -295,24 +295,7 @@ public class InventoryMenu : BaseMenu
             return;
         }
         ItemButton ib = button as ItemButton;
-        if (ib.item == null){
-            descriptionMenu.descriptionText.text = "";
-            descriptionMenu.nameText.text = "";
-            descriptionMenu.gameObject.SetActive(false);
-            return;
-        }
-        if (ib.item is BaseWeapon){
-            descriptionMenu.descriptionText.text = "";
-            descriptionMenu.nameText.text = "";
-            descriptionMenu.gameObject.SetActive(false);
-        }else{
-            BaseSkill skill = ib.item as BaseSkill;
-            descriptionMenu.gameObject.SetActive(true);
-            descriptionMenu.descriptionText.text = skill.description;
-            descriptionMenu.weaponClassText.text = "Weapon: " + skill.weaponClass;
-            descriptionMenu.unitClassText.text = "Unit: " + skill.unitClass;
-            descriptionMenu.nameText.text = skill.skillName;
-        }
+        descriptionMenu.SetItem(ib.item);
     }
     
     internal void ShowUnits()
