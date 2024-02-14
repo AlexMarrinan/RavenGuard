@@ -31,7 +31,7 @@ public class UnitActionMenu : BaseMenu
         SetNameText();
         buttons.ForEach(b => b.SetOn());
         var u = UnitManager.instance.selectedUnit;
-        Debug.Log(u);
+//        Debug.Log(u);
         if (u == null)
         {
             return;

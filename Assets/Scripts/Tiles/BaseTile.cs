@@ -80,7 +80,7 @@ public abstract class BaseTile : MonoBehaviour
         OnSelectTile();
     }
     public void OnSelectTile(){
-        Debug.Log("Selecting tile...");
+//        Debug.Log("Selecting tile...");
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }
@@ -89,7 +89,7 @@ public abstract class BaseTile : MonoBehaviour
             return;
         }
 //       Debug.Log("2");
-        Debug.Log(moveType);
+//        Debug.Log(moveType);
         if (UnitManager.instance.selectedUnit != null && (moveType == TileMoveType.NotValid || moveType == TileMoveType.InAttackRange)){
             return;
         }
@@ -107,7 +107,7 @@ public abstract class BaseTile : MonoBehaviour
             }
             //current unit is enemy, AND selected is enemy,
             else if (occupiedUnit.faction == UnitFaction.Enemy){
-                Debug.Log("Selected unit is enemy!");
+ //               Debug.Log("Selected unit is enemy!");
                 if (UnitManager.instance.selectedUnit == null){
                   return;
                 }
