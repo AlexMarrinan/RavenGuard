@@ -47,7 +47,7 @@ public class MenuManager : MonoBehaviour
             UnhighlightTile();
             return;
         }
-        Debug.Log(tile);
+//        Debug.Log(tile);
 
         highlightObject.transform.position = tile.transform.position;        
         highlightObject.SetActive(true);
@@ -57,6 +57,7 @@ public class MenuManager : MonoBehaviour
             Debug.Log(UnitManager.instance.selectedUnit);
             if (UnitManager.instance.selectedUnit == null){
                 unitStatsMenu.gameObject.SetActive(true);
+                unitStatsMenu.transform.SetAsLastSibling();
                 unitStatsMenu.SetUnit(tile.occupiedUnit);
                 tile.occupiedUnit.HighlightDot();
             }else if (tile.occupiedUnit.faction == UnitFaction.Enemy && tile.moveType != TileMoveType.NotValid){
@@ -71,6 +72,7 @@ public class MenuManager : MonoBehaviour
                 }
 
                 otherUnitStatsMenu.gameObject.SetActive(true);
+                otherUnitStatsMenu.transform.SetAsLastSibling();
                 otherUnitStatsMenu.SetUnit(tile.occupiedUnit);
                 if (bp.attacker == tile.occupiedUnit){
                     otherUnitStatsMenu.healthBar.SetHealth(bp.atkHealth);

@@ -130,6 +130,7 @@ public class BaseUnit : MonoBehaviour
         ((GameObject)go).transform.SetParent(GameManager.instance.mainCanvas.transform);
         healthBar = go.GetComponent<UnitHealthBar>();
         healthBar.SetAttachedUnit(this);
+        healthBar.transform.SetAsFirstSibling();
     }
     public virtual void Attack(BaseUnit otherUnit){
         return;

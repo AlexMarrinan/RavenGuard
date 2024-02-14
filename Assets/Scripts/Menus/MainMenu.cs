@@ -14,10 +14,10 @@ public class MainMenu : BaseMenu
        }
     }
     private void Play(){
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("StartScene");
     }
     private void Options(){
-        SceneManager.LoadScene("BattleScene");
+        //TODO: OPTIONS MENU
     }
     private void Quit(){
         Debug.Log("Quitting...");

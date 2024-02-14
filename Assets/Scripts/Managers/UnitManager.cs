@@ -24,15 +24,24 @@ public class UnitManager : MonoBehaviour
     public void SpawnHeroes(){
         //returns 0 or 1
         team1heros = 0 == Random.Range(0, 2);
-        var heroCount = 5;
-        for (int i = 0; i < heroCount; i++){
-            var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
-            var randomPrefab = GetRandomUnit(UnitFaction.Hero, randomSpawnTile.Item2);
-            var spawnedHero = Instantiate(randomPrefab);
-            units.Add(spawnedHero);
-            randomSpawnTile.Item1.SetUnitStart(spawnedHero);
-            spawnedHero.SetSkillMethods();
-            SetDot(spawnedHero, i, UnitFaction.Hero);
+        if (GetAllHeroes().Count <= 0){
+            var heroCount = 5;
+            for (int i = 0; i < heroCount; i++){
+                var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
+                var randomPrefab = GetRandomUnit(UnitFaction.Hero, randomSpawnTile.Item2);
+                var spawnedHero = Instantiate(randomPrefab, this.transform);
+                units.Add(spawnedHero);
+                randomSpawnTile.Item1.SetUnitStart(spawnedHero);
+                spawnedHero.SetSkillMethods();
+                SetDot(spawnedHero, i, UnitFaction.Hero);
+            }
+        }else{
+            foreach (BaseUnit hero in GetAllHeroes()){
+                var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
+//                Debug.Log(randomSpawnTile.Item1.transform.position);
+                randomSpawnTile.Item1.SetUnitStart(hero);
+                hero.transform.position = randomSpawnTile.Item1.transform.position;
+            }
         }
         GameManager.instance.ChangeState(GameState.SpawnEnemies);
     }
@@ -67,15 +76,16 @@ public class UnitManager : MonoBehaviour
         unit.faction = faction;
         return unit;
     }
-    public void DeleteUnit(BaseUnit unit){
+    public void DeleteUnit(BaseUnit unit, bool killed = true){
         units.Remove(unit);
         if (unit.uiDot != null){
             unit.uiDot.SetColor(Color.gray);
         }
         Object.Destroy(unit.healthBar.gameObject);
         Object.Destroy(unit.gameObject);
-        if (GetAllEnemies().Count <= 0){
+        if (GetAllEnemies().Count <= 0 && killed){
             MenuManager.instance.ShowStartText("YOU WIN!", true);
+            GameManager.instance.LoadNextLevel();
             return;
         }
         if (GetAllHeroes().Count <= 0){
