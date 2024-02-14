@@ -121,6 +121,9 @@ public class GameManager : MonoBehaviour
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);
         }
+        foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
+            unit.health = unit.maxHealth;
+        }
         StartCoroutine(LoadNextLevelAsync());
     }
 }
