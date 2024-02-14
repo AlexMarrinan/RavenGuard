@@ -132,7 +132,6 @@ public class MenuManager : MonoBehaviour
             CloseMenus();
             return;
         }
-        Debug.Log(UnitManager.instance.selectedUnit);
         if (UnitManager.instance.selectedUnit == null){
             var temp = GridManager.instance.hoveredTile.occupiedUnit;
 //            Debug.Log(temp);

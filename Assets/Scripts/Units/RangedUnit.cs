@@ -101,4 +101,13 @@ public class RangedUnit : BaseUnit
         next.ForEach(t => GVAHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
     }
+
+    
+    protected override void InitializeUnitClass(){
+        if (this.rangedWeaponClass == WeaponRangedClasss.Archer){
+            this.weaponClass = WeaponClass.Archer;
+        }else{
+            this.weaponClass = WeaponClass.Magic;
+        }
+    }
 }

@@ -63,6 +63,9 @@ public class BaseMenu : MonoBehaviour
         SetHighlight();
     }
     protected MenuButton GetCurrentButton(){
+        if (buttonIndex >= buttons.Count || buttonIndex < 0){
+            return null;
+        }
         return buttons[buttonIndex];
     }
     public virtual void Reset(){
@@ -93,6 +96,16 @@ public class BaseMenu : MonoBehaviour
     }
     public virtual void Select(){
 
+    }
+    public void SetFirstIndex(){
+        int index = 0;
+        foreach (MenuButton menuButton in buttons){
+            if (menuButton.IsOn()){
+                buttonIndex = index;
+                return;
+            }
+            index += 1;
+        }
     }
 }
 

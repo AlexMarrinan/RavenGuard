@@ -194,6 +194,16 @@ public class InputManager : MonoBehaviour
             return;
         }
         if (MenuManager.instance.InMenu()){
+            if (MenuManager.instance.menuState == MenuState.Inventory ) {
+                if (MenuManager.instance.inventoryMenu.hoveredItem != null){
+                    MenuManager.instance.inventoryMenu.UnhoverItem();
+                    return;
+                }
+                if (MenuManager.instance.inventoryMenu.currentInventoryScreen == InventoryScreen.Items){
+                    MenuManager.instance.inventoryMenu.ChangeInventoryScreen();
+                    return;
+                }
+            }
             MenuManager.instance.CloseMenus();
             return;
         }
@@ -256,6 +266,7 @@ public class InputManager : MonoBehaviour
             TurnManager.instance.GoToPreviousUnit();
         }
         if (mm.menuState == MenuState.Inventory){
+            mm.inventoryMenu.UnhoverItem();
             mm.InventoryShowUntis();
         }    
     }
@@ -270,6 +281,7 @@ public class InputManager : MonoBehaviour
             TurnManager.instance.GoToNextUnit();
         }
         if (mm.menuState == MenuState.Inventory){
+            mm.inventoryMenu.UnhoverItem();
             mm.InventoryShowItems();
         }
     }
@@ -281,6 +293,13 @@ public class InputManager : MonoBehaviour
 
     private void OnUnitMenuPerformed(InputAction.CallbackContext context)
     {
+        if (MenuManager.instance.menuState == MenuState.Inventory){
+            MenuManager.instance.inventoryMenu.UnequipItem();
+            return;
+        }
+        if (MenuManager.instance.InMenu()){
+            return;
+        }
         MenuManager.instance.ToggleUnitActionMenu();
     }
     private void OnUnitMenuCanceled(InputAction.CallbackContext context)
@@ -289,6 +308,9 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
+        if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
         MenuManager.instance.ToggleInventoryMenu();
     }
 
