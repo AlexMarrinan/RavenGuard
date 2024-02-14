@@ -116,13 +116,13 @@ public class UnitActionMenu : BaseMenu
                 UnitManager.instance.RemoveAllValidMoves();
                 UnitManager.instance.SetValidAttacks(u);
                 PathLine.instance.Reset();
-                Debug.Log("attacking...");
+//                Debug.Log("attacking...");
             }else if (buttonIndex == 2){
                 //WAIT
                 u.FinishTurn();
                 MenuManager.instance.CloseMenus();
             }else if (buttonIndex == 3){
-                Debug.Log("boring skill...");
+     //           Debug.Log("boring skill...");
             }else{
                 var s = u.GetSkill(buttonIndex - 4);
                 if (s != null){

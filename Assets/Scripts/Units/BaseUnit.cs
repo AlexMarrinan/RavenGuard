@@ -266,7 +266,7 @@ public class BaseUnit : MonoBehaviour
 
     public void FinishMovement(){
         // moveAmount = 0;
-        Debug.Log("movment over");
+//        Debug.Log("movment over");
         hasMoved = true;
         UsePassiveSkills(PassiveSkillType.OnMovement);
         UnitManager.instance.UnselectUnit();
@@ -648,7 +648,7 @@ public class BaseUnit : MonoBehaviour
     }
 
     private void LevelUp(){
-        Debug.Log(this.ToString() + " LEVEL UP!");
+//        Debug.Log(this.ToString() + " LEVEL UP!");
         level++;
         var menu = MenuManager.instance.levelupMenu;
         menu.Reset();
