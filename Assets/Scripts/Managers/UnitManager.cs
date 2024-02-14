@@ -47,7 +47,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
-        var enemyCount = 5;
+        var enemyCount = 2;
         for (int i = 0; i < enemyCount; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
@@ -84,8 +84,7 @@ public class UnitManager : MonoBehaviour
         Object.Destroy(unit.healthBar.gameObject);
         Object.Destroy(unit.gameObject);
         if (GetAllEnemies().Count <= 0 && killed){
-            MenuManager.instance.ShowStartText("YOU WIN!", true);
-            GameManager.instance.LoadNextLevel();
+            MenuManager.instance.ShowStartText("LEVEL COMPLETE!", false);
             return;
         }
         if (GetAllHeroes().Count <= 0){

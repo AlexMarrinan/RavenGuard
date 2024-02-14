@@ -127,6 +127,9 @@ public class LevelupMenu : BaseMenu
         yield return new WaitForSeconds(1.5f);
         BattleSceneManager.instance.CloseBattleScene();
         MenuManager.instance.CloseMenus();
+        if (UnitManager.instance.GetAllEnemies().Count <= 0){
+            GameManager.instance.LoadNextLevel();
+        }
     }
 
     private void AddATK()
