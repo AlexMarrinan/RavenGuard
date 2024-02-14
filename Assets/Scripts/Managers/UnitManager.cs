@@ -47,7 +47,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
-        var enemyCount = 2;
+        var enemyCount = 5;
         for (int i = 0; i < enemyCount; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);

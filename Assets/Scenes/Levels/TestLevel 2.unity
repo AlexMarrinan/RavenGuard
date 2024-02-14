@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nextLevelName: TestLevel 1
+  startLevel: 0
 --- !u!4 &67550919
 Transform:
   m_ObjectHideFlags: 0
@@ -2495,6 +2496,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
       value: 
       objectReference: {fileID: 0}
@@ -3127,6 +3132,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
       value: 
       objectReference: {fileID: 0}
@@ -3284,6 +3293,10 @@ PrefabInstance:
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: fgSprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
@@ -3806,6 +3819,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
       value: 
       objectReference: {fileID: 0}
@@ -3881,6 +3898,10 @@ PrefabInstance:
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: fgSprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
@@ -4558,6 +4579,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
       value: 
       objectReference: {fileID: 0}
@@ -4889,6 +4914,10 @@ PrefabInstance:
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: fgSprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
@@ -5458,6 +5487,10 @@ PrefabInstance:
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: fgSprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
@@ -9380,6 +9413,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
       value: 
       objectReference: {fileID: 0}
@@ -9455,6 +9492,10 @@ PrefabInstance:
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: fgSprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
+      propertyPath: spawnChest
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1412788152684098406, guid: 8b8ef63fbbb2e9c47a71acf81bba5d63, type: 3}
       propertyPath: middleSprite
