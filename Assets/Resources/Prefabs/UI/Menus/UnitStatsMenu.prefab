@@ -170,7 +170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1354543333722566129
 RectTransform:
   m_ObjectHideFlags: 0
@@ -242,7 +242,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7623856536820178509}
-  bgimage: {fileID: 0}
   upButton: {fileID: 0}
   downButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -527,7 +526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 0}
   downButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -586,7 +584,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7623856536820178509}
-  bgimage: {fileID: 7650444140852135620}
   upButton: {fileID: 6986461707469212690}
   downButton: {fileID: 5375941187879584450}
   leftButton: {fileID: 5348877527596605052}
@@ -645,7 +642,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7630637652410128141}
-  bgimage: {fileID: 7630637652940797540}
   upButton: {fileID: 5348877527596605052}
   downButton: {fileID: 4252545757411850504}
   leftButton: {fileID: 5375941187879584450}
@@ -702,7 +698,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 4252545757411850504}
   downButton: {fileID: 5348877527596605052}
   leftButton: {fileID: 7326349105230057650}
@@ -835,7 +830,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 5624738200652859159}
   downButton: {fileID: 6606305952228801435}
   leftButton: {fileID: 7099161173134065706}
@@ -970,7 +964,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7630637653537625973}
-  bgimage: {fileID: 7630637652399193474}
   upButton: {fileID: 6606305952228801435}
   downButton: {fileID: 4503828075748938492}
   leftButton: {fileID: 511684294780707801}
@@ -1027,7 +1020,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 511684294780707801}
   downButton: {fileID: 6986461707469212690}
   leftButton: {fileID: 4252545757411850504}
@@ -1084,7 +1076,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 5375941187879584450}
   downButton: {fileID: 7326349105230057650}
   leftButton: {fileID: 5624738200652859159}
@@ -1143,7 +1134,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7630637653793033759}
-  bgimage: {fileID: 7630637652291665855}
   upButton: {fileID: 5348877527596605052}
   downButton: {fileID: 5624738200652859159}
   leftButton: {fileID: 6732942987678401034}
@@ -1352,7 +1342,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 4503828075748938492}
   downButton: {fileID: 6606305952228801435}
   leftButton: {fileID: 6986461707469212690}
@@ -4014,7 +4003,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 2992844488527346119}
-  bgimage: {fileID: 0}
   upButton: {fileID: 0}
   downButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -4148,7 +4136,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7630637653196975340}
-  bgimage: {fileID: 0}
   upButton: {fileID: 7099161173134065706}
   downButton: {fileID: 6732942987678401034}
   leftButton: {fileID: 6606305952228801435}
@@ -4249,7 +4236,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 7650444140852135620}
-  bgimage: {fileID: 0}
   upButton: {fileID: 0}
   downButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -4306,7 +4292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 0}
-  bgimage: {fileID: 0}
   upButton: {fileID: 6732942987678401034}
   downButton: {fileID: 7099161173134065706}
   leftButton: {fileID: 4503828075748938492}

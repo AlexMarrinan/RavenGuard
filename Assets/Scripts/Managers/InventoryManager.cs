@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
@@ -32,5 +33,22 @@ public class InventoryManager : MonoBehaviour
     }
     public int ItemCount(){
         return items.Count;
+    }
+    public void AddItem(BaseItem item){
+        items.Add(item);
+    }
+    public void RemoveItem(BaseItem item){
+        items.Remove(item);
+    }
+
+
+    public void SortInventory(BaseUnit unit, ItemType type)
+    {
+        //MOVE BUTTONS THAT ARE ON TO THE FRONT
+        if (type == ItemType.Skill){
+            items = items.OrderByDescending(i => unit.CanUseSkill(i)).ToList();
+        }else{
+            items = items.OrderByDescending(i => unit.CanUseWeapon(i)).ToList();
+        }
     }
 }

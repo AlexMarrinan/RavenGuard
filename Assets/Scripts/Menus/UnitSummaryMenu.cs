@@ -7,25 +7,32 @@ using UnityEngine.UI;
 
 public class UnitSummaryMenu : BaseMenu
 {
-    public Image unitIcon, healthBarTop, healthBarBottom;
+    public Image unitIcon, healthBarTop, healthBarBottom, unitHighlightImage;
     public ItemButton weaponButton;
     public TextMeshProUGUI healthText, weaponClassText, unitClassText;
     public XPMenu xpBar;
     public TMP_Text atkT, defT, aglT, atuT, frsT, lckT;
     public List<ItemButton> itemButtons = new();
+    public BaseUnit unit;
     public void Init(BaseUnit unit){
+        this.unit = unit;
         xpBar.SetUnit(unit);
         unitIcon.sprite = unit.GetSprite();
-        unitIcon.color = unit.GetColor();
+        //unitIcon.color = unit.GetColor();
+        unitHighlightImage.gameObject.SetActive(false);
         healthBarTop.fillAmount = (float)unit.health / (float)unit.maxHealth;
         healthText.text = unit.health + " / " + unit.maxHealth;
         weaponClassText.text = unit.weaponClass.ToString();
         unitClassText.text = unit.unitClass.ToString();
 
-        weaponButton.SetItem(unit.weapon);
-        itemButtons[0].SetItem(unit.GetSkill(0));
-        itemButtons[1].SetItem(unit.GetSkill(1));
-        itemButtons[2].SetItem(unit.GetSkill(2));
+        weaponButton.SetItem(unit.weapon, 0);
+        weaponButton.SetUnit(unit);
+        itemButtons[0].SetItem(unit.GetSkill(0), 0);
+        itemButtons[0].SetUnit(unit);
+        itemButtons[1].SetItem(unit.GetSkill(1), 1);
+        itemButtons[1].SetUnit(unit);
+        itemButtons[2].SetItem(unit.GetSkill(2), 2);
+        itemButtons[2].SetUnit(unit);
 
         var atk = unit.GetAttack();
         atkT.text = atk.total.ToString();
