@@ -136,7 +136,7 @@ MonoBehaviour:
   validPath: []
   depthText: {fileID: 0}
   coordiantes: {x: 0, y: 0}
-  editorType: 4
+  editorType: 1
   attachedChest: {fileID: 0}
   spawnTeam: 0
   spawnChest: 0
