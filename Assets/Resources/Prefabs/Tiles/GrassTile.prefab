@@ -136,7 +136,7 @@ MonoBehaviour:
   validPath: []
   depthText: {fileID: 0}
   coordiantes: {x: 0, y: 0}
-  editorType: 4
+  editorType: 1
   attachedChest: {fileID: 0}
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   offsetColor: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
