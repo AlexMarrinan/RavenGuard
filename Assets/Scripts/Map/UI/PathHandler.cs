@@ -21,6 +21,7 @@ namespace Assets.Scripts.Map.UI
             List<MapNode> startingNodes=firstNode.GetNextClosestNodes(numBranches);
             for (int i = 0; i < numBranches; i++)
             {
+                if (i >= startingNodes.Count) break;
                 AddBranchingNode(startingNodes[i]);
                 MapNode nextNode = startingNodes[i];
                 firstNode.hasPath = true;
@@ -33,6 +34,19 @@ namespace Assets.Scripts.Map.UI
         public List<List<MapNode>> GetMapNodes()
         {
             return mapPaths.OrderBy(list=>list.Count).ToList();
+        }
+        
+        /// <summary>
+        /// Adds the given path to mapPaths if it isn't in already
+        /// </summary>
+        /// <param name="path">The path being added</param>
+        private void AddPath(List<MapNode> path)
+        {
+            if (ShouldAddPath(path) && !HasIntersection(path))
+            {
+                mapPaths.Add(path);
+                mapLines.Add(GetPositionList(path));
+            }
         }
         
         
@@ -105,18 +119,7 @@ namespace Assets.Scripts.Map.UI
 
             return line;
         }
-
-        /// <summary>
-        /// Adds the given path to mapPaths if it isn't in already
-        /// </summary>
-        /// <param name="path">The path being added</param>
-        private void AddPath(List<MapNode> path)
-        {
-            if (ShouldAddPath(path) && !HasIntersection(path))
-            {
-                mapPaths.Add(path);
-            }
-        }
+        
         #endregion
         
         #region Path Bool Checks
@@ -190,14 +193,28 @@ namespace Assets.Scripts.Map.UI
             {
                 for (int i = 1; i < path.Count; i++)
                 {
-                    bool intersection = LineSegmentsIntersect(path[i-1], path[i], line[i-1], line[i]);    
-                    if (!intersection)
+                    if (!HasSamePositions(path[i-1], path[i], line[i-1], line[i]))
                     {
-                        return true;
+                        bool intersection = LineSegmentsIntersect(path[i-1], path[i], line[i-1], line[i]);    
+                        if (intersection)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
             return false;
+        }
+
+        private bool HasSamePositions(Vector2 lineOneA, Vector2 lineOneB, Vector2 lineTwoA, Vector2 lineTwoB)
+        {
+            return SamePosition(lineOneA, lineTwoA) || SamePosition(lineOneB, lineTwoB) ||
+                   SamePosition(lineOneB, lineTwoA) || SamePosition(lineOneA, lineTwoB);
+        }
+
+        private bool SamePosition(Vector2 point1, Vector2 point2)
+        {
+            return point1 == point2;
         }
 
         /// <summary>

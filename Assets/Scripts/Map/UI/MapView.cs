@@ -57,7 +57,7 @@ namespace Assets.Scripts.Map.UI
                     mapLevels[i].nextLevel = mapLevels[i + 1];
                 }
             }
-
+            
             pathHandler.Init(canvas,numBranches,mapLevels[0].nodes[0]);
             DrawMap();
         }
