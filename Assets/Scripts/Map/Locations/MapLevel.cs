@@ -27,7 +27,7 @@ namespace Assets.Scripts.Map.Locations
             rectTransform.sizeDelta = new Vector2(width,height);
 			nodeWidthChunk = width /roomsPerLevel;
             nodeHeightChunk = height/roomsPerLevel;
-            
+            print("Rooms Per Level: "+roomsPerLevel);
             for (int i = 0; i < roomsPerLevel; i++)
             {
                 MapNode node=Instantiate(mapNodePrefab, transform);

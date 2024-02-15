@@ -349,8 +349,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapView: {fileID: 1421158365}
-  levelsNum: 4
-  roomsPerLevel: 5
+  maxBranchNum: 3
+  levelsNum: 6
+  roomsPerLevel: 7
   mapOrientation: 2
 --- !u!1 &1081908796
 GameObject:
@@ -401,6 +402,7 @@ GameObject:
   - component: {fileID: 1421158364}
   - component: {fileID: 1421158363}
   - component: {fileID: 1421158362}
+  - component: {fileID: 1421158366}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -507,9 +509,21 @@ MonoBehaviour:
   lineParent: {fileID: 1081908797}
   levelParent: {fileID: 180535275}
   canvas: {fileID: 1421158364}
-  numBranches: 3
+  pathHandler: {fileID: 1421158366}
   linePrefab: {fileID: 7072063803070148884, guid: 532a3a425bd4ba743b9b5da8452264f5, type: 3}
   mapLevelPrefab: {fileID: 4650020645965957051, guid: b1a494dbbf931ca42bffb9911b0b25e6, type: 3}
+--- !u!114 &1421158366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1421158360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44a185feef0944b3b62ce2a62f60ba7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1603504145
 GameObject:
   m_ObjectHideFlags: 0

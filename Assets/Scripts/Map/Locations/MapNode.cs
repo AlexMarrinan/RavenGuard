@@ -41,6 +41,7 @@ namespace Assets.Scripts.Map.Locations
 
         public List<MapNode> GetNextClosestNodes(int nodeCount=2)
         {
+            print("Count: "+nodeCount);
             if (!loadedNodes)
             {
                 closestNodes = LoadClosestNodes(nodeCount);

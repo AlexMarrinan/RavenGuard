@@ -18,8 +18,7 @@ namespace Assets.Scripts.Map.UI
         [SerializeField] private RectTransform levelParent;
         [SerializeField] private Canvas canvas;
         [SerializeField] private PathHandler pathHandler;
-        public int numBranches = 2;
-        public int maxNodesInLevel=3;
+        private int numBranches = 2;
         
         [Header("Prefabs")] 
         [SerializeField] private UILine linePrefab;
@@ -37,9 +36,10 @@ namespace Assets.Scripts.Map.UI
         private float halfLevelHeight;
         private float halfLevelWidth;
 
-        public void Init(int levels, int roomsPerLevel, Orientation orientation=Orientation.LEFT_TO_RIGHT)
+        public void Init(int levels, int branchNum,int roomsPerLevel, Orientation orientation=Orientation.LEFT_TO_RIGHT)
         {
             Setup(levels);
+            numBranches = branchNum;
 
             for (int i = 0; i < levels; i++)
             {

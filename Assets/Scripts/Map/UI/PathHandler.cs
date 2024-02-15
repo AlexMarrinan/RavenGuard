@@ -2,33 +2,39 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Map.Locations;
 using UnityEngine;
+using Random=System.Random;
 
 namespace Assets.Scripts.Map.UI
 {
     public class PathHandler:MonoBehaviour
     {
+        private MapNode firstNode;
         private Canvas canvas;
         private int numBranches;
         private List<MapNode> mapBranchNodes=new List<MapNode>();
         private List<List<Vector2>> mapLines=new List<List<Vector2>>();
         private List<List<MapNode>> mapPaths=new List<List<MapNode>>();
 
-        public void Init(Canvas mapCanvas,int numBranches, MapNode firstNode)
+        public void Init(Canvas mapCanvas,int branchNum, MapNode node)
+        {
+            Setup(mapCanvas, branchNum, node);
+
+            GeneratePath();
+        }
+
+        void Setup(Canvas mapCanvas,int branchNum, MapNode node)
         {
             canvas = mapCanvas;
-            this.numBranches = numBranches;
+            numBranches = branchNum;
+            firstNode = node;
             firstNode.SetStatus(MapNodeStatus.Unlocked);
-            List<MapNode> startingNodes=firstNode.GetNextClosestNodes(numBranches);
-            for (int i = 0; i < numBranches; i++)
-            {
-                if (i >= startingNodes.Count) break;
-                AddBranchingNode(startingNodes[i]);
-                MapNode nextNode = startingNodes[i];
-                firstNode.hasPath = true;
-                MakePath(new List<MapNode>() { firstNode,nextNode});
-            }
+        }
 
-            MakeBranchingPaths();
+        private List<MapNode> GetPaths(MapNode node)
+        {
+            List<MapNode> startingNodes=node.GetNextClosestNodes(numBranches);
+            startingNodes = Shuffle<MapNode>(startingNodes).ToList();
+            return startingNodes;
         }
 
         public List<List<MapNode>> GetMapNodes()
@@ -49,9 +55,39 @@ namespace Assets.Scripts.Map.UI
             }
         }
         
+        public static IEnumerable<T> Shuffle<T>(IEnumerable<T> input)
+        {
+            List<T> output = new();
+            Random rand = new();
+
+            foreach(T entry in input)
+            {
+                int position = rand.Next(output.Count);
+                output.Add((position == output.Count) ? entry : output[position]);
+                output[position] = entry;
+            }
+
+            return output;
+        }
+        
         
         #region Path Generating
 
+        void GeneratePath()
+        {
+            List<MapNode> startingNodes=GetPaths(firstNode);
+            
+            for (int i = 0; i < numBranches; i++)
+            {
+                if (i >= startingNodes.Count) break;
+                AddBranchingNode(startingNodes[i]);
+                MapNode nextNode = startingNodes[i];
+                firstNode.hasPath = true;
+                MakePath(new List<MapNode>() { firstNode,nextNode});
+            }
+            MakeBranchingPaths();
+        }
+        
         /// <summary>
         /// Make a path that uses the given path 
         /// </summary>
@@ -193,12 +229,15 @@ namespace Assets.Scripts.Map.UI
             {
                 for (int i = 1; i < path.Count; i++)
                 {
-                    if (!HasSamePositions(path[i-1], path[i], line[i-1], line[i]))
+                    for (int j = 1; j < line.Count; j++)
                     {
-                        bool intersection = LineSegmentsIntersect(path[i-1], path[i], line[i-1], line[i]);    
-                        if (intersection)
+                        if (!HasSamePositions(path[i-1], path[i], line[j-1], line[j]))
                         {
-                            return true;
+                            bool intersection = LineSegmentsIntersect(path[i-1], path[i], line[j-1], line[j]);    
+                            if (intersection)
+                            {
+                                return true;
+                            }
                         }
                     }
                 }
