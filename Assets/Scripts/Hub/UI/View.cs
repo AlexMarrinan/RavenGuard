@@ -11,5 +11,10 @@ namespace Hub.UI
         {
             canvas.enabled = !canvas.enabled;
         }
+        
+        public void ShowUI(bool showUI)
+        {
+            canvas.enabled = showUI;
+        }
     }
 }
