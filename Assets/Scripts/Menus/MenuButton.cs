@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class MenuButton : MonoBehaviour
 {
-    public Image image, bgimage;
+    public Image image;
     public MenuButton upButton, downButton, leftButton, rightButton;
     public string buttonName; 
     public string buttonDescription;
@@ -29,8 +29,18 @@ public class MenuButton : MonoBehaviour
     public bool IsOn(){
         return isOn;
     }
+
     public void SetOn(bool on = true){
         isOn = on;
-        buttonText.alpha = on ? 1.0f : 0.25f;
+        float alpha = on ? 1.0f : 0.25f;
+        if (buttonText != null){
+            buttonText.alpha = alpha;
+        }
+        if (image != null){
+            image.color = new(image.color.r, image.color.g, image.color.b, alpha);
+        }
+    }
+    public virtual void OnPress(){
+        
     }
 }

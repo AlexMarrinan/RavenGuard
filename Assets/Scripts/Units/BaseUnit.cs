@@ -16,6 +16,10 @@ public class BaseUnit : MonoBehaviour
     public int maxMoveAmount;
     public int health;
     public int maxHealth;
+    public int currentXP = 0;
+    public int maxXP = 100;
+    private int droppedXP = 100;
+    public int level = 1;
     public bool hasMoved;
     [SerializeField] private int attack;
     [SerializeField] private int defense;
@@ -86,31 +90,31 @@ public class BaseUnit : MonoBehaviour
     public virtual void ApplyWeapon(){
 
     }
-    private void InitializeUnitClass()
+    protected virtual void InitializeUnitClass()
     {
-        switch (unitClass){
-            case UnitClass.Infantry:
-                armorType = ArmorType.Medium;
-                break;
-            case UnitClass.Knight:
-                armorType = ArmorType.Heavy;
-                break;
-            case UnitClass.Assassin:
-                armorType = ArmorType.Light;
-                break;
-           case UnitClass.Mage:
-                armorType = ArmorType.Medium;
-                break;
-            case UnitClass.Sage:
-                armorType = ArmorType.Light;
-                break;
-            case UnitClass.Cavalry:
-                armorType = ArmorType.Medium;
-                break;
-            case UnitClass.Paladin:
-                armorType = ArmorType.Heavy;
-                break;
-        }
+        // switch (unitClass){
+        //     case UnitClass.Infantry:
+        //         armorType = ArmorType.Medium;
+        //         break;
+        //     case UnitClass.Knight:
+        //         armorType = ArmorType.Heavy;
+        //         break;
+        //     case UnitClass.Assassin:
+        //         armorType = ArmorType.Light;
+        //         break;
+        //    case UnitClass.Mage:
+        //         armorType = ArmorType.Medium;
+        //         break;
+        //     case UnitClass.Sage:
+        //         armorType = ArmorType.Light;
+        //         break;
+        //     case UnitClass.Cavalry:
+        //         armorType = ArmorType.Medium;
+        //         break;
+        //     case UnitClass.Paladin:
+        //         armorType = ArmorType.Heavy;
+        //         break;
+        // }
     }
 
     public virtual int MaxTileRange(){
@@ -315,6 +319,44 @@ public class BaseUnit : MonoBehaviour
         return new UnitStat(UnitStatType.Luck, luck, GetStatChangeOfType(UnitStatType.Luck));
     }
     #endregion
+
+    public int GetBaseATK(){
+        return attack;
+    }
+    public int GetBaseDEF(){
+        return defense;
+    }
+    public int GetBaseAGL(){
+        return agility;
+    }
+    public int GetBaseATU(){
+        return attunment;
+    }
+    public int GetBaseFOR(){
+        return foresight;
+    }
+    public int GetBaseLCK(){
+        return luck;
+    }
+
+    public void SetBaseATK(int value){
+        attack = value;
+    }
+    public void SetBaseDEF(int value){
+        defense = value;
+    }
+    public void SetBaseAGL(int value){
+        agility = value;
+    }    
+    public void SetBaseATU(int value){
+        attunment = value;
+    }    
+    public void SetBaseFOR(int value){
+        foresight = value;
+    }    
+    public void SetBaseLCK(int value){
+        luck = value;
+    }
 
 
     public Sprite GetSprite(){
@@ -578,6 +620,76 @@ public class BaseUnit : MonoBehaviour
             returns.Add((tile, TileMoveType.InAttackRange));
         }
     }
+
+    public void GainXP(int amount){
+        if (this.faction == UnitFaction.Enemy){
+            BattleSceneManager.instance.waitForXP = false;
+            return;
+        }
+        int newXP = currentXP + amount;
+        while (newXP >= maxXP){
+            StartCoroutine(LevelUpBarAnimation());
+            newXP -= maxXP;
+        }
+        currentXP = newXP;
+        StartCoroutine(AnimateXPBar(newXP));
+    }
+
+    private IEnumerator AnimateXPBar(int xp)
+    {
+        yield return new WaitForSeconds(1f);
+    }
+
+    private IEnumerator LevelUpBarAnimation()
+    {
+        yield return new WaitForSeconds(0.2f);
+        LevelUp();
+    }
+
+    private void LevelUp(){
+        Debug.Log(this.ToString() + " LEVEL UP!");
+        level++;
+        var menu = MenuManager.instance.levelupMenu;
+        menu.Reset();
+        menu.SetUnit(this);
+        menu.gameObject.SetActive(true);
+    }
+
+    public int GetDroppedXP(){
+        return droppedXP;
+    }
+
+    public bool CanUseSkill(BaseItem item){
+        if (item == null || item is not BaseSkill){
+            return false;
+        }
+        return CanUseSkill(item as BaseSkill);
+    }
+    public bool CanUseSkill(BaseSkill newSkill){
+        if (newSkill == null || skills.Contains(newSkill)){
+            return false;
+        }
+        if (newSkill.weaponClass != this.weaponClass && newSkill.weaponClass != WeaponClass.Any){
+            return false;
+        }
+        if (newSkill.unitClass != this.unitClass && newSkill.unitClass != UnitClass.Any){
+            return false;
+        }
+        return true;
+    }
+
+    public bool CanUseWeapon(BaseItem item){
+        if (item == null || item is not BaseWeapon){
+            return false;
+        }
+        return CanUseWeapon(item as BaseWeapon);
+    }
+    public bool CanUseWeapon(BaseWeapon newWeapon){
+        if (newWeapon == null){
+            return false;
+        }        
+        return newWeapon.weaponClass == this.weaponClass;
+    }
 }
 
 
@@ -592,7 +704,7 @@ public enum UnitStatType {
 }
 
 public enum UnitClass {
-    None,
+    Any,
     Infantry,
     Knight,
     Assassin,

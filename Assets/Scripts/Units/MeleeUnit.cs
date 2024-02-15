@@ -54,4 +54,12 @@ public class MeleeUnit : BaseUnit
         }
         return returns;
     }
+
+    protected override void InitializeUnitClass(){
+        if (this.meleeWeaponClass == WeaponMeleeClass.LongArms){
+            this.weaponClass = WeaponClass.LongArms;
+        }else{
+            this.weaponClass = WeaponClass.SideArms;
+        }
+    }
 }

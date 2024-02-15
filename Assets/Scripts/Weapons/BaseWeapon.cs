@@ -13,7 +13,7 @@ public enum WeaponAttackMethod {
     Ranged,
 }
 public enum WeaponClass {
-    None,
+    Any,
     LongArms,
     SideArms,
     Archer,
@@ -27,15 +27,4 @@ public enum WeaponMeleeClass {
 public enum WeaponRangedClasss {
     Archer,
     Magic,
-}
-
-public enum WeaponSubclass{
-    Sword,
-    Mace,
-    Handaxe,
-    Spear,
-    Polaxe,
-    Warpick,
-    Bow,
-    Crossbow,
 }

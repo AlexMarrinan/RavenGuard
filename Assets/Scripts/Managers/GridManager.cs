@@ -682,15 +682,15 @@ public class GridManager : MonoBehaviour
 
   public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine = false){
     if (start == end){
-        Debug.Log("A0");
+//        Debug.Log("A0");
         return new List<BaseTile>{start};
     }
-    Debug.Log("A");
+//    Debug.Log("A");
     if (end.moveType == TileMoveType.InAttackRange){
-        Debug.Log("B");
+//        Debug.Log("B");
         return new();
     }
-    Debug.Log("C");
+//    Debug.Log("C");
     List<BaseTile> visited = new();
     Queue<BaseTile> toVisit = new();
     BaseUnit startUnit = start.occupiedUnit;

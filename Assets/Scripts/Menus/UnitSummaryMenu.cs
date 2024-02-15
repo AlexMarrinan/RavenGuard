@@ -1,32 +1,98 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UnitSummaryMenu : BaseMenu
 {
-    public Image unitIcon, healthBarTop, healthBarBottom;
+    public Image unitIcon, healthBarTop, healthBarBottom, unitHighlightImage;
+    public ItemButton weaponButton;
     public TextMeshProUGUI healthText, weaponClassText, unitClassText;
+    public XPMenu xpBar;
+    public TMP_Text atkT, defT, aglT, atuT, frsT, lckT;
+    public List<ItemButton> itemButtons = new();
+    public BaseUnit unit;
     public void Init(BaseUnit unit){
+        this.unit = unit;
+        xpBar.SetUnit(unit);
         unitIcon.sprite = unit.GetSprite();
-        unitIcon.color = unit.GetColor();
+        //unitIcon.color = unit.GetColor();
+        unitHighlightImage.gameObject.SetActive(false);
         healthBarTop.fillAmount = (float)unit.health / (float)unit.maxHealth;
         healthText.text = unit.health + " / " + unit.maxHealth;
         weaponClassText.text = unit.weaponClass.ToString();
         unitClassText.text = unit.unitClass.ToString();
 
-        // if (unit.weapon != null){
-        //     buttons[0].image.sprite = unit.weapon.sprite;
-        // }
-        // if (unit.activeSkill != null){
-        //     buttons[1].image.sprite = unit.activeSkill.sprite;
-        // }
-        // if (unit.universalPassiveSkill != null){
-        //     buttons[2].image.sprite = unit.universalPassiveSkill.sprite;
-        // }
-        // if (unit.classPassiveSkill != null){
-        //     buttons[3].image.sprite = unit.classPassiveSkill.sprite;
-        // }
+        weaponButton.SetItem(unit.weapon, 0);
+        weaponButton.SetUnit(unit);
+        itemButtons[0].SetItem(unit.GetSkill(0), 0);
+        itemButtons[0].SetUnit(unit);
+        itemButtons[1].SetItem(unit.GetSkill(1), 1);
+        itemButtons[1].SetUnit(unit);
+        itemButtons[2].SetItem(unit.GetSkill(2), 2);
+        itemButtons[2].SetUnit(unit);
+
+        var atk = unit.GetAttack();
+        atkT.text = atk.total.ToString();
+        if (atk.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            atkT.color = Color.red;
+        }else if (atk.GetStatIncreaseType() == StatIncreaseType.UP){
+            atkT.color = Color.green;
+        }else{
+            atkT.color = Color.white;
+        }
+
+        var def = unit.GetDefense();
+        defT.text = def.total.ToString();
+        if (def.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            defT.color = Color.red;
+        }else if (def.GetStatIncreaseType() == StatIncreaseType.UP){
+            defT.color = Color.green;
+        }else{
+            defT.color = Color.white;
+        }
+
+       var agi = unit.GetAgility();
+        aglT.text = agi.total.ToString();
+        if (agi.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            aglT.color = Color.red;
+        }else if (agi.GetStatIncreaseType() == StatIncreaseType.UP){
+            aglT.color = Color.green;
+        }else{
+            aglT.color = Color.white;
+        }
+
+
+       var atu = unit.GetAttuenment();
+        atuT.text = atu.total.ToString();
+        if (atu.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            atuT.color = Color.red;
+        }else if (atu.GetStatIncreaseType() == StatIncreaseType.UP){
+            atuT.color = Color.green;
+        }else{
+            atuT.color = Color.white;
+        }
+
+        var frs = unit.GetForesight();
+        frsT.text = frs.total.ToString();
+        if (frs.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            frsT.color = Color.red;
+        }else if (frs.GetStatIncreaseType() == StatIncreaseType.UP){
+            frsT.color = Color.green;
+        }else{
+            frsT.color = Color.white;
+        }
+
+        var lck = unit.GetLuck();
+        lckT.text = lck.total.ToString();
+        if (lck.GetStatIncreaseType() == StatIncreaseType.DOWN){
+            lckT.color = Color.red;
+        }else if (lck.GetStatIncreaseType() == StatIncreaseType.UP){
+            lckT.color = Color.green;
+        }else{
+            lckT.color = Color.white;
+        }
     }
 }

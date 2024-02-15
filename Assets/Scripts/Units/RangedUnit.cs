@@ -50,15 +50,15 @@ public class RangedUnit : BaseUnit
         var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
-        Debug.Log(occupiedTile);
+//        Debug.Log(occupiedTile);
         var next = occupiedTile.GetAdjacentTiles();
-        Debug.Log(rangedWeapon.maxRange);
+//        Debug.Log(rangedWeapon.maxRange);
         next.ForEach(t => GVAHelper(1, this.rangedWeapon.maxRange, t, visited, t, this));
-        Debug.Log(visited.Count);
+//        Debug.Log(visited.Count);
         List<(BaseTile, TileMoveType)> returns = new();
         foreach (BaseTile tile in visited.Keys){
             int distnace = GridManager.instance.ShortestPathBetweenTiles(occupiedTile, tile, false).Count();
-            Debug.Log(distnace);
+//            Debug.Log(distnace);
             if (distnace >= rangedWeapon.minRange){
                 SetAttackMove(tile, returns);
             }
@@ -100,5 +100,14 @@ public class RangedUnit : BaseUnit
         var next = tile.GetAdjacentTiles();   
         next.ForEach(t => GVAHelper(depth + 1, max, t, visited, startTile, startUnit));
         return;
+    }
+
+    
+    protected override void InitializeUnitClass(){
+        if (this.rangedWeaponClass == WeaponRangedClasss.Archer){
+            this.weaponClass = WeaponClass.Archer;
+        }else{
+            this.weaponClass = WeaponClass.Magic;
+        }
     }
 }

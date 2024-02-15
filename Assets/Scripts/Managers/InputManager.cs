@@ -185,12 +185,25 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
         AudioManager.instance.PlayCancel();
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.OnSkilEnd();
             return;
         }
         if (MenuManager.instance.InMenu()){
+            if (MenuManager.instance.menuState == MenuState.Inventory ) {
+                if (MenuManager.instance.inventoryMenu.hoveredItem != null){
+                    MenuManager.instance.inventoryMenu.UnhoverItem();
+                    return;
+                }
+                if (MenuManager.instance.inventoryMenu.currentInventoryScreen == InventoryScreen.Items){
+                    MenuManager.instance.inventoryMenu.ChangeInventoryScreen();
+                    return;
+                }
+            }
             MenuManager.instance.CloseMenus();
             return;
         }
@@ -248,15 +261,29 @@ public class InputManager : MonoBehaviour
     
     private void OnPreviousPerformed(InputAction.CallbackContext value)
     {
-        TurnManager.instance.GoToPreviousUnit();
+        var mm = MenuManager.instance;
+        if (mm.menuState == MenuState.None){
+            TurnManager.instance.GoToPreviousUnit();
+        }
+        if (mm.menuState == MenuState.Inventory){
+            mm.inventoryMenu.UnhoverItem();
+            mm.InventoryShowUntis();
+        }    
     }
     private void OnPreviousCanceled(InputAction.CallbackContext context)
     {
         
     }
     private void OnNextPerformed(InputAction.CallbackContext value)
-    {
-        TurnManager.instance.GoToNextUnit();
+    {   
+        var mm = MenuManager.instance;
+        if (mm.menuState == MenuState.None){
+            TurnManager.instance.GoToNextUnit();
+        }
+        if (mm.menuState == MenuState.Inventory){
+            mm.inventoryMenu.UnhoverItem();
+            mm.InventoryShowItems();
+        }
     }
     private void OnNextCanceled(InputAction.CallbackContext context)
     {
@@ -266,6 +293,13 @@ public class InputManager : MonoBehaviour
 
     private void OnUnitMenuPerformed(InputAction.CallbackContext context)
     {
+        if (MenuManager.instance.menuState == MenuState.Inventory){
+            MenuManager.instance.inventoryMenu.UnequipItem();
+            return;
+        }
+        if (MenuManager.instance.InMenu()){
+            return;
+        }
         MenuManager.instance.ToggleUnitActionMenu();
     }
     private void OnUnitMenuCanceled(InputAction.CallbackContext context)
@@ -274,7 +308,9 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
-        return;
+        if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
         MenuManager.instance.ToggleInventoryMenu();
     }
 
