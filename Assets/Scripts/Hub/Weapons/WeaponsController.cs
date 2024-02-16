@@ -1,21 +1,29 @@
 using System;
 using System.Collections.Generic;
+using Hub.UI;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace Hub.Weapons
 {
-    public class WeaponsController : MonoBehaviour
+    public class WeaponsController : Controller
     {
         // References
+        [SerializeField] private GameObject view;
         [SerializeField] private WeaponsModel weaponsModel;
         [SerializeField] private SingleWeaponView singleWeaponView;
         [SerializeField] private WeaponsInventoryView weaponsInventoryView;
         private Action<BaseWeapon> weaponSelected;
+        
 
         void Awake()
         {
             weaponSelected = OpenSingleWeaponView;
+        }
+        
+        public override void ToggleView()
+        {
+            view.SetActive(!view.activeSelf);
         }
 
         public void OpenWeaponsShop()
@@ -30,10 +38,15 @@ namespace Hub.Weapons
             weaponsInventoryView.ShowUI(false);
         }
 
-        private void OpenWeaponInventory()
+        public void OpenWeaponInventory()
         {
             singleWeaponView.ShowUI(false);
             weaponsInventoryView.ShowUI(true);
+        }
+
+        public void ToggleWeaponInventory()
+        {
+            weaponsInventoryView.ToggleUI();
         }
 
         private void OpenSingleWeaponView(BaseWeapon weapon)
@@ -41,5 +54,6 @@ namespace Hub.Weapons
             singleWeaponView.ShowUI(true);
             weaponsInventoryView.ShowUI(false);
         }
+        
     }
 }

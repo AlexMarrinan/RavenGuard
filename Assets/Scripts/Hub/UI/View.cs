@@ -6,13 +6,16 @@ namespace Hub.UI
     {
         [Header("References")] 
         [SerializeField] private Canvas canvas;
+
+        private bool isShowing;
         
         public void ToggleUI()
         {
-            canvas.enabled = !canvas.enabled;
+            ShowUI(!isShowing);
+            isShowing = !isShowing;
         }
         
-        public void ShowUI(bool showUI)
+        public virtual void ShowUI(bool showUI)
         {
             canvas.enabled = showUI;
         }
