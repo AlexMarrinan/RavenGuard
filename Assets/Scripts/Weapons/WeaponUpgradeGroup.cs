@@ -8,6 +8,7 @@ namespace Weapons
     public class WeaponUpgradeGroup: ScriptableObject
     {
         public List<BaseWeapon> weaponUpgrades;
+        public string nameConvention;
         
         #if UNITY_EDITOR
         public void SetWeaponReferences()
@@ -15,6 +16,10 @@ namespace Weapons
             foreach (BaseWeapon weapon in weaponUpgrades)
             {
                 weapon.weaponUpgradeGroup = this;
+                int num = weaponUpgrades.IndexOf(weapon);
+                weapon.name = nameConvention + num;
+                weapon.weaponName = nameConvention + " " + num;
+                weapon.weaponDescription="Woah! A really cool description would go here: "+ weaponUpgrades.IndexOf(weapon);
                 EditorUtility.SetDirty(weapon);
                 AssetDatabase.SaveAssets();
             }

@@ -21,7 +21,6 @@ namespace Hub.Weapons
         {
             LoadWeapons();
             // TODO: Get equipped weapon
-            print($"Count: {weapons.Count}");
             return weapons[0];
         }
 
@@ -41,7 +40,6 @@ namespace Hub.Weapons
         private void LoadWeapons()
         {
             // TODO: Check for changes
-            print(InventoryManager.instance.GetItems<BaseWeapon>().Count);
             if (weapons == null)
             {
                 weapons = InventoryManager.instance.GetItems<BaseWeapon>();
