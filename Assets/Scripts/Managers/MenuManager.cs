@@ -168,13 +168,15 @@ public class MenuManager : MonoBehaviour
     public void ToggleInventoryMenu()
     {
         if (menuState == MenuState.Inventory){
-            CloseMenus();
+            //DO NOT ALLOW PLAYER TO CLOSE MENU, MUST CONFIRM TO CONTINUTE
+            // CloseMenus();
             return;
         }
         inventoryMenu.Reset();
         //if the unit action menu is shown, hide it
         unitActionMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
+        levelEndMenu.gameObject.SetActive(false);
 
         inventoryMenu.gameObject.SetActive(true);
         inventoryMenu.transform.SetAsLastSibling();

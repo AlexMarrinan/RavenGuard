@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -214,7 +215,7 @@ public class InputManager : MonoBehaviour
         UnitManager.instance.UnselectUnit();
     }
     private void OnBackCancled(InputAction.CallbackContext value){
-    
+        
     }
     private void FixMoveVector(){
         if (moveVector.x > 0.4){
@@ -240,6 +241,11 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.Inventory){
+            MenuManager.instance.CloseMenus();
+            GameManager.instance.LoadNextLevel();
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.LevelEnd){
             return;
         }
@@ -314,6 +320,8 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
+        return;
+        //DSIABLED DURING NORMAL GAMEPLAY< ONLY OPENS BETWEEN LEVELS
         if (MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
