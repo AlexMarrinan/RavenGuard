@@ -11,7 +11,6 @@ namespace Hub.UI
         
         public void ToggleUI()
         {
-            print("Toggle");
             ShowUI(!isShowing);
             isShowing = !isShowing;
         }

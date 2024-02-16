@@ -1,19 +1,42 @@
+using System.Collections.Generic;
 using Hub.UI;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace Hub.Weapons
 {
     public class SingleWeaponView : View
     {
-        // Start is called before the first frame update
-        void Start()
+        private BaseWeapon weaponData;
+        [SerializeField] private TextMeshProUGUI weaponName;
+        [SerializeField] private Image weaponImage;
+        [SerializeField] private TextMeshProUGUI weaponEffect;
+        [SerializeField] private TextMeshProUGUI weaponDesc;
+        [SerializeField] private List<WeaponUpgrade> weaponUpgrades;
+
+        public void LoadWeapon(BaseWeapon weapon)
         {
-        
+            weaponData = weapon;
+            LoadCurrentWeapon();
+            LoadUpgrades();
         }
 
-        // Update is called once per frame
-        void Update()
+        private void LoadCurrentWeapon()
         {
-        
+            weaponName.text = weaponData.weaponName;
+            weaponImage.sprite = weaponData.sprite;
+            weaponEffect.text = weaponData.damage + " Damage";
+            weaponDesc.text = weaponData.weaponDescription;
         }
+
+        private void LoadUpgrades()
+        {
+            for (int i = 0; i < weaponUpgrades.Count; i++)
+            {
+                weaponUpgrades[i].Init(weaponData.weaponUpgrades[i]);
+            }
+        }
+        
     }
 }
