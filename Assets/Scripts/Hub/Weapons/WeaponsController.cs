@@ -13,34 +13,55 @@ namespace Hub.Weapons
         [SerializeField] private WeaponsModel weaponsModel;
         [SerializeField] private SingleWeaponView singleWeaponView;
         [SerializeField] private WeaponsInventoryView weaponsInventoryView;
-        private Action<BaseWeapon> weaponSelected;
+        public Action<BaseWeapon> weaponSelected;
         
 
         void Awake()
         {
-            weaponSelected = OpenSingleWeaponView;
+            weaponSelected = SelectWeapon;
         }
         
+        /// <summary>
+        /// Toggle the weapon shop open and closed
+        /// </summary>
         public override void ToggleView()
         {
-            if (!view.activeSelf)
-            {
-                OpenWeaponsShop();
-            }
-            else
-            {
-                weaponsInventoryView.ShowUI(false);
-            }
-            view.SetActive(!view.activeSelf);
+            if (!view.activeSelf) OpenShop();
+            else CloseShop();
         }
 
-        public void OpenWeaponsShop()
+        /// <summary>
+        /// Opens the weapon shop
+        /// </summary>
+        private void OpenShop()
+        {
+            LoadWeaponsShop();
+            view.SetActive(true);
+        }
+
+        /// <summary>
+        /// Closes the weapon shop
+        /// </summary>
+        private void CloseShop()
+        {
+            weaponsInventoryView.ShowUI(false);
+            view.SetActive(false);
+        }
+        
+        /// <summary>
+        /// Loads the weapons in the inventory and the equipped weapon in single view
+        /// </summary>
+        private void LoadWeaponsShop()
         {
             weaponsInventoryView.LoadWeapons(weaponsModel.GetAvailableWeapons(),weaponSelected);
             singleWeaponView.LoadWeapon(weaponsModel.GetEquippedWeapon());
         }
 
-        private void OpenSingleWeaponView(BaseWeapon weapon)
+        /// <summary>
+        /// Set the given weapon to be shown in singleWeaponView
+        /// </summary>
+        /// <param name="weapon">The weapon being shown</param>
+        private void SelectWeapon(BaseWeapon weapon)
         {
             singleWeaponView.LoadWeapon(weapon);
         }

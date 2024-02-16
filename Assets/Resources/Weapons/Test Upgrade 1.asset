@@ -16,10 +16,11 @@ MonoBehaviour:
   weaponName: Test Upgrade 1
   weaponDescription: Woah! A really cool desc would go here
   damage: 2
-  weaponUpgrades: []
+  cost: 5
+  weaponUpgradeGroup: {fileID: 11400000, guid: 02851dc24d7f34145b178a0bf021a624, type: 2}
   statIcons:
   - {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
   - {fileID: 21300000, guid: 05e182f44cc345942a4f28cafa02f908, type: 3}
   - {fileID: 21300000, guid: d7cd740a07ded7b44a077fa0d25a478d, type: 3}
-  weaponClass: 2
+  weaponClass: 1
   meleeWeaponClass: 0

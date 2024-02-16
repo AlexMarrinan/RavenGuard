@@ -3,21 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Weapons;
 
 public class BaseWeapon : BaseItem {
     public string weaponName; 
     public string weaponDescription;
     public int damage;
-    public List<WeaponType> weaponUpgrades;
+    public float cost;
+    public WeaponUpgradeGroup weaponUpgradeGroup;
     public List<Sprite> statIcons;
     [HideInInspector] public WeaponClass weaponClass;
-}
-
-[Serializable]
-public struct WeaponType
-{
-    public BaseWeapon weapon;
-    public float cost;
 }
 
 public enum WeaponAttackMethod {

@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Hub.UI;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,41 +11,32 @@ namespace Hub.Weapons
     public class SingleWeaponView : View
     {
         private BaseWeapon weaponData;
-        [SerializeField] private TextMeshProUGUI weaponName;
-        [SerializeField] private Image weaponImage;
-        [SerializeField] private TextMeshProUGUI weaponEffect;
-        [SerializeField] private TextMeshProUGUI weaponDesc;
-        [SerializeField] private List<WeaponUpgrade> weaponUpgrades;
+        [SerializeField] private SpotlightWeaponDisplay spotlightDisplay;
+        [SerializeField] private WeaponUpgradeDisplay upgradeDisplay;
+        public Action<BaseWeapon> onWeaponSelected;
+        private bool initialized;
 
-        public void LoadWeapon(BaseWeapon weapon)
+        private void Awake()
         {
-            weaponData = weapon;
-            LoadCurrentWeapon();
-            LoadUpgrades();
+            Init();
         }
 
-        private void LoadCurrentWeapon()
+        void Init()
         {
-            if (weaponData == null) return;
-            weaponName.text = weaponData.weaponName;
-            weaponImage.sprite = weaponData.sprite;
-            weaponEffect.text = weaponData.damage + " Damage";
-            weaponDesc.text = weaponData.weaponDescription;
-        }
-
-        private void LoadUpgrades()
-        {
-            if (weaponData == null) return;
-            for (int i = 0; i < weaponUpgrades.Count; i++)
-            {
-                if(i >= weaponData.weaponUpgrades.Count)
-                {
-                    weaponUpgrades[i].gameObject.SetActive(false);
-                    continue;
-                }
-                weaponUpgrades[i].Init(weaponData.weaponUpgrades[i]);
-            }
+            initialized = true;
+            spotlightDisplay.Init(this);
+            upgradeDisplay.Init(this);
         }
         
+        /// <summary>
+        /// Load the given weapon's data
+        /// </summary>
+        /// <param name="weapon">The weapon being selected</param>
+        public void LoadWeapon(BaseWeapon weapon)
+        {
+            if(!initialized) Init();
+            if(weapon==null) return;
+            onWeaponSelected.Invoke(weapon);
+        }
     }
 }
