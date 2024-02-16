@@ -273,8 +273,8 @@ public class BaseUnit : MonoBehaviour
         //TODO ADD OTHER END CONDITIONS:
         //No active skills ready
         //No avaliable attacks
-    
-        if (/*GetActiveSkills().Count <= 0 || */this.faction == UnitFaction.Enemy){
+
+        if (!AfterMoveAtcions() || this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
             GridManager.instance.SetHoveredTile(this.occupiedTile);
@@ -288,7 +288,7 @@ public class BaseUnit : MonoBehaviour
             uiDot.SetColor(new Color(1.0f, 1.0f, 1.0f));
         }
 //        Debug.Log("turn over");
-        UnitManager.instance.SetSeclectedUnit(null);
+        UnitManager.instance.SetSelectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
     }
     public virtual TileMoveType GetMoveTypeAt(BaseTile otherTile){
@@ -612,6 +612,21 @@ public class BaseUnit : MonoBehaviour
         return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
     }
 
+    public bool AfterMoveAtcions(){
+        if (NumValidAttacks() > 0){
+            Debug.Log("Attacks found!");
+            return true;
+        }
+        foreach (BaseSkill skill in skills){
+            if (skill is ActiveSkill){
+                if ((skill as ActiveSkill).cooldown == 0){
+                    Debug.Log("Active skill found!");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     protected void SetAttackMove(BaseTile tile, List<(BaseTile, TileMoveType)> returns)
     {

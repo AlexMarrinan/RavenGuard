@@ -92,7 +92,7 @@ public class UnitManager : MonoBehaviour
             return;
         }
     }
-    public void SetSeclectedUnit(BaseUnit unit){
+    public void SetSelectedUnit(BaseUnit unit){
         if (unit == null){
             UnselectUnit();
             return;
@@ -105,7 +105,6 @@ public class UnitManager : MonoBehaviour
         selectedUnit = unit;
         RemoveAllValidMoves();
         if (unit.hasMoved){
-            // UnselectUnit();
             return;
         }
         SetValidMoves(unit);
@@ -204,8 +203,8 @@ public class UnitManager : MonoBehaviour
             visited[tile] = depth;
             return;
         }
-        Debug.Log(tile);
-        Debug.Log(tile.editorType);
+//        Debug.Log(tile);
+//        Debug.Log(tile.editorType);
         if (tile.editorType == TileEditorType.Forest){
             if (startUnit.unitClass == UnitClass.Cavalry){
                 return;

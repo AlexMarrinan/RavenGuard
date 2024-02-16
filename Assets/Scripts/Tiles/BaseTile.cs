@@ -102,7 +102,7 @@ public abstract class BaseTile : MonoBehaviour
             }
             //current unit is a hero, set as selected
             if (occupiedUnit.faction == UnitFaction.Hero){
-                UnitManager.instance.SetSeclectedUnit(occupiedUnit);
+                UnitManager.instance.SetSelectedUnit(occupiedUnit);
                 return;
             }
             //current unit is enemy, AND selected is enemy,
@@ -129,7 +129,7 @@ public abstract class BaseTile : MonoBehaviour
     }
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
-        UnitManager.instance.SetSeclectedUnit(null);
+        UnitManager.instance.SetSelectedUnit(null);
         MoveUnitToTile(oldSelectedUnit);
     }
     public void SetUnitStart(BaseUnit unit){

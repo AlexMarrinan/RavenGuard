@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ca517df3fb2974ebace82324c9d6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelName: TestLevel 1
+  nextLevelName: TestLevel 2
   startLevel: 1
 --- !u!4 &2106423553
 Transform:
@@ -487,6 +487,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5654135560565773243, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: continutePrompt
+      value: 
+      objectReference: {fileID: 1451696143}
     - target: {fileID: 5654135560565773245, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_IsActive
       value: 0

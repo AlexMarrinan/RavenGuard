@@ -111,6 +111,7 @@ public class UnitActionMenu : BaseMenu
             }
             else if (buttonIndex == 1){
                 //ATACK
+                Debug.Log("Here!!!! 1");
                 MenuManager.instance.CloseMenus();
                 GridManager.instance.SelectHoveredTile();
                 UnitManager.instance.RemoveAllValidMoves();

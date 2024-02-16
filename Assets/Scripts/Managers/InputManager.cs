@@ -171,6 +171,12 @@ public class InputManager : MonoBehaviour
             MainMenuManager.instance.Select();
             return;
         }
+        if (GridManager.instance.hoveredTile.occupiedUnit != null 
+        && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
+        && MenuManager.instance.menuState != MenuState.UnitAction){
+            MenuManager.instance.ToggleUnitActionMenu();
+            return;
+        }
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.Select();
             return;

@@ -138,7 +138,7 @@ public class MenuManager : MonoBehaviour
             var temp = GridManager.instance.hoveredTile.occupiedUnit;
 //            Debug.Log(temp);
             if (temp != null && temp.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(temp)){
-                UnitManager.instance.SetSeclectedUnit(temp);
+                UnitManager.instance.SetSelectedUnit(temp);
             }else{
                 return;
             }
