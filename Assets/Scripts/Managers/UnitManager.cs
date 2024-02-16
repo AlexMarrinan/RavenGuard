@@ -194,13 +194,23 @@ public class UnitManager : MonoBehaviour
         if (depth >= max){
             return;
         }
+        //if tile is not valid, continue
+        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+            return;
+        }
+
         //enemy's are valid moves but block movement
-        if (tile != null && tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
+        if (tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
             visited[tile] = depth;
             return;
         }
-        //if tile is not valid, continue
-        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        Debug.Log(tile);
+        Debug.Log(tile.editorType);
+        if (tile.editorType == TileEditorType.Forest){
+            if (startUnit.unitClass == UnitClass.Cavalry){
+                return;
+            }
+            visited[tile] = max;
             return;
         }
 
