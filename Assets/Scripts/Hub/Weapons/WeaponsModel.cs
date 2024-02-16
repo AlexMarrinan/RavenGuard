@@ -16,8 +16,8 @@ namespace Hub.Weapons
         public List<BaseWeapon> GetAvailableWeapons()
         {
             // TODO: Check for changes
-            //return InventoryManager.instance.GetItems<BaseWeapon>();
-            return weapons;
+            return InventoryManager.instance.GetItems<BaseWeapon>();
+            //return weapons;
         }
     }
 }

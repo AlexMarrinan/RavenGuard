@@ -23,18 +23,30 @@ namespace Hub.Weapons
 
         public override void ShowUI(bool show)
         {
-            print($"Show {show}");
             toggleButton.interactable = false;
             Vector3 position=show ? showTransform.position : hideTransform.position;
             SetButtonsInteractable(false);
             parent.DOMove(position,moveDuration).OnComplete(() =>
             {
-                toggleButton.interactable = true;
-                if (show)
-                {
-                    SetButtonsInteractable(true);
-                }
+                OnAnimationComplete(show);
             });
+        }
+
+        public void ToggleUINoTween()
+        {
+            bool show;
+            show = parent.position != showTransform.position;
+            Vector3 position=show ? showTransform.position : hideTransform.position;
+            parent.position = position;
+        }
+
+        private void OnAnimationComplete(bool show)
+        {
+            toggleButton.interactable = true;
+            if (show)
+            {
+                SetButtonsInteractable(true);
+            }
         }
         
         public void LoadWeapons(List<BaseWeapon> weapons, Action<BaseWeapon> onClick)

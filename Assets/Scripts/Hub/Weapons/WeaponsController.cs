@@ -23,6 +23,10 @@ namespace Hub.Weapons
         
         public override void ToggleView()
         {
+            if (!view.activeSelf)
+            {
+                weaponsInventoryView.LoadWeapons(weaponsModel.GetAvailableWeapons(),weaponSelected);
+            }
             view.SetActive(!view.activeSelf);
         }
 

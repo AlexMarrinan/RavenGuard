@@ -61,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fe3550f8e7943a69128854dacc4a746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: {fileID: 4251231503727898886}
   weaponImage: {fileID: 4251231504297725553}
 --- !u!114 &4251231503727898885
 MonoBehaviour:
@@ -84,7 +85,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: a24d210a2a9fa604b83ec44257c4c102, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
