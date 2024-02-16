@@ -168,8 +168,7 @@ public class MenuManager : MonoBehaviour
     public void ToggleInventoryMenu()
     {
         if (menuState == MenuState.Inventory){
-            //DO NOT ALLOW PLAYER TO CLOSE MENU, MUST CONFIRM TO CONTINUTE
-            // CloseMenus();
+            CloseMenus();
             return;
         }
         inventoryMenu.Reset();
@@ -181,6 +180,14 @@ public class MenuManager : MonoBehaviour
         inventoryMenu.gameObject.SetActive(true);
         inventoryMenu.transform.SetAsLastSibling();
         menuState = MenuState.Inventory;
+    }
+    public void EnableInventorySwapping(){
+        inventoryMenu.swapping = true;
+        inventoryMenu.continutePrompt.SetActive(true);
+    }
+    public void DisableInventorySwapping(){
+        inventoryMenu.swapping = false;
+        inventoryMenu.continutePrompt.SetActive(false);
     }
     public void ToggleLevelEndMenu()
     {

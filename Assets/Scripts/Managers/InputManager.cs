@@ -241,7 +241,8 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
-        if (MenuManager.instance.menuState == MenuState.Inventory){
+        if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.swapping){
+            MenuManager.instance.DisableInventorySwapping();
             MenuManager.instance.CloseMenus();
             GameManager.instance.LoadNextLevel();
             return;
@@ -320,8 +321,10 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
-        return;
-        //DSIABLED DURING NORMAL GAMEPLAY< ONLY OPENS BETWEEN LEVELS
+        if (MenuManager.instance.inventoryMenu.swapping){
+            //DSIABLED AT END OF LEVEL, CAN ONLY TOGGLE DURING NORMAL GAMEPLAY
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.Battle){
             return;
         }

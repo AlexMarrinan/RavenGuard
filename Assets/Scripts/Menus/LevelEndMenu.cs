@@ -30,6 +30,7 @@ public class LevelEndMenu : BaseMenu
     {
         InventoryManager.instance.AddItem(itemButtons[buttonIndex].item);
         MenuManager.instance.ToggleInventoryMenu();
+        MenuManager.instance.EnableInventorySwapping();
         //GameManager.instance.LoadNextLevel();
     }
 }
