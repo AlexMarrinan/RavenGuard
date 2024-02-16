@@ -53,7 +53,7 @@ namespace Hub.Weapons
         private void SetUnlocked(bool unlockedStatus)
         {
             weaponUnlocked = unlockedStatus;
-            costPanel.SetActive(unlockedStatus);
+            costPanel.SetActive(!unlockedStatus);
         }
     }
 }

@@ -14,7 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 0ec20b6afce746a48a2a9c2dcb9b4a66, type: 3}
   weaponName: Test Poleaxe
-  weaponDescription: 
-  damage: 0
-  weaponClass: 1
+  weaponDescription: Woah! A really cool desc would go here
+  damage: 3
+  weaponUpgrades:
+  - weapon: {fileID: 11400000, guid: c3f064036ac102f47a8379daed257a03, type: 2}
+    cost: 15
+  - weapon: {fileID: 11400000, guid: 4792ac1c7dfaad1429c4e8fdbfa07ed8, type: 2}
+    cost: 30
+  - weapon: {fileID: 11400000, guid: f9d560ca42ce6f34d94929d6eecc73f4, type: 2}
+    cost: 5
+  statIcons:
+  - {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
+  - {fileID: 21300000, guid: 05e182f44cc345942a4f28cafa02f908, type: 3}
+  - {fileID: 21300000, guid: d7cd740a07ded7b44a077fa0d25a478d, type: 3}
+  weaponClass: 2
   meleeWeaponClass: 0

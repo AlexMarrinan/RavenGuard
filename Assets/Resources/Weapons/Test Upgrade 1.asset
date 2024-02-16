@@ -10,22 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef68f334eb3dac8409453a85786d21d5, type: 3}
-  m_Name: TestBlade
+  m_Name: Test Upgrade 1
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: f8627c522304b584eb19c4e0a6830caa, type: 3}
-  weaponName: Test Blade
+  weaponName: Test Upgrade 1
   weaponDescription: Woah! A really cool desc would go here
-  damage: 7
-  weaponUpgrades:
-  - weapon: {fileID: 11400000, guid: f9d560ca42ce6f34d94929d6eecc73f4, type: 2}
-    cost: 5
-  - weapon: {fileID: 11400000, guid: c3f064036ac102f47a8379daed257a03, type: 2}
-    cost: 15
-  - weapon: {fileID: 11400000, guid: 4792ac1c7dfaad1429c4e8fdbfa07ed8, type: 2}
-    cost: 30
+  damage: 2
+  weaponUpgrades: []
   statIcons:
   - {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
   - {fileID: 21300000, guid: 05e182f44cc345942a4f28cafa02f908, type: 3}
   - {fileID: 21300000, guid: d7cd740a07ded7b44a077fa0d25a478d, type: 3}
   weaponClass: 2
-  meleeWeaponClass: 1
+  meleeWeaponClass: 0

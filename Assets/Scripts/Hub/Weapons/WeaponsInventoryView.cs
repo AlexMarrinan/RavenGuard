@@ -61,6 +61,10 @@ namespace Hub.Weapons
             }
         }
 
+        /// <summary>
+        /// Determines if you can interact with the weaponObjects
+        /// </summary>
+        /// <param name="isInteractable">Should the buttons be interactable</param>
         private void SetButtonsInteractable(bool isInteractable)
         {
             foreach(WeaponObject weaponObject in weaponObjects)
@@ -69,6 +73,9 @@ namespace Hub.Weapons
             }
         }
 
+        /// <summary>
+        /// Removes the child weaponObjects
+        /// </summary>
         private void ClearGrid()
         {
             foreach(Transform child in grid.transform)

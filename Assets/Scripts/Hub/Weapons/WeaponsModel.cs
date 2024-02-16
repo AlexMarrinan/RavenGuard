@@ -13,11 +13,22 @@ namespace Hub.Weapons
             //TODO: Load available weapons
         }
 
+        public BaseWeapon GetEquippedWeapon()
+        {
+            print("GetEquippedWeapon()");
+            // TODO: Get equipped weapon
+            if (weapons == null)
+            {
+                weapons = InventoryManager.instance.GetItems<BaseWeapon>();
+            }
+            return weapons[0];
+        }
+
         public List<BaseWeapon> GetAvailableWeapons()
         {
             // TODO: Check for changes
-            return InventoryManager.instance.GetItems<BaseWeapon>();
-            //return weapons;
+            weapons = InventoryManager.instance.GetItems<BaseWeapon>();
+            return weapons;
         }
     }
 }

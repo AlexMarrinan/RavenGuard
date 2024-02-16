@@ -16,6 +16,7 @@ namespace Hub.Weapons
         {
             weaponImage.sprite = weapon.sprite;
             onClick = onWeaponClick;
+            weaponData = weapon;
         }
 
         public void SetInteractable(bool isInteractable)

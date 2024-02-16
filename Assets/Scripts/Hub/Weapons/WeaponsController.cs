@@ -25,7 +25,11 @@ namespace Hub.Weapons
         {
             if (!view.activeSelf)
             {
-                weaponsInventoryView.LoadWeapons(weaponsModel.GetAvailableWeapons(),weaponSelected);
+                OpenWeaponsShop();
+            }
+            else
+            {
+                weaponsInventoryView.ShowUI(false);
             }
             view.SetActive(!view.activeSelf);
         }
@@ -33,30 +37,12 @@ namespace Hub.Weapons
         public void OpenWeaponsShop()
         {
             weaponsInventoryView.LoadWeapons(weaponsModel.GetAvailableWeapons(),weaponSelected);
-            OpenWeaponInventory();
-        }
-
-        void CloseWeaponsShop()
-        {
-            singleWeaponView.ShowUI(false);
-            weaponsInventoryView.ShowUI(false);
-        }
-
-        public void OpenWeaponInventory()
-        {
-            singleWeaponView.ShowUI(false);
-            weaponsInventoryView.ShowUI(true);
-        }
-
-        public void ToggleWeaponInventory()
-        {
-            weaponsInventoryView.ToggleUI();
+            singleWeaponView.LoadWeapon(weaponsModel.GetEquippedWeapon());
         }
 
         private void OpenSingleWeaponView(BaseWeapon weapon)
         {
-            singleWeaponView.ShowUI(true);
-            weaponsInventoryView.ShowUI(false);
+            singleWeaponView.LoadWeapon(weapon);
         }
         
     }

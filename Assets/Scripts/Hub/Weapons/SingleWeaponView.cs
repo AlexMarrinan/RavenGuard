@@ -24,6 +24,7 @@ namespace Hub.Weapons
 
         private void LoadCurrentWeapon()
         {
+            if (weaponData == null) return;
             weaponName.text = weaponData.weaponName;
             weaponImage.sprite = weaponData.sprite;
             weaponEffect.text = weaponData.damage + " Damage";
@@ -32,8 +33,14 @@ namespace Hub.Weapons
 
         private void LoadUpgrades()
         {
+            if (weaponData == null) return;
             for (int i = 0; i < weaponUpgrades.Count; i++)
             {
+                if(i >= weaponData.weaponUpgrades.Count)
+                {
+                    weaponUpgrades[i].gameObject.SetActive(false);
+                    continue;
+                }
                 weaponUpgrades[i].Init(weaponData.weaponUpgrades[i]);
             }
         }
