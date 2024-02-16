@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8cdae75f-8c67-4e21-bf14-c5cd75c31b24" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../Resources/Prefabs/Map/MapLevel.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Resources/Prefabs/Map/MapLevel.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Resources/Prefabs/Map/MapNode.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Resources/Prefabs/Map/MapNode.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Scenes/Tate's Review Scenes/RGT-86.unity" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Scenes/Tate's Review Scenes/RGT-86.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MapLevel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MapLevel.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MapNode.cs" beforeDir="false" afterPath="$PROJECT_DIR$/MapNode.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../UI/MapView.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../UI/MapView.cs" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/MapLevel.cs" root0="SKIP_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="2bpDI7ZBOA2FTfdtpg2UX4OciSE" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "RGT-86",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\DecompilerCache",
+      "C:\\Users\\tedon\\AppData\\Roaming\\JetBrains\\Rider2023.2\\resharper-host\\SourcesCache",
+      "C:\\Users\\tedon\\AppData\\Local\\Symbols\\src"
+    ]
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8cdae75f-8c67-4e21-bf14-c5cd75c31b24" name="Changes" comment="" />
+      <created>1706903045170</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706903045170</updated>
+      <workItem from="1706903048676" duration="12000" />
+      <workItem from="1706917723565" duration="708000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+</project>

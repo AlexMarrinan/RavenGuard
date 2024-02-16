@@ -31,6 +31,12 @@ public class InventoryManager : MonoBehaviour
         }
         return (item as BaseWeapon).weaponName;
     }
+
+    public List<T> GetItems<T>()
+    {
+        return items.OfType<T>().ToList();
+    }
+    
     public int ItemCount(){
         return items.Count;
     }
