@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ca517df3fb2974ebace82324c9d6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelName: TestLevel 2
+  nextLevelName: TestLevel 1
   startLevel: 1
 --- !u!4 &2106423553
 Transform:
