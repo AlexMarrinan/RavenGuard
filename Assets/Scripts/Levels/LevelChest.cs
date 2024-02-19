@@ -49,7 +49,7 @@ public class LevelChest : MonoBehaviour
         DeleteChest();
     }
     public void DeleteChest(){
-        Debug.Log("Deleting Chest!");
+//        Debug.Log("Deleting Chest!");
         attachedTile.attachedChest = null;
         attachedTile = null;
         Destroy(transform.gameObject);
