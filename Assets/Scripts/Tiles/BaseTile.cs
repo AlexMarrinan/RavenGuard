@@ -145,10 +145,8 @@ public abstract class BaseTile : MonoBehaviour
         yield return MoveUnitToTile(unit, true);
     }
     public IEnumerator MoveUnitToTile(BaseUnit unit, bool turnOver){
-        Debug.Log("ABOUT TO START MOVE");
 
         if (unit == this.occupiedUnit){
-            Debug.Log("u == ou");
             yield return null;
         }
         else if (unit.occupiedTile != null){
@@ -160,7 +158,6 @@ public abstract class BaseTile : MonoBehaviour
         //var path = GridManager.instance.ShortestPathBetweenTiles(unit.occupiedTile, this, false);
         var path = PathLine.instance.GetPath();
 //        Debug.Log(path);
-        Debug.Log("ABOUT TO ANIAMTE MOVE");
         yield return UnitManager.instance.AnimateUnitMove(unit, path, turnOver);
     }
     public void SetPossibleMove(bool valid, BaseTile startPos){

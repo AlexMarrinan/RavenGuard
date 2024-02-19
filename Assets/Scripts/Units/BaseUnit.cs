@@ -268,7 +268,7 @@ public class BaseUnit : MonoBehaviour
         //TODO ADD OTHER END CONDITIONS:
         //No active skills ready
         //No avaliable attacks
-
+        PathLine.instance.Reset();
         if (!AfterMoveAtcions() || this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
@@ -598,10 +598,13 @@ public class BaseUnit : MonoBehaviour
         }
         UnitManager.instance.HighlightDot(this.uiDot);
     }
-
-    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks()
+    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks(BaseTile tempTile)
     {
         return new ();
+    }
+    public List<(BaseTile, TileMoveType)> GetValidAttacks()
+    {
+        return GetValidAttacks(this.occupiedTile);
     }
     public int NumValidAttacks(){
         return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
