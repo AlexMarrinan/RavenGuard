@@ -10,7 +10,6 @@ public class BaseUnit : MonoBehaviour
     public BaseTile occupiedTile;
     public UnitFaction faction;
     public UnitClass unitClass;
-    private ArmorType armorType;
     /*** Unit Stats ***/
     public int moveAmount;
     public int maxMoveAmount;
@@ -148,6 +147,9 @@ public class BaseUnit : MonoBehaviour
         int magicDmg = GetMagicDamage(otherUnit);
         bool attackHigher = attackDmg > magicDmg;
 
+        WeaponClass hitterEffective = UnitManager.instance.strongAgainst[this.weaponClass];
+        WeaponClass defenderEffective = UnitManager.instance.strongAgainst[otherUnit.weaponClass];
+
         if (attackEffect == AttackEffect.Duality){
             return attackHigher ? attackDmg : magicDmg;
         }
@@ -155,10 +157,24 @@ public class BaseUnit : MonoBehaviour
             return !attackHigher ? attackDmg : magicDmg;
         }
         if (weaponClass == WeaponClass.Magic){
+            if (hitterEffective == otherUnit.weaponClass){
+                Debug.Log("Effective hit!");
+                return (int)(magicDmg * 1.2f);
+            }else if (defenderEffective == this.weaponClass){
+                Debug.Log("Weak hit!");
+                return (int)(magicDmg * 0.8f);
+            }
             return magicDmg;
         }
         float value = 1;
         if (BattleSceneManager.instance.prediction == null){
+            if (hitterEffective == otherUnit.weaponClass){
+                Debug.Log("Effective hit!");
+                return (int)(attackDmg * 1.2f);
+            }else if (defenderEffective == this.weaponClass){
+                Debug.Log("Weak hit!");
+                return (int)(attackDmg * 0.8f);
+            }
             return attackDmg;
         }
         if (BattleSceneManager.instance.prediction.attacker == this){
@@ -174,6 +190,13 @@ public class BaseUnit : MonoBehaviour
                     value *= multi.multiplier;
                 }
             }
+        }
+        if (hitterEffective == otherUnit.weaponClass){
+            Debug.Log("Effective hit!");
+            return (int)(attack * 1.2f * value);
+        }else if (defenderEffective == this.weaponClass){
+            Debug.Log("Weak hit!");
+            return (int)(attackDmg * 0.8f * value);
         }
         return (int)(attackDmg * value);
         //return (int)((float)attackDmg * value);

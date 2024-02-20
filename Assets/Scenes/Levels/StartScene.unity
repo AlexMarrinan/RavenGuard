@@ -869,7 +869,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654135559468885747, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: enemyCount
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5654135559483657311, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_AnchoredPosition.y

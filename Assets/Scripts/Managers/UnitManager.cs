@@ -17,10 +17,20 @@ public class UnitManager : MonoBehaviour
     private bool team1heros = false;
     public int heroCount = 5; 
     public int enemyCount = 5;
+    public Dictionary<WeaponClass, WeaponClass> strongAgainst;
+    public Dictionary<WeaponClass, WeaponClass> weakTo;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
         unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units").ToList();
+
+        strongAgainst = new();
+        weakTo = new();
+
+        strongAgainst.Add(WeaponClass.SideArms, WeaponClass.Archer);
+        strongAgainst.Add(WeaponClass.Archer, WeaponClass.Magic);
+        strongAgainst.Add(WeaponClass.Magic, WeaponClass.LongArms);
+        strongAgainst.Add(WeaponClass.LongArms, WeaponClass.SideArms);
     }
 
     public void SpawnHeroes(){
