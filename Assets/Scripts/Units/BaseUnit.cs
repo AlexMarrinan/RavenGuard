@@ -134,6 +134,7 @@ public class BaseUnit : MonoBehaviour
         ((GameObject)go).transform.SetParent(GameManager.instance.mainCanvas.transform);
         healthBar = go.GetComponent<UnitHealthBar>();
         healthBar.SetAttachedUnit(this);
+        healthBar.transform.SetAsFirstSibling();
     }
     public virtual void Attack(BaseUnit otherUnit){
         return;
@@ -234,13 +235,8 @@ public class BaseUnit : MonoBehaviour
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
         if (lastTile != null){
-            lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
+            StartCoroutine(lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false));
         }
-        //healthBar.RenderHealth();
-    }
-    public void MoveToTileAtDistance(int distance){
-        BaseTile adjTile = PathLine.instance.GetPathTile(distance);
-        adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit);
         //healthBar.RenderHealth();
     }
     public void ResetMovment(){
@@ -265,15 +261,15 @@ public class BaseUnit : MonoBehaviour
 
     public void FinishMovement(){
         // moveAmount = 0;
-        Debug.Log("movment over");
+//        Debug.Log("movment over");
         hasMoved = true;
         UsePassiveSkills(PassiveSkillType.OnMovement);
         UnitManager.instance.UnselectUnit();
         //TODO ADD OTHER END CONDITIONS:
         //No active skills ready
         //No avaliable attacks
-    
-        if (/*GetActiveSkills().Count <= 0 || */this.faction == UnitFaction.Enemy){
+        PathLine.instance.Reset();
+        if (!AfterMoveAtcions() || this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
             GridManager.instance.SetHoveredTile(this.occupiedTile);
@@ -287,7 +283,7 @@ public class BaseUnit : MonoBehaviour
             uiDot.SetColor(new Color(1.0f, 1.0f, 1.0f));
         }
 //        Debug.Log("turn over");
-        UnitManager.instance.SetSeclectedUnit(null);
+        UnitManager.instance.SetSelectedUnit(null);
         TurnManager.instance.OnUnitDone(this);
     }
     public virtual TileMoveType GetMoveTypeAt(BaseTile otherTile){
@@ -602,15 +598,33 @@ public class BaseUnit : MonoBehaviour
         }
         UnitManager.instance.HighlightDot(this.uiDot);
     }
-
-    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks()
+    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks(BaseTile tempTile)
     {
         return new ();
+    }
+    public List<(BaseTile, TileMoveType)> GetValidAttacks()
+    {
+        return GetValidAttacks(this.occupiedTile);
     }
     public int NumValidAttacks(){
         return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
     }
 
+    public bool AfterMoveAtcions(){
+        if (NumValidAttacks() > 0){
+//            Debug.Log("Attacks found!");
+            return true;
+        }
+        foreach (BaseSkill skill in skills){
+            if (skill is ActiveSkill){
+                if ((skill as ActiveSkill).cooldown == 0){
+        //            Debug.Log("Active skill found!");
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     protected void SetAttackMove(BaseTile tile, List<(BaseTile, TileMoveType)> returns)
     {
@@ -647,7 +661,7 @@ public class BaseUnit : MonoBehaviour
     }
 
     private void LevelUp(){
-        Debug.Log(this.ToString() + " LEVEL UP!");
+//        Debug.Log(this.ToString() + " LEVEL UP!");
         level++;
         var menu = MenuManager.instance.levelupMenu;
         menu.Reset();

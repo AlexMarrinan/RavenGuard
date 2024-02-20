@@ -26,6 +26,8 @@ public abstract class BaseTile : MonoBehaviour
     public Vector2 coordiantes;
     public TileEditorType editorType;
     public LevelChest attachedChest;
+    public SpawnFaction spawnTeam;
+    public bool spawnChest;
     private void FixedUpdate(){
         //depthText.text = moveType.ToString();
     }
@@ -100,7 +102,7 @@ public abstract class BaseTile : MonoBehaviour
             }
             //current unit is a hero, set as selected
             if (occupiedUnit.faction == UnitFaction.Hero){
-                UnitManager.instance.SetSeclectedUnit(occupiedUnit);
+                UnitManager.instance.SetSelectedUnit(occupiedUnit);
                 return;
             }
             //current unit is enemy, AND selected is enemy,
@@ -127,8 +129,8 @@ public abstract class BaseTile : MonoBehaviour
     }
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
-        UnitManager.instance.SetSeclectedUnit(null);
-        MoveUnitToTile(oldSelectedUnit);
+        UnitManager.instance.SetSelectedUnit(null);
+        StartCoroutine(MoveUnitToTile(oldSelectedUnit));
     }
     public void SetUnitStart(BaseUnit unit){
         if (unit.occupiedTile != null){
@@ -139,14 +141,15 @@ public abstract class BaseTile : MonoBehaviour
         unit.occupiedTile = this;
         unit.moveAmount -= depth;
     }
-    public void MoveUnitToTile(BaseUnit unit){
-        MoveUnitToTile(unit, true);
+    public IEnumerator MoveUnitToTile(BaseUnit unit){
+        yield return MoveUnitToTile(unit, true);
     }
-    public void MoveUnitToTile(BaseUnit unit, bool turnOver){
+    public IEnumerator MoveUnitToTile(BaseUnit unit, bool turnOver){
+
         if (unit == this.occupiedUnit){
-            return;
+            yield return null;
         }
-        if (unit.occupiedTile != null){
+        else if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
         unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
@@ -155,7 +158,7 @@ public abstract class BaseTile : MonoBehaviour
         //var path = GridManager.instance.ShortestPathBetweenTiles(unit.occupiedTile, this, false);
         var path = PathLine.instance.GetPath();
 //        Debug.Log(path);
-        StartCoroutine(UnitManager.instance.AnimateUnitMove(unit, path, turnOver));
+        yield return UnitManager.instance.AnimateUnitMove(unit, path, turnOver);
     }
     public void SetPossibleMove(bool valid, BaseTile startPos){
         validMoveHighlight.SetActive(valid);

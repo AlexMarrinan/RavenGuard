@@ -9,14 +9,15 @@ using UnityEngine.UI;
 
 public class LevelupMenu : BaseMenu
 {
-    public TMP_Text atkT, defT, aglT, atuT, frsT, lckT;
-    public TMP_Text atk2T, def2T, agl2T, atu2T, frs2T, lck2T;
-    public int atk, def, agl, atu, frs, lck;
-    public int atk2, def2, agl2, atu2, frs2, lck2;
+    public TMP_Text atkT, defT, aglT, atuT, frsT, lckT, hpT;
+    public TMP_Text atk2T, def2T, agl2T, atu2T, frs2T, lck2T, hp2T;
+    public int atk, def, agl, atu, frs, lck, hp;
+    public int atk2, def2, agl2, atu2, frs2, lck2, hp2;
     public TMP_Text levelText;
     private int addAmount = 3;
     private int remainingAdds = 2;
     private BaseUnit unit;
+    private int hpDiff = 0;
     public override void Move(Vector2 direction)
     {
         base.Move(direction);
@@ -29,6 +30,7 @@ public class LevelupMenu : BaseMenu
         frs = unit.GetBaseFOR();
         atu = unit.GetBaseATU();
         lck = unit.GetBaseLCK();
+        hp = unit.maxHealth;
 
         atkT.text = atk.ToString();
         defT.text = def.ToString();
@@ -36,6 +38,7 @@ public class LevelupMenu : BaseMenu
         atuT.text = atu.ToString();
         frsT.text = frs.ToString();
         lckT.text = lck.ToString();
+        hpT.text = hp.ToString();
 
         atk2 = 0;
         def2 = 0;
@@ -43,6 +46,7 @@ public class LevelupMenu : BaseMenu
         atu2 = 0;
         frs2 = 0;
         lck2 = 0;
+        hp2 = 0;
 
         atk2T.text = "+0";
         def2T.text = "+0";
@@ -50,7 +54,8 @@ public class LevelupMenu : BaseMenu
         atu2T.text = "+0";
         frs2T.text = "+0";
         lck2T.text = "+0";
-        levelText.text = "Lv. " + (unit.level);
+        hp2T.text  = "+0";
+        levelText.text = "Lv. " + unit.level;
     }
     public override void Reset()
     {
@@ -80,6 +85,8 @@ public class LevelupMenu : BaseMenu
                 break;
             case 5: AddLCK();
                 break;
+            case 6: AddHP();
+                break;
         }
         buttons[buttonIndex].SetOn(false);
         Move(new Vector2(0, -1));
@@ -101,7 +108,8 @@ public class LevelupMenu : BaseMenu
         agl += agl2;
         frs += frs2; 
         atu += atu2; 
-        lck += lck2; 
+        lck += lck2;
+        hp += hp2;
 
         atkT.text = atk.ToString();
         defT.text = def.ToString();
@@ -109,6 +117,7 @@ public class LevelupMenu : BaseMenu
         atuT.text = atu.ToString();
         frsT.text = frs.ToString();
         lckT.text = lck.ToString();
+        hpT.text = hp.ToString();
 
         atk2T.text = "";
         def2T.text = "";
@@ -116,17 +125,23 @@ public class LevelupMenu : BaseMenu
         atu2T.text = "";
         frs2T.text = "";
         lck2T.text = "";
-        
+        hp2T.text = "";
+
         unit.SetBaseATK(atk);
         unit.SetBaseDEF(def);
         unit.SetBaseAGL(agl);
         unit.SetBaseATU(atu);
         unit.SetBaseFOR(frs);
         unit.SetBaseLCK(lck);
+        unit.maxHealth = hp;
+        unit.health += hpDiff;
 
         yield return new WaitForSeconds(1.5f);
         BattleSceneManager.instance.CloseBattleScene();
         MenuManager.instance.CloseMenus();
+        if (UnitManager.instance.GetAllEnemies().Count <= 0){
+            MenuManager.instance.ToggleLevelEndMenu();
+        }
     }
 
     private void AddATK()
@@ -159,5 +174,12 @@ public class LevelupMenu : BaseMenu
     {
         lck2 += addAmount;
         lck2T.text = "+" + lck2;
+    }
+    private void AddHP()
+    {
+        addAmount = UnityEngine.Random.Range(3, 7);
+        hp2 += addAmount;
+        hpDiff = addAmount;
+        hp2T.text = "+" + hp2;
     }
 }

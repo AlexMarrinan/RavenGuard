@@ -46,24 +46,28 @@ public class RangedUnit : BaseUnit
         BattleSceneManager.instance.StartBattle(this, otherUnit);
     }
 
-    public override List<(BaseTile, TileMoveType)> GetValidAttacks(){
+    public override List<(BaseTile, TileMoveType)> GetValidAttacks(BaseTile tempTile){
+        if (tempTile == null){
+            return new();
+        }
         var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
-//        Debug.Log(occupiedTile);
-        var next = occupiedTile.GetAdjacentTiles();
+        Debug.Log(occupiedTile);
+        Debug.Log(tempTile);
+        var next = tempTile.GetAdjacentTiles();
 //        Debug.Log(rangedWeapon.maxRange);
         next.ForEach(t => GVAHelper(1, this.rangedWeapon.maxRange, t, visited, t, this));
 //        Debug.Log(visited.Count);
         List<(BaseTile, TileMoveType)> returns = new();
         foreach (BaseTile tile in visited.Keys){
-            int distnace = GridManager.instance.ShortestPathBetweenTiles(occupiedTile, tile, false).Count();
+            int distnace = GridManager.instance.ShortestPathBetweenTiles(tempTile, tile, false).Count();
 //            Debug.Log(distnace);
             if (distnace >= rangedWeapon.minRange){
                 SetAttackMove(tile, returns);
             }
         }
-        List<BaseTile> adjTiles = GridManager.instance.GetAdjacentTiles(occupiedTile.coordiantes);
+        List<BaseTile> adjTiles = GridManager.instance.GetAdjacentTiles(tempTile.coordiantes);
         foreach(var adj in adjTiles){
             var temp = (adj, TileMoveType.Attack);
             if (returns.Contains(temp)){

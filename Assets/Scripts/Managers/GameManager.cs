@@ -1,6 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Object = UnityEngine.Object;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,9 +18,12 @@ public class GameManager : MonoBehaviour
     public float cameraSensitivity = 2f;
     private bool usingMouse = false;
     public GameState startState;
+    public LevelData levelData;
     // Start is called before the first frame update
     void Start()
     {
+        levelData = FindObjectOfType<LevelData>();
+        DontDestroyOnLoad(gameObject);
         instance = this;
         gameState = startState;
         newCameraPos = mainCamera.transform.position;
@@ -26,7 +34,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (newCameraPos != mainCamera.transform.position){
+        if (mainCamera != null && newCameraPos != mainCamera.transform.position){
             var trans = mainCamera.transform;
             trans.position = Vector3.Lerp(trans.position, newCameraPos, camAutoSpeed * Time.deltaTime);
         }
@@ -35,6 +43,10 @@ public class GameManager : MonoBehaviour
     //Change game state
     public void ChangeState(GameState newState){
         gameState = newState;
+        if (levelData.startLevel){
+            LoadNextLevel();
+            return;
+        }
         switch(newState){
             case GameState.MainMenu:
                 break;
@@ -90,6 +102,30 @@ public class GameManager : MonoBehaviour
         if (mainCamera.orthographicSize <= 2 || mainCamera.orthographicSize >= 12){
             mainCamera.orthographicSize -= amount;
         }
+    }
+
+    private IEnumerator LoadNextLevelAsync(){
+        MenuManager.instance.ShowStartText("Loading level...", true);
+        yield return new WaitForSeconds(0.8f);
+        yield return SceneManager.LoadSceneAsync(levelData.nextLevelName);
+        levelData = FindObjectOfType<LevelData>();
+        // ChangeState(GameState.HeroesTurn);
+        GridManager.instance.GenerateGrid();
+        TurnManager.instance.BeginHeroTurn();
+        yield return null;
+        //mainCamera = FindObjectOfType<Camera>();
+    }
+
+    public void LoadNextLevel()
+    {
+        MenuManager.instance.CloseMenus();
+        foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
+            UnitManager.instance.DeleteUnit(unit, false);
+        }
+        foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
+            unit.health = unit.maxHealth;
+        }
+        StartCoroutine(LoadNextLevelAsync());
     }
 }
 

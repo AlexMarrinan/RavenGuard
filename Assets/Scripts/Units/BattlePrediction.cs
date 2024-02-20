@@ -52,7 +52,7 @@ public class BattlePrediction
                 break;
             }
             swappedAttackers = true;
-            Debug.Log("Attacker/defender swapped!");
+//            Debug.Log("Attacker/defender swapped!");
 
             //swap def and atk units
             (this.defender, this.attacker) = (this.attacker, this.defender);
