@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: 3101734319885381339}
-  - component: {fileID: 8827464887934035234}
+  - component: {fileID: 2450522220589349630}
+  - component: {fileID: 3989182894958730718}
   m_Layer: 0
-  m_Name: Marcus
+  m_Name: Harold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1746290447937580278}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 2}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -1117208688, guid: b40c991f1363d6a4a9a7fd2b16cdb120, type: 3}
+  m_Sprite: {fileID: 1277641916, guid: 08ab84da308839f4e84823b301593644, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3101734319885381339
+--- !u!114 &2450522220589349630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,42 +95,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746290447937580278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf1f64db6caed948acc337443f5e6ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 436e64aeb3c27a94cbab0f0e7f16f915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Marcus
+  unitName: Harold
   occupiedTile: {fileID: 0}
   faction: 0
-  unitClass: 1
+  unitClass: 4
   moveAmount: 5
   maxMoveAmount: 5
-  health: 10
-  maxHealth: 10
+  health: 13
+  maxHealth: 13
   currentXP: 0
   maxXP: 100
   level: 1
   hasMoved: 0
   attack: 3
-  defense: 3
-  agility: 4
-  attunment: 9
+  defense: 5
+  agility: 5
+  attunment: 5
   foresight: 5
-  luck: 3
+  luck: 5
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: 098cd11376619df4eaeecae2867ec436, type: 2}
+  animatorController: {fileID: 9100000, guid: 597ace6dc73f377469b3cba35cdd950e, type: 2}
   buffs: []
-  audioSource: {fileID: 8827464887934035234}
+  audioSource: {fileID: 3989182894958730718}
   uiDot: {fileID: 0}
-  rangedWeapon: {fileID: 11400000, guid: 9691b7e7173e0de4b84a95993c6ff933, type: 2}
-  rangedWeaponClass: 1
---- !u!82 &8827464887934035234
+  meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
+  meleeWeaponClass: 1
+--- !u!82 &3989182894958730718
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
