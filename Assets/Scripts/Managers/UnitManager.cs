@@ -85,6 +85,7 @@ public class UnitManager : MonoBehaviour
         Object.Destroy(unit.gameObject);
         if (GetAllEnemies().Count <= 0 && killed){
             MenuManager.instance.ShowStartText("LEVEL COMPLETE!", false);
+            GameManager.instance.levelFinished = true;
             return;
         }
         if (GetAllHeroes().Count <= 0){

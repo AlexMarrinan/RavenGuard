@@ -18,6 +18,7 @@ public class BaseUnit : MonoBehaviour
     public int maxHealth;
     public int currentXP = 0;
     public int maxXP = 100;
+    [SerializeField] 
     private int droppedXP = 100;
     public int level = 1;
     public bool hasMoved;
@@ -641,12 +642,17 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         int newXP = currentXP + amount;
+        int levelsGained = 0;
         while (newXP >= maxXP){
             StartCoroutine(LevelUpBarAnimation());
+            levelsGained++;
             newXP -= maxXP;
         }
         currentXP = newXP;
         StartCoroutine(AnimateXPBar(newXP));
+        if (levelsGained == 0){
+            BattleSceneManager.instance.CloseBattleScene();
+        }
     }
 
     private IEnumerator AnimateXPBar(int xp)

@@ -228,20 +228,23 @@ public class BattleSceneManager : MonoBehaviour
             rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
         if (leftBU.assignedUnit.health <= 0){
+            int xp = leftBU.assignedUnit.GetDroppedXP();
+            UnitManager.instance.DeleteUnit(leftBU.assignedUnit);
+
             if (rightBU.assignedUnit.faction == UnitFaction.Hero){
                 waitForXP = true;
                 MenuManager.instance.levelupMenu.transform.localPosition = new Vector2(-650, 0);
-                rightBU.assignedUnit.GainXP(leftBU.assignedUnit.GetDroppedXP());
+                rightBU.assignedUnit.GainXP(xp);
             }
-            UnitManager.instance.DeleteUnit(leftBU.assignedUnit);
         }
         if (rightBU.assignedUnit.health <= 0){
+            int xp = rightBU.assignedUnit.GetDroppedXP();
+            UnitManager.instance.DeleteUnit(rightBU.assignedUnit);
             if (leftBU.assignedUnit.faction == UnitFaction.Hero){
                 waitForXP = true;
                 MenuManager.instance.levelupMenu.transform.localPosition = new Vector2(650, 0);
-                leftBU.assignedUnit.GainXP(rightBU.assignedUnit.GetDroppedXP());
+                leftBU.assignedUnit.GainXP(xp);
             }
-            UnitManager.instance.DeleteUnit(rightBU.assignedUnit);
         }
         if (!waitForXP){
             CloseBattleScene();
@@ -270,6 +273,7 @@ public class BattleSceneManager : MonoBehaviour
         }else{
             TurnManager.instance.GoToNextUnit();
         }
+
     }
     private void ResetBattleUnitsPos(){
         leftNewPos = leftStartPos;
