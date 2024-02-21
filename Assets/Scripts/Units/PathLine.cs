@@ -37,7 +37,6 @@ public class PathLine : MonoBehaviour
         line.positionCount = 0;
         Vector3[] vectors = {};
         line.SetPositions(vectors);
-
     }
 
     public bool IsOnPath(BaseTile tile){

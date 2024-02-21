@@ -235,13 +235,8 @@ public class BaseUnit : MonoBehaviour
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
         if (lastTile != null){
-            lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false);
+            StartCoroutine(lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false));
         }
-        //healthBar.RenderHealth();
-    }
-    public void MoveToTileAtDistance(int distance){
-        BaseTile adjTile = PathLine.instance.GetPathTile(distance);
-        adjTile.MoveUnitToTile(UnitManager.instance.selectedUnit);
         //healthBar.RenderHealth();
     }
     public void ResetMovment(){
@@ -273,7 +268,7 @@ public class BaseUnit : MonoBehaviour
         //TODO ADD OTHER END CONDITIONS:
         //No active skills ready
         //No avaliable attacks
-
+        PathLine.instance.Reset();
         if (!AfterMoveAtcions() || this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
@@ -603,10 +598,13 @@ public class BaseUnit : MonoBehaviour
         }
         UnitManager.instance.HighlightDot(this.uiDot);
     }
-
-    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks()
+    public virtual List<(BaseTile, TileMoveType)> GetValidAttacks(BaseTile tempTile)
     {
         return new ();
+    }
+    public List<(BaseTile, TileMoveType)> GetValidAttacks()
+    {
+        return GetValidAttacks(this.occupiedTile);
     }
     public int NumValidAttacks(){
         return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
@@ -614,13 +612,13 @@ public class BaseUnit : MonoBehaviour
 
     public bool AfterMoveAtcions(){
         if (NumValidAttacks() > 0){
-            Debug.Log("Attacks found!");
+//            Debug.Log("Attacks found!");
             return true;
         }
         foreach (BaseSkill skill in skills){
             if (skill is ActiveSkill){
                 if ((skill as ActiveSkill).cooldown == 0){
-                    Debug.Log("Active skill found!");
+        //            Debug.Log("Active skill found!");
                     return true;
                 }
             }

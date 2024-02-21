@@ -130,7 +130,7 @@ public abstract class BaseTile : MonoBehaviour
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
         UnitManager.instance.SetSelectedUnit(null);
-        MoveUnitToTile(oldSelectedUnit);
+        StartCoroutine(MoveUnitToTile(oldSelectedUnit));
     }
     public void SetUnitStart(BaseUnit unit){
         if (unit.occupiedTile != null){
@@ -141,14 +141,15 @@ public abstract class BaseTile : MonoBehaviour
         unit.occupiedTile = this;
         unit.moveAmount -= depth;
     }
-    public void MoveUnitToTile(BaseUnit unit){
-        MoveUnitToTile(unit, true);
+    public IEnumerator MoveUnitToTile(BaseUnit unit){
+        yield return MoveUnitToTile(unit, true);
     }
-    public void MoveUnitToTile(BaseUnit unit, bool turnOver){
+    public IEnumerator MoveUnitToTile(BaseUnit unit, bool turnOver){
+
         if (unit == this.occupiedUnit){
-            return;
+            yield return null;
         }
-        if (unit.occupiedTile != null){
+        else if (unit.occupiedTile != null){
             unit.occupiedTile.occupiedUnit = null;
         }
         unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
@@ -157,7 +158,7 @@ public abstract class BaseTile : MonoBehaviour
         //var path = GridManager.instance.ShortestPathBetweenTiles(unit.occupiedTile, this, false);
         var path = PathLine.instance.GetPath();
 //        Debug.Log(path);
-        StartCoroutine(UnitManager.instance.AnimateUnitMove(unit, path, turnOver));
+        yield return UnitManager.instance.AnimateUnitMove(unit, path, turnOver);
     }
     public void SetPossibleMove(bool valid, BaseTile startPos){
         validMoveHighlight.SetActive(valid);

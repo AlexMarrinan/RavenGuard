@@ -761,7 +761,9 @@ public class GridManager : MonoBehaviour
             }
             visited.Add(tile);
             toVisit.Enqueue(tile);
-            previousTiles.Add(tile, current);
+            if (!previousTiles.ContainsKey(tile)){
+                previousTiles.Add(tile, current);
+            }
         }
         if (toVisit.Count > 0){
             current = toVisit.Dequeue();

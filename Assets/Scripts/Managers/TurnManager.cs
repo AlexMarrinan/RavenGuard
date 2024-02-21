@@ -87,6 +87,7 @@ public class TurnManager : MonoBehaviour
                 //Debug.Log(moves.Count);
                 foreach (AIMove move in moves){
     //                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
+                    Debug.Log(move);
                     if (currentMoves == null){
                         currentMoves = new(){move};
                     }
@@ -105,8 +106,8 @@ public class TurnManager : MonoBehaviour
                     // Debug.Log(currentMove.rating);
                     PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
                     yield return new WaitForSeconds(0.5f);
-                    currentMove.moveTile.MoveUnitToTile(unit);
-                    yield return new WaitForSeconds(0.5f);
+                    yield return currentMove.moveTile.MoveUnitToTile(unit);
+                    yield return new WaitForSeconds(0.05f);
                     if (currentMove is AIAttack){
                         unit.Attack((currentMove as AIAttack).attackTile.occupiedUnit);
                         while (MenuManager.instance.menuState == MenuState.Battle){
@@ -137,24 +138,22 @@ public class TurnManager : MonoBehaviour
 
     private List<AIAttack> RateAttacks(BaseUnit unit){
         List<BaseTile> moves = UnitManager.instance.GetValidMoves(unit);
-        List<BaseUnit> unitsInRandge = new();
-        foreach (BaseUnit opp in UnitManager.instance.GetAllHeroes()){
-            if (moves.Contains(opp.occupiedTile)){
-                unitsInRandge.Add(opp);
-            }
-        }
-
         List<AIAttack> possibleAttacks = new();
-        foreach (BaseUnit opp in unitsInRandge){
-            foreach (BaseTile adjTile in opp.occupiedTile.GetAdjacentTiles()){
-                if (/*adjTile.moveType == TileMoveType.Move &&*/ moves.Contains(adjTile)){
-                    possibleAttacks.Add(new(adjTile, opp.occupiedTile));
+        foreach (BaseTile move in moves){
+            foreach ((BaseTile, TileMoveType) atk in unit.GetValidAttacks(move)){
+                BaseTile adjTile = atk.Item1;
+                TileMoveType adjType = atk.Item2;
+                if (adjType != TileMoveType.Attack){
+                    continue;
                 }
+                var attack = new AIAttack(move, adjTile);
+                possibleAttacks.Add(attack);
             }
         }
         foreach (AIAttack atk in possibleAttacks){
             RateAttack(unit, atk);
         }
+        Debug.Log(possibleAttacks.Count);
         //Debug.Log("Possible attacks count: " + possibleAttacks.Count);
         return possibleAttacks;
     }
@@ -345,6 +344,8 @@ internal class AIMove {
     public int rating;
     public BaseTile moveTile;
 }
+
+//ANY AI MOVE THAT IS ATTACKING THE PLAYER UNITS
 internal class AIAttack : AIMove{
     public BaseTile attackTile;
     public ActiveSkill activeSkill;
@@ -363,6 +364,8 @@ internal class AIAttack : AIMove{
     }
 }
 
+
+//ANY AI MOVE THAT IS NOT AN ATTACK
 internal class AISupport : AIMove{
     public BaseTile supporTile;
     public ActiveSkill activeSkill;

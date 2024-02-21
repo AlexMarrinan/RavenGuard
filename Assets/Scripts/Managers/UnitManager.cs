@@ -15,6 +15,8 @@ public class UnitManager : MonoBehaviour
     public GameObject heroDotHighlight, enemyDotHighlight;
     public float unitMoveSpeed = .1f;
     private bool team1heros = false;
+    public int heroCount = 5; 
+    public int enemyCount = 5;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
@@ -25,7 +27,6 @@ public class UnitManager : MonoBehaviour
         //returns 0 or 1
         team1heros = 0 == Random.Range(0, 2);
         if (GetAllHeroes().Count <= 0){
-            var heroCount = 5;
             for (int i = 0; i < heroCount; i++){
                 var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
                 var randomPrefab = GetRandomUnit(UnitFaction.Hero, randomSpawnTile.Item2);
@@ -47,7 +48,6 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
-        var enemyCount = 2;
         for (int i = 0; i < enemyCount; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
@@ -70,9 +70,9 @@ public class UnitManager : MonoBehaviour
         }
 
         //TODO: MAKE AI USE RANGED UNITS TOO
-        if (faction == UnitFaction.Enemy){
-            unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
-        }
+        // if (faction == UnitFaction.Enemy){
+        //     unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
+        // }
         unit.faction = faction;
         return unit;
     }
@@ -226,11 +226,6 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    private List<BaseTile> GetValidAttacks(BaseUnit unit)
-    {
-        return null;
-    }
-
     public void RemoveAllValidMoves(){
         GridManager.instance.GetAllTiles().ForEach(t => t.SetPossibleMove(false, null));
     }
@@ -247,11 +242,13 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
-
         if (unit == null){
+            Debug.Log(unit);
+            Debug.Log(path.Count); 
             yield return null;
-        }
+        }        
         else if (path.Count > 0){
+//            Debug.Log(path);
             BaseTile nextTile = path[0];
             yield return AudioManager.instance.PlayTileSound(unit, nextTile);
             Vector3 nextPos = nextTile.transform.position;
@@ -273,7 +270,7 @@ public class UnitManager : MonoBehaviour
                 if (moveOver){
                     unit.FinishMovement();
                 }
-                yield return new WaitForSeconds(0.45f);
+                yield return new WaitForSeconds(0.15f);
             }
         }
     }
