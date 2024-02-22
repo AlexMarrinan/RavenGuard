@@ -18,6 +18,7 @@ public class LevelupMenu : BaseMenu
     private int remainingAdds = 2;
     private BaseUnit unit;
     private int hpDiff = 0;
+    public int xpIncrease = 25;
     public override void Move(Vector2 direction)
     {
         base.Move(direction);
@@ -56,6 +57,8 @@ public class LevelupMenu : BaseMenu
         lck2T.text = "+0";
         hp2T.text  = "+0";
         levelText.text = "Lv. " + unit.level;
+        
+        AddHP();
     }
     public override void Reset()
     {
@@ -84,8 +87,6 @@ public class LevelupMenu : BaseMenu
             case 4: AddFRS();
                 break;
             case 5: AddLCK();
-                break;
-            case 6: AddHP();
                 break;
         }
         buttons[buttonIndex].SetOn(false);
@@ -136,12 +137,11 @@ public class LevelupMenu : BaseMenu
         unit.maxHealth = hp;
         unit.health += hpDiff;
 
+        unit.maxXP += xpIncrease;
+
         yield return new WaitForSeconds(1.5f);
-        BattleSceneManager.instance.CloseBattleScene();
         MenuManager.instance.CloseMenus();
-        if (UnitManager.instance.GetAllEnemies().Count <= 0){
-            MenuManager.instance.ToggleLevelEndMenu();
-        }
+        BattleSceneManager.instance.CloseBattleScene();
     }
 
     private void AddATK()
@@ -177,7 +177,7 @@ public class LevelupMenu : BaseMenu
     }
     private void AddHP()
     {
-        addAmount = UnityEngine.Random.Range(3, 7);
+        addAmount = UnityEngine.Random.Range(2, 4);
         hp2 += addAmount;
         hpDiff = addAmount;
         hp2T.text = "+" + hp2;

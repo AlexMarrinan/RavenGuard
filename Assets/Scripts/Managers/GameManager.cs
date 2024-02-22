@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     private bool usingMouse = false;
     public GameState startState;
     public LevelData levelData;
+    public bool levelFinished = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -118,6 +119,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        levelFinished = false;
         MenuManager.instance.CloseMenus();
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);
