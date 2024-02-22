@@ -108,6 +108,7 @@ MonoBehaviour:
   maxHealth: 21
   currentXP: 0
   maxXP: 100
+  droppedXP: 150
   level: 4
   hasMoved: 0
   attack: 8
