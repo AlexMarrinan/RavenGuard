@@ -6807,8 +6807,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ca517df3fb2974ebace82324c9d6d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextLevelName: Level 2
+  nextLevelName: Level 4
   startLevel: 0
+  numberOfEnemies: 7
+  possibleEnemies:
+  - {fileID: 2450522220589349630, guid: 4f6af80af4ec3a14198b544ba691d83c, type: 3}
+  - {fileID: 2450522220589349630, guid: 8468a601be767f34090520f2d568abc7, type: 3}
+  - {fileID: 1602817899114489199, guid: 9acbd7c601ad85a4ab0a6b2ae5c9457c, type: 3}
+  - {fileID: 1602817899114489199, guid: 7c244463c8d0f684e8aaba2f7d5d329f, type: 3}
 --- !u!1001 &1126489735
 PrefabInstance:
   m_ObjectHideFlags: 0
