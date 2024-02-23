@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &596547371651436777
@@ -171,9 +171,25 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.oldSize.y
       value: 0.64
       objectReference: {fileID: 0}
+    - target: {fileID: 5084094000523550533, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5084094000523550533, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6318031144860871703, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8132525916629017672, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8792015091440082843, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
@@ -194,7 +210,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02515c9449924f04ba0a10b8d9ad7fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  renderer: {fileID: 535260081285696765}
+  bgSprite: {fileID: 0}
+  middleSprite: {fileID: 0}
+  fgSprite: {fileID: 0}
   validMoveHighlight: {fileID: 2062687372496000171}
   occupiedUnit: {fileID: 0}
   moveType: 0
@@ -202,14 +220,13 @@ MonoBehaviour:
   validPath: []
   depthText: {fileID: 0}
   coordiantes: {x: 0, y: 0}
+  editorType: 0
+  attachedChest: {fileID: 0}
+  spawnTeam: 0
+  spawnChest: 0
   backgroundRenderer: {fileID: 7488587283407030601}
   baseColor: {r: 0.454902, g: 0.86666673, b: 0.29803923, a: 1}
   offsetColor: {r: 0.627451, g: 0.91372555, b: 0.4431373, a: 1}
---- !u!212 &535260081285696765 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 1092963596830317588, guid: d82cb805a1775b74b85e643477ca13af, type: 3}
-  m_PrefabInstance: {fileID: 596547371651436777}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &535260081285696766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1092963596830317591, guid: d82cb805a1775b74b85e643477ca13af, type: 3}

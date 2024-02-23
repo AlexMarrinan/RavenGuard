@@ -59,6 +59,10 @@ public class GridManager : MonoBehaviour
                 var pos = bt.transform.position;
                 bt.coordiantes = pos;
                 var spawn = bt.spawnTeam;
+                Debug.Log(pos);
+                if (tiles.ContainsKey(pos)){
+                    continue;
+                }
                 tiles.Add(pos, bt);
 
                 if (spawn == SpawnFaction.BlueMelee){
