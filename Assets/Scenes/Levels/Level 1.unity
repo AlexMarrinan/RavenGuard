@@ -13314,7 +13314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextLevelName: Level 2
   startLevel: 0
-  numberOfEnemies: 3
+  numberOfEnemies: 11
   possibleEnemies:
   - {fileID: 7766213751926532178, guid: 8d4da4e1b503981409de132ccfb875f4, type: 3}
   - {fileID: 3101734319885381339, guid: dcbc76f6992cb174e928c933131606f7, type: 3}
