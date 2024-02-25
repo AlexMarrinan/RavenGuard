@@ -22,7 +22,7 @@ public class UnitManager : MonoBehaviour
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
-        unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units").ToList();
+        unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units/C Term/Player Units").ToList();
 
         strongAgainst = new();
         weakTo = new();

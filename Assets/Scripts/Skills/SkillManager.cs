@@ -113,8 +113,12 @@ public class SkillManager : MonoBehaviour
     }
 
     public void AdrenalineBurstPS(BaseUnit u){
-//        Debug.Log("AdrenalineBurst");
-        u.ReceiveDamage(2);
+//      Adrenaline Burst should not be able to kill its unit
+        if (u.health <= 2){
+            u.health = 1;
+        }else{
+            u.ReceiveDamage(2);
+        }
     }
     public void PoisonArrowsPS(BaseUnit u){
         BattleUnit otherbu = BattleSceneManager.instance.GetOtherBattleUnit(u);

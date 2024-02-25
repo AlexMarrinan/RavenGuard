@@ -26,7 +26,6 @@ public class GridManager : MonoBehaviour
     public List<LevelBase> bases;
     [Range(0.0f, 1.0f)]
     public float chestSpawnRate = 0.3f;
-    public bool testMode = false, newMode = false;
     void Awake(){
         instance = this;
     }
@@ -36,14 +35,6 @@ public class GridManager : MonoBehaviour
     public int getHeight(){
         return height;
     }
-    public void LoadAssets(){
-        if (testMode){
-            bases =  Resources.LoadAll<LevelBase>("Levels/TestBases").ToList();
-        }else{
-            bases =  Resources.LoadAll<LevelBase>("Levels/Bases").ToList();
-        }
-    }
-
     public void GenerateGrid()
     {
         tiles = new();
