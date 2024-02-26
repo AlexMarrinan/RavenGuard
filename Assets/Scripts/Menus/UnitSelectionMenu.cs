@@ -59,6 +59,7 @@ public class UnitSelectionMenu : BaseMenu
         int index = selectedUnits.Count-1;
         selectedUnitImages[index].sprite = null;
         selectedUnits.RemoveAt(selectedUnits.Count-1);
+        SetText();
     }
     internal void ConfirmUnits()
     {
