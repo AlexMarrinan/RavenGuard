@@ -21,11 +21,17 @@ public class GameManager : MonoBehaviour
     public LevelData levelData;
     public bool levelFinished = false;
     // Start is called before the first frame update
+    void Awake(){
+        if (instance != null){
+            Debug.Log("another instance");
+            Destroy(instance.gameObject);
+        }
+        instance = this;
+    }
     void Start()
     {
         levelData = FindObjectOfType<LevelData>();
         DontDestroyOnLoad(gameObject);
-        instance = this;
         gameState = startState;
         newCameraPos = mainCamera.transform.position;
         ChangeState(gameState);
@@ -44,7 +50,9 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState){
         gameState = newState;
         if (levelData.startLevel){
-            LoadNextLevel();
+            Debug.Log("Start level found!");
+            MenuManager.instance.ToggleUnitSelectionMenu();
+            //LoadNextLevel();
             return;
         }
         switch(newState){

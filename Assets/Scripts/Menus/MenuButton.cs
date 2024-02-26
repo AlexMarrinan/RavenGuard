@@ -40,6 +40,9 @@ public class MenuButton : MonoBehaviour
             image.color = new(image.color.r, image.color.g, image.color.b, alpha);
         }
     }
+    public void SetOff(){
+        SetOn(false);
+    }
     public virtual void OnPress(){
         
     }

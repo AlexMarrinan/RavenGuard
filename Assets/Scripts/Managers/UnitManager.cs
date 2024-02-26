@@ -9,7 +9,7 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
     private List<ScriptableUnit> unitPrefabs;
-    private List<BaseUnit> units;
+    public List<BaseUnit> units;
     public BaseUnit selectedUnit;
     public List<UnitDot> heroDots, enemyDots;
     public GameObject heroDotHighlight, enemyDotHighlight;

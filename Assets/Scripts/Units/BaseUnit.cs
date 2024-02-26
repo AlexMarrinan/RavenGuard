@@ -47,6 +47,9 @@ public class BaseUnit : MonoBehaviour
     private AudioSource audioSource;
     public UnitDot uiDot;
     void Start(){
+        InitUnit();
+    }
+    public void InitUnit(){
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
         buffs = new();
@@ -408,6 +411,9 @@ public class BaseUnit : MonoBehaviour
             if (change.statType == type){
                 newAmount += change.currentAmount;
             }
+        }
+        if (!duringCombatStats.ContainsKey(type)){
+            return newAmount;
         }
         return newAmount + duringCombatStats[type];
     }
