@@ -19,15 +19,21 @@ public class GameManager : MonoBehaviour
     private bool usingMouse = false;
     public GameState startState;
     public LevelData levelData;
+    public bool levelFinished = false;
     // Start is called before the first frame update
+    void Awake(){
+        if (instance != null){
+            Debug.Log("another instance");
+            Destroy(instance.gameObject);
+        }
+        instance = this;
+    }
     void Start()
     {
         levelData = FindObjectOfType<LevelData>();
         DontDestroyOnLoad(gameObject);
-        instance = this;
         gameState = startState;
         newCameraPos = mainCamera.transform.position;
-        GridManager.instance.LoadAssets();
         ChangeState(gameState);
     }
 
@@ -44,7 +50,9 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState){
         gameState = newState;
         if (levelData.startLevel){
-            LoadNextLevel();
+            Debug.Log("Start level found!");
+            MenuManager.instance.ToggleUnitSelectionMenu();
+            //LoadNextLevel();
             return;
         }
         switch(newState){
@@ -118,6 +126,7 @@ public class GameManager : MonoBehaviour
 
     public void LoadNextLevel()
     {
+        levelFinished = false;
         MenuManager.instance.CloseMenus();
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);

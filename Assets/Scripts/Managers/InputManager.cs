@@ -171,6 +171,10 @@ public class InputManager : MonoBehaviour
             MainMenuManager.instance.Select();
             return;
         }
+        if (MenuManager.instance.InMenu()){
+            MenuManager.instance.Select();
+            return;
+        }
         if (GridManager.instance.hoveredTile.occupiedUnit != null 
         && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
         && MenuManager.instance.menuState != MenuState.UnitAction){
@@ -181,10 +185,7 @@ public class InputManager : MonoBehaviour
             SkillManager.instance.Select();
             return;
         }
-        if (MenuManager.instance.InMenu()){
-            MenuManager.instance.Select();
-            return;
-        }
+
         GameManager.instance.SetUsingMouse(false);
         GridManager.instance.SelectHoveredTile();
     }
@@ -192,6 +193,10 @@ public class InputManager : MonoBehaviour
         
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.UnitSelection){
+            MenuManager.instance.unitSelectionMenu.UnselectUnit();
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
@@ -247,6 +252,10 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.UnitSelection){
+            MenuManager.instance.unitSelectionMenu.ConfirmUnits();
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.swapping){
             MenuManager.instance.DisableInventorySwapping();
             MenuManager.instance.CloseMenus();

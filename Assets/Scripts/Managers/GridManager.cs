@@ -20,13 +20,12 @@ public class GridManager : MonoBehaviour
 
     //true if melee, false if ranged
     public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns;
-    public Dictionary<Vector2, LayerSize> chestSpawns;
+    public List<Vector2> chestSpawns;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
     public List<LevelBase> bases;
     [Range(0.0f, 1.0f)]
     public float chestSpawnRate = 0.3f;
-    public bool testMode = false, newMode = false;
     void Awake(){
         instance = this;
     }
@@ -36,179 +35,54 @@ public class GridManager : MonoBehaviour
     public int getHeight(){
         return height;
     }
-    public void LoadAssets(){
-        if (testMode){
-            bases =  Resources.LoadAll<LevelBase>("Levels/TestBases").ToList();
-        }else{
-            bases =  Resources.LoadAll<LevelBase>("Levels/Bases").ToList();
-        }
-    }
-
     public void GenerateGrid()
     {
-        //TODO: REMOVE OLD GRID GENERATION LOGIC
-        if (newMode){
-            tiles = new();
-            var foundTiles = FindObjectsOfType<BaseTile>().ToList();
-            
-            team1spawns = new();
-            team2spawns = new();
-            chestSpawns = new();
-
-            foreach (BaseTile bt in foundTiles){
-                var pos = bt.transform.position;
-                bt.coordiantes = pos;
-                var spawn = bt.spawnTeam;
-                tiles.Add(pos, bt);
-
-                if (spawn == SpawnFaction.BlueMelee){
-                    team1spawns.Add(pos, UnitSpawnType.Melee);
-                } else if (spawn == SpawnFaction.BlueRanged){
-                    team1spawns.Add(pos, UnitSpawnType.Ranged);
-                }else if (spawn == SpawnFaction.BlueEither){
-                    team1spawns.Add(pos, UnitSpawnType.Both);
-                }
-                else if (spawn == SpawnFaction.OrangeMelee){
-                    team2spawns.Add(pos, UnitSpawnType.Melee);
-                } else if (spawn == SpawnFaction.OrangeRanged){
-                    team2spawns.Add(pos, UnitSpawnType.Ranged);
-                }else if (spawn == SpawnFaction.OrangeEither){
-                    team2spawns.Add(pos, UnitSpawnType.Both);
-                }
-                if (bt.spawnChest){
-                    float randValue = UnityEngine.Random.value;
-                //TODO: MAKE CHEST SPAWNS ASSOSIATED WITH LEVEL PROGRESSION, NOT PURELY RANDOM
-                    if (randValue < chestSpawnRate){
-                        var newChest = Instantiate(chestPrefab, new Vector3(bt.coordiantes.x, bt.coordiantes.y), Quaternion.identity);
-                        newChest.PlaceChest(bt);
-                    }
-                }
-            }
-            GameManager.instance.ChangeState(GameState.SapwnHeroes);
-            return;
-        }
-        tileTypes = new Dictionary<Vector2, TileEditorType>();
-
+        tiles = new();
+        var foundTiles = FindObjectsOfType<BaseTile>().ToList();
+        
         team1spawns = new();
         team2spawns = new();
         chestSpawns = new();
 
-        int randIndex = UnityEngine.Random.Range(0, bases.Count);
-        LevelBase pgb = bases[randIndex];
-        var newArray = new Array2D<TileEditorType>(pgb.width, pgb.height);
-        var newChestArray = new Array2D<LayerSize>(pgb.width, pgb.height);
-        var newSpawnArray = new Array2D<SpawnFaction>(pgb.width, pgb.height);
+        foreach (BaseTile bt in foundTiles){
+            var pos = bt.transform.position;
+            bt.coordiantes = pos;
+            var spawn = bt.spawnTeam;
+            Debug.Log(pos);
+            if (tiles.ContainsKey(pos)){
+                continue;
+            }
+            tiles.Add(pos, bt);
 
-        //        Debug.Log("new array" + (newArray.Width, newArray.Height));
-        newArray.DeepCopy(pgb.array);
-        newChestArray.DeepCopy(pgb.chestArray);
-        newSpawnArray.DeepCopy(pgb.spawnArray);
-        //      Debug.Log("new array" + (newArray.Width, newArray.Height));
-        //Randomly Flip Layout
-        if (UnityEngine.Random.Range(0, 2) == 1)
-        {
-            newArray.FlipX();
-            newChestArray.FlipX();
-            newSpawnArray.FlipX();
-        }
-        else if (UnityEngine.Random.Range(0, 2) == 1)
-        {
-            newArray.FlipY();
-            newChestArray.FlipY();
-            newSpawnArray.FlipY();
-        }
+            if (spawn == SpawnFaction.BlueMelee){
+                team1spawns.Add(pos, UnitSpawnType.Melee);
+            } else if (spawn == SpawnFaction.BlueRanged){
+                team1spawns.Add(pos, UnitSpawnType.Ranged);
+            }else if (spawn == SpawnFaction.BlueEither){
+                team1spawns.Add(pos, UnitSpawnType.Both);
+            }
+            else if (spawn == SpawnFaction.OrangeMelee){
+                team2spawns.Add(pos, UnitSpawnType.Melee);
+            } else if (spawn == SpawnFaction.OrangeRanged){
+                team2spawns.Add(pos, UnitSpawnType.Ranged);
+            }else if (spawn == SpawnFaction.OrangeEither){
+                team2spawns.Add(pos, UnitSpawnType.Both);
+            }
 
-        //Randomly Rotate Layout
-        int numRotates = UnityEngine.Random.Range(0, 4);
-        for (int i = 0; i < numRotates; i++)
-        {
-            newArray.Rotate();
-            newChestArray.Rotate();
-            newSpawnArray.Rotate();
-        }
-
-
-        width = newArray.Width;
-        height = newArray.Height;
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                var pos = new Vector2(x, y);
-                int newy = height - 1 - y;
-                LayerSize chest = newChestArray.Get(x, y);
-                SpawnFaction spawn = newSpawnArray.Get(x,y);
-
-                //TODO: SPAWNM CHESTS ACCORDING TO LEVEL PROGRESSION SYSTEM
-                if (chest != LayerSize.None){
-                    chestSpawns.Add(pos, chest);
-                }
-                if (spawn == SpawnFaction.BlueMelee){
-                    team1spawns.Add(pos, UnitSpawnType.Melee);
-                } else if (spawn == SpawnFaction.BlueRanged){
-                    team1spawns.Add(pos, UnitSpawnType.Ranged);
-                }else if (spawn == SpawnFaction.BlueEither){
-                    team1spawns.Add(pos, UnitSpawnType.Both);
-                }
-                else if (spawn == SpawnFaction.OrangeMelee){
-                    team2spawns.Add(pos, UnitSpawnType.Melee);
-                } else if (spawn == SpawnFaction.OrangeRanged){
-                    team2spawns.Add(pos, UnitSpawnType.Ranged);
-                }else if (spawn == SpawnFaction.OrangeEither){
-                    team2spawns.Add(pos, UnitSpawnType.Both);
-                }
-                tileTypes[pos] = newArray.grid[newy * width + x];
+            if (bt.spawnChest){
+                chestSpawns.Add(pos);
             }
         }
-
-        tiles = new();
-        foreach (Vector2 pos in tileTypes.Keys)
-        {
-            int x = (int)pos.x;
-            int y = (int)pos.y;
-
-            BaseTile randomTile = GetTileFromType(tileTypes[pos]);
-            randomTile.SetBGSprite(tileSet.GetRandomFloor());
-
-            var newTile = Instantiate(randomTile, new Vector3(x, y), Quaternion.identity);
-            newTile.name = $"Tile {pos.x} {pos.y}";
-
-            newTile.Init(x, y);
-            newTile.coordiantes = pos;
-            tiles[pos] = newTile;
-            if (chestSpawns.ContainsKey(pos)){
-                float randValue = UnityEngine.Random.value;
-                //TODO: MAKE CHEST SPAWNS ASSOSIATED WITH LEVEL PROGRESSION, NOT PURELY RANDOM
-                if (randValue < chestSpawnRate){
-                    var newChest = Instantiate(chestPrefab, new Vector3(x, y), Quaternion.identity);
-                    newChest.PlaceChest(newTile);
-                }
+        if (chestSpawns.Count > 1){
+            int numChests = UnityEngine.Random.Range(2, chestSpawns.Count);
+            for (int i = 0; i < numChests; i++){
+                Vector2 chestPos = chestSpawns[UnityEngine.Random.Range(0, chestSpawns.Count)];
+                BaseTile chestTile = GetTileAtPosition(chestPos);
+                var newChest = Instantiate(chestPrefab, chestPos, Quaternion.identity);
+                newChest.PlaceChest(chestTile);
+                chestSpawns.Remove(chestPos);
             }
         }
-        foreach (BaseTile t in tiles.Values)
-        {
-            if (t.editorType == TileEditorType.Grass)
-            {
-                SetGrassTileSprites(t as FloorTile);
-            }
-            else if (t.editorType == TileEditorType.Mountain)
-            {
-                SetMountainTileSprites(t as WallTile);
-            }
-            else if (t.editorType == TileEditorType.Forest)
-            {
-                SetForestTileSprites(t as FloorTile);
-            }
-            else if (t.editorType == TileEditorType.Bridge)
-            {
-                SetBridgeTileSprites(t as FloorTile);
-            }
-            else if (t.editorType == TileEditorType.Water)
-            {
-                SetWaterTileSprites(t as WallTile);
-            }
-        }
-        cam.transform.position = new Vector3((float)width / 2 - 0.5f, (float)height / 2 - 0.5f, -10);
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
     private BaseTile GetTileFromType(TileEditorType type){

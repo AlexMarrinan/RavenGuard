@@ -235,7 +235,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 324410674}
-  bgimage: {fileID: 0}
   upButton: {fileID: 0}
   downButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -455,6 +454,7 @@ MonoBehaviour:
   cameraSensitivity: 2
   startState: 0
   levelData: {fileID: 0}
+  levelFinished: 0
 --- !u!4 &630792556
 Transform:
   m_ObjectHideFlags: 0
@@ -523,7 +523,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 904497313}
-  bgimage: {fileID: 0}
   upButton: {fileID: 0}
   downButton: {fileID: 0}
   leftButton: {fileID: 0}
@@ -838,6 +837,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: audioVolume
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7782066086763661835, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
       propertyPath: m_RootOrder
       value: 5

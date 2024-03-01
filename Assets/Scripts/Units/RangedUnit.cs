@@ -53,8 +53,8 @@ public class RangedUnit : BaseUnit
         var visited = new Dictionary<BaseTile, int>();
 
         //TODO: SHOULD START WITH START TILE, NOT STARTING ADJ TILES !!!
-        Debug.Log(occupiedTile);
-        Debug.Log(tempTile);
+//        Debug.Log(occupiedTile);
+//        Debug.Log(tempTile);
         var next = tempTile.GetAdjacentTiles();
 //        Debug.Log(rangedWeapon.maxRange);
         next.ForEach(t => GVAHelper(1, this.rangedWeapon.maxRange, t, visited, t, this));

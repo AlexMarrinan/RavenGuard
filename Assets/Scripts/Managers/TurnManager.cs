@@ -53,10 +53,10 @@ public class TurnManager : MonoBehaviour
             return;
         }
         currentFaction = UnitFaction.Enemy;
-        if (UnitManager.instance.GetAllEnemies().Count <= 0){
-            MenuManager.instance.ShowStartText("YOU WIN!", true);
-            return;
-        }
+        // if (UnitManager.instance.GetAllEnemies().Count <= 0){
+        //     MenuManager.instance.ToggleLevelEndMenu();
+        //     return;
+        // }
         MenuManager.instance.ShowStartText("Enemy's turn!", false);
         UnitManager.instance.ResetUnitMovment();
         MenuManager.instance.highlightObject.SetActive(false);
@@ -87,7 +87,7 @@ public class TurnManager : MonoBehaviour
                 //Debug.Log(moves.Count);
                 foreach (AIMove move in moves){
     //                Debug.Log("Rating: " + move.rating + " Tile: " + move.moveTile.coordiantes);
-                    Debug.Log(move);
+//                    Debug.Log(move);
                     if (currentMoves == null){
                         currentMoves = new(){move};
                     }
@@ -153,7 +153,6 @@ public class TurnManager : MonoBehaviour
         foreach (AIAttack atk in possibleAttacks){
             RateAttack(unit, atk);
         }
-        Debug.Log(possibleAttacks.Count);
         //Debug.Log("Possible attacks count: " + possibleAttacks.Count);
         return possibleAttacks;
     }
@@ -305,6 +304,10 @@ public class TurnManager : MonoBehaviour
         GoToUnit(-1);
     }
     private void GoToUnit(int offset){
+        if (UnitManager.instance.GetAllEnemies().Count <= 0){
+            MenuManager.instance.ToggleLevelEndMenu();
+            return;
+        }
         if (GameManager.instance.gameState != GameState.HeroesTurn){
             return;
         }

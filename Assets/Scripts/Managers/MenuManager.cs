@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
     public LevelEndMenu levelEndMenu;
     private Dictionary<MenuState, BaseMenu> menuMap;
     public UnitStatsMenu unitStatsMenu, otherUnitStatsMenu;
+    public UnitSelectionMenu unitSelectionMenu;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
     public int textFramesMax = 120;
@@ -30,12 +31,15 @@ public class MenuManager : MonoBehaviour
         turnStartText.transform.SetAsLastSibling();
     }
     private void InitMenuMap(){
-        menuMap = new Dictionary<MenuState, BaseMenu>();
-        menuMap.Add(MenuState.Pause, pauseMenu);
-        menuMap.Add(MenuState.Inventory, inventoryMenu);
-        menuMap.Add(MenuState.UnitAction, unitActionMenu);
-        menuMap.Add(MenuState.Battle, levelupMenu);
-        menuMap.Add(MenuState.LevelEnd, levelEndMenu);
+        menuMap = new Dictionary<MenuState, BaseMenu>
+        {
+            { MenuState.Pause, pauseMenu },
+            { MenuState.Inventory, inventoryMenu },
+            { MenuState.UnitAction, unitActionMenu },
+            { MenuState.Battle, levelupMenu },
+            { MenuState.LevelEnd, levelEndMenu },
+            { MenuState.UnitSelection, unitSelectionMenu }
+        };
     }
     private void FixedUpdate() {
         if (textFrames <= 0){
@@ -148,6 +152,16 @@ public class MenuManager : MonoBehaviour
         unitActionMenu.transform.SetAsLastSibling();
         menuState = MenuState.UnitAction;
     }
+    public void ToggleUnitSelectionMenu(){
+        if (menuState == MenuState.UnitSelection){
+            CloseMenus();
+            return;
+        }
+        unitSelectionMenu.gameObject.SetActive(true);
+        unitSelectionMenu.SetUnits();
+        menuState = MenuState.UnitSelection;
+        Debug.Log("opened select menus");
+    }
     public void TogglePauseMenu(){
         if (menuState == MenuState.Pause){
             CloseMenus();
@@ -211,6 +225,7 @@ public class MenuManager : MonoBehaviour
         inventoryMenu.gameObject.SetActive(false);
         levelupMenu.gameObject.SetActive(false);
         levelEndMenu.gameObject.SetActive(false);
+        unitSelectionMenu.gameObject.SetActive(false);
         UnitManager.instance.UnselectUnit();
         menuState = MenuState.None;
     }
@@ -262,4 +277,5 @@ public enum MenuState{
     Inventory,
     Battle,
     LevelEnd,
+    UnitSelection
 }

@@ -10,7 +10,6 @@ public class BaseUnit : MonoBehaviour
     public BaseTile occupiedTile;
     public UnitFaction faction;
     public UnitClass unitClass;
-    private ArmorType armorType;
     /*** Unit Stats ***/
     public int moveAmount;
     public int maxMoveAmount;
@@ -18,6 +17,7 @@ public class BaseUnit : MonoBehaviour
     public int maxHealth;
     public int currentXP = 0;
     public int maxXP = 100;
+    [SerializeField] 
     private int droppedXP = 100;
     public int level = 1;
     public bool hasMoved;
@@ -47,6 +47,9 @@ public class BaseUnit : MonoBehaviour
     private AudioSource audioSource;
     public UnitDot uiDot;
     void Start(){
+        InitUnit();
+    }
+    public void InitUnit(){
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
         buffs = new();
@@ -147,6 +150,9 @@ public class BaseUnit : MonoBehaviour
         int magicDmg = GetMagicDamage(otherUnit);
         bool attackHigher = attackDmg > magicDmg;
 
+        WeaponClass hitterEffective = UnitManager.instance.strongAgainst[this.weaponClass];
+        WeaponClass defenderEffective = UnitManager.instance.strongAgainst[otherUnit.weaponClass];
+
         if (attackEffect == AttackEffect.Duality){
             return attackHigher ? attackDmg : magicDmg;
         }
@@ -154,10 +160,24 @@ public class BaseUnit : MonoBehaviour
             return !attackHigher ? attackDmg : magicDmg;
         }
         if (weaponClass == WeaponClass.Magic){
+            if (hitterEffective == otherUnit.weaponClass){
+                Debug.Log("Effective hit!");
+                return (int)(magicDmg * 1.2f);
+            }else if (defenderEffective == this.weaponClass){
+                Debug.Log("Weak hit!");
+                return (int)(magicDmg * 0.8f);
+            }
             return magicDmg;
         }
         float value = 1;
         if (BattleSceneManager.instance.prediction == null){
+            if (hitterEffective == otherUnit.weaponClass){
+                Debug.Log("Effective hit!");
+                return (int)(attackDmg * 1.2f);
+            }else if (defenderEffective == this.weaponClass){
+                Debug.Log("Weak hit!");
+                return (int)(attackDmg * 0.8f);
+            }
             return attackDmg;
         }
         if (BattleSceneManager.instance.prediction.attacker == this){
@@ -173,6 +193,13 @@ public class BaseUnit : MonoBehaviour
                     value *= multi.multiplier;
                 }
             }
+        }
+        if (hitterEffective == otherUnit.weaponClass){
+            Debug.Log("Effective hit!");
+            return (int)(attack * 1.2f * value);
+        }else if (defenderEffective == this.weaponClass){
+            Debug.Log("Weak hit!");
+            return (int)(attackDmg * 0.8f * value);
         }
         return (int)(attackDmg * value);
         //return (int)((float)attackDmg * value);
@@ -384,6 +411,9 @@ public class BaseUnit : MonoBehaviour
             if (change.statType == type){
                 newAmount += change.currentAmount;
             }
+        }
+        if (!duringCombatStats.ContainsKey(type)){
+            return newAmount;
         }
         return newAmount + duringCombatStats[type];
     }
@@ -641,12 +671,17 @@ public class BaseUnit : MonoBehaviour
             return;
         }
         int newXP = currentXP + amount;
+        int levelsGained = 0;
         while (newXP >= maxXP){
             StartCoroutine(LevelUpBarAnimation());
+            levelsGained++;
             newXP -= maxXP;
         }
         currentXP = newXP;
         StartCoroutine(AnimateXPBar(newXP));
+        if (levelsGained == 0){
+            BattleSceneManager.instance.CloseBattleScene();
+        }
     }
 
     private IEnumerator AnimateXPBar(int xp)

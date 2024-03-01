@@ -14,12 +14,14 @@ public class UnitSummaryMenu : BaseMenu
     public TMP_Text atkT, defT, aglT, atuT, frsT, lckT;
     public List<ItemButton> itemButtons = new();
     public BaseUnit unit;
-    public void Init(BaseUnit unit){
+    public void SetUnit(BaseUnit unit){
         this.unit = unit;
         xpBar.SetUnit(unit);
         unitIcon.sprite = unit.GetSprite();
         //unitIcon.color = unit.GetColor();
-        unitHighlightImage.gameObject.SetActive(false);
+        if (unitHighlightImage != null){
+            unitHighlightImage.gameObject.SetActive(false);
+        }
         healthBarTop.fillAmount = (float)unit.health / (float)unit.maxHealth;
         healthText.text = unit.health + " / " + unit.maxHealth;
         weaponClassText.text = unit.weaponClass.ToString();

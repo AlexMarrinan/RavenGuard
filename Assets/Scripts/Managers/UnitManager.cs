@@ -9,7 +9,7 @@ public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
     private List<ScriptableUnit> unitPrefabs;
-    private List<BaseUnit> units;
+    public List<BaseUnit> units;
     public BaseUnit selectedUnit;
     public List<UnitDot> heroDots, enemyDots;
     public GameObject heroDotHighlight, enemyDotHighlight;
@@ -17,15 +17,25 @@ public class UnitManager : MonoBehaviour
     private bool team1heros = false;
     public int heroCount = 5; 
     public int enemyCount = 5;
+    public Dictionary<WeaponClass, WeaponClass> strongAgainst;
+    public Dictionary<WeaponClass, WeaponClass> weakTo;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
-        unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units").ToList();
+        unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units/C Term/Player Units").ToList();
+
+        strongAgainst = new();
+        weakTo = new();
+
+        strongAgainst.Add(WeaponClass.SideArms, WeaponClass.Archer);
+        strongAgainst.Add(WeaponClass.Archer, WeaponClass.Magic);
+        strongAgainst.Add(WeaponClass.Magic, WeaponClass.LongArms);
+        strongAgainst.Add(WeaponClass.LongArms, WeaponClass.SideArms);
     }
 
     public void SpawnHeroes(){
         //returns 0 or 1
-        team1heros = 0 == Random.Range(0, 2);
+        team1heros = true;
         if (GetAllHeroes().Count <= 0){
             for (int i = 0; i < heroCount; i++){
                 var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
@@ -48,7 +58,8 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
-        for (int i = 0; i < enemyCount; i++){
+        int numEnemy = GameManager.instance.levelData.numberOfEnemies;
+        for (int i = 0; i < numEnemy; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
             var spawnedEnemy = Instantiate(randomPrefab);
@@ -61,14 +72,29 @@ public class UnitManager : MonoBehaviour
     }
     private BaseUnit GetRandomUnit(UnitFaction faction, UnitSpawnType spawnType)
     {
-        var units = unitPrefabs.OrderBy(o => Random.value);
-        var unit = units.First().unitPrefab;
-        if (spawnType == UnitSpawnType.Ranged){
-            unit = units.Where(u => u.unitPrefab is RangedUnit).First().unitPrefab;
-        }else if (spawnType == UnitSpawnType.Melee){
-            unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
+        //TODO: MAKE NOT A GIANT MESS
+        BaseUnit unit;
+        if (faction == UnitFaction.Hero){
+            List<ScriptableUnit> units;
+            //TODO: ONLY GET HERO UNITS THAT SHOULD BE HERO UNITS
+            units = unitPrefabs.OrderBy(o => Random.value).ToList();
+            unit = units.First().unitPrefab;
+            if (spawnType == UnitSpawnType.Ranged){
+                unit = units.Where(u => u.unitPrefab is RangedUnit).First().unitPrefab;
+            }else if (spawnType == UnitSpawnType.Melee){
+                unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
+            }
+        }else{
+            List<BaseUnit> units;
+            //choses units that are allowed on this level
+            units = GameManager.instance.levelData.possibleEnemies.OrderBy(o => Random.value).ToList();
+            unit = units.First();
+            if (spawnType == UnitSpawnType.Ranged){
+                unit = units.Where(u => u is RangedUnit).First();
+            }else if (spawnType == UnitSpawnType.Melee){
+                unit = units.Where(u => u is MeleeUnit).First();
+            }
         }
-
         //TODO: MAKE AI USE RANGED UNITS TOO
         // if (faction == UnitFaction.Enemy){
         //     unit = units.Where(u => u.unitPrefab is MeleeUnit).First().unitPrefab;
@@ -85,6 +111,7 @@ public class UnitManager : MonoBehaviour
         Object.Destroy(unit.gameObject);
         if (GetAllEnemies().Count <= 0 && killed){
             MenuManager.instance.ShowStartText("LEVEL COMPLETE!", false);
+            GameManager.instance.levelFinished = true;
             return;
         }
         if (GetAllHeroes().Count <= 0){
@@ -302,8 +329,8 @@ public class UnitManager : MonoBehaviour
             unit.uiDot = heroDots[index];
             heroDots[index].unit = unit;
         }else{
-            unit.uiDot = enemyDots[index];
-            enemyDots[index].unit = unit;
+            // unit.uiDot = enemyDots[index];
+            // enemyDots[index].unit = unit;
         }
     }
 

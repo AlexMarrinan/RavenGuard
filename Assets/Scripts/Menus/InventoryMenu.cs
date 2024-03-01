@@ -91,7 +91,7 @@ public class InventoryMenu : BaseMenu
         {
             UnitSummaryMenu summary = unitSummaries[i];
             summary.gameObject.SetActive(true);
-            summary.Init(heroes[i]);
+            summary.SetUnit(heroes[i]);
             unitButtons.Add(summary.weaponButton);
             summary.weaponButton.SetOn(true);
             for (int j = 0; j < 3; j++)
