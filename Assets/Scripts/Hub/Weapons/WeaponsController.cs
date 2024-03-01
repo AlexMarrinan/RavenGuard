@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Hub.UI;
 using UnityEngine;
 using UnityEngine.Events;
+using Weapons;
 
 namespace Hub.Weapons
 {
@@ -14,6 +16,7 @@ namespace Hub.Weapons
         [SerializeField] private SingleWeaponView singleWeaponView;
         [SerializeField] private WeaponsInventoryView weaponsInventoryView;
         public Action<BaseWeapon> weaponSelected;
+        private WeaponEquipData equipData;
         
 
         void Awake()
@@ -64,6 +67,17 @@ namespace Hub.Weapons
         private void SelectWeapon(BaseWeapon weapon)
         {
             singleWeaponView.LoadWeapon(weapon);
+            equipData.equippedWeapon = weapon;
+            equipData.unlockedUpgrades = weapon.weaponUpgradeGroup.weaponUpgrades;
+        }
+
+        /// <summary>
+        /// Saves the equipData and integrates it with gameplay
+        /// </summary>
+        private void EquipWeapon()
+        {
+            //TODO: Save Data
+            //TODO: Integrate with the gameplay
         }
         
     }

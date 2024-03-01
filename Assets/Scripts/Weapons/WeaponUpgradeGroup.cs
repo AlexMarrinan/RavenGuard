@@ -26,4 +26,10 @@ namespace Weapons
         }
         #endif
     }
+
+    public struct WeaponEquipData
+    {
+        public BaseWeapon equippedWeapon;
+        public List<BaseWeapon> unlockedUpgrades;
+    }
 }
