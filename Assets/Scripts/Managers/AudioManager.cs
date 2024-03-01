@@ -20,6 +20,10 @@ public class AudioManager : MonoBehaviour
     void Awake()
     {
 //        Debug.Log("Audio awake");
+        // if (instance != null){
+        //     Destroy(instance);
+        //     instance = this;
+        // }
         instance = this;
     }
     private void PlaySound(AudioClip clip){

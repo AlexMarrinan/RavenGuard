@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
     public InventoryMenu inventoryMenu;
     public PauseMenu pauseMenu;
     public LevelupMenu levelupMenu;
+    public LevelEndMenu levelEndMenu;
     private Dictionary<MenuState, BaseMenu> menuMap;
     public UnitStatsMenu unitStatsMenu, otherUnitStatsMenu;
     private int textFrames = 0;
@@ -34,6 +35,7 @@ public class MenuManager : MonoBehaviour
         menuMap.Add(MenuState.Inventory, inventoryMenu);
         menuMap.Add(MenuState.UnitAction, unitActionMenu);
         menuMap.Add(MenuState.Battle, levelupMenu);
+        menuMap.Add(MenuState.LevelEnd, levelEndMenu);
     }
     private void FixedUpdate() {
         if (textFrames <= 0){
@@ -57,6 +59,7 @@ public class MenuManager : MonoBehaviour
 //            Debug.Log(UnitManager.instance.selectedUnit);
             if (UnitManager.instance.selectedUnit == null){
                 unitStatsMenu.gameObject.SetActive(true);
+                unitStatsMenu.transform.SetAsLastSibling();
                 unitStatsMenu.SetUnit(tile.occupiedUnit);
                 tile.occupiedUnit.HighlightDot();
             }else if (tile.occupiedUnit.faction == UnitFaction.Enemy && tile.moveType != TileMoveType.NotValid){
@@ -71,6 +74,7 @@ public class MenuManager : MonoBehaviour
                 }
 
                 otherUnitStatsMenu.gameObject.SetActive(true);
+                otherUnitStatsMenu.transform.SetAsLastSibling();
                 otherUnitStatsMenu.SetUnit(tile.occupiedUnit);
                 if (bp.attacker == tile.occupiedUnit){
                     otherUnitStatsMenu.healthBar.SetHealth(bp.atkHealth);
@@ -134,7 +138,7 @@ public class MenuManager : MonoBehaviour
             var temp = GridManager.instance.hoveredTile.occupiedUnit;
 //            Debug.Log(temp);
             if (temp != null && temp.faction == UnitFaction.Hero && TurnManager.instance.unitsAwaitingOrders.Contains(temp)){
-                UnitManager.instance.SetSeclectedUnit(temp);
+                UnitManager.instance.SetSelectedUnit(temp);
             }else{
                 return;
             }
@@ -171,16 +175,42 @@ public class MenuManager : MonoBehaviour
         //if the unit action menu is shown, hide it
         unitActionMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
+        levelEndMenu.gameObject.SetActive(false);
 
         inventoryMenu.gameObject.SetActive(true);
         inventoryMenu.transform.SetAsLastSibling();
         menuState = MenuState.Inventory;
+    }
+    public void EnableInventorySwapping(){
+        inventoryMenu.swapping = true;
+        inventoryMenu.continutePrompt.SetActive(true);
+    }
+    public void DisableInventorySwapping(){
+        inventoryMenu.swapping = false;
+        inventoryMenu.continutePrompt.SetActive(false);
+    }
+    public void ToggleLevelEndMenu()
+    {
+        if (menuState == MenuState.LevelEnd){
+            CloseMenus();
+            return;
+        }
+        levelEndMenu.Reset();
+        //if the unit action menu is shown, hide it
+        unitActionMenu.gameObject.SetActive(false);
+        pauseMenu.gameObject.SetActive(false);
+        inventoryMenu.gameObject.SetActive(false);
+
+        levelEndMenu.gameObject.SetActive(true);
+        levelEndMenu.transform.SetAsLastSibling();
+        menuState = MenuState.LevelEnd;
     }
     public void CloseMenus(){
         unitActionMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
         inventoryMenu.gameObject.SetActive(false);
         levelupMenu.gameObject.SetActive(false);
+        levelEndMenu.gameObject.SetActive(false);
         UnitManager.instance.UnselectUnit();
         menuState = MenuState.None;
     }
@@ -231,4 +261,5 @@ public enum MenuState{
     UnitAction,
     Inventory,
     Battle,
+    LevelEnd,
 }

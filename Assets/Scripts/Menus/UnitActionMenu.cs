@@ -111,18 +111,19 @@ public class UnitActionMenu : BaseMenu
             }
             else if (buttonIndex == 1){
                 //ATACK
+//                Debug.Log("Here!!!! 1");
                 MenuManager.instance.CloseMenus();
                 GridManager.instance.SelectHoveredTile();
                 UnitManager.instance.RemoveAllValidMoves();
                 UnitManager.instance.SetValidAttacks(u);
                 PathLine.instance.Reset();
-                Debug.Log("attacking...");
+//                Debug.Log("attacking...");
             }else if (buttonIndex == 2){
                 //WAIT
                 u.FinishTurn();
                 MenuManager.instance.CloseMenus();
             }else if (buttonIndex == 3){
-                Debug.Log("boring skill...");
+     //           Debug.Log("boring skill...");
             }else{
                 var s = u.GetSkill(buttonIndex - 4);
                 if (s != null){

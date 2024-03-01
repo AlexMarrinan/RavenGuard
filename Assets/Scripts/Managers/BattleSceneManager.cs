@@ -227,8 +227,8 @@ public class BattleSceneManager : MonoBehaviour
         if (rightBU.assignedUnit.health > 0){
             rightBU.assignedUnit.UsePassiveSkills(PassiveSkillType.AfterCombat);
         }
-        if (leftBU.assignedUnit.health <= 0 && leftBU.assignedUnit.faction == UnitFaction.Hero){
-            if (leftBU.assignedUnit.faction == UnitFaction.Hero){
+        if (leftBU.assignedUnit.health <= 0){
+            if (rightBU.assignedUnit.faction == UnitFaction.Hero){
                 waitForXP = true;
                 MenuManager.instance.levelupMenu.transform.localPosition = new Vector2(-650, 0);
                 rightBU.assignedUnit.GainXP(leftBU.assignedUnit.GetDroppedXP());

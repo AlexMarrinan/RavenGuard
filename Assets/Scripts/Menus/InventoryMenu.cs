@@ -13,6 +13,7 @@ public class InventoryMenu : BaseMenu
     public List<MenuButton> unitButtons;
     public List<MenuButton> inventoryButtons;
     public InventoryScreen currentInventoryScreen;
+    public GameObject continutePrompt;
     public GameObject itemsScreen;
     private Vector3 itemScreenNextPos;
     public float itemScreenSpeed;
@@ -20,6 +21,8 @@ public class InventoryMenu : BaseMenu
     public BaseItem hoveredItem;
     public ItemButton hoveredItemButton;
     public DescriptionMenu descriptionMenu;
+    internal bool swapping;
+
     public override void Move(Vector2 direction)
     {
         if (menuMoving){
@@ -59,6 +62,7 @@ public class InventoryMenu : BaseMenu
     public override void Reset()
     {
         SetNameText();
+        swapping = false;
         hoveredItemButton.Reset();
         this.xCount = 4;
         this.yCount = UnitManager.instance.GetAllHeroes().Count;
@@ -116,6 +120,9 @@ public class InventoryMenu : BaseMenu
 
     public override void Select()
     {
+        if (!swapping){
+            return;
+        }
         MenuButton menuButton = buttons[buttonIndex];
         if (menuButton is not ItemButton){
             return;
@@ -295,24 +302,7 @@ public class InventoryMenu : BaseMenu
             return;
         }
         ItemButton ib = button as ItemButton;
-        if (ib.item == null){
-            descriptionMenu.descriptionText.text = "";
-            descriptionMenu.nameText.text = "";
-            descriptionMenu.gameObject.SetActive(false);
-            return;
-        }
-        if (ib.item is BaseWeapon){
-            descriptionMenu.descriptionText.text = "";
-            descriptionMenu.nameText.text = "";
-            descriptionMenu.gameObject.SetActive(false);
-        }else{
-            BaseSkill skill = ib.item as BaseSkill;
-            descriptionMenu.gameObject.SetActive(true);
-            descriptionMenu.descriptionText.text = skill.description;
-            descriptionMenu.weaponClassText.text = "Weapon: " + skill.weaponClass;
-            descriptionMenu.unitClassText.text = "Unit: " + skill.unitClass;
-            descriptionMenu.nameText.text = skill.skillName;
-        }
+        descriptionMenu.SetItem(ib.item);
     }
     
     internal void ShowUnits()

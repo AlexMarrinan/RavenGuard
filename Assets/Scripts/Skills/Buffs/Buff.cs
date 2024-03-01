@@ -24,7 +24,7 @@ public class Buff {
     }
     public bool CooldownOver(){
         if (cooldown <= 0){
-            Debug.Log("cooldown <= 0");
+//            Debug.Log("cooldown <= 0");
             this.RemoveEffect();
             return true;
         }

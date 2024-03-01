@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -170,6 +171,12 @@ public class InputManager : MonoBehaviour
             MainMenuManager.instance.Select();
             return;
         }
+        if (GridManager.instance.hoveredTile.occupiedUnit != null 
+        && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
+        && MenuManager.instance.menuState != MenuState.UnitAction){
+            MenuManager.instance.ToggleUnitActionMenu();
+            return;
+        }
         if (SkillManager.instance.selectingSkill){
             SkillManager.instance.Select();
             return;
@@ -186,6 +193,9 @@ public class InputManager : MonoBehaviour
     }
     private void OnBackPerformed(InputAction.CallbackContext value){
         if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
+        if (MenuManager.instance.menuState == MenuState.LevelEnd){
             return;
         }
         AudioManager.instance.PlayCancel();
@@ -211,7 +221,7 @@ public class InputManager : MonoBehaviour
         UnitManager.instance.UnselectUnit();
     }
     private void OnBackCancled(InputAction.CallbackContext value){
-    
+        
     }
     private void FixMoveVector(){
         if (moveVector.x > 0.4){
@@ -237,6 +247,15 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.swapping){
+            MenuManager.instance.DisableInventorySwapping();
+            MenuManager.instance.CloseMenus();
+            GameManager.instance.LoadNextLevel();
+            return;
+        }
+        if (MenuManager.instance.menuState == MenuState.LevelEnd){
+            return;
+        }
         if (GameManager.instance.gameState == GameState.BattleScene){
             SceneManager.LoadScene("MainMenu");
             return;
@@ -308,7 +327,14 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
+        if (MenuManager.instance.inventoryMenu.swapping){
+            //DSIABLED AT END OF LEVEL, CAN ONLY TOGGLE DURING NORMAL GAMEPLAY
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.Battle){
+            return;
+        }
+        if (MenuManager.instance.menuState == MenuState.LevelEnd){
             return;
         }
         MenuManager.instance.ToggleInventoryMenu();

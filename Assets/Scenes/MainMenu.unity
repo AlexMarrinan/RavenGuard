@@ -180,6 +180,7 @@ MonoBehaviour:
   yCount: 0
   buttonIndex: 0
   menuDirection: 0
+  sideMenu: 0
   highlighImage: {fileID: 1447364429}
 --- !u!1 &324410671
 GameObject:
@@ -234,10 +235,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 324410674}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &324410674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +454,7 @@ MonoBehaviour:
   camAutoSpeed: 8
   cameraSensitivity: 2
   startState: 0
+  levelData: {fileID: 0}
 --- !u!4 &630792556
 Transform:
   m_ObjectHideFlags: 0
@@ -459,7 +468,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &904497310
 GameObject:
@@ -514,10 +523,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 904497313}
+  bgimage: {fileID: 0}
+  upButton: {fileID: 0}
+  downButton: {fileID: 0}
+  leftButton: {fileID: 0}
+  rightButton: {fileID: 0}
   buttonName: Move
   buttonDescription: Move your unit
   bonusText: 
+  buttonText: {fileID: 0}
   spriteRenderer: {fileID: 0}
+  buttonHighlight: {fileID: 0}
 --- !u!114 &904497313
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -737,7 +753,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1447364427
 GameObject:
@@ -954,7 +970,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1614924134
 GameObject:
@@ -1197,7 +1213,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1707630570
 MonoBehaviour:
@@ -1246,7 +1262,7 @@ RectTransform:
   - {fileID: 1755040483}
   - {fileID: 168806505}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

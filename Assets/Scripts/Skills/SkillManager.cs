@@ -113,7 +113,7 @@ public class SkillManager : MonoBehaviour
     }
 
     public void AdrenalineBurstPS(BaseUnit u){
-        Debug.Log("AdrenalineBurst");
+//        Debug.Log("AdrenalineBurst");
         u.ReceiveDamage(2);
     }
     public void PoisonArrowsPS(BaseUnit u){
