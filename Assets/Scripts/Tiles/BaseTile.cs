@@ -228,18 +228,9 @@ public abstract class BaseTile : MonoBehaviour
         }
         return path;
     }
-     public int DistanceFrom(BaseTile startPos){
-        List<BaseTile> path = new List<BaseTile>();
-        var startCoordiantes = startPos.coordiantes;
-        int x = (int)Mathf.Abs(startCoordiantes.x - coordiantes.x);
-        int y = (int)Mathf.Abs(startCoordiantes.y - coordiantes.y);
-
-        //TODO: THIS MAY TAKE PATHS THROUGH WALLS MAKE BETTER !!!!!
-        depth = x + y;
-        
-        //TOOD: actually make the path for drawing the line
-        return depth;
-    }
+    /// <summary>
+    /// Gets the tiles (up to 4) adjaecnt to this tile
+    /// </summary>
     public List<BaseTile> GetAdjacentTiles(){
         int left = (int)coordiantes.x - 1;
         int right = (int)coordiantes.x + 1;
@@ -259,7 +250,9 @@ public abstract class BaseTile : MonoBehaviour
         return newTiles;
 
     }
-
+    /// <summary>
+    /// Render the PathLine from the current selected units tile to this tile
+    /// </summary>
     private void RerenderLine(){
         if (UnitManager.instance.selectedUnit is MeleeUnit && this.moveType == TileMoveType.Attack){
             return;
@@ -268,6 +261,7 @@ public abstract class BaseTile : MonoBehaviour
         validPath = PathLine.instance.GetPath();
     }
 
+    //TODO: REMOVE SINCE NO MORE PROCGEN
     public void SetBGSprite(Sprite s){
         bgSprite.sprite = s;
     }

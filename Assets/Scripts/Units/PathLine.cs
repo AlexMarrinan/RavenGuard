@@ -9,7 +9,6 @@ public class PathLine : MonoBehaviour
     private LineRenderer line;
     private List<BaseTile> tiles = new List<BaseTile>();
     public float lineWidth;
-
     public static PathLine instance;
     void Awake()
     {

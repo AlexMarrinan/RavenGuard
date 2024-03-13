@@ -21,26 +21,9 @@ public class SkillManager : MonoBehaviour
     public void ShowSkillPreview(){
         UnitManager.instance.RemoveAllValidMoves();
         selectingSkill = true;
-        // foreach (BaseTile t in currentTiles){
-        //     t.SetPossibleMove(false, user.occupiedTile);
-        // }
+
         currentTiles = currentSkill.GetAffectedTiles(user);
-        // if (currentSkill is ActiveSkill){
-        //     if ((currentSkill as ActiveSkill).activeSkillType == ActiveSkillType.OnUnit){
-        //         bool found = false;
-        //         foreach(BaseTile tile in currentTiles){
-        //             if (tile.occupiedUnit != null){
-        //                 if (tile.occupiedUnit.faction != user.faction){
-        //                     found = true;
-        //                     break;
-        //                 }
-        //             }
-        //         }
-        //         if (!found){
-        //             return;
-        //         }
-        //     }
-        // }
+
         UnitManager.instance.RemoveAllValidMoves();
 
         foreach (BaseTile t in currentTiles){
