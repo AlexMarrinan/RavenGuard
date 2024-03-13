@@ -18,52 +18,63 @@ public class PathLine : MonoBehaviour
         line.SetWidth(lineWidth, lineWidth);
     }
 
+    /// <summary>
+    /// Resets the paths tiles, as a list
+    /// </summary>
     public List<BaseTile> GetPath(){
         return tiles;
     }
-    public void AddTile(BaseTile tile){
-        if (tile.moveType != TileMoveType.Move && tile != UnitManager.instance.selectedUnit.occupiedTile){
-            return;
-        }
-        tiles.Add(tile); 
-    }
 
-    public void RemoveTile(BaseTile tile){
-        int index = tiles.IndexOf(tile)+1;
-        tiles.RemoveRange(index, tiles.Count() - index);
-    }
-
+    /// <summary>
+    /// Resets the path line
+    /// </summary>
     public void Reset(){
         line.positionCount = 0;
         Vector3[] vectors = {};
         line.SetPositions(vectors);
     }
 
-    public bool IsOnPath(BaseTile tile){
-        return tiles.Contains(tile);
-    }
+    /// <summary>
+    /// Gets the last tile on the path
+    /// </summary>
     public BaseTile GetLastTile(){
         if (tiles.Count == 0){
             return null;
         }
         return GetPathTile(tiles.Count() - 1);
     }
+
+    /// <summary>
+    /// Gets a tile at a specific index along the path
+    /// </summary>
+    /// <param name="index">index of tile</param>
     public BaseTile GetPathTile(int index){
-//        Debug.Log(index);
-//        Debug.Log(tiles.Count);
         return tiles[index];
     }
+
+    /// <summary>
+    /// Render the pathline between a start and end BaseTile
+    /// </summary>
+    /// <param name="start">Start Tile</param>
+    /// <param name="end">End Tile</param>'
     public void RenderLine(BaseTile start, BaseTile end){
-        //Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
+        
+        //Gets the shortest path between the start and end tile
         tiles = GridManager.instance.ShortestPathBetweenTiles(start, end, true);
-        Vector3[] vectors = tiles.Select(t => t.transform.position).ToArray();
 
-        for (int i  = 0; i < vectors.Count(); i++){
-            vectors[i].z = -5;
+        //Get the positions of each tile in the path
+        Vector3[] positions = tiles.Select(t => t.transform.position).ToArray();
+
+        for (int i  = 0; i < positions.Count(); i++){
+            //Hacky way to get the line to draw behind other objects, i think?
+            positions[i].z = -5;
         }
-        line.positionCount = vectors.Count();
-        line.SetPositions(vectors.ToArray());
 
+        //Set the positions of each tile on the path
+        line.positionCount = positions.Count();
+        line.SetPositions(positions.ToArray());
+
+        //Reverse the tiles from the shortest path to save for later reference
         tiles.Reverse();
     }
 }

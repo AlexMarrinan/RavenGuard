@@ -579,85 +579,102 @@ public class GridManager : MonoBehaviour
         int y = (int)Math.Abs(v1.y - v2.y);
         return x + y;
     }
+    /// <summary>
+    /// Returns the shortest path between 2 BaseTiles
+    /// </summary>
+    /// <param name="start">Start Tile</param>
+    /// <param name="end">End Tile</param>'
+    /// <param name="withPathLine">Whether or not pathline is being drawn</param>'
+    public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine = false)
+    {
+        //if they are the same tile, return just the start tile
+        if (start == end)
+        {
+            return new List<BaseTile> { start };
+        }
+        //if the end tile is in range but cannot be moved to, return an empty list
+        if (end.moveType == TileMoveType.InAttackRange)
+        {
+            return new();
+        }
 
-  public float[,] GenerateNoiseMap(int mapDepth, int mapWidth, float scale) {
-                // create an empty noise map with the mapDepth and mapWidth coordinates
-    float[,] noiseMap = new float[mapDepth, mapWidth];
-    for (int zIndex = 0; zIndex < mapDepth; zIndex ++) {
-      for (int xIndex = 0; xIndex < mapWidth; xIndex++) {
-                                // calculate sample indices based on the coordinates and the scale
-        float sampleX = xIndex / scale;
-        float sampleZ = zIndex / scale;
-                                // generate noise value using PerlinNoise
-        float noise = Mathf.PerlinNoise (sampleX, sampleZ);
-        noiseMap [zIndex, xIndex] = noise;
-      }
-    }
-    return noiseMap;
-  }
+        //tiles that were visted
+        List<BaseTile> visited = new();
 
-  public List<BaseTile> ShortestPathBetweenTiles(BaseTile start, BaseTile end, bool withPathLine = false){
-    if (start == end){
-//        Debug.Log("A0");
-        return new List<BaseTile>{start};
-    }
-//    Debug.Log("A");
-    if (end.moveType == TileMoveType.InAttackRange){
-//        Debug.Log("B");
-        return new();
-    }
-//    Debug.Log("C");
-    List<BaseTile> visited = new();
-    Queue<BaseTile> toVisit = new();
-    BaseUnit startUnit = start.occupiedUnit;
-    Dictionary<BaseTile, BaseTile> previousTiles = new();
-    BaseTile current = start;
-    previousTiles.Add(current, null);
-    do {
-        var adjTiles = current.GetAdjacentTiles();
-//        Debug.Log(adjTiles.Count);
-        foreach (BaseTile tile in adjTiles){
-            if (tile == null){
-                continue;
-            }
-            if (visited.Contains(tile)){
-                continue;
-            }
-            if (withPathLine){
-                //TOOD: MAKE IT SO IF ITS AN ATTACK TILE BREAKS RANGED UNIT PATHFINDING !!!
-                if (tile.moveType == TileMoveType.NotValid || (startUnit is MeleeUnit && tile.moveType == TileMoveType.Attack) ){
+        //tiles that need adj tiles visited
+        Queue<BaseTile> toVisitAdj = new();
+
+        BaseUnit startUnit = start.occupiedUnit;
+
+        //Dictionary describing possible paths to the end position
+        Dictionary<BaseTile, BaseTile> previousTiles = new();
+
+        BaseTile current = start;
+        previousTiles.Add(current, null);
+        do
+        {
+            var adjTiles = current.GetAdjacentTiles();
+            //iterate through tiles to look through, and add to queue if is a valid tile
+            foreach (BaseTile tile in adjTiles)
+            {
+                if (tile == null)
+                {
                     continue;
                 }
-            }else{
-                if (tile is WallTile || tile.occupiedUnit != null){
+                //if the tile has already been looked through
+                if (visited.Contains(tile))
+                {
                     continue;
                 }
+                if (withPathLine)
+                {
+                    //if path line is being drawn DO NOT add the last tile if it is an attack tile, 
+                    //so the unit moves one tile away from the enemy unit it will attack
+                    if (tile.moveType == TileMoveType.NotValid || (startUnit is MeleeUnit && tile.moveType == TileMoveType.Attack))
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    //dont add wall or occupied tiles to visit, since they cannot be moved to or through
+                    if (tile is WallTile || tile.occupiedUnit != null)
+                    {
+                        continue;
+                    }
+                }
+
+                //tile did not fail, add it to 
+                visited.Add(tile);
+                toVisitAdj.Enqueue(tile);
+                if (!previousTiles.ContainsKey(tile))
+                {
+                    previousTiles.Add(tile, current);
+                }
             }
-            visited.Add(tile);
-            toVisit.Enqueue(tile);
-            if (!previousTiles.ContainsKey(tile)){
-                previousTiles.Add(tile, current);
+            //if no more adjTiles to check, remove current from adj tile list
+            if (toVisitAdj.Count > 0)
+            {
+                current = toVisitAdj.Dequeue();
             }
-        }
-        if (toVisit.Count > 0){
-            current = toVisit.Dequeue();
-        }
-        if (current == end || toVisit.Count == 0){
-            List<BaseTile> finalTiles = new();
-            var finalCurr = current;
-            while (finalCurr != null){
-                //if (finalCurr.moveType == TileMoveType.Move || finalCurr == start){
-                    //ONLY add tile if its MOVE type;
-                    //if its start space, also add
+
+            //if we have reached the end tile succesfully
+            if (current == end || toVisitAdj.Count == 0)
+            {
+                List<BaseTile> finalTiles = new();
+                var finalCurr = current;
+                //trace back through the tile history to get our shortest path
+                while (finalCurr != null)
+                {
                     finalTiles.Add(finalCurr);
-                // }
-                finalCurr = previousTiles[finalCurr];
+                    finalCurr = previousTiles[finalCurr];
+                }
+                return finalTiles;
             }
-            return finalTiles;
-        }
-    } while (toVisit.Count > 0);
-    return null;
-  }
+            //if there are more tiles to visit, keep looping
+        } while (toVisitAdj.Count > 0);
+        return null;
+    }
 }
 
 public enum UnitSpawnType {

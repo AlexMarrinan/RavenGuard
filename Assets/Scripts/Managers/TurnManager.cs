@@ -106,7 +106,7 @@ public class TurnManager : MonoBehaviour
                     // Debug.Log(currentMove.rating);
                     PathLine.instance.RenderLine(unit.occupiedTile, currentMove.moveTile);
                     yield return new WaitForSeconds(0.5f);
-                    yield return currentMove.moveTile.MoveUnitToTile(unit);
+                    yield return currentMove.moveTile.MoveUnitAlongPath(unit);
                     yield return new WaitForSeconds(0.05f);
                     if (currentMove is AIAttack){
                         unit.Attack((currentMove as AIAttack).attackTile.occupiedUnit);

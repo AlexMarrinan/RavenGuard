@@ -130,7 +130,7 @@ public abstract class BaseTile : MonoBehaviour
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
         UnitManager.instance.SetSelectedUnit(null);
-        StartCoroutine(MoveUnitToTile(oldSelectedUnit));
+        StartCoroutine(MoveUnitAlongPath(oldSelectedUnit));
     }
     public void SetUnitStart(BaseUnit unit){
         if (unit.occupiedTile != null){
@@ -141,10 +141,19 @@ public abstract class BaseTile : MonoBehaviour
         unit.occupiedTile = this;
         unit.moveAmount -= depth;
     }
-    public IEnumerator MoveUnitToTile(BaseUnit unit){
-        yield return MoveUnitToTile(unit, true);
+    /// <summary>
+    /// Moves the specified unit along the current PathLine
+    /// </summary>
+    /// <param name="unit">unit to move</param>
+    public IEnumerator MoveUnitAlongPath(BaseUnit unit){
+        yield return MoveUnitAlongPath(unit, true);
     }
-    public IEnumerator MoveUnitToTile(BaseUnit unit, bool turnOver){
+    /// <summary>
+    /// Moves the specified unit along the current PathLine
+    /// </summary>
+    /// <param name="unit">unit to move</param>
+    /// <param name="turnOver">should the units turn end after they move</param>
+    public IEnumerator MoveUnitAlongPath(BaseUnit unit, bool turnOver){
 
         if (unit == this.occupiedUnit){
             yield return null;
@@ -154,12 +163,10 @@ public abstract class BaseTile : MonoBehaviour
         }
         unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
 
-        //TODO: ANIMATE UNIT
-        //var path = GridManager.instance.ShortestPathBetweenTiles(unit.occupiedTile, this, false);
         var path = PathLine.instance.GetPath();
-//        Debug.Log(path);
         yield return UnitManager.instance.AnimateUnitMove(unit, path, turnOver);
     }
+
     public void SetPossibleMove(bool valid, BaseTile startPos){
         validMoveHighlight.SetActive(valid);
         if (valid){
@@ -219,8 +226,6 @@ public abstract class BaseTile : MonoBehaviour
         if (validPath != null){
             depth = validPath.Count;
         }
-        //Debug.Log(depth);
-        //TOOD: actually make the path for drawing the line
         return path;
     }
      public int DistanceFrom(BaseTile startPos){

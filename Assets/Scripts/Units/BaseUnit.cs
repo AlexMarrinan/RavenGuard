@@ -262,7 +262,7 @@ public class BaseUnit : MonoBehaviour
         //GameManager.instance.PanCamera(adjTile.transform.position);
         UnitManager.instance.RemoveAllValidMoves();
         if (lastTile != null){
-            StartCoroutine(lastTile.MoveUnitToTile(UnitManager.instance.selectedUnit, false));
+            StartCoroutine(lastTile.MoveUnitAlongPath(UnitManager.instance.selectedUnit, false));
         }
         //healthBar.RenderHealth();
     }
