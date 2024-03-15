@@ -46,6 +46,8 @@ public class BaseUnit : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     public UnitDot uiDot;
+    public int[] activeSkillCooldowns;
+
     void Start(){
         InitUnit();
     }
@@ -53,11 +55,25 @@ public class BaseUnit : MonoBehaviour
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
         buffs = new();
+        ResetCooldowns();    
         ResetCombatStats();
-        InitializeUnitClass();
         InitializeFaction();
         CreateHealthbar();
         SetSkillMethods();
+        InitializeUnitClass();
+    }
+    public void ReduceCooldown(){
+        Debug.Log("reduced cooldowns");
+        for (int i = 0; i < 3; i++){
+            BaseSkill skill = skills[i];
+            if (skill == null || skill is ActiveSkill){
+                continue;
+            }
+            activeSkillCooldowns[i] -= 1;
+        }
+    }
+    public void ResetCooldowns(){
+        activeSkillCooldowns = new int[3] {0, 0, 0};
     }
     public void ResetCombatStats(){
         foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
@@ -82,42 +98,8 @@ public class BaseUnit : MonoBehaviour
             skill.SetMethod();
         }
     }
-    private void RandomizeUnitClass(){
-        Array values = Enum.GetValues(typeof(UnitClass));
-        var random = new System.Random();
-        unitClass = (UnitClass)values.GetValue(random.Next(values.Length));
-    }
-    public BaseSkill GetBoringSkill(){
-        return null;
-    }
-    public virtual void ApplyWeapon(){
+        public virtual void ApplyWeapon(){
 
-    }
-    protected virtual void InitializeUnitClass()
-    {
-        // switch (unitClass){
-        //     case UnitClass.Infantry:
-        //         armorType = ArmorType.Medium;
-        //         break;
-        //     case UnitClass.Knight:
-        //         armorType = ArmorType.Heavy;
-        //         break;
-        //     case UnitClass.Assassin:
-        //         armorType = ArmorType.Light;
-        //         break;
-        //    case UnitClass.Mage:
-        //         armorType = ArmorType.Medium;
-        //         break;
-        //     case UnitClass.Sage:
-        //         armorType = ArmorType.Light;
-        //         break;
-        //     case UnitClass.Cavalry:
-        //         armorType = ArmorType.Medium;
-        //         break;
-        //     case UnitClass.Paladin:
-        //         armorType = ArmorType.Heavy;
-        //         break;
-        // }
     }
 
     public virtual int MaxTileRange(){
@@ -144,6 +126,10 @@ public class BaseUnit : MonoBehaviour
     }
     public virtual void Heal(BaseUnit otherUnit){
         return;
+    }
+    protected virtual void InitializeUnitClass()
+    {
+
     }
     public int GetDamage(BaseUnit otherUnit){
         int attackDmg = GetAttackDamage(otherUnit);
@@ -488,15 +474,6 @@ public class BaseUnit : MonoBehaviour
         }
         return pSkills;
     }
-    public void UseActiveSkill(ActiveSkillType type){
-        var aSkills = GetActiveSkills();
-        foreach (ActiveSkill aSkill in aSkills){
-            if (aSkill.activeSkillType == type){
-                aSkill.OnUse(this);
-            }
-        }
-    }
-
     public void UsePassiveSkills(PassiveSkillType type){
         var pSkills = GetPassiveSkills();
         foreach (PassiveSkill pSkill in pSkills){
@@ -738,6 +715,16 @@ public class BaseUnit : MonoBehaviour
             return false;
         }        
         return newWeapon.weaponClass == this.weaponClass;
+    }
+
+    internal void PutSkillOnCooldown(ActiveSkill activeSkill)
+    {
+        for (int i = 0; i < 3; i++){
+            if (skills[i] == activeSkill){
+                activeSkillCooldowns[i] = activeSkill.cooldown;
+                return;
+            }
+        }
     }
 }
 

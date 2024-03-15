@@ -108,6 +108,7 @@ MonoBehaviour:
   maxHealth: 17
   currentXP: 0
   maxXP: 100
+  droppedXP: 100
   level: 1
   hasMoved: 0
   attack: 7
@@ -119,8 +120,8 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
+  - {fileID: 11400000, guid: c8ee1636f404cd24190a6dbf39a649c8, type: 2}
   - {fileID: 0}
   weapon: {fileID: 0}
   weaponClass: 0
@@ -128,6 +129,7 @@ MonoBehaviour:
   buffs: []
   audioSource: {fileID: -691438197858920411}
   uiDot: {fileID: 0}
+  activeSkillCooldowns: 
   rangedWeapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
   rangedWeaponClass: 0
 --- !u!82 &-691438197858920411

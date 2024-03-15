@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState){
         gameState = newState;
         if (levelData.startLevel){
-            Debug.Log("Start level found!");
+//            Debug.Log("Start level found!");
             MenuManager.instance.ToggleUnitSelectionMenu();
             //LoadNextLevel();
             return;

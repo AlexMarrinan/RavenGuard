@@ -40,6 +40,7 @@ public class ActiveSkill : BaseSkill {
             SkillManager.instance.skillFailed = false;
             return;
         }
+        user.PutSkillOnCooldown(this);
         user.FinishTurn();
         SkillManager.instance.OnSkilEnd();
     }

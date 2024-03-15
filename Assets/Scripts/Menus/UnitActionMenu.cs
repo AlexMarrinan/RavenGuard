@@ -36,21 +36,8 @@ public class UnitActionMenu : BaseMenu
         {
             return;
         }
-
         if (u.NumValidAttacks() <= 0){
             buttons[1].SetOn(false);
-        }
-        BaseSkill skill = u.GetBoringSkill();
-        if (skill == null)
-        {
-            buttons[3].image.sprite = noSkillSprite;
-            buttons[3].bonusText = "";
-            buttons[3].SetOn(false);
-        }
-        else
-        {
-            buttons[3].image.sprite = skill.sprite;
-            buttons[3].bonusText = ": " + skill.skillName;
         }
         if (u.hasMoved == true){
             //Disable Move Button
@@ -66,18 +53,19 @@ public class UnitActionMenu : BaseMenu
         }else{
             buttons[0].SetOn(true);
         }
+        SetSkill(u, 3);
         SetSkill(u, 4);
         SetSkill(u, 5);
-        SetSkill(u, 6);
         SetHighlight();
     }
 
     private void SetSkill(BaseUnit u, int index)
     {
 //        Debug.Log("seting skill:" + index);
-        var skill = u.GetSkill(index-4);
+        int trueIndex = index-3;
+        var skill = u.GetSkill(trueIndex);
         MenuButton b = buttons[index];
-        Image skillBG = skillBackgrounds[index-4];
+        Image skillBG = skillBackgrounds[trueIndex];
         if (skill == null) {
             b.image.sprite = noSkillSprite;
             b.buttonText.text = "Empty Skill Slot";
@@ -91,6 +79,11 @@ public class UnitActionMenu : BaseMenu
             b.image.sprite = skill.sprite;
             if (skill is ActiveSkill){
                 skillBG.color = SkillManager.instance.activeSkillColor;
+                if (u.activeSkillCooldowns[trueIndex] <= 0){
+                    b.SetOn(true);
+                }else{
+                    b.SetOn(false);
+                }
             }else{
                 skillBG.color = SkillManager.instance.passiveSkillColor;
                 b.SetOn(false);
@@ -125,7 +118,7 @@ public class UnitActionMenu : BaseMenu
             }else if (buttonIndex == 3){
      //           Debug.Log("boring skill...");
             }else{
-                var s = u.GetSkill(buttonIndex - 4);
+                var s = u.GetSkill(buttonIndex - 3);
                 if (s != null){
                     s.OnSelect(u);
                 }
