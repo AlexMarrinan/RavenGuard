@@ -14,7 +14,6 @@ public class UnitActionMenu : BaseMenu
     public override void Move(Vector2 direction)
     {
         base.Move(direction);
-        SetNameText();
         var u = UnitManager.instance.selectedUnit;
         UnitManager.instance.RemoveAllValidMoves();
         if (buttonIndex == 0){
@@ -28,7 +27,6 @@ public class UnitActionMenu : BaseMenu
     public override void Reset()
     {
         base.Reset();
-        SetNameText();
         buttons.ForEach(b => b.SetOn());
         var u = UnitManager.instance.selectedUnit;
 //        Debug.Log(u);
@@ -115,35 +113,13 @@ public class UnitActionMenu : BaseMenu
                 //WAIT
                 u.FinishTurn();
                 MenuManager.instance.CloseMenus();
-            }else if (buttonIndex == 3){
-     //           Debug.Log("boring skill...");
             }else{
                 var s = u.GetSkill(buttonIndex - 3);
+                Debug.Log(s);
                 if (s != null){
                     s.OnSelect(u);
                 }
             }
-        }
-    }
-    private void SetNameText(){
-        return;
-        var b = GetCurrentButton();
-        buttonNameText.text = b.buttonName + b.bonusText;
-        if (buttonIndex > 0){
-            var u = UnitManager.instance.selectedUnit;
-            var skill = u.GetSkill(buttonIndex-1);
-            if (skill == null){
-                return;
-            }
-            var activeText = "Active: ";
-            if (skill is PassiveSkill){
-                activeText = "Passive: ";
-            }
-            buttonNameText.text = activeText + skill.skillName;
-            descriptionText.text = skill.description;
-        }else{
-            descriptionText.text = "";
-            
         }
     }
 }

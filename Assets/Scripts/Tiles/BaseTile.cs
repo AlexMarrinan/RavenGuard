@@ -172,7 +172,35 @@ public abstract class BaseTile : MonoBehaviour
         if (valid){
             //determine if attack or move
             moveType = startPos.occupiedUnit.GetMoveTypeAt(this);
-        
+//            Debug.Log(moveType);
+            //set color if attack or move
+            var highlightSprite = validMoveHighlight.GetComponent<SpriteRenderer>();
+            if (moveType == TileMoveType.Attack){
+                highlightSprite.color = MenuManager.instance.attackColor;
+            }else if (moveType == TileMoveType.Move){
+                highlightSprite.color = MenuManager.instance.moveColor;
+            } else if (moveType == TileMoveType.InAttackRange){
+                highlightSprite.color = MenuManager.instance.inRangeColor;
+            } else if (moveType == TileMoveType.Support){
+                highlightSprite.color = MenuManager.instance.supportColor;
+            }else if (moveType == TileMoveType.NotValid){
+                validMoveHighlight.SetActive(false);
+            }
+        }else{
+            moveType = TileMoveType.NotValid;
+        }
+        if (startPos == null){
+            validPath = null;
+        }else{
+            if (!SkillManager.instance.selectingSkill){
+                validPath = GetPathFrom(startPos);
+            }
+        }
+    }
+    public void SetSkillTile(bool valid, BaseTile startPos){
+        validMoveHighlight.SetActive(valid);
+        if (valid){
+            //determine if attack or move
             //set color if attack or move
             var highlightSprite = validMoveHighlight.GetComponent<SpriteRenderer>();
             if (moveType == TileMoveType.Attack){

@@ -31,7 +31,9 @@ public class SkillManager : MonoBehaviour
                 continue;
             }
             t.moveType = currentSkill.tileMoveType;
-            t.SetPossibleMove(true, user.occupiedTile);
+
+            //TODO: REFACTOR TO BE SEPERATE FROM MOVE CODE
+            t.SetSkillTile(true, user.occupiedTile);
         }
     }
 
@@ -177,6 +179,7 @@ public class SkillManager : MonoBehaviour
 
     internal void Select()
     {
+        Debug.Log(currentSkill);
         AudioManager.instance.PlayConfirm();
         currentSkill.OnUse(user);
     }
@@ -185,5 +188,6 @@ public class SkillManager : MonoBehaviour
         selectingSkill = false;
         currentTiles = new List<BaseTile>();
         UnitManager.instance.UnselectUnit();
+        UnitManager.instance.RemoveAllValidMoves();
     }
 }
