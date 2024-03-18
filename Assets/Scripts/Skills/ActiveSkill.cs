@@ -26,6 +26,7 @@ public class ActiveSkill : BaseSkill {
         MenuManager.instance.ToggleUnitActionMenu();
         SkillManager.instance.currentSkill = this;
         SkillManager.instance.user = user;
+        SkillManager.instance.selectingSkill = true;
         SkillManager.instance.ShowSkillPreview();
     }
      /// <summary>
@@ -33,8 +34,13 @@ public class ActiveSkill : BaseSkill {
     /// </summary>
     /// <param name="user">unit that is using the skill</param>
     public override void OnUse(BaseUnit user){
+        var tile = GridManager.instance.hoveredTile;
+        if (tile.moveType == TileMoveType.NotValid){
+            return;
+        }
         var mng = SkillManager.instance;
         var param = new object[1];
+        SkillManager.instance.selectedTile = GridManager.instance.hoveredTile;
         param[0] = user;
         methodInfo.Invoke(mng, param);
         if (SkillManager.instance.skillFailed){
@@ -42,7 +48,6 @@ public class ActiveSkill : BaseSkill {
             return;
         }
         user.PutSkillOnCooldown(this);
-        user.FinishTurn();
         SkillManager.instance.OnSkilEnd();
     }
 }

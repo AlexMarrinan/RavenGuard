@@ -27,9 +27,9 @@ MonoBehaviour:
   unitClass: 1
   weaponClass: 0
   centered: 0
-  shape: 2
+  shape: 1
   range1: 1
   range2: 1
   tileMoveType: 4
   cooldown: 0
-  activeSkillType: 1
+  activeSkillType: 2

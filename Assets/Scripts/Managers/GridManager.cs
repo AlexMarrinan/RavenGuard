@@ -225,11 +225,6 @@ public class GridManager : MonoBehaviour
         if (depth >= max ){
             return;
         }
-        //enemy's are valid moves but block movement
-        if (tile != null && tile.occupiedUnit != null){
-            visited[tile] = depth;
-            return;
-        }
         //if tile is not valid, continue
         if (tile == null || tile is WallTile || (visited.ContainsKey(tile) && visited[tile] == depth)){
             return;

@@ -41,6 +41,8 @@ public class BaseSkill : BaseItem
     }
     public List<BaseTile> GetAffectedTiles(BaseUnit user){
         switch (shape){
+            case SkillShape.Adjacent:
+                return GetAdjTiles(user);
             case SkillShape.Radius:
                 return GetRadiusTiles(user);
             case SkillShape.Rectangle:
@@ -49,6 +51,11 @@ public class BaseSkill : BaseItem
                 return GetConeTiles(user);
         }
         return null;
+    }
+
+    private List<BaseTile> GetAdjTiles(BaseUnit user)
+    {
+        return GridManager.instance.GetAdjacentTiles(user.occupiedTile.coordiantes);
     }
 
     private List<BaseTile> GetRadiusTiles(BaseUnit user)
@@ -92,6 +99,7 @@ public class BaseSkill : BaseItem
 
 public enum SkillShape {   
     None,
+    Adjacent,
     Radius,
     Rectangle,
     Cone,

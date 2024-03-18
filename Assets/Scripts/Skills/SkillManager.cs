@@ -13,6 +13,7 @@ public class SkillManager : MonoBehaviour
     public List<BaseTile> currentTiles;
     public BaseUnit user;
     public BaseSkill currentSkill;
+    public BaseTile selectedTile;
     public Color activeSkillColor, passiveSkillColor;
     public void Awake(){
         instance = this;
@@ -20,23 +21,44 @@ public class SkillManager : MonoBehaviour
 
     public void ShowSkillPreview(){
         UnitManager.instance.RemoveAllValidMoves();
-        selectingSkill = true;
 
         currentTiles = currentSkill.GetAffectedTiles(user);
 
         UnitManager.instance.RemoveAllValidMoves();
 
         foreach (BaseTile t in currentTiles){
-            if (t == user.occupiedTile){
-                continue;
-            }
-            t.moveType = currentSkill.tileMoveType;
 
-            //TODO: REFACTOR TO BE SEPERATE FROM MOVE CODE
+            t.moveType = GetSkillMoveType(t);
             t.SetSkillMove(true, user.occupiedTile);
+            
         }
     }
+    private TileMoveType GetSkillMoveType(BaseTile tile){
+        var activeSkill = currentSkill as ActiveSkill;
+        if (activeSkill.activeSkillType == ActiveSkillType.OnTile){
+            return currentSkill.tileMoveType;
+        }
+        bool hasUnit = tile.occupiedUnit != null;
+        if (activeSkill.activeSkillType == ActiveSkillType.OnUnit && hasUnit){
+            return currentSkill.tileMoveType;
+        }
+        bool hasSelf = hasUnit && tile.occupiedUnit == UnitManager.instance.selectedUnit;
+        if (activeSkill.activeSkillType == ActiveSkillType.OnSelf){ //&& hasSelf){
+            return currentSkill.tileMoveType;
+        }
 
+        bool hasHero = hasUnit && tile.occupiedUnit.faction == UnitFaction.Hero;
+        if (activeSkill.activeSkillType == ActiveSkillType.OnHero && hasHero){
+            return currentSkill.tileMoveType;
+        }
+
+        bool hasEnemy = hasUnit && tile.occupiedUnit.faction == UnitFaction.Enemy;
+        if (activeSkill.activeSkillType == ActiveSkillType.OnEnemy && hasEnemy){
+            return currentSkill.tileMoveType;
+        }
+
+        return TileMoveType.InAttackRange;
+    }
     public BaseUnit SelectUnitFromTiles(UnitFaction faction){
         var tiles = currentTiles;
         foreach (BaseTile tile in tiles){
@@ -48,7 +70,8 @@ public class SkillManager : MonoBehaviour
     }
 
     public void SwitchAS(BaseUnit u){
-        BaseUnit switchUnit = SelectUnitFromTiles(u.faction);
+        
+        BaseUnit switchUnit = selectedTile.occupiedUnit;
         if (switchUnit == null){
             return;
         }
@@ -65,7 +88,7 @@ public class SkillManager : MonoBehaviour
         switchUnit.transform.position = uTile.transform.position;
     }
     public void PainTransferAS(BaseUnit u){
-        BaseUnit transferUnit = SelectUnitFromTiles(u.faction);
+        BaseUnit transferUnit = selectedTile.occupiedUnit;
         if (transferUnit == null){
             return;
         }
@@ -77,6 +100,18 @@ public class SkillManager : MonoBehaviour
         Debug.Log("transfering... " + healthToGive);
         u.ReceiveDamage(healthToGive);
         transferUnit.RecoverHealth(healthToGive);
+    }
+    
+    public void BurstAS(BaseUnit u){
+        int damage = u.GetForesight().total * 35 / 100;
+        Debug.Log("Used Burst...");
+        var tiles = SkillManager.instance.currentTiles;
+        foreach (BaseTile tile in tiles){
+            BaseUnit unit = tile.occupiedUnit;
+            if (unit != null && unit != u){
+                unit.ReceiveDamage(damage);
+            }
+        }
     }
     public void WhirlwindAS(BaseUnit u){
         int damage = 3;
@@ -202,7 +237,7 @@ public class SkillManager : MonoBehaviour
     {
         selectingSkill = false;
         currentTiles = new List<BaseTile>();
-        UnitManager.instance.UnselectUnit();
         UnitManager.instance.RemoveAllValidMoves();
+        user.FinishTurn();
     }
 }
