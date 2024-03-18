@@ -24,7 +24,7 @@ public class ActiveSkill : BaseSkill {
      public override void OnSelect(BaseUnit user){
         Debug.Log("on select");
         MenuManager.instance.ToggleUnitActionMenu();
-        SkillManager.instance.currentSkill = this;
+        SkillManager.instance.currentActiveSkill = this;
         SkillManager.instance.user = user;
         SkillManager.instance.selectingSkill = true;
         SkillManager.instance.ShowSkillPreview();

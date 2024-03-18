@@ -25,7 +25,7 @@ public class UnitActionMenu : BaseMenu
         else if (buttonIndex > 2){
             var skill = UnitManager.instance.selectedUnit.GetSkill(buttonIndex - 3);
             if (skill != null && skill is ActiveSkill){
-                SkillManager.instance.currentSkill = skill;
+                SkillManager.instance.currentActiveSkill = skill as ActiveSkill;
                 SkillManager.instance.user = UnitManager.instance.selectedUnit;
                 SkillManager.instance.ShowSkillPreview();
             }

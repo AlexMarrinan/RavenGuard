@@ -409,9 +409,9 @@ public class BaseUnit : MonoBehaviour
         }
         return null;
     }
-    public void AddStatsChange(string name, UnitStatType type, int startAmount, int minAmount, int maxAmount){
+    public void AddStatsChange(string name, UnitStatType type, int startAmount, int minAmount, int maxAmount, int cooldown = -1){
         if (GetStatChange(name) == null){
-            var newStats = new SkillStatChange(type, startAmount, minAmount, maxAmount);
+            var newStats = new SkillStatChange(type, startAmount, minAmount, maxAmount, cooldown);
             skillStatChanges.Add(name, newStats);
         }else{
             SetStatChange(name, startAmount);
@@ -569,6 +569,19 @@ public class BaseUnit : MonoBehaviour
             buff.ReduceCooldown();
         }
         buffs.RemoveAll(b => b.CooldownOver());
+
+        List<string> doneStatNames = new();
+
+        foreach (string statName in skillStatChanges.Keys){
+            var stat = skillStatChanges[statName];
+            stat.cooldown -= 1;
+            if (stat.cooldown == 0){
+                doneStatNames.Add(statName);
+            }
+        }
+        foreach (string statName in doneStatNames){
+            skillStatChanges.Remove(statName);
+        }
     }
 
     internal void AddBuff(Buff buff)

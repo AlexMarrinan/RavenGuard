@@ -12,7 +12,7 @@ public class SkillManager : MonoBehaviour
     public bool skillFailed = false;
     public List<BaseTile> currentTiles;
     public BaseUnit user;
-    public BaseSkill currentSkill;
+    public ActiveSkill currentActiveSkill;
     public BaseTile selectedTile;
     public Color activeSkillColor, passiveSkillColor;
     public void Awake(){
@@ -22,8 +22,11 @@ public class SkillManager : MonoBehaviour
     public void ShowSkillPreview(){
         UnitManager.instance.RemoveAllValidMoves();
 
-        currentTiles = currentSkill.GetAffectedTiles(user);
+        currentTiles = currentActiveSkill.GetAffectedTiles(user);
 
+        if (currentTiles.Contains(user.occupiedTile) && currentActiveSkill.activeSkillType != ActiveSkillType.OnSelf){
+            currentTiles.Remove(user.occupiedTile);
+        }
         UnitManager.instance.RemoveAllValidMoves();
 
         foreach (BaseTile t in currentTiles){
@@ -34,17 +37,17 @@ public class SkillManager : MonoBehaviour
         }
     }
     private TileMoveType GetSkillMoveType(BaseTile tile){
-        var activeSkill = currentSkill as ActiveSkill;
+        var activeSkill = currentActiveSkill as ActiveSkill;
         if (activeSkill.activeSkillType == ActiveSkillType.OnTile){
-            return currentSkill.tileMoveType;
+            return currentActiveSkill.tileMoveType;
         }
         bool hasUnit = tile.occupiedUnit != null;
         if (activeSkill.activeSkillType == ActiveSkillType.OnUnit && hasUnit){
-            return currentSkill.tileMoveType;
+            return currentActiveSkill.tileMoveType;
         }
         bool hasSelf = hasUnit && tile.occupiedUnit == UnitManager.instance.selectedUnit;
         if (activeSkill.activeSkillType == ActiveSkillType.OnSelf){ //&& hasSelf){
-            return currentSkill.tileMoveType;
+            return currentActiveSkill.tileMoveType;
         }
         if (activeSkill.activeSkillType != ActiveSkillType.OnSelf && hasSelf){
             return TileMoveType.NotValid;
@@ -52,12 +55,12 @@ public class SkillManager : MonoBehaviour
 
         bool hasHero = hasUnit && tile.occupiedUnit.faction == UnitFaction.Hero;
         if (activeSkill.activeSkillType == ActiveSkillType.OnHero && hasHero){
-            return currentSkill.tileMoveType;
+            return currentActiveSkill.tileMoveType;
         }
 
         bool hasEnemy = hasUnit && tile.occupiedUnit.faction == UnitFaction.Enemy;
         if (activeSkill.activeSkillType == ActiveSkillType.OnEnemy && hasEnemy){
-            return currentSkill.tileMoveType;
+            return currentActiveSkill.tileMoveType;
         }
 
         return TileMoveType.InAttackRange;
@@ -107,13 +110,11 @@ public class SkillManager : MonoBehaviour
 
     //Does damage to the selected unit, damage provided by skill used
     private void DamageHelper(BaseUnit u, int damage){
-        var tiles = SkillManager.instance.currentTiles;
-        foreach (BaseTile tile in tiles){
-            BaseUnit unit = tile.occupiedUnit;
-            if (unit != null && unit != u){
-                unit.ReceiveDamage(damage);
-            }
+        BaseUnit otherUnit = selectedTile.occupiedUnit;
+        if (otherUnit == null){
+            return;
         }
+        otherUnit.ReceiveDamage(damage);
     }
 
     public void BurstAS(BaseUnit u){
@@ -121,12 +122,21 @@ public class SkillManager : MonoBehaviour
         Debug.Log("Used Burst...");
         DamageHelper(u, damage);
     }
+    
     public void BashAS(BaseUnit u){
         int damage = u.GetDefense().total * 35 / 100;
         Debug.Log("Used Burst...");
         DamageHelper(u, damage);
     }
+    public void EnforceAS(BaseUnit u){
+        BaseUnit otherUnit = selectedTile.occupiedUnit;
+        if (otherUnit == null){
+            return;
+        }
+        otherUnit.AddStatsChange("EnforceDEF", UnitStatType.Defense, 4, 4, 4, 1);
+        otherUnit.AddStatsChange("EnforceFOR", UnitStatType.Foresight, 4, 4, 4, 1);
 
+    }
     public void WhirlwindAS(BaseUnit u){
         int damage = 3;
         Debug.Log("Used Whirlwind...");
@@ -243,9 +253,9 @@ public class SkillManager : MonoBehaviour
 
     internal void Select()
     {
-        Debug.Log(currentSkill);
+        Debug.Log(currentActiveSkill);
         AudioManager.instance.PlayConfirm();
-        currentSkill.OnUse(user);
+        currentActiveSkill.OnUse(user);
     }
     internal void OnSkilEnd()
     {
