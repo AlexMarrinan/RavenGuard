@@ -41,6 +41,8 @@ public class BaseSkill : BaseItem
     }
     public List<BaseTile> GetAffectedTiles(BaseUnit user){
         switch (shape){
+            case SkillShape.None:
+                return new (){user.occupiedTile};
             case SkillShape.Adjacent:
                 return GetAdjTiles(user);
             case SkillShape.Radius:

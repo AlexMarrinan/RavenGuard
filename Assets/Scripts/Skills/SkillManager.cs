@@ -21,7 +21,12 @@ public class SkillManager : MonoBehaviour
 
     public void ShowSkillPreview(){
         UnitManager.instance.RemoveAllValidMoves();
-
+        if (selectingSkill == true && currentActiveSkill.shape == SkillShape.None 
+            && currentActiveSkill.activeSkillType == ActiveSkillType.OnSelf){
+            Debug.Log("using self skill");
+            currentActiveSkill.OnUse(user);
+            return;
+        }
         currentTiles = currentActiveSkill.GetAffectedTiles(user);
 
         if (currentTiles.Contains(user.occupiedTile) && currentActiveSkill.activeSkillType != ActiveSkillType.OnSelf){
@@ -137,6 +142,11 @@ public class SkillManager : MonoBehaviour
         otherUnit.AddStatsChange("EnforceFOR", UnitStatType.Foresight, 4, 4, 4, 1);
 
     }
+    public void GuardAS(BaseUnit u){
+        u.AddStatsChange("GuardATK", UnitStatType.Attack, -5, -5, -5, 1);
+        u.AddStatsChange("GuardDEF", UnitStatType.Defense, 10, 10, 10, 1);
+    }
+
     public void WhirlwindAS(BaseUnit u){
         int damage = 3;
         Debug.Log("Used Whirlwind...");
@@ -259,6 +269,7 @@ public class SkillManager : MonoBehaviour
     }
     internal void OnSkilEnd()
     {
+        Debug.Log("Ending skill");
         selectingSkill = false;
         currentTiles = new List<BaseTile>();
         UnitManager.instance.RemoveAllValidMoves();

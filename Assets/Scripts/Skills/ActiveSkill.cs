@@ -35,7 +35,7 @@ public class ActiveSkill : BaseSkill {
     /// <param name="user">unit that is using the skill</param>
     public override void OnUse(BaseUnit user){
         var tile = GridManager.instance.hoveredTile;
-        if (tile.moveType != tileMoveType){
+        if (tile.moveType != tileMoveType && this.activeSkillType != ActiveSkillType.OnSelf){
             return;
         }
         var mng = SkillManager.instance;
