@@ -104,10 +104,9 @@ public class SkillManager : MonoBehaviour
         u.ReceiveDamage(healthToGive);
         transferUnit.RecoverHealth(healthToGive);
     }
-    
-    public void BurstAS(BaseUnit u){
-        int damage = u.GetForesight().total * 35 / 100;
-        Debug.Log("Used Burst...");
+
+    //Does damage to the selected unit, damage provided by skill used
+    private void DamageHelper(BaseUnit u, int damage){
         var tiles = SkillManager.instance.currentTiles;
         foreach (BaseTile tile in tiles){
             BaseUnit unit = tile.occupiedUnit;
@@ -116,6 +115,18 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+
+    public void BurstAS(BaseUnit u){
+        int damage = u.GetForesight().total * 35 / 100;
+        Debug.Log("Used Burst...");
+        DamageHelper(u, damage);
+    }
+    public void BashAS(BaseUnit u){
+        int damage = u.GetDefense().total * 35 / 100;
+        Debug.Log("Used Burst...");
+        DamageHelper(u, damage);
+    }
+
     public void WhirlwindAS(BaseUnit u){
         int damage = 3;
         Debug.Log("Used Whirlwind...");
