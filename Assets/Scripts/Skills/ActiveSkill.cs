@@ -35,7 +35,7 @@ public class ActiveSkill : BaseSkill {
     /// <param name="user">unit that is using the skill</param>
     public override void OnUse(BaseUnit user){
         var tile = GridManager.instance.hoveredTile;
-        if (tile.moveType == TileMoveType.NotValid){
+        if (tile.moveType != tileMoveType){
             return;
         }
         var mng = SkillManager.instance;
@@ -49,6 +49,29 @@ public class ActiveSkill : BaseSkill {
         }
         user.PutSkillOnCooldown(this);
         SkillManager.instance.OnSkilEnd();
+    }
+    private void RangeHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile, BaseUnit startUnit){
+        if (depth >= max){
+            return;
+        }
+        if (tile == null){
+            return;
+        }
+        // //enemy's are valid moves but block movement
+        // if (tile != null && tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
+        //     visited[tile] = depth;
+        //     return;
+        // }
+        // //if tile is not valid, continue
+        // if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        //     return;
+        // }
+
+        //if tile is valid, add it to the list of visited tiles and continue
+        visited[tile] = depth;
+        var next = tile.GetAdjacentTiles();   
+        next.ForEach(t => RangeHelper(depth + 1, max, t, visited, startTile, startUnit));
+        return;
     }
 }
 

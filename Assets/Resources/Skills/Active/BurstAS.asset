@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
   m_Name: BurstAS
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: cd98d65bd3b97c4409a4ae05860aa93d, type: 3}
-  skillName: Whirlwind
-  description: Unit deals damage to nearby units based on [ unit's attack - target's
-    defense ], including allies.
+  sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
+  skillName: Burst
+  description: Unit Deals 35% of its foreisght stat as damage to target, calculations
+    round down.
   menuIcon: {fileID: 21300000, guid: cd98d65bd3b97c4409a4ae05860aa93d, type: 3}
   skillIcons:
   - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
@@ -25,12 +25,12 @@ MonoBehaviour:
   skillType: 1
   skillRestrictions: 0
   progressionGroup: {fileID: 11400000, guid: 233ffb0601a62a14684e49bd9d6c5ea1, type: 2}
-  unitClass: 1
+  unitClass: 0
   weaponClass: 0
   centered: 0
-  shape: 1
+  shape: 2
   range1: 3
   range2: 0
   tileMoveType: 2
-  cooldown: 4
+  cooldown: 6
   activeSkillType: 3

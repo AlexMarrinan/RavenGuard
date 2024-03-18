@@ -46,6 +46,9 @@ public class SkillManager : MonoBehaviour
         if (activeSkill.activeSkillType == ActiveSkillType.OnSelf){ //&& hasSelf){
             return currentSkill.tileMoveType;
         }
+        if (activeSkill.activeSkillType != ActiveSkillType.OnSelf && hasSelf){
+            return TileMoveType.NotValid;
+        }
 
         bool hasHero = hasUnit && tile.occupiedUnit.faction == UnitFaction.Hero;
         if (activeSkill.activeSkillType == ActiveSkillType.OnHero && hasHero){

@@ -282,7 +282,7 @@ public class BaseUnit : MonoBehaviour
         //No active skills ready
         //No avaliable attacks
         PathLine.instance.Reset();
-        if (!AfterMoveAtcions() || this.faction == UnitFaction.Enemy){
+        if (!AfterMoveActions() || this.faction == UnitFaction.Enemy){
             FinishTurn();
         }else{
             GridManager.instance.SetHoveredTile(this.occupiedTile);
@@ -617,17 +617,13 @@ public class BaseUnit : MonoBehaviour
         return GetValidAttacks().Where(atk => atk.Item2 == TileMoveType.Attack).Count();
     }
 
-    public bool AfterMoveAtcions(){
+    public bool AfterMoveActions(){
         if (NumValidAttacks() > 0){
-//            Debug.Log("Attacks found!");
             return true;
         }
-        foreach (BaseSkill skill in skills){
-            if (skill is ActiveSkill){
-                if ((skill as ActiveSkill).cooldown == 0){
-        //            Debug.Log("Active skill found!");
-                    return true;
-                }
+        foreach (int i in activeSkillCooldowns){
+            if (i <= 0){
+                return true;
             }
         }
         return false;

@@ -65,10 +65,34 @@ public class BaseSkill : BaseItem
         BaseTile t = user.occupiedTile;
         if (centered){
             Debug.Log("radius centered!");
-            return GridManager.instance.GetRadiusTiles(t, range1);
+            return GetRadiusTiles(t, range1);
         }
         BaseTile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + range2*SkillManager.instance.useDirection);
-        return GridManager.instance.GetRadiusTiles(newT, range1);
+        return GetRadiusTiles(newT, range1);
+    }
+    private List<BaseTile> GetRadiusTiles(BaseTile t, int maxDepth){
+        var visited = new Dictionary<BaseTile, int>();
+        visited[t] = 0;
+        var next = t.GetAdjacentTiles();
+        next.ForEach(t => GetRadiusTilesHelper(1, maxDepth, t, visited, t));
+        var validMoves = visited.Keys.ToList();
+        return validMoves;
+    }
+
+    private void GetRadiusTilesHelper(int depth, int max, BaseTile tile, Dictionary<BaseTile, int> visited, BaseTile startTile){
+        if (depth >= max ){
+            return;
+        }
+        //if tile is not valid, continue
+        if (tile == null || tile is WallTile || (visited.ContainsKey(tile) && visited[tile] == depth)){
+            return;
+        }
+
+        //if tile is valid, add it to the list of visited tiles and continue
+        visited[tile] = depth;
+        var next = tile.GetAdjacentTiles();   
+        next.ForEach(t => GetRadiusTilesHelper(depth + 1, max, t, visited, startTile));
+        return;
     }
     private List<BaseTile> GetRectangleTiles(BaseUnit user)
     {

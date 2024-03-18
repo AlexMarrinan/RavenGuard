@@ -28,7 +28,7 @@ MonoBehaviour:
   unitClass: 1
   weaponClass: 0
   centered: 0
-  shape: 1
+  shape: 2
   range1: 3
   range2: 0
   tileMoveType: 2
