@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
+  m_Name: PainTransferAS
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: ae0b9eab10af47544901777675e8931b, type: 3}
+  skillName: PainTransfer
+  description: Unit heals ally for up to 10 HP. Damage healed is then taken from
+    unit. Unit can only heal an amount of HP that they have left to spare.
+  menuIcon: {fileID: 21300000, guid: ae0b9eab10af47544901777675e8931b, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  rarity: 1
+  skillType: 1
+  skillRestrictions: 0
+  progressionGroup: {fileID: 11400000, guid: 233ffb0601a62a14684e49bd9d6c5ea1, type: 2}
+  unitClass: 0
+  weaponClass: 0
+  centered: 0
+  shape: 2
+  range1: 1
+  range2: 1
+  tileMoveType: 4
+  cooldown: 0
+  activeSkillType: 1

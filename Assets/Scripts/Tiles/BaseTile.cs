@@ -197,7 +197,7 @@ public abstract class BaseTile : MonoBehaviour
             }
         }
     }
-    public void SetSkillTile(bool valid, BaseTile startPos){
+    public void SetSkillMove(bool valid, BaseTile startPos){
         validMoveHighlight.SetActive(valid);
         if (valid){
             //determine if attack or move

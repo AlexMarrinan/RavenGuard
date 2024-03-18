@@ -33,22 +33,23 @@ public class SkillManager : MonoBehaviour
             t.moveType = currentSkill.tileMoveType;
 
             //TODO: REFACTOR TO BE SEPERATE FROM MOVE CODE
-            t.SetSkillTile(true, user.occupiedTile);
+            t.SetSkillMove(true, user.occupiedTile);
         }
     }
 
-
-    public void SwitchAS(BaseUnit u){
-        var tiles = SkillManager.instance.currentTiles;
-        BaseUnit switchUnit = null;
+    public BaseUnit SelectUnitFromTiles(UnitFaction faction){
+        var tiles = currentTiles;
         foreach (BaseTile tile in tiles){
-            if (tile.occupiedUnit != null && tile.occupiedUnit.faction == u.faction){
-                switchUnit = tile.occupiedUnit;
-                break;
+            if (tile.occupiedUnit != null && tile.occupiedUnit.faction == faction){
+                return tile.occupiedUnit;
             }
         }  
+        return null;
+    }
+
+    public void SwitchAS(BaseUnit u){
+        BaseUnit switchUnit = SelectUnitFromTiles(u.faction);
         if (switchUnit == null){
-            skillFailed = true;
             return;
         }
         Debug.Log("switching...");
@@ -62,6 +63,20 @@ public class SkillManager : MonoBehaviour
         uTile.occupiedUnit = switchUnit;
         switchUnit.occupiedTile = uTile;
         switchUnit.transform.position = uTile.transform.position;
+    }
+    public void PainTransferAS(BaseUnit u){
+        BaseUnit transferUnit = SelectUnitFromTiles(u.faction);
+        if (transferUnit == null){
+            return;
+        }
+        int newHealth = 10-u.health;
+        int healthToGive = 10;
+        if (newHealth > 0){
+            healthToGive += -newHealth - 1;
+        }
+        Debug.Log("transfering... " + healthToGive);
+        u.ReceiveDamage(healthToGive);
+        transferUnit.RecoverHealth(healthToGive);
     }
     public void WhirlwindAS(BaseUnit u){
         int damage = 3;
