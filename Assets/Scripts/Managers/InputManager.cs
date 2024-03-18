@@ -177,7 +177,8 @@ public class InputManager : MonoBehaviour
         }
         if (GridManager.instance.hoveredTile.occupiedUnit != null 
         && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
-        && MenuManager.instance.menuState != MenuState.UnitAction){
+        && MenuManager.instance.menuState != MenuState.UnitAction
+        && !SkillManager.instance.selectingSkill){
             MenuManager.instance.ToggleUnitActionMenu();
             return;
         }
