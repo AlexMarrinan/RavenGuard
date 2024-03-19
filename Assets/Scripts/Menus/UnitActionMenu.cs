@@ -81,7 +81,7 @@ public class UnitActionMenu : BaseMenu
         }
         else {
             skill.SetMethod();
-            b.buttonText.text = skill.skillName;
+            b.buttonText.text = skill.skillName + " " + SkillLevelString(skill.skillLevel);
             b.image.sprite = skill.sprite;
             if (skill is ActiveSkill){
                 skillBG.color = SkillManager.instance.activeSkillColor;
@@ -96,7 +96,13 @@ public class UnitActionMenu : BaseMenu
             }
         }
     }
-
+    private string SkillLevelString(int level){
+        string str = "[";
+        for (int i = 0; i < level; i++){
+            str += "I";
+        }        
+        return str + "]";
+    }
     public override void Select(){
         var u = UnitManager.instance.selectedUnit;
         if (!TurnManager.instance.unitsAwaitingOrders.Contains(u)){

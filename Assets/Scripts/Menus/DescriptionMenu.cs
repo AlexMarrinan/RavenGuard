@@ -28,6 +28,14 @@ public class DescriptionMenu : MonoBehaviour
             weaponClassText.text = "Weapon: " + skill.weaponClass;
             unitClassText.text = "Unit: " + skill.unitClass;
             nameText.text = skill.skillName;
+            nameText.text += " " + SkillLevelString(skill.skillLevel);
         }
+    }
+    private string SkillLevelString(int level){
+        string str = "[";
+        for (int i = 0; i < level; i++){
+            str += "I";
+        }        
+        return str + "]";
     }
 }

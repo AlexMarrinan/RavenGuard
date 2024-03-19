@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
   skillName: PhantomSlash
-  skillLevel: 1
+  skillLevel: 3
   description: Unit Deals 35% of its foreisght stat as damage to target, calculations
     round down.
   menuIcon: {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
