@@ -12,6 +12,7 @@ public class BaseSkill : BaseItem
 
     [Header("Menu Info")] 
     public string skillName;
+    public int skillLevel = 1;
     public string description;
     public Sprite menuIcon;
     public List<Sprite> skillIcons;
@@ -29,6 +30,8 @@ public class BaseSkill : BaseItem
     public SkillShape shape;
     public int range1 = 1;
     public int range2 = 1;
+    public int skillParam1 = 0;
+    public int skillParam2 = 0;
     public TileMoveType tileMoveType;
     public virtual void OnSelect(BaseUnit user){
 

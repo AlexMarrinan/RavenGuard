@@ -123,12 +123,17 @@ public class SkillManager : MonoBehaviour
     }
 
     public void BurstAS(BaseUnit u){
-        int damage = u.GetForesight().total * 35 / 100;
+        int damage = u.GetForesight().total * currentActiveSkill.skillParam1 / 100;
         Debug.Log("Used Burst...");
         DamageHelper(u, damage);
     }
     
     public void BashAS(BaseUnit u){
+        int damage = u.GetDefense().total * currentActiveSkill.skillParam1 / 100;
+        Debug.Log("Used Burst...");
+        DamageHelper(u, damage);
+    }
+    public void PhantomSlash(BaseUnit u){
         int damage = u.GetDefense().total * 35 / 100;
         Debug.Log("Used Burst...");
         DamageHelper(u, damage);
@@ -140,7 +145,6 @@ public class SkillManager : MonoBehaviour
         }
         otherUnit.AddStatsChange("EnforceDEF", UnitStatType.Defense, 4, 4, 4, 1);
         otherUnit.AddStatsChange("EnforceFOR", UnitStatType.Foresight, 4, 4, 4, 1);
-
     }
     public void GuardAS(BaseUnit u){
         u.AddStatsChange("GuardATK", UnitStatType.Attack, -5, -5, -5, 1);

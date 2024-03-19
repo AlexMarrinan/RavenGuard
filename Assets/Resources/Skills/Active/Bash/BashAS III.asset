@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
-  m_Name: BurstAS
+  m_Name: BashAS III
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
-  skillName: Burst
-  description: Unit Deals 35% of its foreisght stat as damage to target, calculations
+  sprite: {fileID: 21300000, guid: d94ede5b738769947bff778a53c03a68, type: 3}
+  skillName: Bash
+  skillLevel: 3
+  description: Unit Deals 50% of its defense stat as damage to target, calculations
     round down.
   menuIcon: {fileID: 21300000, guid: cd98d65bd3b97c4409a4ae05860aa93d, type: 3}
   skillIcons:
@@ -31,6 +32,8 @@ MonoBehaviour:
   shape: 2
   range1: 3
   range2: 0
+  skillParam1: 50
+  skillParam2: 0
   tileMoveType: 2
-  cooldown: 6
+  cooldown: 5
   activeSkillType: 3

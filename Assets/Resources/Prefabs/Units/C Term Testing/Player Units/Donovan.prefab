@@ -120,9 +120,9 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
-  - {fileID: 11400000, guid: 4f3dc00ae61b76d4ba12d91f38ad9c4b, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e5b2c41b3d7a7b640a16a6ad7644a712, type: 2}
+  - {fileID: 11400000, guid: 94406f50d8814774ebbd401b78b400e3, type: 2}
+  - {fileID: 11400000, guid: dac13a263661bc44495dbd904a6c761d, type: 2}
   weapon: {fileID: 0}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: 69ea6c06fe889d64387070423334d347, type: 2}
