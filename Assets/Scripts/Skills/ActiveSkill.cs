@@ -45,6 +45,7 @@ public class ActiveSkill : BaseSkill {
         methodInfo.Invoke(mng, param);
         if (SkillManager.instance.skillFailed){
             SkillManager.instance.skillFailed = false;
+            SkillManager.instance.ShowSkillPreview();
             return;
         }
         user.PutSkillOnCooldown(this);

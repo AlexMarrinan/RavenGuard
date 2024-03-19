@@ -79,7 +79,31 @@ public class SkillManager : MonoBehaviour
         }  
         return null;
     }
+    public void CoverAS(BaseUnit u){
+        
+        BaseUnit target = selectedTile.occupiedUnit;
+        if (target == null){
+            return;
+        }
+        Debug.Log("switching...");
+        BaseTile uTile = u.occupiedTile;
+        BaseTile targetTile = target.occupiedTile;
+        
+        Vector2 direction = uTile.coordiantes - targetTile.coordiantes;
+        BaseTile newTile = GridManager.instance.GetTileAtPosition(uTile.coordiantes + direction);
+        if (newTile.occupiedUnit != null || newTile is WallTile){
+            Debug.Log("new tile is occupied!");
+            skillFailed = true;
+            return;
+        }
 
+        //Move target to new tile
+        newTile.occupiedUnit = target;
+        target.occupiedTile = newTile;
+        target.transform.position = newTile.transform.position;
+
+        targetTile.occupiedUnit = null;
+    }
     public void SwitchAS(BaseUnit u){
         
         BaseUnit switchUnit = selectedTile.occupiedUnit;
