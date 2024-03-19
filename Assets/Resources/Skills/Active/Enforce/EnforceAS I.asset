@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
-  m_Name: EnforceAS
+  m_Name: EnforceAS I
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
   skillName: Enforce
+  skillLevel: 1
   description: Unit grants target ally a +4 buff to defense and foresight for the
     duration of the turn.
   menuIcon: {fileID: 21300000, guid: d94ede5b738769947bff778a53c03a68, type: 3}
@@ -31,6 +32,8 @@ MonoBehaviour:
   shape: 2
   range1: 3
   range2: 0
+  skillParam1: 0
+  skillParam2: 0
   tileMoveType: 4
   cooldown: 5
   activeSkillType: 2

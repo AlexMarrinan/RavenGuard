@@ -179,12 +179,23 @@ public class SkillManager : MonoBehaviour
         }
     }
     public void EnforceAS(BaseUnit u){
-        BaseUnit otherUnit = selectedTile.occupiedUnit;
-        if (otherUnit == null){
-            return;
+        if (currentActiveSkill.skillLevel == 1){
+            BaseUnit otherUnit = selectedTile.occupiedUnit;
+            if (otherUnit == null){
+                return;
+            }
+            otherUnit.AddStatsChange("EnforceDEF", UnitStatType.Defense, 4, 4, 4, 1);
+            otherUnit.AddStatsChange("EnforceFOR", UnitStatType.Foresight, 4, 4, 4, 1);
+        }else{
+            foreach (BaseTile tile in currentTiles){
+                BaseUnit target = tile.occupiedUnit;
+                if (target == null || target == u || target.faction != u.faction){
+                    continue;
+                }
+                target.AddStatsChange("EnforceDEF", UnitStatType.Defense, 4, 4, 4, 1);
+                target.AddStatsChange("EnforceFOR", UnitStatType.Foresight, 4, 4, 4, 1);
+            }
         }
-        otherUnit.AddStatsChange("EnforceDEF", UnitStatType.Defense, 4, 4, 4, 1);
-        otherUnit.AddStatsChange("EnforceFOR", UnitStatType.Foresight, 4, 4, 4, 1);
     }
     public void GuardAS(BaseUnit u){
         u.AddStatsChange("GuardATK", UnitStatType.Attack, -5, -5, -5, 1);
