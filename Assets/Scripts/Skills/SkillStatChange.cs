@@ -11,11 +11,12 @@ public class SkillStatChange {
     public int minAmount;
     public int maxAmount;
     public int cooldown;
-    public SkillStatChange (UnitStatType type, int currentAmount, int minAmount, int maxAmount){
+    public SkillStatChange (UnitStatType type, int currentAmount, int minAmount, int maxAmount, int cooldown)
+    {
         this.statType = type;
         this.currentAmount = currentAmount;
         this.minAmount = minAmount;
         this.maxAmount = maxAmount;
-        this.cooldown = -1;
+        this.cooldown = cooldown;
     }
 }
