@@ -114,12 +114,16 @@ public class SkillManager : MonoBehaviour
     }
 
     //Does damage to the selected unit, damage provided by skill used
-    private void DamageHelper(BaseUnit u, int damage){
+    private void DamageHelper(BaseUnit u, int damage, bool lethal = false){
         BaseUnit otherUnit = selectedTile.occupiedUnit;
         if (otherUnit == null){
             return;
         }
-        otherUnit.ReceiveDamage(damage);
+        if (lethal){
+            otherUnit.ReceiveDamage(damage);
+        }else{
+            otherUnit.ReciveNonlethalDamage(damage);
+        }
     }
 
     public void BurstAS(BaseUnit u){
@@ -133,10 +137,22 @@ public class SkillManager : MonoBehaviour
         Debug.Log("Used Burst...");
         DamageHelper(u, damage);
     }
-    public void PhantomSlash(BaseUnit u){
-        int damage = u.GetDefense().total * 35 / 100;
-        Debug.Log("Used Burst...");
-        DamageHelper(u, damage);
+    public void PhantomSlashAS(BaseUnit u){
+        if (selectedTile == null){
+            return;
+        }
+        BaseUnit target = selectedTile.occupiedUnit;
+        if (target == null || target == u){
+            return;
+        }
+        int damage = u.GetAttack().total - (target.GetDefense().total * currentActiveSkill.skillParam1 / 100);
+        Debug.Log("Used PhantomSlash...");
+
+        if (currentActiveSkill.skillParam1 == 0){
+            target.ReciveNonlethalDamage(damage);
+        }else{
+            target.ReceiveDamage(damage);
+        }
     }
     public void EnforceAS(BaseUnit u){
         BaseUnit otherUnit = selectedTile.occupiedUnit;
