@@ -227,6 +227,12 @@ public class BaseUnit : MonoBehaviour
             UnitManager.instance.DeleteUnit(this);
         }
     }
+    public void ReciveNonlethalDamage(int damage){
+        health -= damage;
+        if (health <= 0){
+            health = 1;
+        }
+    }
     public void RecoverHealth(int healing){
         health += healing;
         if (health > maxHealth){

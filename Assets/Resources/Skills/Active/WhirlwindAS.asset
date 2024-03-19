@@ -32,5 +32,5 @@ MonoBehaviour:
   range1: 3
   range2: 0
   tileMoveType: 2
-  cooldown: 4
+  cooldown: 6
   activeSkillType: 0

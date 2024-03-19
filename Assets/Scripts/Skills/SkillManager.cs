@@ -148,14 +148,19 @@ public class SkillManager : MonoBehaviour
     }
 
     public void WhirlwindAS(BaseUnit u){
-        int damage = 3;
+
         Debug.Log("Used Whirlwind...");
         var tiles = SkillManager.instance.currentTiles;
         foreach (BaseTile tile in tiles){
-            BaseUnit unit = tile.occupiedUnit;
-            if (unit != null && unit != u){
-                unit.ReceiveDamage(damage);
+            BaseUnit target = tile.occupiedUnit;
+            if (target == null || target == u){
+                continue;
             }
+            int damage = u.GetAttack().total - target.GetDefense().total;
+            if (damage < 0){
+                damage = 0;
+            }
+            target.ReciveNonlethalDamage(damage);
         }
     }
     //Upon ending unit's action or end of combat, adjacent allies are cleansed of all clearable debuffs.
