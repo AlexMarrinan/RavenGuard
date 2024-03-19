@@ -127,13 +127,15 @@ public class SkillManager : MonoBehaviour
         if (transferUnit == null){
             return;
         }
-        int newHealth = 10-u.health;
-        int healthToGive = 10;
+        int healthToGive = currentActiveSkill.skillParam1;
+        int newHealth = healthToGive - u.health + (healthToGive * (currentActiveSkill.skillParam2 / 100));
+        Debug.Log("new health... " + newHealth);
+
         if (newHealth > 0){
             healthToGive += -newHealth - 1;
         }
         Debug.Log("transfering... " + healthToGive);
-        u.ReceiveDamage(healthToGive);
+        u.ReceiveDamage(healthToGive * (100-currentActiveSkill.skillParam2) / 100);
         transferUnit.RecoverHealth(healthToGive);
     }
 

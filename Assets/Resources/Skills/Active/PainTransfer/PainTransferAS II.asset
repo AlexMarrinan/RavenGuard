@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
-  m_Name: PainTransferAS
+  m_Name: PainTransferAS II
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: ae0b9eab10af47544901777675e8931b, type: 3}
   skillName: PainTransfer
+  skillLevel: 2
   description: Unit heals ally for up to 10 HP. Damage healed is then taken from
     unit. Unit can only heal an amount of HP that they have left to spare.
   menuIcon: {fileID: 21300000, guid: ae0b9eab10af47544901777675e8931b, type: 3}
@@ -31,6 +32,8 @@ MonoBehaviour:
   shape: 1
   range1: 1
   range2: 1
+  skillParam1: 15
+  skillParam2: 0
   tileMoveType: 4
   cooldown: 4
   activeSkillType: 2
