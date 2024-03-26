@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Game.Hub
 {
-    public class PlayerCharacter:MonoBehaviour
+    public class PlayerCharacter : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer playerImage;
         [SerializeField] private ParagonInfo playerParagonInfo;
