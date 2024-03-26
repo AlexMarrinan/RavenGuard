@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using Game.UI;
+using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : BaseMenu
 {
-
     public override void Select()
     {
         switch(buttonIndex){
@@ -17,7 +21,7 @@ public class PauseMenu : BaseMenu
     private void Resume(){
         MenuManager.instance.TogglePauseMenu();
     }
-    private void SkipeTurn(){
+    private void SkipeTurn(){ // TODO: Change functionality to restart level
         MenuManager.instance.TogglePauseMenu();
         MenuManager.instance.ToggleLevelEndMenu();
         return;
@@ -32,4 +36,7 @@ public class PauseMenu : BaseMenu
         Debug.Log("Quitting...");
         SceneManager.LoadScene("MainMenu");
     }
+
+    // Pause Menu UI Formatting (View)
+
 }

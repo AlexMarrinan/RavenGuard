@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace UI.Element.View
 {
     [RequireComponent(typeof(HorizontalLayoutGroup))]
-    public class ColumnView:UIElement
+    public class ColumnView : UIElement
     {
         public ViewSO viewData;
         private HorizontalLayoutGroup horizontalLayoutGroup;

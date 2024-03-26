@@ -6,7 +6,7 @@ using UnityEngine.UI;
 namespace UI.Element.View
 {
     [RequireComponent(typeof(VerticalLayoutGroup))]
-    public class RowView:UIElement
+    public abstract class RowView : UIElement
     {
         public ViewSO viewData;
         private VerticalLayoutGroup verticalLayoutGroup;

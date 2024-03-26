@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace Game.UI
+namespace Game.UI.Element
 {
-    [CreateAssetMenu(fileName = "View", menuName = "UI/View", order = 0)]
-    public class ViewSO:ScriptableObject
+    [CreateAssetMenu(fileName = "ViewSO", menuName = "CustomUI/ViewSO", order = 0)]
+    public class ViewSO : ScriptableObject
     {
-        public ThemeSO themeSo;
+        public ThemeSO theme;
         public RectOffset padding;
         public float spacing;
     }

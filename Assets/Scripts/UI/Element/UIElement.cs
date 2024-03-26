@@ -2,12 +2,19 @@ using UnityEngine;
 
 namespace Game.UI.Element
 {
-    public abstract class UIElement:MonoBehaviour
+    public abstract class UIElement : MonoBehaviour
     {
-        public void Init()
-        {
+        private void Awake() {
+            Init();
+        }
+        
+        public void Init() {
             Setup();
             Configure();
+        }
+
+        private void OnValidate() {
+            Init();
         }
         
         protected abstract void Setup();
