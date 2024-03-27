@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mainCamera != null && newCameraPos != mainCamera.transform.position){
+        if (mainCamera != null && newCameraPos != mainCamera.transform.position && !SkillManager.instance.selectingSkill){
             var trans = mainCamera.transform;
             trans.position = Vector3.Lerp(trans.position, newCameraPos, camAutoSpeed * Time.deltaTime);
         }
@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
     public void ChangeState(GameState newState){
         gameState = newState;
         if (levelData.startLevel){
-            Debug.Log("Start level found!");
+//            Debug.Log("Start level found!");
             MenuManager.instance.ToggleUnitSelectionMenu();
             //LoadNextLevel();
             return;

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Game.Hub;
 using UnityEngine;
 
 namespace Buildings{
@@ -10,6 +11,9 @@ namespace Buildings{
         [SerializeField] private GameObject interior;
         [SerializeField] private List<SpriteRenderer> exteriorRenderers;
         [SerializeField] private float transitionTime;
+        [SerializeField] private Transform outsideSpawm, insideSpawn;
+        [SerializeField] private PlayerMovement player;
+
         private bool isInside;
 
         /// <summary>
@@ -17,9 +21,9 @@ namespace Buildings{
         /// </summary>
         public void ToggleBuilding()
         {
+            Debug.Log("Toggle building!");
             if(!isInside) EnterBuilding();
             else ExitBuilding();
-            isInside = !isInside;
         }
         
         /// <summary>
@@ -30,7 +34,8 @@ namespace Buildings{
             if (!isInside)
             {
                 isInside = true;
-                TweenExterior();
+                player.transform.position = insideSpawn.position;
+                //TweenExterior();
             }
         }
         
@@ -39,10 +44,12 @@ namespace Buildings{
         /// </summary>
         public void ExitBuilding()
         {
+            Debug.Log("Exiting...");
             if (isInside)
             {
                 isInside = false;
-                TweenExterior();
+                player.transform.position = outsideSpawm.position;
+                //TweenExterior();
             }
         }
 

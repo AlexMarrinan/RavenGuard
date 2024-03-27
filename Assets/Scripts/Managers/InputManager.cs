@@ -35,6 +35,9 @@ public class InputManager : MonoBehaviour
         }
     }
     private void Move(){
+        if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
+            return;
+        }
         currentMoveFrameDelay = moveFrameDelays;
         if (GameManager.instance.gameState == GameState.MainMenu){
             MainMenuManager.instance.Move(moveVector);
@@ -42,8 +45,7 @@ public class InputManager : MonoBehaviour
         }
         if (SkillManager.instance.selectingSkill){
             //Debug.Log("moving skill");
-            SkillManager.instance.Move(moveVector);
-            return;
+            SkillManager.instance.ShowSkillPreview();
         }
         if (MenuManager.instance.InMenu()){
             //Debug.Log("moving menu");
@@ -177,7 +179,8 @@ public class InputManager : MonoBehaviour
         }
         if (GridManager.instance.hoveredTile.occupiedUnit != null 
         && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
-        && MenuManager.instance.menuState != MenuState.UnitAction){
+        && MenuManager.instance.menuState != MenuState.UnitAction
+        && !SkillManager.instance.selectingSkill){
             MenuManager.instance.ToggleUnitActionMenu();
             return;
         }

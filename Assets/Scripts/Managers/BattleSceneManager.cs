@@ -113,11 +113,15 @@ public class BattleSceneManager : MonoBehaviour
         if (hitter == leftBU){
             damaged = rightBU;
         }
+                        
+        damaged.assignedUnit.ReduceCooldown();
+        hitter.assignedUnit.ReduceCooldown();
 
         int health = damaged.assignedUnit.health;
         damaged.assignedUnit.ReceiveDamage(hitter.assignedUnit);
         int newHealth = damaged.assignedUnit.health;
         hitter.damageDealt += health - newHealth;
+
         if (newHealth == health){
             //No damage done
             HitRecoil(damaged, 0.5f);
