@@ -12,7 +12,7 @@ namespace Game.Hub
         private void Update()
         {
             transform.position = new Vector3(target.transform.position.x, target.transform.position.y,
-                transform.position.z);
+            transform.position.z);
         }
     }
 }
