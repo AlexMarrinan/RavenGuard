@@ -15,3 +15,4 @@ MonoBehaviour:
   sprite: {fileID: 1666342265, guid: f923dc65ea46b3c4fa9d5c393c21b507, type: 3}
   speakerData: {fileID: 11400000, guid: 5aa6a03a97547ce49b8546f5e8dda109, type: 2}
   unitClass: 6
+  cost: 1000

@@ -16,6 +16,11 @@ public class PlayerData {
 
     //Boilerplate
     private static PlayerData instance = null;
+
+    public PlayerData(){
+        copperCoins = 0;
+        paragonsOwned = new();
+    }
     public void SetData(PlayerData other){
         this.copperCoins = other.copperCoins;
         this.currentParagon = other.currentParagon;

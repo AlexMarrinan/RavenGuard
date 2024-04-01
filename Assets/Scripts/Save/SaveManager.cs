@@ -9,7 +9,10 @@ public class SaveManager: MonoBehaviour{
     [SerializeField] private PlayerData playerData;
     private string savePath;
     public static SaveManager instance;
-    [SerializeField] private List<Paragon> paragons;
+    [SerializeField] private List<Paragon> fountainParagons;
+    [SerializeField] private List<Paragon> shopParagons;
+    [SerializeField] private ParagonInfo startingPInfo;
+
     private readonly int PARAGON_COUNT = 4;
 
     void Start(){
@@ -23,15 +26,24 @@ public class SaveManager: MonoBehaviour{
         List<ParagonInfo> paragonsOwned = playerData.paragonsOwned;
         int paragonIndex = 0;
         
-        paragons.ForEach(p => p.gameObject.SetActive(false));
+        fountainParagons.ForEach(p => p.gameObject.SetActive(false));
+        shopParagons.ForEach(p => p.gameObject.SetActive(true));
 
         foreach (ParagonInfo pInfo in paragonsOwned){
             Debug.Log(pInfo);
+            Debug.Log(playerData.currentParagon);
+
+            foreach (Paragon shopP in shopParagons){
+                if (shopP.GetParagonInfo() == pInfo){
+                    shopP.gameObject.SetActive(false);
+                    break;
+                }
+            }
             if (pInfo == playerData.currentParagon){
                 Debug.Log("Found owned paragon unit!");
                 continue;
             }
-            Paragon p = paragons[paragonIndex];
+            Paragon p = fountainParagons[paragonIndex];
             p.gameObject.SetActive(true);
             p.SetParagonInfo(pInfo);
             paragonIndex++;
@@ -50,6 +62,10 @@ public class SaveManager: MonoBehaviour{
 
     public void LoadData(){
         if (!File.Exists(savePath)){
+            playerData = new();
+            playerData.currentParagon = startingPInfo;
+            Debug.Log(playerData.currentParagon);
+            playerData.paragonsOwned.Add(startingPInfo);
             SaveData();
             return;
         }
@@ -71,15 +87,22 @@ public class SaveManager: MonoBehaviour{
         SaveData();
     }
     public bool SpendCopperCoins(int amount){
-        if (amount < playerData.copperCoins){
+        if (amount > playerData.copperCoins){
             return false;
         }
-        playerData.copperCoins += amount;
+        playerData.copperCoins -= amount;
         SaveData();
         return true;
     }
-    public void BuyParagon(ParagonInfo paragon){
-        playerData.paragonsOwned.Add(paragon);
+    public void BuyParagon(ParagonInfo pInfo){
+        playerData.paragonsOwned.Add(pInfo);
+        foreach (Paragon p in fountainParagons){
+            if (p.GetParagonInfo() == null){
+                p.SetParagonInfo(pInfo);
+                p.gameObject.SetActive(true);
+                break;
+            }
+        }
         SaveData();
     }
     public void SetCurrentParagon(ParagonInfo paragonInfo){

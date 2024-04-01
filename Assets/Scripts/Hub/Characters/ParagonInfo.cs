@@ -12,5 +12,6 @@ namespace Game.Hub.Interactables
         public Sprite sprite;
         public SpeakerData speakerData;
         public UnitClass unitClass;
+        public int cost;
     }
 }

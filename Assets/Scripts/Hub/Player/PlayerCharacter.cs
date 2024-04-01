@@ -24,7 +24,13 @@ namespace Game.Hub
             return tempPlayerInfo;
         }
         public void SetParagonInfo(ParagonInfo paragonInfo){
+            if (paragonInfo == null){
+                return;
+            }
+            Debug.Log(paragonInfo);
             playerParagonInfo = paragonInfo;
+            Debug.Log(playerImage);
+            Debug.Log(playerParagonInfo);
             playerImage.sprite = playerParagonInfo.sprite;
         }
     }
