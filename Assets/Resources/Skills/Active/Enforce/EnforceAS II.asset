@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
+  m_Name: EnforceAS II
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
+  skillName: Enforce
+  skillLevel: 2
+  description: Unit grants target ally a +4 buff to defense and foresight for the
+    duration of the turn.
+  menuIcon: {fileID: 21300000, guid: d94ede5b738769947bff778a53c03a68, type: 3}
+  skillIcons:
+  - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
+  rarity: 1
+  skillType: 1
+  skillRestrictions: 0
+  progressionGroup: {fileID: 11400000, guid: 233ffb0601a62a14684e49bd9d6c5ea1, type: 2}
+  unitClass: 2
+  weaponClass: 0
+  centered: 0
+  shape: 2
+  range1: 3
+  range2: 0
+  skillParam1: 0
+  skillParam2: 0
+  tileMoveType: 4
+  cooldown: 7
+  activeSkillType: 0

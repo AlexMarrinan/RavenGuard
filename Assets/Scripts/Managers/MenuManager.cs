@@ -160,7 +160,7 @@ public class MenuManager : MonoBehaviour
         unitSelectionMenu.gameObject.SetActive(true);
         unitSelectionMenu.SetUnits();
         menuState = MenuState.UnitSelection;
-        Debug.Log("opened select menus");
+//        Debug.Log("opened select menus");
     }
     public void TogglePauseMenu(){
         if (menuState == MenuState.Pause){

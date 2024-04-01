@@ -34,7 +34,7 @@ public class UnitSelectionMenu : BaseMenu
     {
         base.Move(direction);
         unitSummary.SetUnit(possibleUnits[buttonIndex]);
-        Debug.Log("moving!");
+//        Debug.Log("moving!");
     }
     public override void Select()
     {
