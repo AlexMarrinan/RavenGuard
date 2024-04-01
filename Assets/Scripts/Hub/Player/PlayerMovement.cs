@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 namespace Game.Hub {
@@ -14,7 +15,7 @@ namespace Game.Hub {
         private CustomInput input = null;
         private Vector2 moveVector=Vector2.zero;
         
-        
+        [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float moveSpeed=10f;
         
@@ -39,7 +40,20 @@ namespace Game.Hub {
 
         private void FixedUpdate()
         {
-            rb.velocity=moveVector*moveSpeed;
+            rb.velocity = moveVector*moveSpeed;
+            //if no input, dont try to flip sprite;
+            if (moveVector.x < 0.2 && moveVector.x > -0.2f){
+                return;
+            }
+
+            //if move input, flip sprite correct directiom
+            if (moveVector.x < 0){
+                sprite.flipX = true;
+                Debug.Log("facing left");
+            }else{
+                sprite.flipX = false;
+                Debug.Log("facing right");
+            }
         }
 
         private void OnMovementPerformed(InputAction.CallbackContext value)
