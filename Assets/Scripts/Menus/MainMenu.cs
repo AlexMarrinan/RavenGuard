@@ -14,7 +14,7 @@ public class MainMenu : BaseMenu
        }
     }
     private void Play(){
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("Town");
     }
     private void Options(){
         //TODO: OPTIONS MENU
