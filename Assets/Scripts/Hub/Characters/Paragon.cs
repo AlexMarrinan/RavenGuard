@@ -9,9 +9,9 @@ namespace Game.Hub.Interactables
         [SerializeField] private ParagonInfo paragonInfo;
         private void Awake()
         {
-            gameObject.name = speakerData.characterName;
-            paragonInfo.sprite = image.sprite;
-            paragonInfo.speakerData = speakerData;
+            // gameObject.name = speakerData.characterName;
+            // paragonInfo.sprite = image.sprite;
+            // paragonInfo.speakerData = speakerData;
         }
 
         public override void StartCutscene()
@@ -25,6 +25,17 @@ namespace Game.Hub.Interactables
         {
             paragonInfo=FindObjectOfType<PlayerCharacter>().SwapParagonInfo(paragonInfo);
             image.sprite = paragonInfo.sprite;
+        }
+
+        public void SwapPlayerParagonInfo()
+        {
+            paragonInfo=FindObjectOfType<PlayerCharacter>().SwapParagonInfo(paragonInfo);
+            image.sprite = paragonInfo.sprite;
+        }
+
+        public void SetParagonInfo(ParagonInfo paragonInfo){
+            this.paragonInfo = paragonInfo;
+            this.image.sprite = paragonInfo.sprite;
         }
     }
 }

@@ -29,13 +29,14 @@ namespace Game.Hub {
             input.Enable();
             input.Player.Move.performed += OnMovementPerformed;
             input.Player.Move.canceled += OnMovementCanceled;
+            input.Player.Save.performed += OnSavePerformed;
         }
-        
+
         private void OnDisable()
         {
             input.Disable();
             input.Player.Move.performed -= OnMovementPerformed;
-            input.Player.Move.canceled += OnMovementCanceled;
+            input.Player.Move.canceled -= OnMovementCanceled;
         }
 
         private void FixedUpdate()
@@ -49,10 +50,10 @@ namespace Game.Hub {
             //if move input, flip sprite correct directiom
             if (moveVector.x < 0){
                 sprite.flipX = true;
-                Debug.Log("facing left");
+                //Debug.Log("facing left");
             }else{
                 sprite.flipX = false;
-                Debug.Log("facing right");
+                //Debug.Log("facing right");
             }
         }
 
@@ -64,6 +65,13 @@ namespace Game.Hub {
         private void OnMovementCanceled(InputAction.CallbackContext value)
         {
             moveVector=Vector2.zero;
+        }
+
+        
+        private void OnSavePerformed(InputAction.CallbackContext value)
+        {
+            Debug.Log("forced save!");
+            SaveManager.instance.SaveData();
         }
     }
 }
