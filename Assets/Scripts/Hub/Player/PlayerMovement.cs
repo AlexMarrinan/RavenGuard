@@ -30,6 +30,7 @@ namespace Game.Hub {
             input.Player.Move.performed += OnMovementPerformed;
             input.Player.Move.canceled += OnMovementCanceled;
             input.Player.Save.performed += OnSavePerformed;
+            input.Player.Money.performed += OnGetMoneyPerformed;
         }
 
         private void OnDisable()
@@ -72,6 +73,12 @@ namespace Game.Hub {
         {
             Debug.Log("forced save!");
             SaveManager.instance.SaveData();
+        }
+
+        
+        private void OnGetMoneyPerformed(InputAction.CallbackContext context)
+        {
+            SaveManager.instance.AddCopperCoins(100);
         }
     }
 }

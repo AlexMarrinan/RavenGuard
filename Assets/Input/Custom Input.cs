@@ -161,6 +161,15 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Money"",
+                    ""type"": ""Button"",
+                    ""id"": ""474cca16-6a2a-4eed-b521-5b7848b94ee8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -559,6 +568,17 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                     ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d05777bb-1f78-496c-b1bf-5cbe5bf33ee0"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Money"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -582,6 +602,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         m_Player_SkipTurn = m_Player.FindAction("SkipTurn", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Save = m_Player.FindAction("Save", throwIfNotFound: true);
+        m_Player_Money = m_Player.FindAction("Money", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -656,6 +677,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SkipTurn;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Save;
+    private readonly InputAction m_Player_Money;
     public struct PlayerActions
     {
         private @CustomInput m_Wrapper;
@@ -675,6 +697,7 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         public InputAction @SkipTurn => m_Wrapper.m_Player_SkipTurn;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Save => m_Wrapper.m_Player_Save;
+        public InputAction @Money => m_Wrapper.m_Player_Money;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -729,6 +752,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @Save.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSave;
                 @Save.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSave;
                 @Save.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnSave;
+                @Money.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoney;
+                @Money.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoney;
+                @Money.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoney;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -778,6 +804,9 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
                 @Save.started += instance.OnSave;
                 @Save.performed += instance.OnSave;
                 @Save.canceled += instance.OnSave;
+                @Money.started += instance.OnMoney;
+                @Money.performed += instance.OnMoney;
+                @Money.canceled += instance.OnMoney;
             }
         }
     }
@@ -799,5 +828,6 @@ public partial class @CustomInput : IInputActionCollection2, IDisposable
         void OnSkipTurn(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnSave(InputAction.CallbackContext context);
+        void OnMoney(InputAction.CallbackContext context);
     }
 }
