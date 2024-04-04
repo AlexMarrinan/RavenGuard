@@ -13,11 +13,9 @@ MonoBehaviour:
   m_Name: Skill Progression
   m_EditorClassIdentifier: 
   skillProgression:
-  - skill: {fileID: 11400000, guid: b12dbad82c607df4e873d438379409b9, type: 2}
+  - skill: {fileID: 11400000, guid: e5b2c41b3d7a7b640a16a6ad7644a712, type: 2}
     cost: 0
-  - skill: {fileID: 11400000, guid: 05d71841e6128b942a52cc756f1e91be, type: 2}
-    cost: 8
-  - skill: {fileID: 11400000, guid: 1ad4f5f2ed739cd42a48b09d6ed81f3a, type: 2}
-    cost: 5
-  - skill: {fileID: 11400000, guid: db6025ea8a701e64d96dfb30b83e7e5b, type: 2}
-    cost: 1
+  - skill: {fileID: 11400000, guid: 94406f50d8814774ebbd401b78b400e3, type: 2}
+    cost: 50
+  - skill: {fileID: 11400000, guid: 3b39f9a54617403429386f12f8c5cc2a, type: 2}
+    cost: 100

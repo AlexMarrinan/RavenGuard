@@ -35,6 +35,7 @@ namespace Hub.Blacksmith
 
         public int GetPlayerBalance()
         {
+            //return SaveManager.instance.GetCoins();
             return model.playerBalance;
         }
         

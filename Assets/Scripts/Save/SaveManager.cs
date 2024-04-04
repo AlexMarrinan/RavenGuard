@@ -64,7 +64,6 @@ public class SaveManager: MonoBehaviour{
         if (!File.Exists(savePath)){
             playerData = new();
             playerData.currentParagon = startingPInfo;
-            Debug.Log(playerData.currentParagon);
             playerData.paragonsOwned.Add(startingPInfo);
             SaveData();
             return;
@@ -81,6 +80,9 @@ public class SaveManager: MonoBehaviour{
 
     public PlayerData GetData(){
         return playerData;
+    }
+    public int GetCoins(){
+        return playerData.copperCoins;
     }
     public void AddCopperCoins(int amount){
         playerData.copperCoins += amount;
@@ -107,6 +109,20 @@ public class SaveManager: MonoBehaviour{
     }
     public void SetCurrentParagon(ParagonInfo paragonInfo){
         playerData.currentParagon = paragonInfo;
+        SaveData();
+    }
+    public BaseSkill GetSkill(SkillProgressionGroup skillProgressionGroup){
+        var upgrades = playerData.skillUpgrades;
+        if (!upgrades.ContainsKey(skillProgressionGroup)){
+            return skillProgressionGroup.skillProgression[0].skill;
+        }
+        int index = upgrades[skillProgressionGroup];
+        return skillProgressionGroup.skillProgression[index].skill;
+    }
+
+    public void UpgradeSkill(SkillProgressionGroup skillProgressionGroup, int level){
+        var upgrades = playerData.skillUpgrades;
+        upgrades[skillProgressionGroup] = level;
         SaveData();
     }
 }

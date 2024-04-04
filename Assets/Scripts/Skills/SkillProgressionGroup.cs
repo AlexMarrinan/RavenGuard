@@ -7,6 +7,7 @@ using UnityEngine;
 /// <summary>
 /// SkillProgressionGroup is a way to keep track of what skills are upgraded into.
 /// </summary>
+[Serializable]
 [CreateAssetMenu(fileName = "Skill Progression", menuName = "Skill/Progression Group", order = 0)]
 public class SkillProgressionGroup : ScriptableObject
 {

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
-  m_Name: Skill Progression 1
+  m_Name: Bash Group
   m_EditorClassIdentifier: 
   skillProgression:
-  - skill: {fileID: 11400000, guid: c8ee1636f404cd24190a6dbf39a649c8, type: 2}
+  - skill: {fileID: 11400000, guid: 29eac2e810427ee45a752b8d83937280, type: 2}
     cost: 0
-  - skill: {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
-    cost: 0
-  - skill: {fileID: 11400000, guid: 72da6607b66d99e498903293fe49d165, type: 2}
-    cost: 0
+  - skill: {fileID: 11400000, guid: dac13a263661bc44495dbd904a6c761d, type: 2}
+    cost: 50
+  - skill: {fileID: 11400000, guid: c4e564c2ee442cd428c03a3cda2275dc, type: 2}
+    cost: 100

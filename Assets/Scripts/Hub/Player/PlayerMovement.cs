@@ -18,6 +18,7 @@ namespace Game.Hub {
         [SerializeField] private SpriteRenderer sprite;
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float moveSpeed=10f;
+        [SerializeField] private SkillProgressionGroup skillProgressionGroup;
         
         private void Awake()
         {
@@ -71,8 +72,9 @@ namespace Game.Hub {
         
         private void OnSavePerformed(InputAction.CallbackContext value)
         {
-            Debug.Log("forced save!");
-            SaveManager.instance.SaveData();
+            Debug.Log("forced upgrade!");
+            SaveManager.instance.UpgradeSkill(skillProgressionGroup, 2);
+            //SaveManager.instance.SaveData();
         }
 
         
