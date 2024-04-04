@@ -24,7 +24,9 @@ public class OverworldMapManager : MonoBehaviour {
         else {
             Destroy(this);
         }
-        
+
+        DontDestroyOnLoad(instance); // Keep data from instance between scenes
+        // NOTE: This means that this manager never resets, so starting another run will basically resume the game from the last time you played
     }
 
     // Setup nodes, node selector, & position node map
@@ -75,7 +77,7 @@ public class OverworldMapManager : MonoBehaviour {
 
         currentNode = NodeSelector.instance.GetCurrentNode(); // Progress to next node
 
-        // SceneManager.LoadScene("Level 1", LoadSceneMode.Additive); // TODO: Randomize(?) level to be loaded
+        SceneManager.LoadScene("Level 1"); // TODO: Randomize(?) level to be loaded
 
         NodeSelector.instance.Initialize(currentNode); // Progress node selector to next node
         currentNode.ClearNode(); // Mark node as cleared (as if the level that was just selected was finished)
