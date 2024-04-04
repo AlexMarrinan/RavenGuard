@@ -94,7 +94,6 @@ GameObject:
   m_Component:
   - component: {fileID: 9132145495272979273}
   - component: {fileID: 2216166740391059013}
-  - component: {fileID: 6814382297024072103}
   m_Layer: 0
   m_Name: MapNode
   m_TagString: Untagged
@@ -136,30 +135,7 @@ MonoBehaviour:
   icon: {fileID: 1900730576554085905}
   background: {fileID: 5267785634785842088}
   specialNode: 0
-  button: {fileID: 6814382297024072103}
---- !u!114 &6814382297024072103
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5105812820300234063}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 883237634d181144cb53fabfa61189e9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  image: {fileID: 0}
-  upButton: {fileID: 0}
-  downButton: {fileID: 0}
-  leftButton: {fileID: 0}
-  rightButton: {fileID: 0}
-  buttonName: 
-  buttonDescription: 
-  bonusText: 
-  buttonText: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  buttonHighlight: {fileID: 0}
+  button: {fileID: 0}
 --- !u!1 &5267785634785842088
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,7 +11,6 @@ public class MapNode : MonoBehaviour
     public GameObject icon;
     public GameObject background;
     public bool specialNode; // If true, node is unique & should not be randomized
-    public MenuButton button; // Jury-rigging button functionality
 
     private bool cleared; // Represents whether this node's stage has been cleared or not
     private SpriteRenderer iconSprite;
