@@ -9,6 +9,12 @@ namespace Skills
         public SkillProgressionGroup progressionGroup;
         public int index;
 
+        public SkillProgression(SkillProgressionGroup progressionGroup, int index)
+        {
+            this.progressionGroup = progressionGroup;
+            this.index = index;
+        }
+
         public SkillCost GetCurrentSkillCost()
         {
             List<SkillCost> skillCosts = progressionGroup.skillProgression;

@@ -119,10 +119,17 @@ public class SaveManager: MonoBehaviour{
         int index = upgrades[skillProgressionGroup];
         return skillProgressionGroup.skillProgression[index].skill;
     }
-
+    public int GetSkillLevel(SkillProgressionGroup skillProgressionGroup){
+        var upgrades = playerData.skillUpgrades;
+        if (!upgrades.ContainsKey(skillProgressionGroup)){
+            return 0;
+        }
+        int index = upgrades[skillProgressionGroup];
+        return index;
+    }
     public void UpgradeSkill(SkillProgressionGroup skillProgressionGroup, int level){
         var upgrades = playerData.skillUpgrades;
-        upgrades[skillProgressionGroup] = level;
-        SaveData();
+        upgrades[skillProgressionGroup] = level-1;
+        SpendCopperCoins(skillProgressionGroup.skillProgression[level-1].cost);
     }
 }

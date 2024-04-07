@@ -16,7 +16,7 @@ namespace Hub.Blacksmith
 
         private void Awake()
         {
-            view.Init(model.playerBalance, model.LoadUpgradableSkills(), this);
+            view.Init(SaveManager.instance.GetCoins(), model.LoadUpgradableSkills(), this);
         }
 
         /// <summary>
@@ -35,8 +35,7 @@ namespace Hub.Blacksmith
 
         public int GetPlayerBalance()
         {
-            //return SaveManager.instance.GetCoins();
-            return model.playerBalance;
+            return SaveManager.instance.GetCoins();
         }
         
         public override void ToggleView()

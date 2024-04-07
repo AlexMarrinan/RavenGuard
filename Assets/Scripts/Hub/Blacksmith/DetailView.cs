@@ -27,7 +27,7 @@ namespace Hub.Blacksmith
             view = blacksmithStoreView;
             ResetCurrentSkill();
             confirmUpgradeButton.onClick.AddListener(delegate { view.ConfirmSkillUpgrade(currentSkills); });
-            backButton.onClick.AddListener(delegate { HideDetailView(); });
+            // backButton.onClick.AddListener(delegate { HideDetailView(); });
         }
         
         /// <summary>
@@ -63,7 +63,7 @@ namespace Hub.Blacksmith
             skillCost.text = currentSkills.cost+"G";
             
             //If the player has enough money, they can upgrade the skill
-            confirmUpgradeButton.interactable=controller.GetPlayerBalance()>=currentSkills.cost;
+            confirmUpgradeButton.interactable=controller.GetPlayerBalance() >= currentSkills.cost;
             
             // Show the detail view
             windowParent.SetActive(true);

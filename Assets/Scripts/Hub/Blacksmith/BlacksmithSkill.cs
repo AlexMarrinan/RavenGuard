@@ -52,13 +52,20 @@ namespace Hub.Blacksmith
             
             //The skill it currently is
             skillData = skill.next;
-            skillName.text = skillData.skillName;
+            skillName.text = skillData.skillName + " " + SkillLevelString(skillData.skillLevel);
             skillIcon.sprite = skillData.menuIcon;
             skillCostParent.SetActive(true);
             
             SetIcons();
         }
         
+        private string SkillLevelString(int level){
+            string str = "[";
+            for (int i = 0; i < level; i++){
+                str += "I";
+            }        
+            return str + "]";
+        }
         /// <summary>
         /// Set the prefab's icon images
         /// Instantiation is too expensive

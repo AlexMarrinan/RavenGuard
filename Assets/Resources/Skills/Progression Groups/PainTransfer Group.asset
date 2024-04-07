@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
-  m_Name: Skill Progression
+  m_Name: PainTransfer Group
   m_EditorClassIdentifier: 
   skillProgression:
-  - skill: {fileID: 11400000, guid: e5b2c41b3d7a7b640a16a6ad7644a712, type: 2}
+  - skill: {fileID: 11400000, guid: ffc04b815e09317449228604d90af270, type: 2}
     cost: 0
-  - skill: {fileID: 11400000, guid: 94406f50d8814774ebbd401b78b400e3, type: 2}
-    cost: 50
-  - skill: {fileID: 11400000, guid: 3b39f9a54617403429386f12f8c5cc2a, type: 2}
-    cost: 100
+  - skill: {fileID: 11400000, guid: 80f1b7ed4e03e4e4887346a8d03bfb96, type: 2}
+    cost: 80
+  - skill: {fileID: 11400000, guid: 15506263ce11cdb4aad78f2ad6c3a290, type: 2}
+    cost: 175
