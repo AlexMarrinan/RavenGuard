@@ -25,7 +25,7 @@ MonoBehaviour:
   rarity: 1
   skillType: 1
   skillRestrictions: 0
-  progressionGroup: {fileID: 11400000, guid: 233ffb0601a62a14684e49bd9d6c5ea1, type: 2}
+  progressionGroup: {fileID: 11400000, guid: 0b03280a36df11c4282cde3a8905d81f, type: 2}
   unitClass: 0
   weaponClass: 0
   centered: 0

@@ -11,6 +11,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Skill Progression", menuName = "Skill/Progression Group", order = 0)]
 public class SkillProgressionGroup : ScriptableObject
 {
+    public bool paragonSkill;
     public List<SkillCost> skillProgression;
     public int index { get; private set; }
 

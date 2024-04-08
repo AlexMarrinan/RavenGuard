@@ -7,11 +7,14 @@ using Unity.VisualScripting;
 using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
+using AYellowpaper.SerializedCollections;
+using Game.Hub.Interactables;
 public class UnitSelectionMenu : BaseMenu
 {
     public List<Image> selectedUnitImages;
     private List<BaseUnit> possibleUnits = new();
     private List<BaseUnit> selectedUnits = new();
+    [SerializeField] private SerializedDictionary<UnitClass, BaseUnit> paragonUnits;
     public TMP_Text headerText;
     public UnitSummaryMenu unitSummary;
     public void SetUnits(){
@@ -27,14 +30,26 @@ public class UnitSelectionMenu : BaseMenu
         }
         buttonIndex = 0;
         unitSummary.SetUnit(possibleUnits[buttonIndex]);
+        AddParagonUnit();
         SetText();
         SetHighlight();
     }
+
+    private void AddParagonUnit()
+    {
+        var info = SaveManager.instance.GetCurrentParagon();
+        Debug.Log(info);
+        //BaseUnit paragonUnit = Instantiate(paragonUnits[info.unitClass], UnitManager.instance.transform);
+        BaseUnit paragonUnit = paragonUnits[info.unitClass];
+        selectedUnitImages[0].sprite = paragonUnit.spriteRenderer.sprite;
+        selectedUnits.Add(paragonUnit);
+    }
+
     public override void Move(Vector2 direction)
     {
         base.Move(direction);
         unitSummary.SetUnit(possibleUnits[buttonIndex]);
-//        Debug.Log("moving!");
+//       Debug.Log("moving!");
     }
     public override void Select()
     {
@@ -52,8 +67,8 @@ public class UnitSelectionMenu : BaseMenu
         headerText.text = "Select " + (5-selectedUnits.Count) + " Units...";
     }
     public void UnselectUnit(){
-        if (selectedUnits.Count <= 0){
-            SceneManager.LoadScene("MainMenu");
+        if (selectedUnits.Count <= 1){
+            SceneManager.LoadScene("Town");
             return;
         }
         int index = selectedUnits.Count-1;

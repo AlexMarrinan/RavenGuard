@@ -47,6 +47,7 @@ public class BaseUnit : MonoBehaviour
     private AudioSource audioSource;
     public UnitDot uiDot;
     public int[] activeSkillCooldowns;
+    public SkillProgressionGroup paragonSkillProgression = null;
 
     void Start(){
         InitUnit();

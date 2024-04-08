@@ -23,6 +23,10 @@ namespace Game.Hub {
         private void Awake()
         {
             input = new CustomInput();
+            GameManager gameManger = FindObjectOfType<GameManager>();
+            if (gameManger != null){
+                Destroy(gameManger.gameObject);
+            }
         }
 
         private void OnEnable()

@@ -111,6 +111,10 @@ public class SaveManager: MonoBehaviour{
         playerData.currentParagon = paragonInfo;
         SaveData();
     }
+    
+    public ParagonInfo GetCurrentParagon(){
+        return playerData.currentParagon;
+    }
     public BaseSkill GetSkill(SkillProgressionGroup skillProgressionGroup){
         var upgrades = playerData.skillUpgrades;
         if (!upgrades.ContainsKey(skillProgressionGroup)){
