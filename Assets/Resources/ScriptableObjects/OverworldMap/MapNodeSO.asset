@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be5824bcf1adbee4a9db8dea2613b3dd, type: 3}
+  m_Name: MapNodeSO
+  m_EditorClassIdentifier: 
+  unclearedSprites:
+  - {fileID: 21300000, guid: 16d6bf26aace9b0429bc579ae5018e0e, type: 3}
+  - {fileID: 21300000, guid: 767e64bdee3f1824897637fab4b8085c, type: 3}
+  - {fileID: 21300000, guid: ef08cabaae8ecbc41bde0f27d0efa9de, type: 3}
+  - {fileID: 21300000, guid: 80be9e35c6903df4cbdd5b6a33a2c439, type: 3}
+  clearedSprites:
+  - {fileID: 21300000, guid: 16d6bf26aace9b0429bc579ae5018e0e, type: 3}
+  - {fileID: 21300000, guid: 24a7470ca757a00429454bf41f3197e6, type: 3}
+  - {fileID: 21300000, guid: f2d0083f31e6a8a4e91a74067f85ecaa, type: 3}
+  - {fileID: 21300000, guid: d5da4f09b8a67bd4b9ee14829e8c3be8, type: 3}
+  background:
+  - {r: 0.6431373, g: 0.6431373, b: 0.6431373, a: 1}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  - {r: 0.69803923, g: 0, b: 0, a: 1}
+  - {r: 1, g: 1, b: 1, a: 1}
