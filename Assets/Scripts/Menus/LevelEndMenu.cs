@@ -13,10 +13,8 @@ public class LevelEndMenu : BaseMenu
     public override void Reset()
     {
         base.Reset();
-        BaseSkill[] allSkills = Resources.LoadAll<BaseSkill>("Skills/");
         foreach (ItemButton ib in itemButtons){
-            int index = Random.Range(0, allSkills.Count());
-            BaseSkill randomSkill = allSkills[index];
+            BaseSkill randomSkill = SkillManager.instance.GetRandomSkill();
             ib.SetItem(randomSkill);
         }
         descriptionMenu.SetItem(itemButtons[buttonIndex].item);
