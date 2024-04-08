@@ -29,9 +29,7 @@ public class LevelChest : MonoBehaviour
         open = true;
          //TODO: GIVE PLAYER ITEMS FROM CHEST
         yield return new WaitForSeconds(0.5f);
-        BaseSkill[] allSkills = Resources.LoadAll<BaseSkill>("Skills/");
-        int index = Random.Range(0, allSkills.Count());
-        BaseSkill randomSkill = allSkills[index];
+        var randomSkill = SkillManager.instance.GetRandomSkill();
 
         itemSpriteRenderer.gameObject.SetActive(true);
         itemBGRSprite.gameObject.SetActive(true);

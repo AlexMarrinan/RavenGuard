@@ -39,7 +39,7 @@ namespace Hub.Blacksmith
         /// Updates the playerMoney text to match the playerBalance.
         /// </summary>
         /// <param name="playerBalance">How much money the player has.</param>
-        private void UpdatePlayerBalance(int playerBalance)
+        private void UpdateBalanceDisplay(int playerBalance)
         {
             playerMoney.text = playerBalance+"G";
         }
@@ -51,10 +51,11 @@ namespace Hub.Blacksmith
         /// </summary>
         /// <param name="upgradableSkill"></param>
         public void ConfirmSkillUpgrade(UpgradableSkill upgradableSkill)
-        {
-            UpgradableSkill skill= controller.ConfirmSkillUpgrade(upgradableSkill);
+        {            
+            SaveManager.instance.UpgradeSkill(upgradableSkill.group, upgradableSkill.next.skillLevel);
+            UpgradableSkill skill = controller.ConfirmSkillUpgrade(upgradableSkill);
             int money = controller.GetPlayerBalance();
-            UpdatePlayerBalance(money);
+            UpdateBalanceDisplay(money);
             UpdateSkillGameObject(upgradableSkill,skill);
             detailView.HideDetailView();
         }

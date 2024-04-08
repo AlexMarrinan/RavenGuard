@@ -21,6 +21,7 @@ namespace Buildings
         
         protected override void Interaction()
         {
+            Debug.Log("Interacted");
             onEnter.Invoke();
         }
 

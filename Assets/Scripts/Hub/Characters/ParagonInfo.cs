@@ -4,10 +4,14 @@ using UnityEngine;
 
 namespace Game.Hub.Interactables
 {
+    [CreateAssetMenu(fileName = "ParagonInfo", menuName = "ParagonInfo", order = 0)]
+
     [Serializable]
-    public struct ParagonInfo
+    public class ParagonInfo : ScriptableObject
     {
         public Sprite sprite;
         public SpeakerData speakerData;
+        public UnitClass unitClass;
+        public int cost;
     }
 }

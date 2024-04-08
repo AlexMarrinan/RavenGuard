@@ -130,6 +130,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Save",
+                    "type": "Button",
+                    "id": "fca97054-2968-4db2-8fcf-88a67357ccdf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Money",
+                    "type": "Button",
+                    "id": "474cca16-6a2a-4eed-b521-5b7848b94ee8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -433,7 +451,7 @@
                 {
                     "name": "",
                     "id": "52fd805d-f148-44ae-8979-7ce1c17c2c6f",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -444,7 +462,7 @@
                 {
                     "name": "",
                     "id": "324639de-e900-47cb-9403-fa89ada1b9b1",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -515,6 +533,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "MoveMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ce5a421d-c052-4540-964d-881590c59d5b",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Save",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d05777bb-1f78-496c-b1bf-5cbe5bf33ee0",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Money",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

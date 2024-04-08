@@ -6890,6 +6890,10 @@ MonoBehaviour:
   - {fileID: 2073973548}
   - {fileID: 1206768908}
   - {fileID: 1538856559}
+  paragonUnits:
+    _serializedList:
+    - Key: 2
+      Value: {fileID: 2450522220589349630, guid: 0e1b0e0d348efa34882480ce7656dd83, type: 3}
   headerText: {fileID: 1028610142}
   unitSummary: {fileID: 1907289974}
 --- !u!1 &1650139111
@@ -8313,7 +8317,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '[Start]/[Enter]: Confirm Unit Selection'
+  m_text: '[Start]/[ESC]: Confirm Unit Selection'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

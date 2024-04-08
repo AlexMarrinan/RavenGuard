@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cd98d65bd3b97c4409a4ae05860aa93d, type: 3}
   skillName: Whirlwind
+  skillLevel: 1
   description: Unit deals damage to nearby units based on [ unit's attack - target's
     defense ], including allies.
   menuIcon: {fileID: 21300000, guid: cd98d65bd3b97c4409a4ae05860aa93d, type: 3}
@@ -24,13 +25,15 @@ MonoBehaviour:
   rarity: 2
   skillType: 1
   skillRestrictions: 0
-  progressionGroup: {fileID: 11400000, guid: 233ffb0601a62a14684e49bd9d6c5ea1, type: 2}
+  progressionGroup: {fileID: 0}
   unitClass: 1
   weaponClass: 0
   centered: 0
   shape: 2
   range1: 3
   range2: 0
+  skillParam1: 0
+  skillParam2: 0
   tileMoveType: 2
   cooldown: 8
   activeSkillType: 0

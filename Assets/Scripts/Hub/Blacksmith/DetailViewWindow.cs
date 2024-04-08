@@ -28,7 +28,7 @@ namespace Hub.Blacksmith
         {
             skillData = skill;
             
-            skillName.text = skillData.skillName;
+            skillName.text = skillData.skillName + " " + SkillLevelString(skill.skillLevel);
             skillDesc.text = skillData.description;
             skillIcon.sprite = skillData.menuIcon;
             SetIcons();
@@ -52,6 +52,13 @@ namespace Hub.Blacksmith
                     skillMiniIcon[i].enabled = false;
                 }
             }
+        }
+        private string SkillLevelString(int level){
+            string str = "[";
+            for (int i = 0; i < level; i++){
+                str += "I";
+            }        
+            return str + "]";
         }
     }
 }

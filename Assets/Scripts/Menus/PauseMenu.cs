@@ -30,6 +30,7 @@ public class PauseMenu : BaseMenu
     }
     private void Quit(){
         Debug.Log("Quitting...");
-        SceneManager.LoadScene("MainMenu");
+        Application.Quit();
+        // SceneManager.LoadScene("MainMenu");
     }
 }

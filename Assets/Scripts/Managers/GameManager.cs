@@ -49,6 +49,9 @@ public class GameManager : MonoBehaviour
     //Change game state
     public void ChangeState(GameState newState){
         gameState = newState;
+        if (levelData == null){
+            return;
+        }
         if (levelData.startLevel){
 //            Debug.Log("Start level found!");
             MenuManager.instance.ToggleUnitSelectionMenu();
@@ -114,7 +117,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator LoadNextLevelAsync(){
         MenuManager.instance.ShowStartText("Loading level...", true);
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.25f);
         yield return SceneManager.LoadSceneAsync(levelData.nextLevelName);
         levelData = FindObjectOfType<LevelData>();
         // ChangeState(GameState.HeroesTurn);

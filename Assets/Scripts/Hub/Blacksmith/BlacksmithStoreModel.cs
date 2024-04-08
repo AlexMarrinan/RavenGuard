@@ -1,5 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
+using Mono.Cecil;
 using Skills;
+using UnityEditor;
 using UnityEngine;
 
 namespace Hub.Blacksmith
@@ -12,9 +15,12 @@ namespace Hub.Blacksmith
         public int playerBalance;
         public List<SkillProgression> skillProgressionList;
         public List<UpgradableSkill> upgradableSkills;
-
+        public List<SkillProgressionGroup> progressionGroups;
         #region Loading
 
+        public void Start(){
+
+        }
         /// <summary>
         /// Loads the upgradable skills from the skillProgressionList
         /// </summary>
@@ -22,9 +28,18 @@ namespace Hub.Blacksmith
         public List<UpgradableSkill> LoadUpgradableSkills()
         {
             List<UpgradableSkill> skills = new List<UpgradableSkill>();
-            foreach (SkillProgression skillGroup in skillProgressionList)
+            skillProgressionList = new();
+            progressionGroups = Resources.LoadAll<SkillProgressionGroup>("Skills/Progression Groups/").ToList();
+
+            foreach (SkillProgressionGroup group in progressionGroups)
             {
-                UpgradableSkill skill = GetUpgradableSkill(skillGroup.progressionGroup,skillGroup.index);
+                int skillLevel = SaveManager.instance.GetSkillLevel(group);
+                if (skillLevel >= group.skillProgression.Count - 1){
+                    continue;
+                }
+                skillProgressionList.Add(new(group, skillLevel));
+                Debug.Log(group);
+                UpgradableSkill skill = GetUpgradableSkill(group,skillLevel);
                 if(skill!=null) skills.Add(skill);
             }
 
@@ -46,8 +61,8 @@ namespace Hub.Blacksmith
             if (currentSkillIndex < skillGroup.skillProgression.Count)
             {
                 BaseSkill currentSkill= skillCosts[currentSkillIndex].skill;
-                SkillCost newSkill = skillGroup.skillProgression[currentSkillIndex + 1];
-                return new UpgradableSkill(newSkill.cost,currentSkillIndex + 1,currentSkill,newSkill.skill);
+                SkillCost newSkill = skillGroup.skillProgression[currentSkillIndex+1];
+                return new UpgradableSkill(newSkill.cost,currentSkillIndex,currentSkill,newSkill.skill, skillGroup);
             }
 
             return null;
@@ -113,12 +128,10 @@ namespace Hub.Blacksmith
             {
                 BaseSkill currentSkill = skillProgression.GetCurrentSkillCost().skill;
                 SkillCost skillCost = skillProgression.GetNextSkillCost();
-                return new UpgradableSkill(skillCost.cost,skillProgression.index, currentSkill, skillCost.skill);
+                return new UpgradableSkill(skillCost.cost,skillProgression.index, currentSkill, skillCost.skill, skillProgression.progressionGroup);
             }
             RemoveSkill(skillProgression);
             return null;
         }
-        
-        
     }
 }

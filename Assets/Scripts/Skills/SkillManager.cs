@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class SkillManager : MonoBehaviour
 {
     public Vector2 useDirection = Vector2.right;
+    public List<BaseSkill> allSkills;
     public static SkillManager instance;
     public bool selectingSkill = false;
     public bool skillFailed = false;
@@ -17,6 +19,15 @@ public class SkillManager : MonoBehaviour
     public Color activeSkillColor, passiveSkillColor;
     public void Awake(){
         instance = this;
+        LoadSkills();
+    }
+    public void LoadSkills(){
+        allSkills = new();
+        var progressionGroups = Resources.LoadAll<SkillProgressionGroup>("Skills/Progression Groups/");
+        foreach (SkillProgressionGroup group in progressionGroups){
+            int level = SaveManager.instance.GetSkillLevel(group);
+            allSkills.Add(group.skillProgression[level].skill);
+        }
     }
 
     public void ShowSkillPreview(){
@@ -40,6 +51,10 @@ public class SkillManager : MonoBehaviour
             t.SetSkillMove(true, user.occupiedTile);
             
         }
+    }
+    public BaseSkill GetRandomSkill(){
+        int index = UnityEngine.Random.Range(0, allSkills.Count);
+        return allSkills[index];
     }
     private TileMoveType GetSkillMoveType(BaseTile tile){
         var activeSkill = currentActiveSkill as ActiveSkill;
