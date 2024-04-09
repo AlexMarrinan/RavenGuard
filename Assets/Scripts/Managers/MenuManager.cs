@@ -118,7 +118,7 @@ public class MenuManager : MonoBehaviour
         selectedObject.SetActive(false);
     }
 
-    public void ShowStartText(string text, bool forever){
+    public void ShowStartText(string text, bool forever=false){
         turnStartText.transform.SetAsLastSibling();
         turnStartText.text = text;
         turnStartText.alpha = 1.0f;

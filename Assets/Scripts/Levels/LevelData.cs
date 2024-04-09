@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class LevelData: MonoBehaviour {
     //public int nextSceneID;
-    public string nextLevelName;
     public bool startLevel;
     public int numberOfEnemies;
     public static bool hasStarted = false;

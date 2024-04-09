@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public GameState startState;
     public LevelData levelData;
     public bool levelFinished = false;
+    public List<string> levelNames;
     // Start is called before the first frame update
     void Awake(){
         if (instance != null){
@@ -115,29 +116,49 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadNextLevelAsync(){
-        MenuManager.instance.ShowStartText("Loading level...", true);
-        yield return new WaitForSeconds(0.25f);
-        yield return SceneManager.LoadSceneAsync(levelData.nextLevelName);
-        levelData = FindObjectOfType<LevelData>();
-        // ChangeState(GameState.HeroesTurn);
-        GridManager.instance.GenerateGrid();
-        TurnManager.instance.BeginHeroTurn();
+    private IEnumerator LoadLevelAsync(string newScene){
+        levelFinished = false;
+        Debug.Log(newScene);
+        MenuManager.instance.CloseMenus();
+        MenuManager.instance.ShowStartText("Loading...", true);
+        yield return new WaitForSeconds(0.1f);
+        yield return SceneManager.LoadSceneAsync(newScene);
+        if (newScene != "OverworldMap"){
+            levelData = FindObjectOfType<LevelData>();
+            GridManager.instance.GenerateGrid();
+            TurnManager.instance.BeginHeroTurn();
+            yield return null;
+        }
         yield return null;
         //mainCamera = FindObjectOfType<Camera>();
     }
 
-    public void LoadNextLevel()
+    public void LoadOverworldMap()
     {
-        levelFinished = false;
-        MenuManager.instance.CloseMenus();
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);
         }
         foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
             unit.health = unit.maxHealth;
         }
-        StartCoroutine(LoadNextLevelAsync());
+        UnitManager.instance.ShowUnitHealthbars(false);
+        MenuManager.instance.CloseMenus();
+        OverworldMapManager.instance.ShowMap();
+    }
+    public void LoadCombatLevel()
+    {
+        OverworldMapManager.instance.ShowMap(false);
+        string levelName = GetRandomLevelName();
+        StartCoroutine(LoadLevelAsync(levelName));
+    }
+    public void LoadShopLevel()
+    {
+       //TODO: ADD SHOP !!!
+    }
+
+    private string GetRandomLevelName(){
+        int index = UnityEngine.Random.Range(0, levelNames.Count);
+        return levelNames[index];
     }
 }
 

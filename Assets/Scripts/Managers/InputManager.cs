@@ -35,6 +35,7 @@ public class InputManager : MonoBehaviour
         }
     }
     private void Move(){
+
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
@@ -52,7 +53,10 @@ public class InputManager : MonoBehaviour
             MenuManager.instance.Move(moveVector);
             return;
         }
-
+        if (OverworldMapManager.instance.InOverworldMap()){
+            OverworldMapManager.instance.Move(moveVector);
+            return;
+        }
         GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnEnable() {
@@ -177,6 +181,10 @@ public class InputManager : MonoBehaviour
             MenuManager.instance.Select();
             return;
         }
+        if (OverworldMapManager.instance.InOverworldMap()){
+            OverworldMapManager.instance.Select();
+            return;
+        }
         if (GridManager.instance.hoveredTile.occupiedUnit != null 
         && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
         && MenuManager.instance.menuState != MenuState.UnitAction
@@ -188,7 +196,6 @@ public class InputManager : MonoBehaviour
             SkillManager.instance.Select();
             return;
         }
-
         GameManager.instance.SetUsingMouse(false);
         GridManager.instance.SelectHoveredTile();
     }
@@ -262,7 +269,7 @@ public class InputManager : MonoBehaviour
         if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.swapping){
             MenuManager.instance.DisableInventorySwapping();
             MenuManager.instance.CloseMenus();
-            GameManager.instance.LoadNextLevel();
+            GameManager.instance.LoadOverworldMap();
             return;
         }
         if (MenuManager.instance.menuState == MenuState.LevelEnd){

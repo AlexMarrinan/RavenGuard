@@ -82,6 +82,6 @@ public class UnitSelectionMenu : BaseMenu
             var newUnit = Instantiate(u, UnitManager.instance.transform);
             UnitManager.instance.units.Add(newUnit);
         }
-        GameManager.instance.LoadNextLevel();
+        OverworldMapManager.instance.StartMap();
     }
 }
