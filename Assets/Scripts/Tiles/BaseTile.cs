@@ -168,7 +168,6 @@ public abstract class BaseTile : MonoBehaviour
 
         var path = PathLine.instance.GetPath();
 
-        path[0].PlayMoveParticles(); // Play particles on current tile; a bit scuffed
         yield return UnitManager.instance.AnimateUnitMove(unit, path, turnOver);
     }
 
