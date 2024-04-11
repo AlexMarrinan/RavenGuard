@@ -22,6 +22,11 @@ public class BattleSceneManager : MonoBehaviour
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
     public BattlePrediction prediction;
     public bool waitForXP = false;
+
+    public int normalHitParticleRate = 400;
+    public int bigHitParticleRate;
+    public int fatalHitParticleRate;
+
     void Awake()
     {
         instance = this;
@@ -130,16 +135,20 @@ public class BattleSceneManager : MonoBehaviour
             //fatal blow
             HitRecoil(damaged, 4f);
             damaged.spriteRenderer.color = new Color(1f, 0.15f, 0.15f);
+            damaged.PlayHitParticles(2);
         }
         else if (newHealth < health){
             if (newHealth*1.5 < health){
                 //Big Hit
                 HitRecoil(damaged, 2f);
                 StartCoroutine(HitColor(damaged, 2.5f));
-            }else{
+                damaged.PlayHitParticles(1);
+            }
+            else{
                 //Normal hit
                 HitRecoil(damaged, 1f);
                 StartCoroutine(HitColor(damaged, 1.25f));
+                damaged.PlayHitParticles(0);
             }
         }
     }
