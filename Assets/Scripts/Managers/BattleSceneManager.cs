@@ -133,7 +133,7 @@ public class BattleSceneManager : MonoBehaviour
         }
         else if (newHealth <= 0){
             //fatal blow
-            HitRecoil(damaged, 4f);
+            HitRecoil(damaged, 2.5f);
             damaged.spriteRenderer.color = new Color(1f, 0.15f, 0.15f);
             damaged.PlayHitParticles(2);
         }
@@ -213,6 +213,20 @@ public class BattleSceneManager : MonoBehaviour
     }
     IEnumerator EndAnimationDeath(BattleUnit killed, float v){
         //TODO: ACTUAL KILL ANIMATION
+        SpriteRenderer unitSprite = killed.spriteRenderer;
+
+        killed.PlayDeathParticles();
+        while (true) { // Death fade-out
+            Color spriteColor = unitSprite.color;
+            float alpha = spriteColor.a - 0.1f;
+            unitSprite.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
+
+            if (alpha <= 0) {
+                break;
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+        killed.StopDeathParticles();
         killed.Hide();        
         yield return new WaitForSeconds(v);
         OnBattlEnd();

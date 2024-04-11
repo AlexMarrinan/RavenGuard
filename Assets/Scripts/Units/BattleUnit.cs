@@ -76,4 +76,12 @@ public class BattleUnit : MonoBehaviour
         hitParticles.Play();
     }
 
+    public void PlayDeathParticles() {
+        particleSystems[3].Play();
+    }
+
+    public void StopDeathParticles() {
+        particleSystems[3].Stop();
+    }
+
 }
