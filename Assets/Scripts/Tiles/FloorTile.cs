@@ -11,6 +11,7 @@ public class FloorTile : BaseTile
     }
     public override void Init(int x, int y)
     {
+        base.Init(x, y);
         bgSprite.color = IsOffset(x, y) ? offsetColor : baseColor;
     }
     private bool IsOffset(int x, int y){
