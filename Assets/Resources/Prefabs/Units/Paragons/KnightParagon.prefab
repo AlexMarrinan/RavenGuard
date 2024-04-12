@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: 2450522220589349630}
-  - component: {fileID: -1318800649977114410}
+  - component: {fileID: 1602817899114489199}
+  - component: {fileID: 1194301016362721627}
   m_Layer: 0
-  m_Name: Knight Paragon
+  m_Name: KnightParagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -624899550, guid: 61dee061dcc567040a4388f8c8f9a470, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d2a26848226006343ba1bb770a58458f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2450522220589349630
+--- !u!114 &1602817899114489199
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,27 +95,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746290447937580278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 436e64aeb3c27a94cbab0f0e7f16f915, type: 3}
+  m_Script: {fileID: 11500000, guid: dcf1f64db6caed948acc337443f5e6ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Rogue Guardsman
+  unitName: Rogue Hunter
   occupiedTile: {fileID: 0}
   faction: 0
   unitClass: 2
-  moveAmount: 4
-  maxMoveAmount: 4
+  moveAmount: 5
+  maxMoveAmount: 5
   health: 10
   maxHealth: 10
   currentXP: 0
   maxXP: 100
-  droppedXP: 100
-  level: 1
+  droppedXP: 125
+  level: 2
   hasMoved: 0
-  attack: 2
-  defense: 4
-  agility: 2
-  attunment: 1
-  foresight: 2
+  attack: 7
+  defense: 2
+  agility: 5
+  attunment: 4
+  foresight: 3
   luck: 2
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
@@ -123,17 +123,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
+  weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: 845406a27aa73ba4db91b54ce1580c92, type: 2}
+  animatorController: {fileID: 9100000, guid: a4a9103f9acf4a847a3f9af4edd492b7, type: 2}
   buffs: []
-  audioSource: {fileID: -1318800649977114410}
+  audioSource: {fileID: 1194301016362721627}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 11400000, guid: fa5a8b00b4c3f91418c69470769c0442, type: 2}
-  meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
-  meleeWeaponClass: 0
---- !u!82 &-1318800649977114410
+  rangedWeapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
+  rangedWeaponClass: 0
+--- !u!82 &1194301016362721627
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 98e766b04e0c9e743a4addc2f26721ad, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8696cd951f264b542bd4d17f1d541c04, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

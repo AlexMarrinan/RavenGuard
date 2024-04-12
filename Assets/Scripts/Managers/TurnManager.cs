@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class TurnManager : MonoBehaviour
         UnitManager.instance.ResetUnitMovment();
         unitsAwaitingOrders = UnitManager.instance.GetAllHeroes();
         if (unitsAwaitingOrders.Count <= 0){
-            MenuManager.instance.ShowStartText("GAME OVER", true);
+            OnGameOver();
             return;
         }
         BaseUnit firstHero = unitsAwaitingOrders[0];
@@ -46,6 +47,11 @@ public class TurnManager : MonoBehaviour
         GridManager.instance.SetHoveredTile(firstHero.occupiedTile);
         UnitManager.instance.DescrementBuffs(UnitFaction.Hero);
         UnitManager.instance.OnTurnStartSkills(UnitFaction.Hero);
+    }
+    public void OnGameOver(){
+        MenuManager.instance.ShowStartText("GAME OVER", true);
+        SceneManager.LoadScene("Town");
+        return;
     }
 
     public void BeginEnemyTurn(){
@@ -305,7 +311,6 @@ public class TurnManager : MonoBehaviour
     }
     private void GoToUnit(int offset){
         if (UnitManager.instance.GetAllEnemies().Count <= 0){
-            MenuManager.instance.ToggleLevelEndMenu();
             return;
         }
         if (GameManager.instance.gameState != GameState.HeroesTurn){
@@ -323,6 +328,7 @@ public class TurnManager : MonoBehaviour
     public void OnUnitDone(BaseUnit previous){
         MenuManager.instance.menuState = MenuState.None;
         if (previous.faction == UnitFaction.Enemy){
+            OnStageClear();
             return;
         }
         unitsAwaitingOrders.Remove(previous);
@@ -337,7 +343,11 @@ public class TurnManager : MonoBehaviour
         GridManager.instance.SetHoveredTile(unitsAwaitingOrders[0].occupiedTile);
         //GridManager.instance.SelectHoveredTile();
     }
-
+    public void OnStageClear(){
+        MenuManager.instance.CloseMenus();
+        MenuManager.instance.ToggleLevelEndMenu();
+        SaveManager.instance.AddCopperCoins(100);
+    }
     public void SetPreviousUnit(BaseUnit u){
         previousUnit = u;
     }

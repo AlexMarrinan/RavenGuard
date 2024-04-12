@@ -18,8 +18,7 @@ public class PauseMenu : BaseMenu
         MenuManager.instance.TogglePauseMenu();
     }
     private void SkipeTurn(){
-        MenuManager.instance.TogglePauseMenu();
-        MenuManager.instance.ToggleLevelEndMenu();
+        TurnManager.instance.OnStageClear();
         return;
         MenuManager.instance.TogglePauseMenu();
         if (GameManager.instance.gameState == GameState.EnemiesTurn){

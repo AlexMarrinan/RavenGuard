@@ -21,7 +21,9 @@ public class SaveManager: MonoBehaviour{
         instance = this;
         LoadData();
         PlayerCharacter pc = FindObjectOfType<PlayerCharacter>();
-        pc.SetParagonInfo(playerData.currentParagon);
+        if (pc != null){
+            pc.SetParagonInfo(playerData.currentParagon);
+        }
         
         List<ParagonInfo> paragonsOwned = playerData.paragonsOwned;
         int paragonIndex = 0;
@@ -29,6 +31,9 @@ public class SaveManager: MonoBehaviour{
         fountainParagons.ForEach(p => p.gameObject.SetActive(false));
         shopParagons.ForEach(p => p.gameObject.SetActive(true));
 
+        if (fountainParagons.Count <= 0){
+            return;
+        }
         foreach (ParagonInfo pInfo in paragonsOwned){
             Debug.Log(pInfo);
             Debug.Log(playerData.currentParagon);

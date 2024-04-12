@@ -14440,7 +14440,7 @@ PrefabInstance:
     - target: {fileID: 2583403767058611789, guid: fc8b8e01235ed834eb6c7af69390b073, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -1027908560, guid: f47efac6f611b4742be02e02c50dfe85, type: 3}
+      objectReference: {fileID: 21300000, guid: d2a26848226006343ba1bb770a58458f, type: 3}
     - target: {fileID: 2583403767058611791, guid: fc8b8e01235ed834eb6c7af69390b073, type: 3}
       propertyPath: playerParagonInfo
       value: 
