@@ -130,7 +130,7 @@ MonoBehaviour:
   audioSource: {fileID: -1318800649977114410}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
-  paragonSkillProgression: {fileID: 11400000, guid: b9f83bb94263d7947816608d68ab5709, type: 2}
+  paragonSkillProgression: {fileID: 11400000, guid: fa5a8b00b4c3f91418c69470769c0442, type: 2}
   meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
   meleeWeaponClass: 0
 --- !u!82 &-1318800649977114410

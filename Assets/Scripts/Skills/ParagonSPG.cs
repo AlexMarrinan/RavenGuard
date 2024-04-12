@@ -6,7 +6,7 @@ using UnityEngine;
 
 [Serializable]
 [CreateAssetMenu(fileName = "Paragon Skill Group", menuName = "Skill/Paragon Group", order = 0)]
-public class PargonSPG : ScriptableObject
+public class ParagonSPG : ScriptableObject
 {
     public List<ParagonSP> skillProgression;
 }
