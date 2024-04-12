@@ -324,6 +324,48 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+
+    //CAV PARAGON SKILLS
+
+
+    //KNIGHT PARAGON SKILLS
+    public void SecondWindPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        if (u.usedSkills.ContainsKey("SecondWind")){
+            return;
+        }
+        if (u.health <= u.maxHealth * 1 / 4){
+            u.health += u.maxHealth * 4 / 10;
+            u.usedSkills["SecondWind"] = 1;
+        }
+    }
+    public void DefensiveRallyPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("DefensiveRally", UnitStatType.Defense, 3, 3, 3, 1);
+            }
+        }
+    }
+    // public void KnightsTestudoPS(BaseUnit u){
+    //     //ONLY USE SKILL ONCE PER STAGE
+    //     var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+    //     foreach (BaseUnit unit in units){
+    //         if (u == unit){
+    //             continue;
+    //         }
+    //         float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+    //         if (distance <= 3 && unit.unitClass == UnitClass.Knight){
+                
+    //         }
+    //     }
+    // }
+
     internal void Move(Vector2 moveVector)
     {
         AudioManager.instance.PlayMove();

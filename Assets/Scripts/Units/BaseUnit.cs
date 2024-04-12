@@ -46,8 +46,9 @@ public class BaseUnit : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     public UnitDot uiDot;
-    public int[] activeSkillCooldowns;
-    public SkillProgressionGroup paragonSkillProgression = null;
+    public List<int> activeSkillCooldowns;
+    public PargonSPG paragonSkillProgression;
+    public Dictionary<string, int> usedSkills;
 
     void Start(){
         InitUnit();
@@ -56,6 +57,7 @@ public class BaseUnit : MonoBehaviour
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
         buffs = new();
+        usedSkills = new();
         ResetCooldowns();    
         ResetCombatStats();
         InitializeFaction();
@@ -74,7 +76,7 @@ public class BaseUnit : MonoBehaviour
         }
     }
     public void ResetCooldowns(){
-        activeSkillCooldowns = new int[3] {0, 0, 0};
+        activeSkillCooldowns = new int[3] {0, 0, 0}.ToList();
     }
     public void ResetCombatStats(){
         foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
@@ -741,6 +743,16 @@ public class BaseUnit : MonoBehaviour
                 return;
             }
         }
+    }
+
+    internal void Reset()
+    {
+            health = maxHealth;
+            Cleanse();
+            skillStatChanges.Clear();
+            tempStatChanges.Clear();
+            activeSkillCooldowns.Clear();
+            usedSkills.Clear();
     }
 }
 

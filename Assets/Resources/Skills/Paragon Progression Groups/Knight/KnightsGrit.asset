@@ -9,14 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
-  m_Name: KnightPS I
+  m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
+  m_Name: KnightsGrit
   m_EditorClassIdentifier: 
   sprite: {fileID: -624899550, guid: 61dee061dcc567040a4388f8c8f9a470, type: 3}
-  skillName: KnightP
+  skillName: KnightsGrit
   skillLevel: 1
-  description: Knight  paragon skill 1
-  menuIcon: {fileID: -624899550, guid: 61dee061dcc567040a4388f8c8f9a470, type: 3}
+  description: 'Unit can counterattack regardless of foe''s range. '
+  menuIcon: {fileID: 0}
   skillIcons: []
   rarity: 0
   skillType: 0
@@ -32,3 +32,11 @@ MonoBehaviour:
   skillParam2: 0
   tileMoveType: 0
   passiveSkillType: 0
+  atributes:
+  - condition:
+      variable: 15
+      comparator: 0
+      value: 1
+    action:
+      type: 2
+      value: 1

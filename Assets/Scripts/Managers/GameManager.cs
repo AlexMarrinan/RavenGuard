@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
             UnitManager.instance.DeleteUnit(unit, false);
         }
         foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
-            unit.health = unit.maxHealth;
+            unit.Reset();
         }
         UnitManager.instance.ShowUnitHealthbars(false);
         MenuManager.instance.CloseMenus();

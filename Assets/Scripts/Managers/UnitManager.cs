@@ -154,7 +154,7 @@ public class UnitManager : MonoBehaviour
         }
         RemoveAllValidMoves();
     }
-    private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
+    public List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         var wantedUnits = units.Where(u => u.faction == faction).ToList();
         // Debug.Log(faction + ": " + wantedUnits.Count);
         return wantedUnits;
