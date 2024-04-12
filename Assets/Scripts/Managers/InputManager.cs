@@ -346,10 +346,6 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
-        if (MenuManager.instance.inventoryMenu.swapping){
-            //DSIABLED AT END OF LEVEL, CAN ONLY TOGGLE DURING NORMAL GAMEPLAY
-            return;
-        }
         if (MenuManager.instance.menuState == MenuState.Battle){
             return;
         }

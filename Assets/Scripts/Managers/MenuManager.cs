@@ -197,11 +197,9 @@ public class MenuManager : MonoBehaviour
     }
     public void EnableInventorySwapping(){
         inventoryMenu.swapping = true;
-        inventoryMenu.continutePrompt.SetActive(true);
     }
     public void DisableInventorySwapping(){
         inventoryMenu.swapping = false;
-        inventoryMenu.continutePrompt.SetActive(false);
     }
     public void ToggleLevelEndMenu()
     {

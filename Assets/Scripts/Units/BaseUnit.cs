@@ -58,6 +58,7 @@ public class BaseUnit : MonoBehaviour
         attackEffect = AttackEffect.None;
         buffs = new();
         usedSkills = new();
+        tempStatChanges = new();
         ResetCooldowns();    
         ResetCombatStats();
         InitializeFaction();

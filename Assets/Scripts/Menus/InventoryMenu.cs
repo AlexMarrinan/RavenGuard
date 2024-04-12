@@ -21,7 +21,7 @@ public class InventoryMenu : BaseMenu
     public BaseItem hoveredItem;
     public ItemButton hoveredItemButton;
     public DescriptionMenu descriptionMenu;
-    internal bool swapping;
+    public bool swapping;
 
     public override void Move(Vector2 direction)
     {
@@ -62,7 +62,6 @@ public class InventoryMenu : BaseMenu
     public override void Reset()
     {
         SetNameText();
-        swapping = false;
         hoveredItemButton.Reset();
         this.xCount = 4;
         this.yCount = UnitManager.instance.GetAllHeroes().Count;

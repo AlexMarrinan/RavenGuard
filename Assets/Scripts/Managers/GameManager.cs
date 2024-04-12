@@ -144,9 +144,12 @@ public class GameManager : MonoBehaviour
         UnitManager.instance.ShowUnitHealthbars(false);
         MenuManager.instance.CloseMenus();
         OverworldMapManager.instance.ShowMap();
+        MenuManager.instance.EnableInventorySwapping();
+
     }
     public void LoadCombatLevel()
     {
+        MenuManager.instance.DisableInventorySwapping();
         OverworldMapManager.instance.ShowMap(false);
         string levelName = GetRandomLevelName();
         StartCoroutine(LoadLevelAsync(levelName));
