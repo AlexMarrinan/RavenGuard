@@ -327,7 +327,7 @@ public class TurnManager : MonoBehaviour
     }
     public void OnUnitDone(BaseUnit previous){
         MenuManager.instance.menuState = MenuState.None;
-        if (previous.faction == UnitFaction.Enemy){
+        if (UnitManager.instance.GetAllEnemies().Count() <= 0){
             OnStageClear();
             return;
         }
