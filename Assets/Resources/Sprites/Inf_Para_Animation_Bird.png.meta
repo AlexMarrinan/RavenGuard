@@ -1,0 +1,848 @@
+fileFormatVersion: 2
+guid: 83724f2ecfb1f5e459e222ea4c0c3986
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 380
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ee1295824cf6a41b1768cdbcb0b648
+      internalID: -480464844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_1
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 380
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d4bae8234e92274581d3e7925ab783a
+      internalID: -856811595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_2
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 380
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a285a3a024747ef49a3db1684c0d2913
+      internalID: -1179887887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 380
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 195ad57288362c3489ce8197a098d78b
+      internalID: 1564837695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_4
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 380
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7300931fb5379eb4da2d9052212a6f06
+      internalID: 1710827467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_5
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 380
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bae41a9431fbb742b89c6d7a45f63b9
+      internalID: 907970065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_6
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 304
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d0f7e85394ebd949b545c8db3e71b28
+      internalID: -1823486698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_7
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 304
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e0a088f875b39a46b87bf64674ad687
+      internalID: -631636603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_8
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 304
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 843d6e14beaeea348bea06707f325ed4
+      internalID: 730087332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_9
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 304
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9228d98ab11c0ca44ac1eb08608cb7e5
+      internalID: -1073184148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_10
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 304
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 899b6833616faea41a1bd6bf533f86a5
+      internalID: 2019199422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_11
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 304
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990643c991c94104b9583cb02e529b21
+      internalID: -1015345495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 228
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62684647e62b12a4ca542ede33513f42
+      internalID: -1091500017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_13
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 228
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97c4cb92d506d634b9c89df3333262af
+      internalID: 1729821844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_14
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 228
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b012f76470c81274aa37daed93ab98e3
+      internalID: -1115785245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_15
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 228
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdd05d60caabf6f4aae4f44d4f5735ee
+      internalID: -1685394963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_16
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 228
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 872254650a8f1894c9294a407265f724
+      internalID: -119011117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_17
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 228
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35116d5721cb9024e946682e6cbcd693
+      internalID: -757405899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_18
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 152
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b82c990be97bc447bbac28ebca284d6
+      internalID: -336936103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_19
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 152
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b7134b6405eec44bb42ba7e5e64fe53
+      internalID: -633364637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_20
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 152
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c447d65e8520ea459872b873bd9db39
+      internalID: 2091729992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_21
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 152
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84ffde9567d74c14f9985b232b01e7a3
+      internalID: -530752969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_22
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 152
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6907664c79d7f7244b56cc7f57da92c5
+      internalID: 1443569336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_23
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 152
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02a3e49f83adf1b47b51c92cb1fd95b2
+      internalID: 444598104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_24
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 76
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d9f5103d3d791e408b0f0f715f34f86
+      internalID: -1775648036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_25
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 76
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 785ee5b0bbcbe5844a15374b0fe71ad1
+      internalID: -2074193660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_26
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 76
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c53898ee7a27d9c4887792631cd7a812
+      internalID: 1690439066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_27
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 76
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc370d24f66c9a14db2ee1bfb2c59c1f
+      internalID: -796282266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_28
+      rect:
+        serializedVersion: 2
+        x: 432
+        y: 76
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c08ca1672b9fb14a89d744e11036bb6
+      internalID: 2123076179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_29
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 76
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74bcadd92f9f6464890957ce8a62c6ef
+      internalID: 354156609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6c20324a077c7b4d84c57ea64ea305d
+      internalID: 1456158663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_31
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 0
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e77ad0d8b7d2e348bdbd7a8db390303
+      internalID: 1932472533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Inf_Para_Animation_Bird_32
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 0
+        width: 108
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06bcfb8324598ce41bfee45397fd7be5
+      internalID: -1298879754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Inf_Para_Animation_Bird_27: -796282266
+      Inf_Para_Animation_Bird_28: 2123076179
+      Inf_Para_Animation_Bird_6: -1823486698
+      Inf_Para_Animation_Bird_11: -1015345495
+      Inf_Para_Animation_Bird_21: -530752969
+      Inf_Para_Animation_Bird_26: 1690439066
+      Inf_Para_Animation_Bird_0: -480464844
+      Inf_Para_Animation_Bird_14: -1115785245
+      Inf_Para_Animation_Bird_31: 1932472533
+      Inf_Para_Animation_Bird_20: 2091729992
+      Inf_Para_Animation_Bird_18: -336936103
+      Inf_Para_Animation_Bird_15: -1685394963
+      Inf_Para_Animation_Bird_23: 444598104
+      Inf_Para_Animation_Bird_30: 1456158663
+      Inf_Para_Animation_Bird_1: -856811595
+      Inf_Para_Animation_Bird_9: -1073184148
+      Inf_Para_Animation_Bird_4: 1710827467
+      Inf_Para_Animation_Bird_12: -1091500017
+      Inf_Para_Animation_Bird_24: -1775648036
+      Inf_Para_Animation_Bird_10: 2019199422
+      Inf_Para_Animation_Bird_17: -757405899
+      Inf_Para_Animation_Bird_8: 730087332
+      Inf_Para_Animation_Bird_16: -119011117
+      Inf_Para_Animation_Bird_5: 907970065
+      Inf_Para_Animation_Bird_3: 1564837695
+      Inf_Para_Animation_Bird_7: -631636603
+      Inf_Para_Animation_Bird_22: 1443569336
+      Inf_Para_Animation_Bird_29: 354156609
+      Inf_Para_Animation_Bird_19: -633364637
+      Inf_Para_Animation_Bird_25: -2074193660
+      Inf_Para_Animation_Bird_2: -1179887887
+      Inf_Para_Animation_Bird_32: -1298879754
+      Inf_Para_Animation_Bird_13: 1729821844
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
