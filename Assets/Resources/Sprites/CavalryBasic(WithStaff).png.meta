@@ -69,7 +69,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 1
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -118,8 +118,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd6069c669e071044810850d637a358f
-      internalID: 173165323
+      spriteID: 25a023ee9ad4db74fba76dea1a3fade5
+      internalID: -1123526887
       vertices: []
       indices: 
       edges: []
@@ -139,8 +139,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4765bf79d74a7f64d99a6af19436131e
-      internalID: -567870799
+      spriteID: 7ad8740f4804e9741a25823b8f663824
+      internalID: 982289106
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ec1536a46f441c94d9a7371ab6be58e7
-      internalID: -1116173422
+      spriteID: 5d35949a3914a7a489519dd6636e96b0
+      internalID: -97915540
       vertices: []
       indices: 
       edges: []
@@ -181,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b934d50fc7199aa4cb9d9605b51d9820
-      internalID: -372330652
+      spriteID: e1c4f298763991f4b9bdf7ed83d6dded
+      internalID: 797410758
       vertices: []
       indices: 
       edges: []
@@ -202,8 +202,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a83b82b42b3f87c4abe397376375fde0
-      internalID: 480783860
+      spriteID: c7ae3fcbbe90f7042a1ec7fac375c9d3
+      internalID: -2004202183
       vertices: []
       indices: 
       edges: []
@@ -223,8 +223,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1e438abbfbc74c44dad0dafcfeda6353
-      internalID: -1684770124
+      spriteID: afa7f3c0ab6619949a8f7f0f7467673a
+      internalID: 1262836746
       vertices: []
       indices: 
       edges: []
@@ -244,8 +244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 04273fc3f983fbd4b8c4ec39202a1f19
-      internalID: -2083892102
+      spriteID: 63b7020f76aa6c740aafef73b2af3313
+      internalID: 986421578
       vertices: []
       indices: 
       edges: []
@@ -265,8 +265,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aea19a2ea170d344bb576b86a58f617d
-      internalID: 1246576669
+      spriteID: 5749ed78e50186442a5bf93800c6de1a
+      internalID: 925941965
       vertices: []
       indices: 
       edges: []
@@ -286,8 +286,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0a9eda9b189f62499c37aa32a22aaa2
-      internalID: 921871183
+      spriteID: f7d843fba859fc749b43628cc32140d3
+      internalID: 965669968
       vertices: []
       indices: 
       edges: []
@@ -303,15 +303,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CavalryBasic(WithStaff)_7: 1246576669
-      CavalryBasic(WithStaff)_0: 173165323
-      CavalryBasic(WithStaff)_8: 921871183
-      CavalryBasic(WithStaff)_1: -567870799
-      CavalryBasic(WithStaff)_3: -372330652
-      CavalryBasic(WithStaff)_4: 480783860
-      CavalryBasic(WithStaff)_6: -2083892102
-      CavalryBasic(WithStaff)_2: -1116173422
-      CavalryBasic(WithStaff)_5: -1684770124
+      CavalryBasic(WithStaff)_7: 925941965
+      CavalryBasic(WithStaff)_0: -1123526887
+      CavalryBasic(WithStaff)_8: 965669968
+      CavalryBasic(WithStaff)_1: 982289106
+      CavalryBasic(WithStaff)_3: 797410758
+      CavalryBasic(WithStaff)_4: -2004202183
+      CavalryBasic(WithStaff)_6: 986421578
+      CavalryBasic(WithStaff)_2: -97915540
+      CavalryBasic(WithStaff)_5: 1262836746
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
