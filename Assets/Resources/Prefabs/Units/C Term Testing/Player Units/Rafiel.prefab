@@ -108,6 +108,7 @@ MonoBehaviour:
   maxHealth: 15
   currentXP: 0
   maxXP: 100
+  droppedXP: 100
   level: 1
   hasMoved: 0
   attack: 3
@@ -128,6 +129,7 @@ MonoBehaviour:
   buffs: []
   audioSource: {fileID: 2338284157441132107}
   uiDot: {fileID: 0}
+  activeSkillCooldowns: 
   meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
   meleeWeaponClass: 0
 --- !u!82 &2338284157441132107

@@ -28,11 +28,14 @@ public abstract class BaseTile : MonoBehaviour
     public LevelChest attachedChest;
     public SpawnFaction spawnTeam;
     public bool spawnChest;
+
+    private ParticleSystem[] moveParticles;
+
     private void FixedUpdate(){
         //depthText.text = moveType.ToString();
     }
     public virtual void Init(int x, int y){
-
+        moveParticles = GetComponentsInChildren<ParticleSystem>();
     }
 
     private UnitFaction OtherFaction()
@@ -164,6 +167,7 @@ public abstract class BaseTile : MonoBehaviour
         unit.moveAmount = GridManager.instance.Distance(this, unit.occupiedTile);
 
         var path = PathLine.instance.GetPath();
+
         yield return UnitManager.instance.AnimateUnitMove(unit, path, turnOver);
     }
 
@@ -298,6 +302,25 @@ public abstract class BaseTile : MonoBehaviour
     }
     public void SetFGSprite(Sprite s){
         fgSprite.sprite = s;
+    }
+
+    // Plays unit move particles
+    public void PlayMoveParticles() {
+        if (moveParticles == null) {
+            Init(0, 0); // Band-aid to ensure this function is actually called
+        }
+
+        switch (editorType) {
+            case TileEditorType.Grass:
+                moveParticles[0].Play();
+                break;
+            case TileEditorType.Bridge:
+                moveParticles[1].Play();
+                break;
+            case TileEditorType.Mountain:
+                moveParticles[2].Play();
+                break;
+        }
     }
 }
 

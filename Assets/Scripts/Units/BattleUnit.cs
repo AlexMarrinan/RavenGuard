@@ -14,6 +14,12 @@ public class BattleUnit : MonoBehaviour
     public AudioSource audioSource;
     public bool attacked = false;
     public int damageDealt;
+
+    private ParticleSystem[] particleSystems;
+
+    private void Awake() { // Get Particle Systems
+        particleSystems = GetComponentsInChildren<ParticleSystem>();
+    }
     public void Start(){
         if (faceDirection == FaceDirection.Left){
             parentTrans.localScale = new Vector3(parentTrans.localScale.x * -1, parentTrans.localScale.y, parentTrans.localScale.z);
@@ -54,6 +60,28 @@ public class BattleUnit : MonoBehaviour
         attacked = false;
         healthBar.gameObject.SetActive(false);
         this.gameObject.SetActive(false);
+    }
+
+    // Plays hit particle system of given type (0 = Normal, 1 = Big, 2 = Fatal)
+    public void PlayHitParticles(int type) { // An enum would be a better parameter here
+        ParticleSystem hitParticles = particleSystems[type];
+
+        if (faceDirection == FaceDirection.Left) { // BUG: Sometimes this if statement is skipped. FaceDirection issue.
+            ParticleSystem.VelocityOverLifetimeModule velocityModule = hitParticles.velocityOverLifetime;
+            ParticleSystem.MinMaxCurve velocityCurve = velocityModule.x;
+            velocityCurve.constant *= -1; // Reverse velocity direction
+            velocityModule.x = velocityCurve;
+        }
+
+        hitParticles.Play();
+    }
+
+    public void PlayDeathParticles() {
+        particleSystems[3].Play();
+    }
+
+    public void StopDeathParticles() {
+        particleSystems[3].Stop();
     }
 
 }

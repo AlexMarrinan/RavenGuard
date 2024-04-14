@@ -11,6 +11,12 @@ public class LevelChest : MonoBehaviour
     public Sprite closedSprite;
     private BaseTile attachedTile;
     private bool open = false;
+    private ParticleSystem chestOpenParticles;
+
+    private void Awake() {
+        chestOpenParticles = GetComponentInChildren<ParticleSystem>();
+    }
+
     public void PlaceChest(BaseTile tile){
         tile.attachedChest = this;
         open = false;
@@ -27,6 +33,7 @@ public class LevelChest : MonoBehaviour
     IEnumerator OpenChestAnimation(){
         spriteRenderer.sprite = openSprite;
         open = true;
+
          //TODO: GIVE PLAYER ITEMS FROM CHEST
         yield return new WaitForSeconds(0.5f);
         var randomSkill = SkillManager.instance.GetRandomSkill();
@@ -40,6 +47,7 @@ public class LevelChest : MonoBehaviour
         }else{
             itemBGRSprite.color = SkillManager.instance.passiveSkillColor;
         }
+        chestOpenParticles.Play();
         yield return new WaitForSeconds(1.5f);
         InventoryManager.instance.AddItem(randomSkill);
         yield return new WaitForSeconds(0.25f);

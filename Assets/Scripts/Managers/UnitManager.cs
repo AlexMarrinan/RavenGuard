@@ -269,11 +269,14 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
+        path[0].PlayMoveParticles(); // Play particles on current tile; a bit scuffed
+
         if (unit == null){
             Debug.Log(unit);
             Debug.Log(path.Count); 
             yield return null;
-        }        
+        }
+
         else if (path.Count > 0){
 //            Debug.Log(path);
             BaseTile nextTile = path[0];
