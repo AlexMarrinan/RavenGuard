@@ -30,7 +30,11 @@ public class BattleUnit : MonoBehaviour
         assignedUnit = unit;
         healthBar.gameObject.SetActive(true);
         healthBar.SetUnit(unit);
-        spriteRenderer.sprite = assignedUnit.spriteRenderer.sprite;
+        if (assignedUnit.idleBattleSprite == null){
+            spriteRenderer.sprite = assignedUnit.spriteRenderer.sprite;
+        }else{
+            spriteRenderer.sprite = assignedUnit.idleBattleSprite;
+        }
         //animator.StartPlayback();
         //animator.StopPlayback();
     }

@@ -37,6 +37,10 @@ public class BaseUnit : MonoBehaviour
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
+    public RuntimeAnimatorController optionalAnimatorController;
+    public Sprite idleBattleSprite;
+    public Sprite optionalIdleBattleSprite;
+    public bool useOptionalAnimation;
     private bool isAggroed = false;
     public List<UnitStatMultiplier> tempStatChanges;
     public List<Buff> buffs = new();

@@ -99,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 2583403767058611782}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2583403767355730263}
@@ -172,6 +172,7 @@ MonoBehaviour:
   sprite: {fileID: 2583403767058611789}
   rb: {fileID: 2583403767058611787}
   moveSpeed: 10
+  skillProgressionGroup: {fileID: 0}
 --- !u!50 &2583403767058611787
 Rigidbody2D:
   serializedVersion: 4
@@ -244,10 +245,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerImage: {fileID: 2583403767058611789}
-  playerParagonInfo:
-    sprite: {fileID: -624899550, guid: 61dee061dcc567040a4388f8c8f9a470, type: 3}
-    speakerData: {fileID: 11400000, guid: 097c612ef7d70e94abe3ba3d8bc08114, type: 2}
-    unitClass: 2
+  playerParagonInfo: {fileID: 0}
 --- !u!1 &2583403767355730260
 GameObject:
   m_ObjectHideFlags: 0
