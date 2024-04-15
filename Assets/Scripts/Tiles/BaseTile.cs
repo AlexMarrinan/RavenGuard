@@ -25,6 +25,7 @@ public abstract class BaseTile : MonoBehaviour
     public TMP_Text depthText;
     public Vector2 coordiantes;
     public TileEditorType editorType;
+    public EnvironmentType environmentType;
     public LevelChest attachedChest;
     public SpawnFaction spawnTeam;
     public bool spawnChest;
@@ -324,6 +325,14 @@ public abstract class BaseTile : MonoBehaviour
     }
 }
 
+public enum EnvironmentType
+{
+    Grass,
+    Wood,
+    RedCarpet,
+    BlueCarpet,
+    Stone
+}
 
 public enum TileMoveType {
     NotValid,

@@ -30,6 +30,7 @@ public class OverworldMapManager : MonoBehaviour {
         mapAssets.SetActive(value);
         inOverworldMap = value;
         mapAssets.transform.position = GameManager.instance.mainCamera.transform.position + new Vector3(-3f,1f,10f);
+        MenuManager.instance.CloseMenus();
         PositionNodeMap();
     }
     public bool InOverworldMap(){

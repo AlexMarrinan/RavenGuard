@@ -160,6 +160,7 @@ public class GameManager : MonoBehaviour
     }
 
     private string GetRandomLevelName(){
+        Debug.Log(levelNames.Count);
         int index = UnityEngine.Random.Range(0, levelNames.Count);
         return levelNames[index];
     }
