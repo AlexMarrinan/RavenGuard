@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Dialogue;
 using Unity.VisualScripting;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,6 +14,7 @@ public class OverworldMapManager : MonoBehaviour {
     public int mapSeed; // Seed for generating node types; Set to 0 for random.
     public GameObject nodeMap;
     [SerializeField] private GameObject mapAssets;
+    [SerializeField] private Animator animator; 
     private bool inOverworldMap;
     private void Awake() {
         // Singleton enforcement
@@ -24,15 +26,17 @@ public class OverworldMapManager : MonoBehaviour {
         }
     }
     public void ShowMap(bool value=true){
-        
+        animator.SetBool("idle", false);
         mapAssets.SetActive(value);
         inOverworldMap = value;
         mapAssets.transform.position = GameManager.instance.mainCamera.transform.position + new Vector3(-3f,1f,10f);
         PositionNodeMap();
-
     }
     public bool InOverworldMap(){
         return inOverworldMap;
+    }
+    public void OnFinishOpen(){
+        animator.SetBool("idle", true);
     }
     // Setup nodes, node selector, & position node map
     public void StartMap() {
@@ -77,7 +81,7 @@ public class OverworldMapManager : MonoBehaviour {
     }
 
     // Select the node currently highlighted by the node selector
-    public void Select() { // TODO: Move player to level scene and so on.
+    public void Select() {
         AudioManager.instance.PlayConfirm();
 
         currentNode = NodeSelector.instance.GetCurrentNode(); // Progress to next node
@@ -86,8 +90,10 @@ public class OverworldMapManager : MonoBehaviour {
         currentNode.ClearNode(); // Mark node as cleared (as if the level that was just selected was finished)
         
         //TODO: LOAD NEW LEVEL HERE !!!
+        //TODO: ADD SHOP LEVELS !!!
         if (true){
             PositionNodeMap();
+            animator.SetBool("idle", true);
             GameManager.instance.LoadCombatLevel();
         }else{
 

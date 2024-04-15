@@ -9753,6 +9753,14 @@ PrefabInstance:
       propertyPath: levelNames.Array.data[3]
       value: Level 4
       objectReference: {fileID: 0}
+    - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[4]
+      value: Level 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[5]
+      value: Level 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5654135560371818131, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -9845,6 +9853,10 @@ PrefabInstance:
       propertyPath: mapAssets
       value: 
       objectReference: {fileID: 5654135560179323607}
+    - target: {fileID: 7031974716691821098, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
 --- !u!1 &5654135560179323607 stripped
