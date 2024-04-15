@@ -1687,7 +1687,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654135559063729493}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -825, y: -636, z: 25.136131}
+  m_LocalPosition: {x: -825, y: -684, z: 25.136131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24653,7 +24653,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654135560179023656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.067, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -24682,7 +24682,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   attacked: 0
   damageDealt: 0
-  hitParticles: {fileID: 0}
 --- !u!212 &5654135560179023063
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24729,7 +24728,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.64, y: 0.64}
+  m_Size: {x: 1.08, y: 0.76}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -29366,7 +29365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654135560370537560}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 446, y: -636, z: 25.136131}
+  m_LocalPosition: {x: 446, y: -684, z: 25.136131}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34068,6 +34067,7 @@ MonoBehaviour:
   hoveredItem: {fileID: 0}
   hoveredItemButton: {fileID: 5654135561037771796}
   descriptionMenu: {fileID: 5654135559464901008}
+  swapping: 0
 --- !u!1 &5654135560566555486
 GameObject:
   m_ObjectHideFlags: 0
@@ -36514,7 +36514,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654135560674050032}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.2800293, y: -0.8499756, z: 10}
+  m_LocalPosition: {x: 4.2800293, y: -0.3699999, z: 10}
   m_LocalScale: {x: 8.914783, y: 8.9147835, z: 8.9147835}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -36790,6 +36790,9 @@ MonoBehaviour:
   sceneBackground: {fileID: 5654135559269035797}
   state: 0
   waitForXP: 0
+  normalHitParticleRate: 400
+  bigHitParticleRate: 0
+  fatalHitParticleRate: 0
 --- !u!1 &5654135560694936587
 GameObject:
   m_ObjectHideFlags: 0
@@ -43277,7 +43280,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654135560933741608}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.06699995, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43306,7 +43309,6 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   attacked: 0
   damageDealt: 0
-  hitParticles: {fileID: 0}
 --- !u!212 &5654135560933742039
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -47556,7 +47558,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5654135561074196344}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.869995, y: -0.8499756, z: 10}
+  m_LocalPosition: {x: -2.869995, y: -0.37, z: 10}
   m_LocalScale: {x: 8.9147835, y: 8.9147835, z: 8.9147835}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -48241,6 +48243,10 @@ PrefabInstance:
     - target: {fileID: 8950299521204992973, guid: 7a741bce8a21f974ba9cbc834128a33e, type: 3}
       propertyPath: m_Name
       value: Overworld Map Manager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8950299521204992973, guid: 7a741bce8a21f974ba9cbc834128a33e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a741bce8a21f974ba9cbc834128a33e, type: 3}
