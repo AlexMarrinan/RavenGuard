@@ -9747,7 +9747,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[0]
@@ -9771,7 +9771,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[5]
-      value: Level 10
+      value: Level 12
       objectReference: {fileID: 0}
     - target: {fileID: 5654135560371818131, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_RootOrder
