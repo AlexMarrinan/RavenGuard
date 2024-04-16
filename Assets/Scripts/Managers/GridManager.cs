@@ -26,6 +26,10 @@ public class GridManager : MonoBehaviour
     public List<LevelBase> bases;
     [Range(0.0f, 1.0f)]
     public float chestSpawnRate = 0.3f;
+    public Vector2 minPos;
+    public Vector2 maxPos;
+    private bool marginsSet = true;
+
     void Awake(){
         instance = this;
     }
@@ -43,9 +47,11 @@ public class GridManager : MonoBehaviour
         team1spawns = new();
         team2spawns = new();
         chestSpawns = new();
-
+        marginsSet = false;
+        
         foreach (BaseTile bt in foundTiles){
             var pos = bt.transform.position;
+            SetMinMaxPos(pos);
             bt.coordiantes = pos;
             var spawn = bt.spawnTeam;
             if (tiles.ContainsKey(pos)){
@@ -84,7 +90,25 @@ public class GridManager : MonoBehaviour
         }
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
-   
+    private void SetMinMaxPos(Vector2 pos){
+        if (!marginsSet){
+            minPos = pos;
+            maxPos = pos;
+            marginsSet = true;
+        }
+        if (minPos.x > pos.x){
+            minPos.x = pos.x;
+        }
+        if (minPos.y > pos.y){
+            minPos.y = pos.y;
+        }
+        if (maxPos.x < pos.x){
+            maxPos.x = pos.x;
+        }
+        if (maxPos.y < pos.y){
+            maxPos.y = pos.y;
+        }
+    }
     public BaseTile GetTileAtPosition(Vector2 pos){
         if (tiles.TryGetValue(pos, out var tile)){
             return tile;

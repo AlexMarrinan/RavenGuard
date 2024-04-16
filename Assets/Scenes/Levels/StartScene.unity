@@ -9856,6 +9856,14 @@ PrefabInstance:
       value: -40
       objectReference: {fileID: 0}
     - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: cameraMarginX
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: cameraMarginY
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5654135560371818130, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: cameraSensitivity
       value: 2
       objectReference: {fileID: 0}

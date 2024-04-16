@@ -21,6 +21,9 @@ public class GameManager : MonoBehaviour
     public LevelData levelData;
     public bool levelFinished = false;
     public List<string> levelNames;
+    public int cameraMarginX = 4;
+    public int cameraMarginY = 1;
+
     // Start is called before the first frame update
     void Awake(){
         if (instance != null){
@@ -87,22 +90,46 @@ public class GameManager : MonoBehaviour
     }
 
     public void PanCamera(Vector2 v){
-        if (MenuManager.instance.InPauseMenu() || MenuManager.instance.menuState == MenuState.Battle){
+        if (MenuManager.instance.InMenu() || MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
         newCameraPos = (Vector3)v + new Vector3(0, 0, -10);
     }
     public void PanCameraInDirection(Vector2 v){
-        if (MenuManager.instance.InPauseMenu() || MenuManager.instance.menuState == MenuState.Battle){
+        if (MenuManager.instance.InMenu() || MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
         newCameraPos = (Vector3)v*cameraSensitivity + mainCamera.transform.position;
     }
-
+    public void SetCameraPos(Vector2 newPos){
+        newCameraPos = newPos;
+        mainCamera.transform.position = newCameraPos;
+    }
     public void LookCameraAtHighlight(){
         GameObject highlightObject = MenuManager.instance.highlightObject.gameObject;
+
         if (highlightObject.activeSelf && !usingMouse ){
-           PanCamera(highlightObject.transform.position);
+            Vector2 movePoint = highlightObject.transform.position;
+            Vector2 cameraPos = mainCamera.transform.position;
+            Vector2 min = GridManager.instance.minPos;
+            Vector2 max = GridManager.instance.maxPos;
+
+            //CLAMP X AXIS OF CAMERA; 
+            if (movePoint.x - cameraMarginX < min.x){
+                movePoint.x = min.x + cameraMarginX;
+            }
+            if (movePoint.x + cameraMarginX >= max.x){
+                movePoint.x = max.x - cameraMarginX;
+            }
+
+            //CLAMP X AXIS OF CAMERA; 
+            if (movePoint.y - cameraMarginY < min.y){
+                movePoint.y = min.y + cameraMarginY;
+            }
+            if (movePoint.y + cameraMarginY >= max.y){
+                movePoint.y = max.y - cameraMarginY;
+            }
+            PanCamera(movePoint);
         }
     }
 
