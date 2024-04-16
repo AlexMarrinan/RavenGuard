@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 375b81c0e4b0ee4498de70cdcf023ae8
+guid: 9985f47567253634eb7c819f5638762f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,7 +104,70 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CavalryBasic(WithBow)(Grayscaled)_0
+      name: CavalryBasic(WithSword)_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17d6069aebd6a9b48aedc8fbb4ee7a5a
+      internalID: 998529416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CavalryBasic(WithSword)_1
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d36f54fcba0293489ad6f6df8b8fcc3
+      internalID: 1725214939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CavalryBasic(WithSword)_2
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01845ec48367cc544b177d585f97343d
+      internalID: 1566244281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CavalryBasic(WithSword)_3
       rect:
         serializedVersion: 2
         x: 0
@@ -118,14 +181,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2b27c32c0d0895144aa0db32f4096e8a
-      internalID: 2097779825
+      spriteID: ecb63580740959748b5c3913fb96d6bd
+      internalID: -451778882
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavalryBasic(WithBow)(Grayscaled)_1
+      name: CavalryBasic(WithSword)_4
       rect:
         serializedVersion: 2
         x: 128
@@ -139,14 +202,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f0c4967becf367145bed501cb53469d2
-      internalID: -623529929
+      spriteID: 5b59b64b72b54334bac377d671c7063b
+      internalID: 717222950
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: CavalryBasic(WithBow)(Grayscaled)_2
+      name: CavalryBasic(WithSword)_5
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f484994d82ea4e244a9c6aeae90a31f8
+      internalID: 194540305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: CavalryBasic(WithSword)_6
       rect:
         serializedVersion: 2
         x: 0
@@ -160,29 +244,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cee51d1236c50a24385ec9515d9565e2
-      internalID: -1859797755
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: CavalryBasic(WithBow)(Grayscaled)_3
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 615c995b60b22b74f9d4e6a089476a75
-      internalID: -1746979229
+      spriteID: 145d72270e769de4590a103294bd5911
+      internalID: 2063518437
       vertices: []
       indices: 
       edges: []
@@ -198,10 +261,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      CavalryBasic(WithBow)(Grayscaled)_2: -1859797755
-      CavalryBasic(WithBow)(Grayscaled)_0: 2097779825
-      CavalryBasic(WithBow)(Grayscaled)_3: -1746979229
-      CavalryBasic(WithBow)(Grayscaled)_1: -623529929
+      CavalryBasic(WithSword)_2: 1566244281
+      CavalryBasic(WithSword)_0: 998529416
+      CavalryBasic(WithSword)_1: 1725214939
+      CavalryBasic(WithSword)_4: 717222950
+      CavalryBasic(WithSword)_5: 194540305
+      CavalryBasic(WithSword)_3: -451778882
+      CavalryBasic(WithSword)_6: 2063518437
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
