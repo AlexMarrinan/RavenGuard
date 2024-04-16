@@ -765,6 +765,7 @@ public class BaseUnit : MonoBehaviour
 
     public void ClearSkills()
     {
+        Debug.Log("Cleared skills!");
         skills = new(){null, null, null};
     }
 }

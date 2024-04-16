@@ -26,7 +26,6 @@ public class UnitSelectionMenu : BaseMenu
             var ibu = Instantiate(bu);
             ibu.InitUnit();
             buttons[index].image.sprite = ibu.spriteRenderer.sprite;
-            ibu.ClearSkills();
             index++;
         }
         buttonIndex = 0;
@@ -81,6 +80,7 @@ public class UnitSelectionMenu : BaseMenu
     {
         foreach (BaseUnit u in selectedUnits){
             var newUnit = Instantiate(u, UnitManager.instance.transform);
+            newUnit.ClearSkills();
             UnitManager.instance.units.Add(newUnit);
         }
         OverworldMapManager.instance.StartMap();
