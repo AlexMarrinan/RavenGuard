@@ -690,6 +690,15 @@ public class BaseUnit : MonoBehaviour
     private void LevelUp(){
 //        Debug.Log(this.ToString() + " LEVEL UP!");
         level++;
+
+        BattleUnit battleUnit = BattleSceneManager.instance.leftBU;
+        int unitHealth = battleUnit.assignedUnit.health;
+        if (unitHealth <= 0) { // Check if surviving unit (player) is on left
+            battleUnit = BattleSceneManager.instance.rightBU; // RightBU must be player
+        }
+
+        battleUnit.PlayLevelUpParticles();
+
         var menu = MenuManager.instance.levelupMenu;
         menu.Reset();
         menu.SetUnit(this);

@@ -16,11 +16,16 @@ public class BattleUnit : MonoBehaviour
     public int damageDealt;
 
     private ParticleSystem[] particleSystems;
-    /* [1]: Normal Hit
-     * [2]: Big Hit
-     * [3]: Fatal Hit
-     * [4]: Magic Cast
-     * [5]: Bow Cast
+    /* [0]: Damage [Normal]
+     * [1]: Damage [Big]
+     * [2]: Damage [Fatal]
+     * [3]: Magic Damage [Normal]
+     * [4]: Magic Damage [Big]
+     * [5]: Magic Damage [Fatal]
+     * [6]: Death
+     * [7]: Bow Cast
+     * [8]: Magic Cast
+     * [9]: Level Up
      */
 
     private void Awake() { // Get Particle Systems
@@ -114,6 +119,10 @@ public class BattleUnit : MonoBehaviour
     public void StopCastParticles() {
         particleSystems[4].Stop();
         particleSystems[5].Stop();
+    }
+
+    public void PlayLevelUpParticles() {
+        particleSystems[9].Play();
     }
 
 }
