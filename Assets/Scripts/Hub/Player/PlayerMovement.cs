@@ -19,7 +19,7 @@ namespace Game.Hub {
         [SerializeField] private Rigidbody2D rb;
         [SerializeField] private float moveSpeed=10f;
         [SerializeField] private SkillProgressionGroup skillProgressionGroup;
-        
+
         private void Awake()
         {
             input = new CustomInput();

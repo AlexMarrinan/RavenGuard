@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
     public List<string> levelNames;
     public int cameraMarginX = 4;
     public int cameraMarginY = 1;
-
+    public Color heroColor;
+    public Color enemyColor;
     // Start is called before the first frame update
     void Awake(){
         if (instance != null){

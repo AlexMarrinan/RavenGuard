@@ -72,8 +72,20 @@ public class PathLine : MonoBehaviour
         //Set the positions of each tile on the path
         line.positionCount = positions.Count();
         line.SetPositions(positions.ToArray());
-
+        ShowFactionGradiant(start.occupiedUnit);
         //Reverse the tiles from the shortest path to save for later reference
         tiles.Reverse();
+    }
+
+
+    private void ShowFactionGradiant(BaseUnit unit){
+        if (unit == null){
+            return;
+        }
+        if (unit.faction == UnitFaction.Hero){
+            line.endColor = GameManager.instance.heroColor;
+        }else{
+            line.endColor = GameManager.instance.enemyColor;
+        }
     }
 }

@@ -115,9 +115,9 @@ public class BaseUnit : MonoBehaviour
     }
     private void InitializeFaction(){
         if (this.faction == UnitFaction.Hero){
-            spriteRenderer.color = Color.cyan;
+            spriteRenderer.color = GameManager.instance.heroColor;
         }else{
-            spriteRenderer.color = Color.red;
+            spriteRenderer.color = GameManager.instance.enemyColor;
             spriteRenderer.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
@@ -280,9 +280,9 @@ public class BaseUnit : MonoBehaviour
         }
         if (faction == UnitFaction.Hero){
 //            Debug.Log(uiDot);
-            uiDot.SetColor(Color.cyan);
+            uiDot.SetColor(GameManager.instance.heroColor);
         }else{
-            uiDot.SetColor(Color.red);
+            uiDot.SetColor(GameManager.instance.enemyColor);
         }
     }
 

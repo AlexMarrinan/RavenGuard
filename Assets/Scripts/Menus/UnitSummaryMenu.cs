@@ -39,7 +39,7 @@ public class UnitSummaryMenu : BaseMenu
         var atk = unit.GetAttack();
         atkT.text = atk.total.ToString();
         if (atk.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            atkT.color = Color.red;
+            atkT.color = GameManager.instance.enemyColor;
         }else if (atk.GetStatIncreaseType() == StatIncreaseType.UP){
             atkT.color = Color.green;
         }else{
@@ -49,7 +49,7 @@ public class UnitSummaryMenu : BaseMenu
         var def = unit.GetDefense();
         defT.text = def.total.ToString();
         if (def.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            defT.color = Color.red;
+            defT.color = GameManager.instance.enemyColor;
         }else if (def.GetStatIncreaseType() == StatIncreaseType.UP){
             defT.color = Color.green;
         }else{
@@ -59,7 +59,7 @@ public class UnitSummaryMenu : BaseMenu
        var agi = unit.GetAgility();
         aglT.text = agi.total.ToString();
         if (agi.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            aglT.color = Color.red;
+            aglT.color = GameManager.instance.enemyColor;
         }else if (agi.GetStatIncreaseType() == StatIncreaseType.UP){
             aglT.color = Color.green;
         }else{
@@ -70,7 +70,7 @@ public class UnitSummaryMenu : BaseMenu
        var atu = unit.GetAttuenment();
         atuT.text = atu.total.ToString();
         if (atu.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            atuT.color = Color.red;
+            atuT.color = GameManager.instance.enemyColor;
         }else if (atu.GetStatIncreaseType() == StatIncreaseType.UP){
             atuT.color = Color.green;
         }else{
@@ -80,7 +80,7 @@ public class UnitSummaryMenu : BaseMenu
         var frs = unit.GetForesight();
         frsT.text = frs.total.ToString();
         if (frs.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            frsT.color = Color.red;
+            frsT.color = GameManager.instance.enemyColor;
         }else if (frs.GetStatIncreaseType() == StatIncreaseType.UP){
             frsT.color = Color.green;
         }else{
@@ -90,7 +90,7 @@ public class UnitSummaryMenu : BaseMenu
         var lck = unit.GetLuck();
         lckT.text = lck.total.ToString();
         if (lck.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            lckT.color = Color.red;
+            lckT.color = GameManager.instance.enemyColor;
         }else if (lck.GetStatIncreaseType() == StatIncreaseType.UP){
             lckT.color = Color.green;
         }else{

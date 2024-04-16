@@ -36,7 +36,7 @@ public class UnitManager : MonoBehaviour
     public void SpawnHeroes(){
         //returns 0 or 1
         team1heros = true;
-        if (GetAllHeroes().Count <= 0){
+        if (GetAllHeroes().Count <= 1){
             for (int i = 0; i < heroCount; i++){
                 var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
                 var randomPrefab = GetRandomUnit(UnitFaction.Hero, randomSpawnTile.Item2);
@@ -44,7 +44,6 @@ public class UnitManager : MonoBehaviour
                 units.Add(spawnedHero);
                 randomSpawnTile.Item1.SetUnitStart(spawnedHero);
                 spawnedHero.SetSkillMethods();
-                SetDot(spawnedHero, i, UnitFaction.Hero);
             }
         }else{
             foreach (BaseUnit hero in GetAllHeroes()){
@@ -66,8 +65,8 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedEnemy);
             randomSpawnTile.Item1.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
-            SetDot(spawnedEnemy, i, UnitFaction.Enemy);
         }
+        SetDots();
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
     private BaseUnit GetRandomUnit(UnitFaction faction, UnitSpawnType spawnType)
@@ -325,15 +324,32 @@ public class UnitManager : MonoBehaviour
             u.DecrementBuffs();
         }
     }
-
-    internal void SetDot(BaseUnit unit, int index, UnitFaction unitFaction)
+    public void SetDots(){
+        int heroIndex = 0;
+        int enemyIndex = 0;
+        heroDots.ForEach(hd => hd.gameObject.SetActive(false));
+        enemyDots.ForEach(ed => ed.gameObject.SetActive(false));
+        foreach (BaseUnit unit in GetAllUnits()){
+            if (unit.faction == UnitFaction.Hero){
+                SetDot(unit, heroIndex);
+                heroIndex++;
+            }else{
+                SetDot(unit, enemyIndex);
+                enemyIndex++;
+            }
+        }
+    }
+    internal void SetDot(BaseUnit unit, int index)
     {
-        if (unitFaction == UnitFaction.Hero){
+        Debug.Log("Set dot");
+        if (unit.faction == UnitFaction.Hero){
+            heroDots[index].gameObject.SetActive(true);
             unit.uiDot = heroDots[index];
             heroDots[index].unit = unit;
         }else{
-            // unit.uiDot = enemyDots[index];
-            // enemyDots[index].unit = unit;
+            enemyDots[index].gameObject.SetActive(true);
+            unit.uiDot = enemyDots[index];
+            enemyDots[index].unit = unit;
         }
     }
 

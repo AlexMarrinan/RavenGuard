@@ -23,7 +23,7 @@ public class UnitStatsMenu : BaseMenu
         if (this.faction == UnitFaction.Hero){
             unitIcon.color = Color.white;
         }else{
-            unitIcon.color = Color.red;
+            unitIcon.color = GameManager.instance.enemyColor;
         }
     }
     public void SetUnit(BaseUnit unit){
@@ -62,7 +62,7 @@ public class UnitStatsMenu : BaseMenu
         var atk = unit.GetAttack();
         attackText.text = atk.total.ToString();
         if (atk.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            attackText.color = Color.red;
+            attackText.color = GameManager.instance.enemyColor;
         }else if (atk.GetStatIncreaseType() == StatIncreaseType.UP){
             attackText.color = Color.green;
         }else{
@@ -72,7 +72,7 @@ public class UnitStatsMenu : BaseMenu
         var def = unit.GetDefense();
         defenseText.text = def.total.ToString();
         if (def.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            defenseText.color = Color.red;
+            defenseText.color = GameManager.instance.enemyColor;
         }else if (def.GetStatIncreaseType() == StatIncreaseType.UP){
             defenseText.color = Color.green;
         }else{
@@ -82,7 +82,7 @@ public class UnitStatsMenu : BaseMenu
        var agi = unit.GetAgility();
         agilityText.text = agi.total.ToString();
         if (agi.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            agilityText.color = Color.red;
+            agilityText.color = GameManager.instance.enemyColor;
         }else if (agi.GetStatIncreaseType() == StatIncreaseType.UP){
             agilityText.color = Color.green;
         }else{
@@ -93,7 +93,7 @@ public class UnitStatsMenu : BaseMenu
        var atu = unit.GetAttuenment();
         attunementText.text = atu.total.ToString();
         if (atu.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            attunementText.color = Color.red;
+            attunementText.color = GameManager.instance.enemyColor;
         }else if (atu.GetStatIncreaseType() == StatIncreaseType.UP){
             attunementText.color = Color.green;
         }else{
@@ -103,7 +103,7 @@ public class UnitStatsMenu : BaseMenu
         var frs = unit.GetForesight();
         forsightText.text = frs.total.ToString();
         if (frs.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            forsightText.color = Color.red;
+            forsightText.color = GameManager.instance.enemyColor;
         }else if (frs.GetStatIncreaseType() == StatIncreaseType.UP){
             forsightText.color = Color.green;
         }else{
@@ -113,7 +113,7 @@ public class UnitStatsMenu : BaseMenu
         var lck = unit.GetLuck();
         luckText.text = lck.total.ToString();
         if (lck.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            luckText.color = Color.red;
+            luckText.color = GameManager.instance.enemyColor;
         }else if (lck.GetStatIncreaseType() == StatIncreaseType.UP){
             luckText.color = Color.green;
         }else{
