@@ -648,9 +648,12 @@ public class BaseUnit : MonoBehaviour
         if (NumValidAttacks() > 0){
             return true;
         }
-        foreach (int i in activeSkillCooldowns){
-            if (i <= 0){
-                return true;
+        for (int i = 0; i < activeSkillCooldowns.Count; i++){
+            BaseSkill skill = GetSkill(i);
+            if (skill != null && skill is ActiveSkill){
+                if (activeSkillCooldowns[i] <= 0){
+                    return true;
+                }   
             }
         }
         return false;
@@ -756,8 +759,13 @@ public class BaseUnit : MonoBehaviour
             Cleanse();
             skillStatChanges.Clear();
             tempStatChanges.Clear();
-            activeSkillCooldowns.Clear();
             usedSkills.Clear();
+            ResetCooldowns();
+    }
+
+    public void ClearSkills()
+    {
+        skills = new(){null, null, null};
     }
 }
 

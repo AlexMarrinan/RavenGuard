@@ -26,6 +26,7 @@ public class UnitSelectionMenu : BaseMenu
             var ibu = Instantiate(bu);
             ibu.InitUnit();
             buttons[index].image.sprite = ibu.spriteRenderer.sprite;
+            ibu.ClearSkills();
             index++;
         }
         buttonIndex = 0;
