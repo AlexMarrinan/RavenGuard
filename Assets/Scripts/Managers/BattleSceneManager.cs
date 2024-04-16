@@ -109,7 +109,8 @@ public class BattleSceneManager : MonoBehaviour
             AudioManager.instance.PlayMelee();
         }else if (hitterUnit.weapon.weaponClass == WeaponClass.Archer){
             AudioManager.instance.PlayArcher();
-        }else{
+        }
+        else{
             AudioManager.instance.PlayMagic();
         }
     }
@@ -118,7 +119,9 @@ public class BattleSceneManager : MonoBehaviour
         if (hitter == leftBU){
             damaged = rightBU;
         }
-                        
+
+        hitter.StopCastParticles();
+
         damaged.assignedUnit.ReduceCooldown();
         hitter.assignedUnit.ReduceCooldown();
 
@@ -126,6 +129,11 @@ public class BattleSceneManager : MonoBehaviour
         damaged.assignedUnit.ReceiveDamage(hitter.assignedUnit);
         int newHealth = damaged.assignedUnit.health;
         hitter.damageDealt += health - newHealth;
+
+        int hitType = 0;
+        if (hitter.assignedUnit is not MeleeUnit && hitter.assignedUnit.weapon.weaponClass != WeaponClass.Archer) {
+            hitType += 3; // Increment to magic hit particles
+        }
 
         if (newHealth == health){
             //No damage done
@@ -135,20 +143,20 @@ public class BattleSceneManager : MonoBehaviour
             //fatal blow
             HitRecoil(damaged, 2.5f);
             damaged.spriteRenderer.color = new Color(1f, 0.15f, 0.15f);
-            damaged.PlayHitParticles(2);
+            damaged.PlayHitParticles(hitType + 2);
         }
         else if (newHealth < health){
             if (newHealth*1.5 < health){
                 //Big Hit
                 HitRecoil(damaged, 2f);
                 StartCoroutine(HitColor(damaged, 2.5f));
-                damaged.PlayHitParticles(1);
+                damaged.PlayHitParticles(hitType + 1);
             }
             else{
                 //Normal hit
                 HitRecoil(damaged, 1f);
                 StartCoroutine(HitColor(damaged, 1.25f));
-                damaged.PlayHitParticles(0);
+                damaged.PlayHitParticles(hitType + 0);
             }
         }
     }

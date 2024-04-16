@@ -16,6 +16,12 @@ public class BattleUnit : MonoBehaviour
     public int damageDealt;
 
     private ParticleSystem[] particleSystems;
+    /* [1]: Normal Hit
+     * [2]: Big Hit
+     * [3]: Fatal Hit
+     * [4]: Magic Cast
+     * [5]: Bow Cast
+     */
 
     private void Awake() { // Get Particle Systems
         particleSystems = GetComponentsInChildren<ParticleSystem>();
@@ -43,6 +49,13 @@ public class BattleUnit : MonoBehaviour
         SetAnimator();
         animator.Rebind();
         animator.speed = 1.0f;
+
+        if (assignedUnit.weapon.weaponClass == WeaponClass.Archer) {
+            PlayCastParticles(7); // Bow particles
+        }
+        else if (assignedUnit is not MeleeUnit) {
+            PlayCastParticles(8); // Magic particles
+        }
     }
     private void SetAnimator(){
         animator.runtimeAnimatorController = assignedUnit.animatorController;
@@ -81,11 +94,30 @@ public class BattleUnit : MonoBehaviour
     }
 
     public void PlayDeathParticles() {
-        particleSystems[3].Play();
+        particleSystems[6].Play();
     }
 
     public void StopDeathParticles() {
-        particleSystems[3].Stop();
+        particleSystems[6].Stop();
+    }
+
+    // 
+    public void PlayCastParticles(int type) {
+        ParticleSystem castParticles = particleSystems[type];
+
+        if (faceDirection == FaceDirection.Left) { // BUG: Sometimes this if statement is skipped. FaceDirection issue.
+            Vector3 xPos = castParticles.transform.position;
+            xPos.x *= -1; // Reverse direction
+            castParticles.transform.position = xPos;
+        }
+
+        castParticles.Play();
+    }
+
+    // Stop all cast particles
+    public void StopCastParticles() {
+        particleSystems[4].Stop();
+        particleSystems[5].Stop();
     }
 
 }
