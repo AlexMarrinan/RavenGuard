@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     public LevelData levelData;
     public bool levelFinished = false;
     public List<string> levelNames;
+    public List<string> bossLevelNames;
     public int cameraMarginX = 4;
     public int cameraMarginY = 1;
     public Color heroColor;

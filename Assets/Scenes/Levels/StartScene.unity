@@ -307,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[7]
@@ -316,6 +316,18 @@ PrefabInstance:
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[8]
       value: Level 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[9]
+      value: Level BOSS
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: bossLevelNames.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: bossLevelNames.Array.data[0]
+      value: Level BOSS
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516711, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_Name

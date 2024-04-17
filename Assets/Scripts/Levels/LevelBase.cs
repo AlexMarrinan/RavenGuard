@@ -71,4 +71,5 @@ public enum SpawnFaction {
     OrangeEither,
     OrangeMelee,
     OrangeRanged,
+    OrangeBoss,
 }
