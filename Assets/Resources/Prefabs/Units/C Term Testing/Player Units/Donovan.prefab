@@ -111,10 +111,10 @@ MonoBehaviour:
   droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 2
+  attack: 5
   defense: 6
   agility: 4
-  attunment: 7
+  attunment: 2
   foresight: 5
   luck: 3
   healthBar: {fileID: 0}
@@ -130,6 +130,7 @@ MonoBehaviour:
   audioSource: {fileID: 3806195689254987305}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
+  paragonSkillProgression: {fileID: 0}
   rangedWeapon: {fileID: 11400000, guid: afc0c184c7b039448b7846c594278768, type: 2}
   rangedWeaponClass: 1
 --- !u!82 &3806195689254987305
