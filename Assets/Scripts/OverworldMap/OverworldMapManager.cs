@@ -66,12 +66,12 @@ public class OverworldMapManager : MonoBehaviour {
         
         //TODO: LOAD NEW LEVEL HERE !!!
         //TODO: ADD SHOP LEVELS !!!
-        if (true){
-            PositionNodeMap();
-            animator.SetBool("idle", true);
-            GameManager.instance.LoadCombatLevel();
+        PositionNodeMap();
+        animator.SetBool("idle", true);
+        if (currentNode.nodeType == MapNodeType.Shop ){
+            GameManager.instance.LoadShopLevel();
         }else{
-
+            GameManager.instance.LoadCombatLevel();
         }
     }
 

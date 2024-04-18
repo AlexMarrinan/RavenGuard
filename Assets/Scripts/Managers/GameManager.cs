@@ -192,7 +192,9 @@ public class GameManager : MonoBehaviour
     }
     public void LoadShopLevel()
     {
-       //TODO: ADD SHOP !!!
+        levelNumber++;
+        OverworldMapManager.instance.ShowMap(false);
+        MenuManager.instance.ToggleShopMenu();
     }
 
     private string GetRandomLevelName(){

@@ -229,6 +229,9 @@ public class InputManager : MonoBehaviour
                     return;
                 }
             }
+            if (MenuManager.instance.menuState == MenuState.Shop){
+                return;
+            }
             MenuManager.instance.CloseMenus();
             return;
         }
@@ -262,6 +265,9 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.Shop){
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.UnitSelection){
             MenuManager.instance.unitSelectionMenu.ConfirmUnits();
             return;
