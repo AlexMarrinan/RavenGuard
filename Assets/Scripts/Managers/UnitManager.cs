@@ -19,6 +19,7 @@ public class UnitManager : MonoBehaviour
     public int enemyCount = 5;
     public Dictionary<WeaponClass, WeaponClass> strongAgainst;
     public Dictionary<WeaponClass, WeaponClass> weakTo;
+    public List<BaseUnit> easyUnits, mediumUnits, hardUnits, experUnits, bossUnits;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
@@ -58,6 +59,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnEnemies(){
         int numEnemy = GameManager.instance.levelData.numberOfEnemies;
+        //spawn normal enemies
         for (int i = 0; i < numEnemy; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
@@ -65,6 +67,16 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedEnemy);
             randomSpawnTile.Item1.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
+        }
+
+        //spawn boss units (ALL BOSSES ARE REQUIRED)
+        foreach (Vector2 pos in GridManager.instance.bossSpawns.Keys){
+            BaseTile tile = GridManager.instance.GetTileAtPosition(pos);
+            var randomBoss = GetRandomBossUnit();
+            var spawnedBoss = Instantiate(randomBoss);
+            units.Add(spawnedBoss);
+            tile.SetUnitStart(spawnedBoss);
+            spawnedBoss.SetSkillMethods();
         }
         SetDots();
         GameManager.instance.ChangeState(GameState.HeroesTurn);
@@ -86,7 +98,8 @@ public class UnitManager : MonoBehaviour
         }else{
             List<BaseUnit> units;
             //choses units that are allowed on this level
-            units = GameManager.instance.levelData.possibleEnemies.OrderBy(o => Random.value).ToList();
+            units = UnitsOfDifficulty(GameManager.instance.levelNumber);
+            units = units.OrderBy(o => Random.value).ToList();
             unit = units.First();
             if (spawnType == UnitSpawnType.Ranged){
                 unit = units.Where(u => u is RangedUnit).First();
@@ -101,6 +114,28 @@ public class UnitManager : MonoBehaviour
         unit.faction = faction;
         return unit;
     }
+    private BaseUnit GetRandomBossUnit(){
+        var bosses = bossUnits.OrderBy(o => Random.value).ToList();
+        return bosses.First();
+    }
+
+    private List<BaseUnit> UnitsOfDifficulty(int levelNumber)
+    {
+        if (0 <= levelNumber && levelNumber <= 2){
+            return easyUnits;
+        }
+        if (3 <= levelNumber && levelNumber <= 4){
+            return mediumUnits;
+        }
+        if (5 <= levelNumber && levelNumber <= 6){
+            return hardUnits;
+        }
+        if (7 <= levelNumber && levelNumber <= 8){
+            return experUnits;
+        }
+        return null;
+    }
+
     public void DeleteUnit(BaseUnit unit, bool killed = true){
         units.Remove(unit);
         if (unit.uiDot != null){
@@ -341,7 +376,7 @@ public class UnitManager : MonoBehaviour
     }
     internal void SetDot(BaseUnit unit, int index)
     {
-        Debug.Log("Set dot");
+//        Debug.Log("Set dot");
         if (unit.faction == UnitFaction.Hero){
             heroDots[index].gameObject.SetActive(true);
             unit.uiDot = heroDots[index];

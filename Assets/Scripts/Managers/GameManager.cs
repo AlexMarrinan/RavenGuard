@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public List<string> bossLevelNames;
     public int cameraMarginX = 4;
     public int cameraMarginY = 1;
+    public int levelNumber;
     public Color heroColor;
     public Color enemyColor;
     // Start is called before the first frame update
@@ -178,9 +179,13 @@ public class GameManager : MonoBehaviour
     }
     public void LoadCombatLevel()
     {
+        levelNumber++;
         MenuManager.instance.DisableInventorySwapping();
         OverworldMapManager.instance.ShowMap(false);
         string levelName = GetRandomLevelName();
+        if (levelNumber == 8){
+            levelName = GetRandomBossLevelName();
+        }
         StartCoroutine(LoadLevelAsync(levelName));
     }
     public void LoadShopLevel()
@@ -189,9 +194,14 @@ public class GameManager : MonoBehaviour
     }
 
     private string GetRandomLevelName(){
-        Debug.Log(levelNames.Count);
+//        Debug.Log(levelNames.Count);
         int index = UnityEngine.Random.Range(0, levelNames.Count);
         return levelNames[index];
+    }
+     private string GetRandomBossLevelName(){
+        //Debug.Log(levelNames.Count);
+        int index = UnityEngine.Random.Range(0, bossLevelNames.Count);
+        return bossLevelNames[index];
     }
 }
 

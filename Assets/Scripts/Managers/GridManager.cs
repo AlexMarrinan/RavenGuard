@@ -19,7 +19,7 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2, TileEditorType> tileTypes;
 
     //true if melee, false if ranged
-    public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns;
+    public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns, bossSpawns;
     public List<Vector2> chestSpawns;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
@@ -46,6 +46,7 @@ public class GridManager : MonoBehaviour
         
         team1spawns = new();
         team2spawns = new();
+        bossSpawns = new();
         chestSpawns = new();
         marginsSet = false;
         
@@ -72,6 +73,8 @@ public class GridManager : MonoBehaviour
                 team2spawns.Add(pos, UnitSpawnType.Ranged);
             }else if (spawn == SpawnFaction.OrangeEither){
                 team2spawns.Add(pos, UnitSpawnType.Both);
+            }else if (spawn == SpawnFaction.OrangeBoss){
+                bossSpawns.Add(pos, UnitSpawnType.Boss);
             }
 
             if (bt.spawnChest){
@@ -169,8 +172,6 @@ public class GridManager : MonoBehaviour
     public List<BaseTile> GetAllTiles(){
         return tiles.Values.ToList();
     }
-    
-
     public void SetHoveredTile(BaseTile newTile){
         hoveredTile = newTile;
         hoveredTile.OnHover();
@@ -374,5 +375,6 @@ public class GridManager : MonoBehaviour
 public enum UnitSpawnType {
     Both,
     Melee,
-    Ranged
+    Ranged,
+    Boss
 }

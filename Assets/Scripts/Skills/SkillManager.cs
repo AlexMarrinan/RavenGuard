@@ -52,7 +52,7 @@ public class SkillManager : MonoBehaviour
         }
     }
     public BaseSkill GetRandomSkill(){
-        Debug.Log(allSkills.Count);
+//        Debug.Log(allSkills.Count);
         int index = UnityEngine.Random.Range(0, allSkills.Count);
         return allSkills[index];
     }
