@@ -182,9 +182,11 @@ public class GameManager : MonoBehaviour
         levelNumber++;
         MenuManager.instance.DisableInventorySwapping();
         OverworldMapManager.instance.ShowMap(false);
-        string levelName = GetRandomLevelName();
+        string levelName = "";
         if (levelNumber == 8){
             levelName = GetRandomBossLevelName();
+        }else{
+            levelName = GetRandomLevelName();
         }
         StartCoroutine(LoadLevelAsync(levelName));
     }
