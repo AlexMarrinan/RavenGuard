@@ -63,6 +63,7 @@ public class BaseUnit : MonoBehaviour
         buffs = new();
         usedSkills = new();
         tempStatMultipliers = new();
+        ApplyWeapon();
         ResetCooldowns();
         ResetCombatStats();
         InitializeFaction();
@@ -139,14 +140,17 @@ public class BaseUnit : MonoBehaviour
     {
 
     }
-    public int GetDamage(BaseUnit otherUnit, bool canCrit=false){
+    public int GetDamageDone(BaseUnit defender, bool canCrit=false){
         int damage = 0;
-        int attackDmg = GetAttackDamage(otherUnit);
-        int magicDmg = GetMagicDamage(otherUnit);
+        int attackDmg = GetAttackDamage(defender);
+        int magicDmg = GetMagicDamage(defender);
         bool attackHigher = attackDmg > magicDmg;
 
         WeaponClass hitterEffective = UnitManager.instance.strongAgainst[this.weaponClass];
-        WeaponClass defenderEffective = UnitManager.instance.strongAgainst[otherUnit.weaponClass];
+        WeaponClass defenderEffective = UnitManager.instance.strongAgainst[defender.weaponClass];
+
+        Debug.Log(hitterEffective);
+        Debug.Log(defenderEffective);
 
         if (attackEffect == AttackEffect.Duality){
             attackDmg = attackHigher ? attackDmg : magicDmg;
@@ -156,42 +160,46 @@ public class BaseUnit : MonoBehaviour
             attackDmg = !attackHigher ? attackDmg : magicDmg;
             magicDmg = !attackHigher ? attackDmg : magicDmg;
         }
-        if (weaponClass == WeaponClass.Magic){
-            if (hitterEffective == otherUnit.weaponClass){
+        if (this.weaponClass == WeaponClass.Magic){
+            if (hitterEffective == defender.weaponClass){
                 Debug.Log("Effective hit!");
                 damage = (int)(magicDmg * 1.2f);
             }else if (defenderEffective == this.weaponClass){
                 Debug.Log("Weak hit!");
                 damage = (int)(magicDmg * 0.8f);
+            }else{
+                damage = magicDmg;
             }
-            damage = magicDmg;
         }else{
             float value = 1;
             if (BattleSceneManager.instance.prediction == null){
-                if (hitterEffective == otherUnit.weaponClass){
+                if (hitterEffective == defender.weaponClass){
                     Debug.Log("Effective hit!");
                     damage = (int)(attackDmg * 1.2f);
                 }else if (defenderEffective == this.weaponClass){
                     Debug.Log("Weak hit!");
                     damage = (int)(attackDmg * 0.8f);
+                }else{
+                    damage = attackDmg;
                 }
-                damage = attackDmg;
-            }
-            if (this.tempStatMultipliers != null){
-                foreach (UnitStatMultiplier multi in tempStatMultipliers){
-                    if (multi.statType == UnitStatType.Attack){
-                        value *= multi.multiplier;
+            } else {
+                if (this.tempStatMultipliers != null){
+                    foreach (UnitStatMultiplier multi in tempStatMultipliers){
+                        if (multi.statType == UnitStatType.Attack){
+                            value *= multi.multiplier;
+                        }
                     }
                 }
+                if (hitterEffective == defender.weaponClass){
+                    Debug.Log("Effective hit!");
+                    damage = (int)(attack * 1.2f * value);
+                }else if (defenderEffective == this.weaponClass){
+                    Debug.Log("Weak hit!");
+                    damage = (int)(attackDmg * 0.8f * value);
+                }else{
+                    damage = (int)(attackDmg * value);
+                }
             }
-            if (hitterEffective == otherUnit.weaponClass){
-                Debug.Log("Effective hit!");
-                damage = (int)(attack * 1.2f * value);
-            }else if (defenderEffective == this.weaponClass){
-                Debug.Log("Weak hit!");
-                damage = (int)(attackDmg * 0.8f * value);
-            }
-            damage = (int)(attackDmg * value);
         }
         //CRIT CHANCE
         if (canCrit){
@@ -233,7 +241,7 @@ public class BaseUnit : MonoBehaviour
         return damage;
     }
     public void ReceiveDamage(BaseUnit otherUnit){
-        health -= otherUnit.GetDamage(this, true);;
+        health -= otherUnit.GetDamageDone(this, true);;
     }
     public void ReceiveDamage(int damage){
         health -= damage;

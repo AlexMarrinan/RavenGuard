@@ -17,6 +17,7 @@ public class UnitSummaryMenu : BaseMenu
     public void SetUnit(BaseUnit unit){
         this.unit = unit;
         xpBar.SetUnit(unit);
+        unit.ApplyWeapon();
         unitIcon.sprite = unit.GetSprite();
         //unitIcon.color = unit.GetColor();
         if (unitHighlightImage != null){
@@ -26,7 +27,7 @@ public class UnitSummaryMenu : BaseMenu
         healthText.text = unit.health + " / " + unit.maxHealth;
         // weaponClassText.text = unit.weaponClass.ToString();
         // unitClassText.text = unit.unitClass.ToString();
-
+        Debug.Log(unit.weapon);
         weaponButton.SetItem(unit.weapon, 0);
         weaponButton.SetUnit(unit);
         itemButtons[0].SetItem(unit.GetSkill(0), 0);

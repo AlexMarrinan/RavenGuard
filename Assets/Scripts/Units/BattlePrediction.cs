@@ -76,7 +76,7 @@ public class BattlePrediction
         atkHealth = attacker.health;
         defHealth = defender.health;
 
-        defHealth -= attacker.GetDamage(defender);
+        defHealth -= attacker.GetDamageDone(defender);
         if (defHealth <= 0){
             return;
         }
@@ -90,20 +90,20 @@ public class BattlePrediction
 
 //        Debug.Log("Counter: " + defenderCounterAttack);
         if (defenderCounterAttack){
-            atkHealth -= defender.GetDamage(attacker);
+            atkHealth -= defender.GetDamageDone(attacker);
             if (atkHealth <= 0){
                 return;
             }
         }
         if (attackerSecondAttack){
-            defHealth -= attacker.GetDamage(defender);
+            defHealth -= attacker.GetDamageDone(defender);
             if (defHealth <= 0){
                 return;
             }
         }
         //TODO: ADD BACK ONCE AI IS FIGURED OUT BETTER OHNO !!!
         else if (defenderSecondAttack){
-            atkHealth -= defender.GetDamage(attacker);
+            atkHealth -= defender.GetDamageDone(attacker);
             if (atkHealth <= 0){
                 return;
             }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -17,21 +18,12 @@ public class UnitManager : MonoBehaviour
     private bool team1heros = false;
     public int heroCount = 5; 
     public int enemyCount = 5;
-    public Dictionary<WeaponClass, WeaponClass> strongAgainst;
-    public Dictionary<WeaponClass, WeaponClass> weakTo;
+    public SerializedDictionary<WeaponClass, WeaponClass> strongAgainst;
     public List<BaseUnit> easyUnits, mediumUnits, hardUnits, experUnits, bossUnits;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
         unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units/C Term/Player Units").ToList();
-
-        strongAgainst = new();
-        weakTo = new();
-
-        strongAgainst.Add(WeaponClass.SideArms, WeaponClass.Archer);
-        strongAgainst.Add(WeaponClass.Archer, WeaponClass.Magic);
-        strongAgainst.Add(WeaponClass.Magic, WeaponClass.LongArms);
-        strongAgainst.Add(WeaponClass.LongArms, WeaponClass.SideArms);
     }
 
     public void SpawnHeroes(){

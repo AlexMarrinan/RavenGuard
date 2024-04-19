@@ -28079,7 +28079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startLevel: 0
-  numberOfEnemies: 19
+  numberOfEnemies: 16
   possibleEnemies:
   - {fileID: 2450522220589349630, guid: 6bc36c386901d3542b5661b30bb45881, type: 3}
   - {fileID: 1602817899114489199, guid: 47a6d53c78ae6ab41ae850264fd56ee6, type: 3}

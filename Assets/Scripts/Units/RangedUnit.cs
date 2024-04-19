@@ -113,5 +113,6 @@ public class RangedUnit : BaseUnit
         }else{
             this.weaponClass = WeaponClass.Magic;
         }
+        this.weapon = this.rangedWeapon;
     }
 }
