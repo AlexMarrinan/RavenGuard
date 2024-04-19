@@ -111,10 +111,10 @@ MonoBehaviour:
   droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 2
+  attack: 5
   defense: 4
   agility: 5
-  attunment: 7
+  attunment: 2
   foresight: 5
   luck: 5
   healthBar: {fileID: 0}
