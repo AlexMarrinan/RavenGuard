@@ -16,7 +16,8 @@ public class SaveManager: MonoBehaviour{
     private readonly int PARAGON_COUNT = 4;
 
     void Start(){
-        savePath = Application.dataPath + Path.AltDirectorySeparatorChar + "/Saves/SaveData.json";
+        savePath = Application.persistentDataPath + "/SaveData.json";
+        Debug.Log(savePath);
         playerData = PlayerData.Instance;
         instance = this;
         LoadData();
