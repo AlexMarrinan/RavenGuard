@@ -245,8 +245,8 @@ public class BattleSceneManager : MonoBehaviour
         OnBattlEnd();
     }
     private void OnBattlEnd(){
-        leftBU.assignedUnit.tempStatChanges = null;
-        rightBU.assignedUnit.tempStatChanges = null;
+        leftBU.assignedUnit.tempStatMultipliers = null;
+        rightBU.assignedUnit.tempStatMultipliers = null;
         waitForXP = false;
         // if (startingUnit.faction == TurnManager.instance.currentFaction){
         //     //startingUnit.moveAmount = 0;

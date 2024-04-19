@@ -47,8 +47,8 @@ public class BattlePrediction
 
 //            Debug.Log(this.attacker.unitClass.ToString() + " " + this.defender.unitClass.ToString());
             if (tempAttacker == null || tempAttacker == attacker || swappedAttackers){
-                attacker.tempStatChanges = attackerStatMultipliers;
-                defender.tempStatChanges = defenderStatMultiplers;
+                attacker.tempStatMultipliers = attackerStatMultipliers;
+                defender.tempStatMultipliers = defenderStatMultiplers;
                 break;
             }
             swappedAttackers = true;

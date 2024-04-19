@@ -42,7 +42,7 @@ public class BaseUnit : MonoBehaviour
     public Sprite optionalIdleBattleSprite;
     public bool useOptionalAnimation;
     private bool isAggroed = false;
-    public List<UnitStatMultiplier> tempStatChanges;
+    public List<UnitStatMultiplier> tempStatMultipliers;
     public List<Buff> buffs = new();
     internal AttackEffect attackEffect;
     protected int reducedMovment = 0;
@@ -62,7 +62,7 @@ public class BaseUnit : MonoBehaviour
         attackEffect = AttackEffect.None;
         buffs = new();
         usedSkills = new();
-        tempStatChanges = new();
+        tempStatMultipliers = new();
         ResetCooldowns();
         ResetCombatStats();
         InitializeFaction();
@@ -139,7 +139,8 @@ public class BaseUnit : MonoBehaviour
     {
 
     }
-    public int GetDamage(BaseUnit otherUnit){
+    public int GetDamage(BaseUnit otherUnit, bool canCrit=false){
+        int damage = 0;
         int attackDmg = GetAttackDamage(otherUnit);
         int magicDmg = GetMagicDamage(otherUnit);
         bool attackHigher = attackDmg > magicDmg;
@@ -148,63 +149,68 @@ public class BaseUnit : MonoBehaviour
         WeaponClass defenderEffective = UnitManager.instance.strongAgainst[otherUnit.weaponClass];
 
         if (attackEffect == AttackEffect.Duality){
-            return attackHigher ? attackDmg : magicDmg;
+            attackDmg = attackHigher ? attackDmg : magicDmg;
+            magicDmg = attackHigher ? attackDmg : magicDmg;
         }
         if (attackEffect == AttackEffect.Confusion){
-            return !attackHigher ? attackDmg : magicDmg;
+            attackDmg = !attackHigher ? attackDmg : magicDmg;
+            magicDmg = !attackHigher ? attackDmg : magicDmg;
         }
         if (weaponClass == WeaponClass.Magic){
             if (hitterEffective == otherUnit.weaponClass){
                 Debug.Log("Effective hit!");
-                return (int)(magicDmg * 1.2f);
+                damage = (int)(magicDmg * 1.2f);
             }else if (defenderEffective == this.weaponClass){
                 Debug.Log("Weak hit!");
-                return (int)(magicDmg * 0.8f);
+                damage = (int)(magicDmg * 0.8f);
             }
-            return magicDmg;
-        }
-        float value = 1;
-        if (BattleSceneManager.instance.prediction == null){
+            damage = magicDmg;
+        }else{
+            float value = 1;
+            if (BattleSceneManager.instance.prediction == null){
+                if (hitterEffective == otherUnit.weaponClass){
+                    Debug.Log("Effective hit!");
+                    damage = (int)(attackDmg * 1.2f);
+                }else if (defenderEffective == this.weaponClass){
+                    Debug.Log("Weak hit!");
+                    damage = (int)(attackDmg * 0.8f);
+                }
+                damage = attackDmg;
+            }
+            if (this.tempStatMultipliers != null){
+                foreach (UnitStatMultiplier multi in tempStatMultipliers){
+                    if (multi.statType == UnitStatType.Attack){
+                        value *= multi.multiplier;
+                    }
+                }
+            }
             if (hitterEffective == otherUnit.weaponClass){
                 Debug.Log("Effective hit!");
-                return (int)(attackDmg * 1.2f);
+                damage = (int)(attack * 1.2f * value);
             }else if (defenderEffective == this.weaponClass){
                 Debug.Log("Weak hit!");
-                return (int)(attackDmg * 0.8f);
+                damage = (int)(attackDmg * 0.8f * value);
             }
-            return attackDmg;
+            damage = (int)(attackDmg * value);
         }
-        if (BattleSceneManager.instance.prediction.attacker == this){
-            foreach (UnitStatMultiplier multi in BattleSceneManager.instance.prediction.attackerStatMultipliers){
-                if (multi.statType == UnitStatType.Attack){
-                    value *= multi.multiplier;
-                }
-            }
-        }
-        else if (BattleSceneManager.instance.prediction.defender == this){
-            foreach (UnitStatMultiplier multi in BattleSceneManager.instance.prediction.defenderStatMultiplers){
-                if (multi.statType == UnitStatType.Attack){
-                    value *= multi.multiplier;
-                }
+        //CRIT CHANCE
+        if (canCrit){
+            int critChance = GetLuck().total * 2;
+            int critRoll = UnityEngine.Random.Range(1, 101);
+            if (critChance >= critRoll){
+                return (int)(damage * (1.2f + 0.02f * (float)GetAttuenment().total));
             }
         }
-        if (hitterEffective == otherUnit.weaponClass){
-            Debug.Log("Effective hit!");
-            return (int)(attack * 1.2f * value);
-        }else if (defenderEffective == this.weaponClass){
-            Debug.Log("Weak hit!");
-            return (int)(attackDmg * 0.8f * value);
-        }
-        return (int)(attackDmg * value);
+        return damage;
         //return (int)((float)attackDmg * value);
     }
     private int GetAttackDamage(BaseUnit otherUnit){
         int damage = this.GetAttack().total - otherUnit.GetDefense().total;
         if (damage <= 0){
-            return 0;
+            return 1;
         }
-        if (tempStatChanges != null){
-            foreach (UnitStatMultiplier mult in tempStatChanges){
+        if (tempStatMultipliers != null){
+            foreach (UnitStatMultiplier mult in tempStatMultipliers){
                 if (mult.statType == UnitStatType.Attack){
                     damage = (int)((float)damage * mult.multiplier);
                 }
@@ -213,12 +219,12 @@ public class BaseUnit : MonoBehaviour
         return damage;
     }
     private int GetMagicDamage(BaseUnit otherUnit){
-        int damage = this.GetAttuenment().total - otherUnit.GetForesight().total;
+        int damage = this.GetAttack().total - otherUnit.GetForesight().total;
         if (damage <= 0){
-            return 0;
+            return 1;
         }
-        if (tempStatChanges != null){
-            foreach (UnitStatMultiplier mult in tempStatChanges){
+        if (tempStatMultipliers != null){
+            foreach (UnitStatMultiplier mult in tempStatMultipliers){
                 if (mult.statType == UnitStatType.Attunment){
                     damage = (int)((float)damage * mult.multiplier);
                 }
@@ -227,7 +233,7 @@ public class BaseUnit : MonoBehaviour
         return damage;
     }
     public void ReceiveDamage(BaseUnit otherUnit){
-        health -= otherUnit.GetDamage(this);;
+        health -= otherUnit.GetDamage(this, true);;
     }
     public void ReceiveDamage(int damage){
         health -= damage;
@@ -760,7 +766,7 @@ public class BaseUnit : MonoBehaviour
             attackEffect = AttackEffect.None;
             buffs = new();
             usedSkills = new();
-            tempStatChanges = new();
+            tempStatMultipliers = new();
             ResetCooldowns();
             ResetCombatStats();
             ResetCooldowns();
