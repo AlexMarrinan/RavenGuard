@@ -3939,7 +3939,7 @@ PrefabInstance:
       objectReference: {fileID: 8682198269667271007}
     - target: {fileID: 8682198267909962910, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8682198267935616676, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_fontStyle
@@ -4191,7 +4191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268579901010, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268735145121, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_IsActive
