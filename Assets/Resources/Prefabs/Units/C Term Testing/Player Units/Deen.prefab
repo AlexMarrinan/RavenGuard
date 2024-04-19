@@ -111,7 +111,7 @@ MonoBehaviour:
   droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 4
+  attack: 6
   defense: 3
   agility: 6
   attunment: 4
