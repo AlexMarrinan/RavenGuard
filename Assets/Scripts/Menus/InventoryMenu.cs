@@ -63,7 +63,7 @@ public class InventoryMenu : BaseMenu
     {
         SetNameText();
         hoveredItemButton.Reset();
-        this.xCount = 4;
+        this.xCount = 3;
         this.yCount = UnitManager.instance.GetAllHeroes().Count;
 
         itemsScreen.transform.localPosition = new(860, 180);
@@ -91,7 +91,6 @@ public class InventoryMenu : BaseMenu
             UnitSummaryMenu summary = unitSummaries[i];
             summary.gameObject.SetActive(true);
             summary.SetUnit(heroes[i]);
-            summary.weaponButton.SetOn(true);
             for (int j = 0; j < 3; j++)
             {
                 summary.itemButtons[j].SetOn(true);
@@ -310,7 +309,7 @@ public class InventoryMenu : BaseMenu
         }
         itemScreenNextPos += new Vector3(1700, 0);
         buttons = unitButtons;
-        this.xCount = 4;
+        this.xCount = 3;
         this.yCount = UnitManager.instance.GetAllHeroes().Count;
         StartCoroutine(WhileMoving());
     }
