@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Game.Dialogue;
 using Unity.VisualScripting;
-using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
