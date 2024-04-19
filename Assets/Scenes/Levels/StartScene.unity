@@ -3978,6 +3978,10 @@ PrefabInstance:
       value: -44
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268523578240, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: unitMoveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268523578240, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: bossUnits.Array.size
       value: 1
       objectReference: {fileID: 0}

@@ -318,7 +318,7 @@ public class UnitManager : MonoBehaviour
             Vector3 nextPos = nextTile.transform.position;
             float elapsedTime = 0;
             while (unit.transform.position != nextPos){
-                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
+                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime*unitMoveSpeed);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }

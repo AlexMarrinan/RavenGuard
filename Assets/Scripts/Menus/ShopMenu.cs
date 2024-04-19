@@ -18,6 +18,7 @@ public class ShopMenu : BaseMenu
         foreach (ItemButton ib in itemButtons){
             BaseSkill randomSkill = SkillManager.instance.GetRandomSkill();
             ib.SetItem(randomSkill);
+            ib.SetOn();
         }
         descriptionMenu.SetItem(itemButtons[buttonIndex].item);
     }

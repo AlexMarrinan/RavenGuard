@@ -78,7 +78,7 @@ public class TurnManager : MonoBehaviour
             GameManager.instance.PanCamera(unit.transform.position);
             List<BaseTile> validMoves = UnitManager.instance.SetValidMoves(unit);
             yield return new WaitForSeconds(0.35f);
-            if (unit.IsInjured()){
+            if (unit.IsInjured()){ 
                 MoveInjuredEnemy(unit);
             } else if (unit.IsAggroed() || unit.OpponentInRange()){
                 List<AIMove> moves = new();
@@ -311,6 +311,7 @@ public class TurnManager : MonoBehaviour
     }
     private void GoToUnit(int offset){
         if (UnitManager.instance.GetAllEnemies().Count <= 0){
+            OnStageClear();
             return;
         }
         if (GameManager.instance.gameState != GameState.HeroesTurn){

@@ -63,7 +63,7 @@ public class BaseUnit : MonoBehaviour
         buffs = new();
         usedSkills = new();
         tempStatChanges = new();
-        ResetCooldowns();    
+        ResetCooldowns();
         ResetCombatStats();
         InitializeFaction();
         CreateHealthbar();
@@ -757,9 +757,12 @@ public class BaseUnit : MonoBehaviour
     {
             health = maxHealth;
             Cleanse();
-            skillStatChanges.Clear();
-            tempStatChanges.Clear();
-            usedSkills.Clear();
+            attackEffect = AttackEffect.None;
+            buffs = new();
+            usedSkills = new();
+            tempStatChanges = new();
+            ResetCooldowns();
+            ResetCombatStats();
             ResetCooldowns();
     }
 
