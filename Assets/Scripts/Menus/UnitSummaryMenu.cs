@@ -24,8 +24,8 @@ public class UnitSummaryMenu : BaseMenu
         }
         healthBarTop.fillAmount = (float)unit.health / (float)unit.maxHealth;
         healthText.text = unit.health + " / " + unit.maxHealth;
-        weaponClassText.text = unit.weaponClass.ToString();
-        unitClassText.text = unit.unitClass.ToString();
+        // weaponClassText.text = unit.weaponClass.ToString();
+        // unitClassText.text = unit.unitClass.ToString();
 
         weaponButton.SetItem(unit.weapon, 0);
         weaponButton.SetUnit(unit);
