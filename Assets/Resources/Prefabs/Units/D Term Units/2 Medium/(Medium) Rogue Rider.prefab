@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: 1602817899114489199}
-  - component: {fileID: 1194301016362721627}
+  - component: {fileID: 2450522220589349630}
+  - component: {fileID: -1318800649977114410}
   m_Layer: 0
   m_Name: (Medium) Rogue Rider
   m_TagString: Untagged
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1602817899114489199
+--- !u!114 &2450522220589349630
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1746290447937580278}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf1f64db6caed948acc337443f5e6ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 436e64aeb3c27a94cbab0f0e7f16f915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: Rogue Rider
@@ -123,17 +123,17 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: e2ae740df96c45145921447d2acb4c87, type: 2}
   buffs: []
-  audioSource: {fileID: 1194301016362721627}
+  audioSource: {fileID: -1318800649977114410}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 0}
-  rangedWeapon: {fileID: 11400000, guid: afc0c184c7b039448b7846c594278768, type: 2}
-  rangedWeaponClass: 1
---- !u!82 &1194301016362721627
+  meleeWeapon: {fileID: 11400000, guid: ff4a1d911b4794846a4cec33f8c0a1ad, type: 2}
+  meleeWeaponClass: 1
+--- !u!82 &-1318800649977114410
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 8696cd951f264b542bd4d17f1d541c04, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 98e766b04e0c9e743a4addc2f26721ad, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
