@@ -387,4 +387,25 @@ public class UnitManager : MonoBehaviour
         }
         heroDotHighlight.transform.position = uiDot.transform.position;
     }
+
+    public BaseUnit GetParagonUnit()
+    {
+        foreach (BaseUnit unit in GetAllUnits()){
+            if (unit.paragonSkillProgression != null){
+                return unit;
+            }
+        }
+        return null;
+    }
+    public ParagonSP GetPargonSkills()
+    {
+        var paragon = GetParagonUnit();
+        ParagonSP finalSP = null;
+        foreach (ParagonSP sp in paragon.paragonSkillProgression.skillProgression){
+            if (sp.levelUp <= paragon.level){
+                finalSP = sp;
+            }
+        }
+        return finalSP;
+    }
 }

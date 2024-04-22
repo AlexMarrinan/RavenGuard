@@ -17,11 +17,25 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6f0244450aae4bc43847d2c960503ae9, type: 2}
     - {fileID: 11400000, guid: 44a31d0a0737ced40a13fd851d72b626, type: 2}
     - {fileID: 11400000, guid: db6d7ce748f656547aaa12b6feaeeea7, type: 2}
-    description: 
+    description: "Knights Grit: Unit can counterattack regardless of foe's range. 
+      \n\nSecond Wind: If unit falls below 25% HP, unit heals for an amount equal
+      to 40% of max HP. (Effect happens once per stage)  \n\nDefensive Rally: Units
+      within 2 spaces of unit recieve +3 Defense during combat  "
     levelUp: 0
   - skills:
     - {fileID: 11400000, guid: 6f0244450aae4bc43847d2c960503ae9, type: 2}
     - {fileID: 11400000, guid: 44a31d0a0737ced40a13fd851d72b626, type: 2}
     - {fileID: 11400000, guid: 45588bb53ef430f43be0257db2ba540f, type: 2}
-    description: 
+    description: "Knights Grit: Unit can counterattack regardless of foe's range. 
+      \n\nSecond Wind: If unit falls below 25% HP, unit heals for an amount equal
+      to 40% of max HP. (Effect happens once per stage)  \n\nKnights Testudo: At
+      the start of turn, If unit is within 3 spaces of at least 2 other Knight units,
+      all units within a 3 space radius of unit gain [Testudo]\r\n\r\n[Testudo] grants
+      unit +5 to Def and +3 to For during combat If foe initiaites combat. Damage
+      dealt to unit during combat is equally split across all other allies currently
+      affected by [Testudo]. If unit is a Knight class, also reduces damage recieved
+      in combat by 10%. Units affected by [Testudo] recieve an extra 25% from healing
+      recieved.\r\n\r\nNote: Damage from [Testudo] cannot kill allies if it would
+      bring them below 1 HP, allies at 1 HP are also not counted when the damage
+      is spread across allies with [Testudo]."
     levelUp: 10

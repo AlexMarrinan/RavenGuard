@@ -151,17 +151,17 @@ public class InputManager : MonoBehaviour
         input.Player.SkipTurn.performed -= OnSkipTurnPerformed;
         input.Player.SkipTurn.canceled -= OnSkipTurnCanceled;
     }
-
-    private void OnSkipTurnCanceled(InputAction.CallbackContext context)
-    {
-        TurnManager.instance.SkipTurn();
-    }
-
     private void OnSkipTurnPerformed(InputAction.CallbackContext context)
     {
-
+        if (MenuManager.instance.menuState != MenuState.Inventory){
+            return;
+        }
+        MenuManager.instance.inventoryMenu.ToggleParagonSkills();
     }
-
+    private void OnSkipTurnCanceled(InputAction.CallbackContext context)
+    {
+        
+    }
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
         //TODO: FIX CHOPPY ANALOGUE STICK MOVEMENT !!!

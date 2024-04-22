@@ -353,19 +353,19 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
-    // public void KnightsTestudoPS(BaseUnit u){
-    //     //ONLY USE SKILL ONCE PER STAGE
-    //     var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
-    //     foreach (BaseUnit unit in units){
-    //         if (u == unit){
-    //             continue;
-    //         }
-    //         float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
-    //         if (distance <= 3 && unit.unitClass == UnitClass.Knight){
+    public void KnightsTestudoPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 3 && unit.unitClass == UnitClass.Knight){
                 
-    //         }
-    //     }
-    // }
+            }
+        }
+    }
 
     internal void Move(Vector2 moveVector)
     {

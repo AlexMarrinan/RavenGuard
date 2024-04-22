@@ -15,6 +15,7 @@ public class ParagonSPG : ScriptableObject
 public class ParagonSP
 {
     public List<BaseSkill> skills;
+    [TextArea(15,20)]
     public string description;
     public int levelUp;
 }
