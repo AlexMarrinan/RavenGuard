@@ -31,7 +31,7 @@ MonoBehaviour:
   skillParam1: 0
   skillParam2: 0
   tileMoveType: 0
-  passiveSkillType: 0
+  passiveSkillType: 2
   atributes:
   - condition:
       variable: 15

@@ -25,17 +25,15 @@ MonoBehaviour:
   - skills:
     - {fileID: 11400000, guid: 6f0244450aae4bc43847d2c960503ae9, type: 2}
     - {fileID: 11400000, guid: 44a31d0a0737ced40a13fd851d72b626, type: 2}
+    - {fileID: 11400000, guid: 5bd6cdd6de46eab4886a866d0c2cddad, type: 2}
     - {fileID: 11400000, guid: 45588bb53ef430f43be0257db2ba540f, type: 2}
     description: "Knights Grit: Unit can counterattack regardless of foe's range. 
       \n\nSecond Wind: If unit falls below 25% HP, unit heals for an amount equal
-      to 40% of max HP. (Effect happens once per stage)  \n\nKnights Testudo: At
-      the start of turn, If unit is within 3 spaces of at least 2 other Knight units,
-      all units within a 3 space radius of unit gain [Testudo]\r\n\r\n[Testudo] grants
-      unit +5 to Def and +3 to For during combat If foe initiaites combat. Damage
-      dealt to unit during combat is equally split across all other allies currently
-      affected by [Testudo]. If unit is a Knight class, also reduces damage recieved
-      in combat by 10%. Units affected by [Testudo] recieve an extra 25% from healing
-      recieved.\r\n\r\nNote: Damage from [Testudo] cannot kill allies if it would
-      bring them below 1 HP, allies at 1 HP are also not counted when the damage
-      is spread across allies with [Testudo]."
+      to 40% of max HP. (Effect happens once per stage)  \n\nHonor Bound: At start
+      of turn, heal all adjacent ally knight units 3 HP\n\nKnights Testudo: At the
+      start of turn, If unit is within 3 spaces of at least 2 other Knight allies,
+      all non knight allies within 3 spaces gain [Testudo I], knight allies within
+      3 spaces get [Testudo II]\n\r\n[Testudo I]: +5 DEF, +3 FOR during combat, 25%
+      increased healing from all sources\n[Testudo II]: +6 DEF, +4 FOR, +3 LCK during
+      combat, 25% increased healing from all sources"
     levelUp: 10

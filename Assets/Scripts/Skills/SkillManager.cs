@@ -356,17 +356,42 @@ public class SkillManager : MonoBehaviour
     public void KnightsTestudoPS(BaseUnit u){
         //ONLY USE SKILL ONCE PER STAGE
         var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        int knights = 0;
         foreach (BaseUnit unit in units){
             if (u == unit){
                 continue;
             }
             float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
             if (distance <= 3 && unit.unitClass == UnitClass.Knight){
-                
+                knights++;
+            }
+        }
+        if (knights >= 2){
+            foreach (BaseUnit unit in units){
+                if (u == unit){
+                    continue;
+                }
+                float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+                if (distance <= 3){
+                    if (unit.unitClass != UnitClass.Knight){
+                        unit.AddStatsChange("TestudoDEF", UnitStatType.Defense, 5, 5, 5, 1);
+                        unit.AddStatsChange("TestudoFOR", UnitStatType.Foresight, 3, 3, 3, 1);
+                    }else{
+                        unit.AddStatsChange("TestudoDEF", UnitStatType.Defense, 6, 6, 6, 1);
+                        unit.AddStatsChange("TestudoFOR", UnitStatType.Foresight, 4, 4, 4, 1);
+                        unit.AddStatsChange("TestudoLCK", UnitStatType.Luck, 5, 5, 5, 1);
+                    }
+                }
             }
         }
     }
-    
+    public void HonorBoundPS(BaseUnit u){
+        foreach (BaseUnit unit in  u.GetAdjacentUnits() ){
+            if (unit.unitClass == UnitClass.Knight){
+                unit.RecoverHealth(3);
+            }
+        }
+    }
     public void MomentumPS(BaseUnit u){
         if (u.moveAmount >= 2){
             u.AddStatsChange("MomentumDEF", UnitStatType.Defense, 2, 2, 2, 2);

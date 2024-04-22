@@ -10,18 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
-  m_Name: KnightsTestudo
+  m_Name: HonorBound
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  skillName: KnightsTestudo
-  skillLevel: 2
-  description: ' At the start of turn, If unit is within 3 spaces of at least 2 other
-    Knight units, all units within a 3 space radius of unit gain [Testudo]  [Testudo]
-    grants unit +5 to Def and +3 to For during combat If foe initiaites combat. Damage
-    dealt to unit during combat is equally split across all other allies currently
-    affected by [Testudo]. If unit is a Knight class, also reduces damage recieved
-    in combat by 10%. Units affected by [Testudo] recieve an extra 25% from healing
-    recieved.'
+  skillName: HonorBound
+  skillLevel: 1
+  description: At start of turn, heal all adjacent knight units 3 HP
   menuIcon: {fileID: 0}
   skillIcons: []
   rarity: 0
