@@ -272,6 +272,25 @@ public class BattlePrediction
             case CombatPSActionType.OppBuffAllStats:
                 otherUnit.BuffAllCombatStats((int)action.value);
                 break;
+            
+            case CombatPSActionType.BuffATK:
+                unit.BuffCombatStat(UnitStatType.Attack, (int)action.value);
+                break;
+            case CombatPSActionType.BuffDEF:
+                unit.BuffCombatStat(UnitStatType.Defense, (int)action.value);
+                break;
+            case CombatPSActionType.BuffAGL:
+                unit.BuffCombatStat(UnitStatType.Agility, (int)action.value);
+                break;
+            case CombatPSActionType.BuffATU:
+                unit.BuffCombatStat(UnitStatType.Attunment, (int)action.value);
+                break;
+            case CombatPSActionType.BuffFOR:
+                unit.BuffCombatStat(UnitStatType.Foresight, (int)action.value);
+                break;
+            case CombatPSActionType.BuffLCK:
+                unit.BuffCombatStat(UnitStatType.Luck, (int)action.value);
+                break;
         }
     }
 }

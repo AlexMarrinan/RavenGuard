@@ -366,6 +366,16 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+    
+    public void MomentumPS(BaseUnit u){
+        if (u.moveAmount >= 2){
+            u.AddStatsChange("MomentumDEF", UnitStatType.Defense, 2, 2, 2, 2);
+            u.AddStatsChange("MomentumFOR", UnitStatType.Foresight, 2, 2, 2, 2);
+        }else{
+            u.RemoveStatChange("MomentumDEF");
+            u.RemoveStatChange("MomentumFOR");
+        }
+    }
 
     internal void Move(Vector2 moveVector)
     {

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using Game.Hub.Interactables;
 public class BaseUnit : MonoBehaviour
 {
     public string unitName;
@@ -103,8 +104,12 @@ public class BaseUnit : MonoBehaviour
             if (skill == null){
                 continue;
             }
-//            Debug.Log(skill.skillName);
             skill.SetMethod();
+        }
+        if (paragonSkillProgression != null){
+            foreach (BaseSkill paraSkill in GetPargaonSkills().skills){
+                paraSkill.SetMethod();
+            }
         }
     }
         public virtual void ApplyWeapon(){
@@ -480,6 +485,14 @@ public class BaseUnit : MonoBehaviour
                 aSkills.Add(s as ActiveSkill);
             }
         }
+        if (paragonSkillProgression != null){
+            ParagonSP paragonSP = GetPargaonSkills();
+            foreach (BaseSkill s in paragonSP.skills){
+                if (s is ActiveSkill){
+                    aSkills.Add(s as ActiveSkill);
+                }
+            }
+        }
         return aSkills;
     }
     public List<PassiveSkill> GetPassiveSkills(){
@@ -489,13 +502,32 @@ public class BaseUnit : MonoBehaviour
                 pSkills.Add(s as PassiveSkill);
             }
         }
+        if (paragonSkillProgression != null){
+            ParagonSP paragonSP = GetPargaonSkills();
+            foreach (BaseSkill s in paragonSP.skills){
+                if (s is PassiveSkill){
+                    pSkills.Add(s as PassiveSkill);
+                }
+            }
+        }
         return pSkills;
     }
-
+    private ParagonSP GetPargaonSkills(){
+        if (paragonSkillProgression == null){
+            return null;
+        }
+        ParagonSP finalSP = null;
+        foreach (ParagonSP sp in paragonSkillProgression.skillProgression){
+            if (this.level >= sp.levelUp){
+                finalSP = sp;
+            }
+        }
+        return finalSP;
+    }
 
     public List<CombatPassiveSkill> GetBattleSkills(){
         List<CombatPassiveSkill> pSkills = new();
-        foreach (BaseSkill s in skills){
+        foreach (BaseSkill s in GetPassiveSkills()){
             if (s is CombatPassiveSkill){
                 pSkills.Add(s as CombatPassiveSkill);
             }
@@ -782,7 +814,7 @@ public class BaseUnit : MonoBehaviour
 
     public void ClearSkills()
     {
-        Debug.Log("Cleared skills!");
+//        Debug.Log("Cleared skills!");
         skills = new(){null, null, null};
     }
 }

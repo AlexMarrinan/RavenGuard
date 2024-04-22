@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1858475032b42fa4f8931eefd8822568, type: 3}
-  m_Name: Mage PSG
+  m_Name: InfantryPSG
   m_EditorClassIdentifier: Assembly-CSharp::PargonSPG
   skillProgression:
   - skills: []
-    description: 'TODO: ADD MAGE  ABILITIES'
+    description: 'TODO: ADD INFANTRY ABILITIES'
     levelUp: 0
   - skills: []
-    description: 'TODO: ADD MAGE  ABILITIES'
+    description: 'TODO: ADD INFANTRY ABILITIES'
     levelUp: 10

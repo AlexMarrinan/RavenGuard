@@ -48,10 +48,10 @@ namespace Game.Hub.Interactables
 
         public void PurchaseParagon(){
             if (!SaveManager.instance.SpendCopperCoins(paragonInfo.cost)){
-                Debug.Log("not enough coins!");
+  //              Debug.Log("not enough coins!");
                 return;
             }
-            Debug.Log("Bought new paragon unit!");
+//            Debug.Log("Bought new paragon unit!");
             SaveManager.instance.BuyParagon(this.paragonInfo);
             gameObject.SetActive(false);
         }

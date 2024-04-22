@@ -85,7 +85,7 @@ public class OverworldMapManager : MonoBehaviour {
             mapSeed = Random.seed; // Get random seed
         }
         Random.InitState(mapSeed); // Seed will change Random.value, which will change node types
-        Debug.Log("Seed: " + mapSeed);
+//        Debug.Log("Seed: " + mapSeed);
 
         currentNode.Initialize(); // Goes down the node "tree", initializing everything
 

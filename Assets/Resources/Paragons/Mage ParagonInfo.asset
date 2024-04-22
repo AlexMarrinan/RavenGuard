@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d34b209cd84aeba7552c8da89679c9, type: 3}
   m_Name: Mage ParagonInfo
   m_EditorClassIdentifier: 
-  sprite: {fileID: -1066349898, guid: 39b78213d7db03540b5e0e2f22872894, type: 3}
+  sprite: {fileID: 21300000, guid: a5f01d1d318af464eaf784b0ddc963bd, type: 3}
   speakerData: {fileID: 11400000, guid: 5aa6a03a97547ce49b8546f5e8dda109, type: 2}
   unitClass: 4
   cost: 250

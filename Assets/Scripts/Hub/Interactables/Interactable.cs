@@ -45,7 +45,7 @@ namespace Game.Hub.Interactables
         /// </summary>
         public void TryInteraction()
         {
-            Debug.Log("Trying interaction!");
+//            Debug.Log("Trying interaction!");
             // Validation
             if (!CanUseInteraction()) return;
             

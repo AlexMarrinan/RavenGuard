@@ -4364,6 +4364,34 @@ PrefabInstance:
       propertyPath: buttons.Array.data[15]
       value: 
       objectReference: {fileID: 279075504}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.data[1].Key
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.data[2].Key
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.data[3].Key
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 1602817899114489199, guid: 48b081e00105b1a4bbdc2d27eaba7f25, type: 3}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.data[2].Value
+      value: 
+      objectReference: {fileID: 1602817899114489199, guid: 13822254f8fc5294cb1013a7a19bc1b8, type: 3}
+    - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: paragonUnits._serializedList.Array.data[3].Value
+      value: 
+      objectReference: {fileID: 3655901445024954476, guid: 81af8f35b4ce04149aed312a66f1acd2, type: 3}
     - target: {fileID: 8682198268093157983, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -4515,7 +4543,7 @@ PrefabInstance:
     - target: {fileID: 8682198268523578240, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: mediumUnits.Array.data[4]
       value: 
-      objectReference: {fileID: 1602817899114489199, guid: c96bbd39f88920341a30fff169f2d49c, type: 3}
+      objectReference: {fileID: 2450522220589349630, guid: 66ce4d3f3710eaf4e93250a184ad9fc9, type: 3}
     - target: {fileID: 8682198268523578240, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: mediumUnits.Array.data[5]
       value: 

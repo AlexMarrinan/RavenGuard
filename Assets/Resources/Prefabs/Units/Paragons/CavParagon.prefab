@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3727886486645619484}
   - component: {fileID: 6896802453669631958}
-  - component: {fileID: 3655901445024954476}
+  - component: {fileID: -7738855246486905614}
   - component: {fileID: 1194301016362721627}
   m_Layer: 0
-  m_Name: InfantryParagon
+  m_Name: CavParagon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 06d949f540b87614584b343b4e4dc6e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18d27ddb43a3ae04180e895551939cac, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -86,7 +86,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3655901445024954476
+--- !u!114 &-7738855246486905614
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -98,45 +98,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 436e64aeb3c27a94cbab0f0e7f16f915, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Infantry Paragon
+  unitName: Cav Paragon
   occupiedTile: {fileID: 0}
   faction: 0
-  unitClass: 1
-  moveAmount: 5
-  maxMoveAmount: 5
-  health: 13
-  maxHealth: 13
+  unitClass: 6
+  moveAmount: 6
+  maxMoveAmount: 6
+  health: 9
+  maxHealth: 9
   currentXP: 0
   maxXP: 100
   droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 4
-  defense: 5
-  agility: 7
-  attunment: 6
-  foresight: 4
-  luck: 3
+  attack: 6
+  defense: 4
+  agility: 4
+  attunment: 1
+  foresight: 3
+  luck: 1
   healthBar: {fileID: 0}
-  spriteRenderer: {fileID: 6896802453669631958}
-  skills:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  skills: []
   weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: 6739b378e42c23e458ff1ee41084b8b2, type: 2}
-  optionalAnimatorController: {fileID: 9100000, guid: e8b6a65ee08de5f43bb3ec70849bd345, type: 2}
-  idleBattleSprite: {fileID: -480464844, guid: 83724f2ecfb1f5e459e222ea4c0c3986, type: 3}
-  optionalIdleBattleSprite: {fileID: 1932449510, guid: 12e8f4115efeb8045aad74287c63c19c, type: 3}
+  animatorController: {fileID: 9100000, guid: e2ae740df96c45145921447d2acb4c87, type: 2}
+  optionalAnimatorController: {fileID: 0}
+  idleBattleSprite: {fileID: 0}
+  optionalIdleBattleSprite: {fileID: 0}
   useOptionalAnimation: 0
   buffs: []
-  audioSource: {fileID: 1194301016362721627}
+  audioSource: {fileID: 0}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
-  paragonSkillProgression: {fileID: 11400000, guid: fe7867ae969a3b140835474871a9acd3, type: 2}
+  paragonSkillProgression: {fileID: 11400000, guid: 6e424a7689079bd48ad2bbbc1bb4529f, type: 2}
   meleeWeapon: {fileID: 11400000, guid: ff4a1d911b4794846a4cec33f8c0a1ad, type: 2}
-  meleeWeaponClass: 0
+  meleeWeaponClass: 1
 --- !u!82 &1194301016362721627
 AudioSource:
   m_ObjectHideFlags: 0

@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
-  m_Name: DefensiveRally
+  m_Name: MomentumPS
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  skillName: DefensiveRally
+  skillName: Momentum
   skillLevel: 1
-  description: 'Units within 2 spaces of unit recieve +3 Defense during combat '
+  description: 
   menuIcon: {fileID: 0}
   skillIcons: []
   rarity: 0

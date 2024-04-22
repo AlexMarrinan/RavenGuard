@@ -109,7 +109,7 @@ MonoBehaviour:
   currentXP: 0
   maxXP: 100
   droppedXP: 125
-  level: 2
+  level: 1
   hasMoved: 0
   attack: 7
   defense: 6

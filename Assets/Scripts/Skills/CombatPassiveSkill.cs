@@ -88,4 +88,10 @@ public enum CombatPSActionType {
 
     BuffAllStats,
     OppBuffAllStats,
+    BuffATK,
+    BuffDEF,
+    BuffAGL,
+    BuffATU,
+    BuffFOR,
+    BuffLCK,
 }
