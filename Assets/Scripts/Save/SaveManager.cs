@@ -17,7 +17,6 @@ public class SaveManager: MonoBehaviour{
 
     void Start(){
         savePath = Application.persistentDataPath + "/SaveData.json";
-        Debug.Log(savePath);
         playerData = PlayerData.Instance;
         instance = this;
         LoadData();
@@ -46,7 +45,6 @@ public class SaveManager: MonoBehaviour{
                 }
             }
             if (pInfo == playerData.currentParagon){
-                Debug.Log("Found owned paragon unit!");
                 continue;
             }
             Paragon p = fountainParagons[paragonIndex];

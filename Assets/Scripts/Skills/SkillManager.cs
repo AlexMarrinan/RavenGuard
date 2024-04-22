@@ -326,9 +326,6 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    //CAV PARAGON SKILLS
-
-
     //KNIGHT PARAGON SKILLS
     public void SecondWindPS(BaseUnit u){
         //ONLY USE SKILL ONCE PER STAGE
@@ -392,6 +389,8 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+
+    //CAV PARAGON SKILLS
     public void MomentumPS(BaseUnit u){
         if (u.moveAmount >= 2){
             u.AddStatsChange("MomentumDEF", UnitStatType.Defense, 2, 2, 2, 2);

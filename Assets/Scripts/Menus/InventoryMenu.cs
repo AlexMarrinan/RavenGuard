@@ -38,6 +38,10 @@ public class InventoryMenu : BaseMenu
         }
     }
     public void ShowParagonSkills(bool active=true){
+        if (currentInventoryScreen == InventoryScreen.Items){
+            paragonInfoScreen.SetActive(false);
+            return;
+        }
         paragonInfoScreen.SetActive(active);
         if (active){
             paragonInfoText.text = UnitManager.instance.GetPargonSkills().description;
@@ -315,6 +319,7 @@ public class InventoryMenu : BaseMenu
     
     internal void ShowUnits()
     {
+        ShowParagonSkills(false);
         if (menuMoving){
             return;
         }
@@ -327,6 +332,7 @@ public class InventoryMenu : BaseMenu
 
     internal void ShowItems()
     {
+        ShowParagonSkills(false);
         if (menuMoving){
             return;
         }

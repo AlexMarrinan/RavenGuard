@@ -118,7 +118,7 @@ MonoBehaviour:
   foresight: 3
   luck: 1
   healthBar: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 6896802453669631958}
   skills: []
   weapon: {fileID: 0}
   weaponClass: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   optionalIdleBattleSprite: {fileID: 0}
   useOptionalAnimation: 0
   buffs: []
-  audioSource: {fileID: 0}
+  audioSource: {fileID: 1194301016362721627}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 11400000, guid: 6e424a7689079bd48ad2bbbc1bb4529f, type: 2}

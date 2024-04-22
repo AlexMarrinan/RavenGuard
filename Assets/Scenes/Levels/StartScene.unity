@@ -4387,7 +4387,7 @@ PrefabInstance:
     - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: paragonUnits._serializedList.Array.data[2].Value
       value: 
-      objectReference: {fileID: 1602817899114489199, guid: 13822254f8fc5294cb1013a7a19bc1b8, type: 3}
+      objectReference: {fileID: -7738855246486905614, guid: 13822254f8fc5294cb1013a7a19bc1b8, type: 3}
     - target: {fileID: 8682198268093157981, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: paragonUnits._serializedList.Array.data[3].Value
       value: 
