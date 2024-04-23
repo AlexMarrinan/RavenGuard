@@ -255,6 +255,9 @@ public class UnitManager : MonoBehaviour
         if (tile == null || (visited.ContainsKey(tile) && visited[tile] == depth)){
             return;
         }
+        if (tile.occupiedUnit != null && tile.occupiedUnit.faction == startUnit.faction){
+            return;
+        }
         if (!tile.walkable){
             if (startUnit.flightTurns <= 0){
                 return;

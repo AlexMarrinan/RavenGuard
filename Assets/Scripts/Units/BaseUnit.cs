@@ -108,8 +108,10 @@ public class BaseUnit : MonoBehaviour
             skill.SetMethod();
         }
         if (paragonSkillProgression != null){
-            foreach (BaseSkill paraSkill in GetPargaonSkills().skills){
-                paraSkill.SetMethod();
+            foreach (ParagonSP sp in paragonSkillProgression.skillProgression){
+                foreach (BaseSkill paraSkill in sp.skills){
+                    paraSkill.SetMethod();
+                }
             }
         }
     }

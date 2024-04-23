@@ -410,6 +410,7 @@ public class SkillManager : MonoBehaviour
             }
             unit.SetLeviation(currentPassiveSkill.skillParam1);
             if (currentPassiveSkill.skillLevel > 1){
+                
                 unit.AddStatsChange("FlightATK", UnitStatType.Attack, 3, 3, 3, 1);
             }
             found++;
