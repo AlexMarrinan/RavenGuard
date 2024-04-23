@@ -160,7 +160,10 @@ public class BattlePrediction
                 variableValue = otherUnit.health;
                 compareVariableValue = otherUnit.maxHealth;
                 break;
-
+            case CombatPSVariable.Buffed:
+                return unit.IsBuffed() == boolValue;
+            case CombatPSVariable.OppBuffed:
+                return otherUnit.IsBuffed() == boolValue;
         }
         switch(cond.comparator){
             case Comparator.EqualTo:
@@ -168,8 +171,6 @@ public class BattlePrediction
             case Comparator.LessThan:
                 return variableValue < compareVariableValue*cond.value;
             case Comparator.LessThanEqualTo:
-//                Debug.Log("less than equal...");
-//                Debug.Log(variableValue + " " + compareVariableValue*cond.value);
                 return variableValue <= compareVariableValue*cond.value;
             case Comparator.GreaterThan:
                 return variableValue > compareVariableValue*cond.value;
@@ -272,7 +273,6 @@ public class BattlePrediction
             case CombatPSActionType.OppBuffAllStats:
                 otherUnit.BuffAllCombatStats((int)action.value);
                 break;
-            
             case CombatPSActionType.BuffATK:
                 unit.BuffCombatStat(UnitStatType.Attack, (int)action.value);
                 break;
@@ -290,6 +290,12 @@ public class BattlePrediction
                 break;
             case CombatPSActionType.BuffLCK:
                 unit.BuffCombatStat(UnitStatType.Luck, (int)action.value);
+                break;
+            case CombatPSActionType.RemoveBuffs:
+                unit.RemoveBuffs();
+                break;
+            case CombatPSActionType.OppRemoveBuffs:
+                otherUnit.RemoveBuffs();
                 break;
         }
     }

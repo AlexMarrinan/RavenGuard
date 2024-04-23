@@ -842,6 +842,51 @@ public class BaseUnit : MonoBehaviour
         this.flightTurns = turns;
         this.spriteRenderer.color = new (1f, 1f, 1f, 0.6f);
     }
+
+    public bool IsBuffed()
+    {
+        foreach (SkillStatChange statChange in skillStatChanges.Values){
+            if (statChange.currentAmount > 0){
+                return true;
+            }
+        }
+        foreach (Buff buff in buffs){
+            if (buff.positive){
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool IsDebuffed()
+    {
+        foreach (SkillStatChange statChange in skillStatChanges.Values){
+            if (statChange.currentAmount < 0){
+                return true;
+            }
+        }
+        foreach (Buff buff in buffs){
+            if (!buff.positive){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void RemoveBuffs()
+    {
+        foreach (SkillStatChange statChange in skillStatChanges.Values){
+            if (statChange.currentAmount > 0){
+                statChange.currentAmount = 0;
+                statChange.maxAmount = 0;
+            }
+        }
+        // var buffsToRemove = new List<Buff>();
+        // foreach (Buff buff in buffs){
+        //     if (buff.positive){
+                
+        //     }
+        // }
+    }
 }
 
 

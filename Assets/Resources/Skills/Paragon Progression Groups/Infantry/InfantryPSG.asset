@@ -13,9 +13,25 @@ MonoBehaviour:
   m_Name: InfantryPSG
   m_EditorClassIdentifier: Assembly-CSharp::PargonSPG
   skillProgression:
-  - skills: []
-    description: 'TODO: ADD INFANTRY ABILITIES'
+  - skills:
+    - {fileID: 11400000, guid: a9c72dd8f3536d74a9d2fd8ba067404e, type: 2}
+    - {fileID: 11400000, guid: 3625d5b9060978e4db15989c41a12246, type: 2}
+    description: 'Forced Neutrality: Neutralizes any stat buffs active on foe before
+      the beginning of combat.
+
+      
+
+      Underdog: If unit is affected by
+      a negative buff/status effect, unit makes a guaranteed follow-up during combat.'
     levelUp: 0
-  - skills: []
-    description: 'TODO: ADD INFANTRY ABILITIES'
+  - skills:
+    - {fileID: 11400000, guid: a9c72dd8f3536d74a9d2fd8ba067404e, type: 2}
+    - {fileID: 11400000, guid: 3625d5b9060978e4db15989c41a12246, type: 2}
+    description: 'Forced Neutrality: Neutralizes any stat buffs active on foe before
+      the beginning of combat.
+
+      
+
+      Underdog: If unit is affected by
+      a negative buff/status effect, unit makes a guaranteed follow-up during combat.'
     levelUp: 10
