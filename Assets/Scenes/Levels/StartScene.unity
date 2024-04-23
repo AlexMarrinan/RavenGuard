@@ -4642,7 +4642,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.size
-      value: 10
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[0]
+      value: Level 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[1]
+      value: Level 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[2]
+      value: Level 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[3]
+      value: Level 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[4]
+      value: Level 5
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[5]
@@ -4654,19 +4674,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[7]
-      value: Level 12
+      value: Level 11
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[8]
-      value: Level 14
+      value: Level 12
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: levelNames.Array.data[9]
-      value: Level 15
+      value: Level 14
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: bossLevelNames.Array.size
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[10]
+      value: Level 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
+      propertyPath: levelNames.Array.data[11]
+      value: Level 11
       objectReference: {fileID: 0}
     - target: {fileID: 8682198268744516710, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: bossLevelNames.Array.data[0]

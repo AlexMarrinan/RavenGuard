@@ -28,6 +28,7 @@ public class UnitManager : MonoBehaviour
 
     public void SpawnHeroes(){
         //returns 0 or 1
+        Debug.Log("Spawning heroes");
         team1heros = true;
         if (GetAllHeroes().Count <= 1){
             for (int i = 0; i < heroCount; i++){
@@ -51,6 +52,7 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
+        Debug.Log("Spawning enemies");
         int numEnemy = GameManager.instance.levelData.numberOfEnemies;
         //spawn normal enemies
         for (int i = 0; i < numEnemy; i++){

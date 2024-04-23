@@ -162,7 +162,10 @@ public class GridManager : MonoBehaviour
         if (!team1){
             spawnPositions = team2spawns;
         }
+        Debug.Log(spawnPositions.Count);
         int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
+        Debug.Log(randomIndex);
+
         Vector2 pos = spawnPositions.Keys.ToList()[randomIndex];
         UnitSpawnType spawnType = spawnPositions[pos];
         var tile = GetTileAtPosition(pos);
