@@ -120,10 +120,11 @@ public class BaseUnit : MonoBehaviour
         return 0;
     }
     private void InitializeFaction(){
+        spriteRenderer.color = Color.white;
         if (this.faction == UnitFaction.Hero){
-            spriteRenderer.color = GameManager.instance.heroColor;
+            //spriteRenderer.color = GameManager.instance.heroColor;
         }else{
-            spriteRenderer.color = GameManager.instance.enemyColor;
+            //spriteRenderer.color = GameManager.instance.enemyColor;
             spriteRenderer.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
@@ -323,7 +324,7 @@ public class BaseUnit : MonoBehaviour
     }
     public void FinishTurn(){
         // moveAmount = 0;
-        spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
         
         if (uiDot != null){
             uiDot.SetColor(new Color(1.0f, 1.0f, 1.0f));

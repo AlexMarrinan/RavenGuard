@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -1117208688, guid: b40c991f1363d6a4a9a7fd2b16cdb120, type: 3}
+  m_Sprite: {fileID: 391034469, guid: e4e3e044e31eae94fb149ebb3eb781d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,7 +125,11 @@ MonoBehaviour:
   - {fileID: 0}
   weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: 098cd11376619df4eaeecae2867ec436, type: 2}
+  animatorController: {fileID: 9100000, guid: 205f969de05dde64c8f93ef4d8372095, type: 2}
+  optionalAnimatorController: {fileID: 0}
+  idleBattleSprite: {fileID: 391034469, guid: e4e3e044e31eae94fb149ebb3eb781d6, type: 3}
+  optionalIdleBattleSprite: {fileID: 0}
+  useOptionalAnimation: 0
   buffs: []
   audioSource: {fileID: 8827464887934035234}
   uiDot: {fileID: 0}

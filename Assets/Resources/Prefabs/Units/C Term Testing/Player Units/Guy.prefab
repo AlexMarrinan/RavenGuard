@@ -127,7 +127,7 @@ MonoBehaviour:
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: 672c3bb2628361c449c32604b53c38a5, type: 2}
   optionalAnimatorController: {fileID: 0}
-  idleBattleSprite: {fileID: 0}
+  idleBattleSprite: {fileID: 1530402016, guid: 4f8d9e7c2b77bac40928847440a5301e, type: 3}
   optionalIdleBattleSprite: {fileID: 0}
   useOptionalAnimation: 0
   buffs: []
