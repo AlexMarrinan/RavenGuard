@@ -220,7 +220,7 @@ public class UnitManager : MonoBehaviour
         return validMoves;
     }
 
-    public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){
+    public List<BaseTile> GetPotentialValidMoves(BaseUnit unit, BaseTile newTile){
         int max = unit.MaxTileRange();
         var visited = new Dictionary<BaseTile, int>();
 
@@ -239,6 +239,11 @@ public class UnitManager : MonoBehaviour
         var next = tile.GetAdjacentTiles();
         next.ForEach(t => GVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
+        // foreach (BaseTile t in validMoves){
+        //     if (t.occupiedUnit != null && t.occupiedUnit.faction == unit.faction){
+        //         t.moveType = TileMoveType.InAttackRange;
+        //     }
+        // }
         return validMoves;
     }
 
@@ -247,10 +252,17 @@ public class UnitManager : MonoBehaviour
             return;
         }
         //if tile is not valid, continue
-        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        if (tile == null || (visited.ContainsKey(tile) && visited[tile] == depth)){
             return;
         }
-
+        if (!tile.walkable){
+            if (startUnit.flightTurns <= 0){
+                return;
+            }
+            if (tile.editorType == TileEditorType.Mountain){
+                return;
+            }
+        }
         //enemy's are valid moves but block movement
         if (tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
             visited[tile] = depth;
@@ -262,8 +274,11 @@ public class UnitManager : MonoBehaviour
             if (startUnit.unitClass == UnitClass.Cavalry){
                 return;
             }
-            visited[tile] = max;
-            return;
+            if (startUnit.flightTurns <= 0){
+                visited[tile] = max;
+                return;
+            }
+            Debug.Log("forest lev");
         }
 
         //if tile is valid, add it to the list of visited tiles and continue

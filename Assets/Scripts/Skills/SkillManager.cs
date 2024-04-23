@@ -14,6 +14,7 @@ public class SkillManager : MonoBehaviour
     public List<BaseTile> currentTiles;
     public BaseUnit user;
     public ActiveSkill currentActiveSkill;
+    public PassiveSkill currentPassiveSkill;
     public BaseTile selectedTile;
     public Color activeSkillColor, passiveSkillColor;
     public void Awake(){
@@ -400,7 +401,20 @@ public class SkillManager : MonoBehaviour
             u.RemoveStatChange("MomentumFOR");
         }
     }
-
+    //MAGE PARAGON SKILLS
+    public void FlightPS(BaseUnit u){
+        int found = 0;
+        foreach (BaseUnit unit in u.GetAdjacentUnits()){
+            if (unit.unitClass == UnitClass.Cavalry){
+                continue;
+            }
+            unit.SetLeviation(currentPassiveSkill.skillParam1);
+            found++;
+        }
+        if (currentPassiveSkill.skillLevel > 1 && found > 0){
+            u.SetLeviation(currentPassiveSkill.skillParam1);
+        }
+    }
     internal void Move(Vector2 moveVector)
     {
         AudioManager.instance.PlayMove();

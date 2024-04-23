@@ -54,7 +54,7 @@ public class BaseUnit : MonoBehaviour
     public List<int> activeSkillCooldowns;
     public ParagonSPG paragonSkillProgression;
     public Dictionary<string, int> usedSkills;
-
+    public int flightTurns = 0;
     void Start(){
         InitUnit();
     }
@@ -64,6 +64,7 @@ public class BaseUnit : MonoBehaviour
         buffs = new();
         usedSkills = new();
         tempStatMultipliers = new();
+        flightTurns = 0;
         ApplyWeapon();
         ResetCooldowns();
         ResetCombatStats();
@@ -121,6 +122,9 @@ public class BaseUnit : MonoBehaviour
     }
     private void InitializeFaction(){
         spriteRenderer.color = Color.white;
+        if (flightTurns > 0){
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0.6f);
+        }
         if (this.faction == UnitFaction.Hero){
             //spriteRenderer.color = GameManager.instance.heroColor;
         }else{
@@ -287,6 +291,7 @@ public class BaseUnit : MonoBehaviour
         //healthBar.RenderHealth();
     }
     public void ResetMovment(){
+        flightTurns--;
         InitializeFaction();
         ResetUIDot();
         moveAmount = maxMoveAmount;
@@ -802,21 +807,28 @@ public class BaseUnit : MonoBehaviour
 
     internal void Reset()
     {
-            health = maxHealth;
-            Cleanse();
-            attackEffect = AttackEffect.None;
-            buffs = new();
-            usedSkills = new();
-            tempStatMultipliers = new();
-            ResetCooldowns();
-            ResetCombatStats();
-            ResetCooldowns();
+        flightTurns = 0;
+        health = maxHealth;
+        Cleanse();
+        attackEffect = AttackEffect.None;
+        buffs = new();
+        usedSkills = new();
+        tempStatMultipliers = new();
+        ResetCooldowns();
+        ResetCombatStats();
+        ResetCooldowns();
     }
 
     public void ClearSkills()
     {
 //        Debug.Log("Cleared skills!");
         skills = new(){null, null, null};
+    }
+
+    internal void SetLeviation(int turns)
+    {
+        this.flightTurns = turns;
+        this.spriteRenderer.color = new (1f, 1f, 1f, 0.6f);
     }
 }
 
