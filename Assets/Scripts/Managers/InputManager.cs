@@ -153,10 +153,14 @@ public class InputManager : MonoBehaviour
     }
     private void OnSkipTurnPerformed(InputAction.CallbackContext context)
     {
-        if (MenuManager.instance.menuState != MenuState.Inventory){
+        if (MenuManager.instance.menuState == MenuState.Inventory){
+            MenuManager.instance.inventoryMenu.ToggleParagonSkills();
             return;
         }
-        MenuManager.instance.inventoryMenu.ToggleParagonSkills();
+        if (MenuManager.instance.InMenu()){
+            return;
+        }
+        TurnManager.instance.SkipTurn();
     }
     private void OnSkipTurnCanceled(InputAction.CallbackContext context)
     {
