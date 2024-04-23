@@ -15,22 +15,24 @@ MonoBehaviour:
   skillProgression:
   - skills:
     - {fileID: 11400000, guid: 7dbdfaa3535a4094bbd8ed78827c263f, type: 2}
+    - {fileID: 11400000, guid: 45eb554e8caf5cd42b15cfc062f346fe, type: 2}
     description: "Flight I: Unit grants adjacent allies [Levitation] for 2 turns
       at start of turn.\r\n\n\r[Levitation] Unit is can cross over tiles they could
-      previously only shoot over, and movment reducing tiles no longer reduce movment.\n\nOff
-      your feet: Unit reduces the active skill cooldown count by 1 to any allies
-      within 2 spaces at the start of turn who have an active skill at its max cooldown
+      previously only shoot over, and movment reducing tiles no longer reduce movment.\n\nHead
+      Start: Unit reduces the active skill cooldown count by 1 to any allies within
+      2 spaces at the start of turn who have an active skill at its max cooldown
       value.\r\n\r\nPotent Magic: Active Skills that affect an area get area of affect
       increased**\r\n\r\nOptimist: Buffs applied to unit last for 1 extra turn."
     levelUp: 0
   - skills:
     - {fileID: 11400000, guid: 7e647e110284b3644b8e8b454275be64, type: 2}
+    - {fileID: 11400000, guid: 45eb554e8caf5cd42b15cfc062f346fe, type: 2}
     description: "Flight II: Replaces Flight, Unit grants adjacent allies [Levitation]
       for 3 turns at the start of unit's turn. If an adjacent ally is granted [Levitation],
       unit also gets [Levitation]. \r\n\n[Levitation] Unit is can cross over tiles
       they could previously only shoot over, and movment reducing tiles no longer
-      reduce movment.\n\n\rOff your feet: Unit reduces the active skill cooldown
-      count by 1 to any allies within 2 spaces at the start of turn who have an active
+      reduce movment.\n\nHeadStart: Unit reduces the active skill cooldown count
+      by 1 to any allies within 2 spaces at the start of turn who have an active
       skill at its max cooldown value.\r\n\r\nPotent Magic: Active Skills that affect
       an area get area of affect increased**\r\n\r\nOptimist: Buffs applied to unit
       last for 1 extra turn.\n\nForesight Abuse: Allies adjacent to unit during combat

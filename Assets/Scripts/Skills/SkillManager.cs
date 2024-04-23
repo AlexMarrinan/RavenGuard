@@ -415,6 +415,17 @@ public class SkillManager : MonoBehaviour
             u.SetLeviation(currentPassiveSkill.skillParam1);
         }
     }
+    public void HeadStartPS(BaseUnit u){
+        foreach (BaseUnit unit in UnitManager.instance.GetAllUnitsOfFaction(u.faction)){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 3 && unit.unitClass == UnitClass.Knight){
+                unit.ReduceCooldown();
+            }
+        }
+    }
     internal void Move(Vector2 moveVector)
     {
         AudioManager.instance.PlayMove();
