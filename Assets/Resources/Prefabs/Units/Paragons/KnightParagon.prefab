@@ -125,7 +125,7 @@ MonoBehaviour:
   - {fileID: 0}
   weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: b2c9a3cba1f1ef04c93fc4ac84182a32, type: 2}
+  animatorController: {fileID: 9100000, guid: a6ddc34818b01b549a16e14fcb09863b, type: 2}
   optionalAnimatorController: {fileID: 0}
   idleBattleSprite: {fileID: 1794933680, guid: fd1083fe91a16e64598c618bc3b6ec08, type: 3}
   optionalIdleBattleSprite: {fileID: 0}
@@ -135,6 +135,7 @@ MonoBehaviour:
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 11400000, guid: fa5a8b00b4c3f91418c69470769c0442, type: 2}
+  flightTurns: 0
   rangedWeapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
   rangedWeaponClass: 0
 --- !u!82 &1194301016362721627
