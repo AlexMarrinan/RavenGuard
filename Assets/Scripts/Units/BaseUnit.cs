@@ -641,7 +641,7 @@ public class BaseUnit : MonoBehaviour
         foreach (string statName in skillStatChanges.Keys){
             var stat = skillStatChanges[statName];
             stat.cooldown -= 1;
-            if (stat.cooldown == 0){
+            if (stat.cooldown == 0 || (HasPassiveSkill("Optimist") && stat.cooldown == -1)){
                 doneStatNames.Add(statName);
             }
         }
@@ -804,7 +804,17 @@ public class BaseUnit : MonoBehaviour
             }
         }
     }
-
+    public bool HasPassiveSkill(string name){
+        foreach (BaseSkill skill in GetPassiveSkills()){
+            if (skill == null){
+                continue;
+            }
+            if (skill.skillName == name){
+                return true;
+            }
+        }
+        return false;
+    }
     internal void Reset()
     {
         flightTurns = 0;

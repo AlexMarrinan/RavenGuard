@@ -409,6 +409,9 @@ public class SkillManager : MonoBehaviour
                 continue;
             }
             unit.SetLeviation(currentPassiveSkill.skillParam1);
+            if (currentPassiveSkill.skillLevel > 1){
+                unit.AddStatsChange("FlightATK", UnitStatType.Attack, 3, 3, 3, 1);
+            }
             found++;
         }
         if (currentPassiveSkill.skillLevel > 1 && found > 0){
@@ -426,6 +429,13 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+    public void OptimistPS(BaseUnit u){
+        //look in BaseUnit.DecrementBuffs() for skill logic
+    }
+    public void PotentMagicPS(BaseUnit u){
+        //look in BaseUnit.DecrementBuffs() for skill logic
+    }
+    //MENU CODE
     internal void Move(Vector2 moveVector)
     {
         AudioManager.instance.PlayMove();
