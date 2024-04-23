@@ -43,6 +43,7 @@ public class UnitManager : MonoBehaviour
                 var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
 //                Debug.Log(randomSpawnTile.Item1.transform.position);
                 randomSpawnTile.Item1.SetUnitStart(hero);
+                hero.SetSkillMethods();
                 hero.transform.position = randomSpawnTile.Item1.transform.position;
             }
         }
