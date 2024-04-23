@@ -292,25 +292,27 @@ public class GridManager : MonoBehaviour
         {
             return new();
         }
-
-        //tiles that were visted
-        List<BaseTile> visited = new();
-
-        //tiles that need adj tiles visited
-        Queue<BaseTile> toVisitAdj = new();
-
         BaseUnit startUnit = start.occupiedUnit;
 
         //Dictionary describing possible paths to the end position
         Dictionary<BaseTile, BaseTile> previousTiles = new();
 
         BaseTile current = start;
+
+        //tiles that were visted
+        List<BaseTile> visited = new();
+
+        //tiles that need adj tiles visited
+        List<BaseTile> toVisitAdj = new()
+        {
+            current
+        };
+
         previousTiles.Add(current, null);
         do
         {
-            var adjTiles = current.GetAdjacentTiles();
-            //iterate through tiles to look through, and add to queue if is a valid tile
-            foreach (BaseTile tile in adjTiles)
+            //iterate through tiles to visit, and add to queue if is a valid tile
+            foreach (BaseTile tile in current.GetAdjacentTiles())
             {
                 if (tile == null)
                 {
@@ -321,6 +323,9 @@ public class GridManager : MonoBehaviour
                 {
                     continue;
                 }
+                //tile is now visited
+                visited.Add(tile);
+                
                 if (withPathLine)
                 {
                     //if path line is being drawn DO NOT add the last tile if it is an attack tile, 
@@ -338,37 +343,40 @@ public class GridManager : MonoBehaviour
                         continue;
                     }
                 }
+                
+                //add to list to check its adj tiles
+                toVisitAdj.Add(tile);
 
-                //tile did not fail, add it to 
-                visited.Add(tile);
-                toVisitAdj.Enqueue(tile);
+                //valid tile, add it to map
                 if (!previousTiles.ContainsKey(tile))
                 {
                     previousTiles.Add(tile, current);
                 }
             }
-            //if no more adjTiles to check, remove current from adj tile list
+
+            //no longer need to check currents adj tiles
+            toVisitAdj.Remove(current);
+
+            //if no more adjTiles to check, dequeue current from adj tile list to
             if (toVisitAdj.Count > 0)
             {
-                current = toVisitAdj.Dequeue();
+                //if there are more tiles to check, set first to current
+                current = toVisitAdj.First();
             }
 
-            //if we have reached the end tile succesfully
-            if (current == end || toVisitAdj.Count == 0)
-            {
-                List<BaseTile> finalTiles = new();
-                var finalCurr = current;
-                //trace back through the tile history to get our shortest path
-                while (finalCurr != null)
-                {
-                    finalTiles.Add(finalCurr);
-                    finalCurr = previousTiles[finalCurr];
-                }
-                return finalTiles;
-            }
-            //if there are more tiles to visit, keep looping
-        } while (toVisitAdj.Count > 0);
-        return null;
+        //if there are more tiles to visit, keep looping
+        } while (current != end && toVisitAdj.Count > 0);
+
+        //if we have reached the end tile succesfully
+        List<BaseTile> finalTiles = new();
+        var finalCurr = current;
+        //trace back through the tile history to get our shortest path
+        while (finalCurr != null)
+        {
+            finalTiles.Add(finalCurr);
+            finalCurr = previousTiles[finalCurr];
+        }
+        return finalTiles;
     }
 }
 

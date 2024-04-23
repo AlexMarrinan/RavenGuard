@@ -134,6 +134,7 @@ public abstract class BaseTile : MonoBehaviour
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
         UnitManager.instance.SetSelectedUnit(null);
+        Debug.Log(PathLine.instance.GetPath().Count);
         StartCoroutine(MoveUnitAlongPath(oldSelectedUnit));
     }
     public void SetUnitStart(BaseUnit unit){

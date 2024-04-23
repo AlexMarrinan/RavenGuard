@@ -74,7 +74,7 @@ public class BaseUnit : MonoBehaviour
         InitializeUnitClass();
     }
     public void ReduceCooldown(){
-        Debug.Log("reduced cooldowns");
+//        Debug.Log("reduced cooldowns");
         for (int i = 0; i < 3; i++){
             BaseSkill skill = skills[i];
             if (skill == null || skill is ActiveSkill){
