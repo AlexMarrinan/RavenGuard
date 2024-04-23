@@ -50,7 +50,7 @@ public class ItemButton : MenuButton
     }
     private void SetWeapon(BaseWeapon weapon)
     {
-        bgImage.color = new Color(190, 168, 144);
+        bgImage.color = new Color(0.745f, 0.659f, 0.565f);
     }
 }
 
