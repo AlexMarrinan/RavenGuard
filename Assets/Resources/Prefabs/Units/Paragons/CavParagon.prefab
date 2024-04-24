@@ -122,9 +122,9 @@ MonoBehaviour:
   skills: []
   weapon: {fileID: 0}
   weaponClass: 0
-  animatorController: {fileID: 9100000, guid: e2ae740df96c45145921447d2acb4c87, type: 2}
+  animatorController: {fileID: 9100000, guid: dd8f7f4b4d800e7429f4ae52900f7097, type: 2}
   optionalAnimatorController: {fileID: 0}
-  idleBattleSprite: {fileID: 0}
+  idleBattleSprite: {fileID: -2006493657, guid: 64afca8dfdcd5034394bc0805a7e0c85, type: 3}
   optionalIdleBattleSprite: {fileID: 0}
   useOptionalAnimation: 0
   buffs: []
@@ -132,6 +132,7 @@ MonoBehaviour:
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 11400000, guid: 6e424a7689079bd48ad2bbbc1bb4529f, type: 2}
+  flightTurns: 0
   meleeWeapon: {fileID: 11400000, guid: ff4a1d911b4794846a4cec33f8c0a1ad, type: 2}
   meleeWeaponClass: 1
 --- !u!82 &1194301016362721627
