@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ffc04b815e09317449228604d90af270, type: 2}
   - {fileID: 0}
   - {fileID: 0}
-  weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
+  weapon: {fileID: 11400000, guid: ff4a1d911b4794846a4cec33f8c0a1ad, type: 2}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: a99db822c00664540be301b9c4c562d6, type: 2}
   optionalAnimatorController: {fileID: 0}
@@ -135,6 +135,7 @@ MonoBehaviour:
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 0}
+  flightTurns: 0
   meleeWeapon: {fileID: 11400000, guid: ff4a1d911b4794846a4cec33f8c0a1ad, type: 2}
   meleeWeaponClass: 1
 --- !u!82 &-1615900364293008128

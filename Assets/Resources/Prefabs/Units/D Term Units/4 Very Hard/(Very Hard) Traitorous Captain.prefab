@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 811234103edbcdb40b1ac2517104b275, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -135,6 +135,7 @@ MonoBehaviour:
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 0}
+  flightTurns: 0
   meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
   meleeWeaponClass: 0
 --- !u!82 &-1318800649977114410

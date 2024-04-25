@@ -135,6 +135,7 @@ MonoBehaviour:
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 0}
+  flightTurns: 0
   meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
   meleeWeaponClass: 0
 --- !u!82 &-1318800649977114410

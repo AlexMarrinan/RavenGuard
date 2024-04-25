@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 21300000, guid: 11267b16a6c6a2845a7c670d608bc977, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: cec798558b4922141a004e4aebdce6a9, type: 2}
   optionalAnimatorController: {fileID: 0}

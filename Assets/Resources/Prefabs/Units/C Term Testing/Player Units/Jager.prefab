@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9336d412791f72241a2f576692b5b179, type: 2}
   - {fileID: 11400000, guid: 74db81d610ced2c42a84c7fba0794893, type: 2}
   - {fileID: 11400000, guid: 15506263ce11cdb4aad78f2ad6c3a290, type: 2}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: e3e01948576e05446a195d034afba95f, type: 2}
   optionalAnimatorController: {fileID: 0}
