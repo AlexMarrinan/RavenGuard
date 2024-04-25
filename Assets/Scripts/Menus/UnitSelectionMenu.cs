@@ -41,6 +41,11 @@ public class UnitSelectionMenu : BaseMenu
         Debug.Log(info);
         //BaseUnit paragonUnit = Instantiate(paragonUnits[info.unitClass], UnitManager.instance.transform);
         BaseUnit paragonUnit = paragonUnits[info.unitClass];
+        Debug.Log(paragonUnit);
+        Debug.Log(paragonUnit.spriteRenderer);
+        Debug.Log(paragonUnit.spriteRenderer.sprite);
+
+
         selectedUnitImages[0].sprite = paragonUnit.spriteRenderer.sprite;
         selectedUnits.Add(paragonUnit);
     }
@@ -80,8 +85,9 @@ public class UnitSelectionMenu : BaseMenu
     {
         foreach (BaseUnit u in selectedUnits){
             var newUnit = Instantiate(u, UnitManager.instance.transform);
+            newUnit.ClearSkills();
             UnitManager.instance.units.Add(newUnit);
         }
-        GameManager.instance.LoadNextLevel();
+        OverworldMapManager.instance.StartMap();
     }
 }

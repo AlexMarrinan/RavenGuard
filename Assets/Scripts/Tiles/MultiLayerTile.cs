@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MultiLayerTile : BaseTile
@@ -13,6 +14,7 @@ public class MultiLayerTile : BaseTile
     }
     public override void Init(int x, int y)
     {
+        base.Init(x, y);
         backgroundRenderer.color = IsOffset(x, y) ? offsetColor : baseColor;
     }
     private bool IsOffset(int x, int y){

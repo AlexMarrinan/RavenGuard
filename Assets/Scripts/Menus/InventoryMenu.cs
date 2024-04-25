@@ -15,16 +15,19 @@ public class InventoryMenu : BaseMenu
     public InventoryScreen currentInventoryScreen;
     public GameObject continutePrompt;
     public GameObject itemsScreen;
+    public GameObject paragonInfoScreen;
+    public TMP_Text paragonInfoText;
     private Vector3 itemScreenNextPos;
     public float itemScreenSpeed;
     private bool menuMoving;
     public BaseItem hoveredItem;
     public ItemButton hoveredItemButton;
     public DescriptionMenu descriptionMenu;
-    internal bool swapping;
+    public bool swapping;
 
     public override void Move(Vector2 direction)
     {
+        ShowParagonSkills(false);
         if (menuMoving){
             return;
         }
@@ -32,6 +35,16 @@ public class InventoryMenu : BaseMenu
         SetNameText();
         if (currentInventoryScreen == InventoryScreen.Items){
             HighlightUnits();
+        }
+    }
+    public void ShowParagonSkills(bool active=true){
+        if (currentInventoryScreen == InventoryScreen.Items){
+            paragonInfoScreen.SetActive(false);
+            return;
+        }
+        paragonInfoScreen.SetActive(active);
+        if (active){
+            paragonInfoText.text = UnitManager.instance.GetPargonSkills().description;
         }
     }
 
@@ -61,10 +74,10 @@ public class InventoryMenu : BaseMenu
     }
     public override void Reset()
     {
+        ShowParagonSkills(false);
         SetNameText();
-        swapping = false;
         hoveredItemButton.Reset();
-        this.xCount = 4;
+        this.xCount = 3;
         this.yCount = UnitManager.instance.GetAllHeroes().Count;
 
         itemsScreen.transform.localPosition = new(860, 180);
@@ -92,8 +105,6 @@ public class InventoryMenu : BaseMenu
             UnitSummaryMenu summary = unitSummaries[i];
             summary.gameObject.SetActive(true);
             summary.SetUnit(heroes[i]);
-            unitButtons.Add(summary.weaponButton);
-            summary.weaponButton.SetOn(true);
             for (int j = 0; j < 3; j++)
             {
                 summary.itemButtons[j].SetOn(true);
@@ -289,6 +300,7 @@ public class InventoryMenu : BaseMenu
         }
     }
     public void ChangeInventoryScreen(){
+        ShowParagonSkills(false);
         if (currentInventoryScreen == InventoryScreen.Items){
             ShowUnits();
         }else{
@@ -307,18 +319,20 @@ public class InventoryMenu : BaseMenu
     
     internal void ShowUnits()
     {
+        ShowParagonSkills(false);
         if (menuMoving){
             return;
         }
         itemScreenNextPos += new Vector3(1700, 0);
         buttons = unitButtons;
-        this.xCount = 4;
+        this.xCount = 3;
         this.yCount = UnitManager.instance.GetAllHeroes().Count;
         StartCoroutine(WhileMoving());
     }
 
     internal void ShowItems()
     {
+        ShowParagonSkills(false);
         if (menuMoving){
             return;
         }
@@ -375,6 +389,11 @@ public class InventoryMenu : BaseMenu
             ib.unit.skills[ib.index] = null;
         }
         ResetButtons();
+    }
+
+    internal void ToggleParagonSkills()
+    {
+        ShowParagonSkills(!paragonInfoScreen.activeSelf);
     }
 }
     public enum InventoryScreen{

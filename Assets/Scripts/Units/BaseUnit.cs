@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using System.Linq;
+using Game.Hub.Interactables;
 public class BaseUnit : MonoBehaviour
 {
     public string unitName;
@@ -37,8 +38,12 @@ public class BaseUnit : MonoBehaviour
     [HideInInspector] public BaseWeapon weapon;
     [HideInInspector] public WeaponClass weaponClass;
     public RuntimeAnimatorController animatorController;
+    public RuntimeAnimatorController optionalAnimatorController;
+    public Sprite idleBattleSprite;
+    public Sprite optionalIdleBattleSprite;
+    public bool useOptionalAnimation;
     private bool isAggroed = false;
-    public List<UnitStatMultiplier> tempStatChanges;
+    public List<UnitStatMultiplier> tempStatMultipliers;
     public List<Buff> buffs = new();
     internal AttackEffect attackEffect;
     protected int reducedMovment = 0;
@@ -46,9 +51,10 @@ public class BaseUnit : MonoBehaviour
     [SerializeField]
     private AudioSource audioSource;
     public UnitDot uiDot;
-    public int[] activeSkillCooldowns;
-    public SkillProgressionGroup paragonSkillProgression = null;
-
+    public List<int> activeSkillCooldowns;
+    public ParagonSPG paragonSkillProgression;
+    public Dictionary<string, int> usedSkills;
+    public int flightTurns = 0;
     void Start(){
         InitUnit();
     }
@@ -56,7 +62,11 @@ public class BaseUnit : MonoBehaviour
         //RandomizeUnitClass();
         attackEffect = AttackEffect.None;
         buffs = new();
-        ResetCooldowns();    
+        usedSkills = new();
+        tempStatMultipliers = new();
+        flightTurns = 0;
+        ApplyWeapon();
+        ResetCooldowns();
         ResetCombatStats();
         InitializeFaction();
         CreateHealthbar();
@@ -64,7 +74,7 @@ public class BaseUnit : MonoBehaviour
         InitializeUnitClass();
     }
     public void ReduceCooldown(){
-        Debug.Log("reduced cooldowns");
+//        Debug.Log("reduced cooldowns");
         for (int i = 0; i < 3; i++){
             BaseSkill skill = skills[i];
             if (skill == null || skill is ActiveSkill){
@@ -74,7 +84,7 @@ public class BaseUnit : MonoBehaviour
         }
     }
     public void ResetCooldowns(){
-        activeSkillCooldowns = new int[3] {0, 0, 0};
+        activeSkillCooldowns = new int[3] {0, 0, 0}.ToList();
     }
     public void ResetCombatStats(){
         foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
@@ -95,8 +105,14 @@ public class BaseUnit : MonoBehaviour
             if (skill == null){
                 continue;
             }
-//            Debug.Log(skill.skillName);
             skill.SetMethod();
+        }
+        if (paragonSkillProgression != null){
+            foreach (ParagonSP sp in paragonSkillProgression.skillProgression){
+                foreach (BaseSkill paraSkill in sp.skills){
+                    paraSkill.SetMethod();
+                }
+            }
         }
     }
         public virtual void ApplyWeapon(){
@@ -107,10 +123,14 @@ public class BaseUnit : MonoBehaviour
         return 0;
     }
     private void InitializeFaction(){
+        spriteRenderer.color = Color.white;
+        if (flightTurns > 0){
+            spriteRenderer.color = new Color(1f, 1f, 1f, 0.6f);
+        }
         if (this.faction == UnitFaction.Hero){
-            spriteRenderer.color = Color.cyan;
+            //spriteRenderer.color = GameManager.instance.heroColor;
         }else{
-            spriteRenderer.color = Color.red;
+            //spriteRenderer.color = GameManager.instance.enemyColor;
             spriteRenderer.transform.rotation = new Quaternion(0, 180, 0, 0);
         }
     }
@@ -132,72 +152,85 @@ public class BaseUnit : MonoBehaviour
     {
 
     }
-    public int GetDamage(BaseUnit otherUnit){
-        int attackDmg = GetAttackDamage(otherUnit);
-        int magicDmg = GetMagicDamage(otherUnit);
+    public int GetDamageDone(BaseUnit defender, bool canCrit=false){
+        int damage = 0;
+        int attackDmg = GetAttackDamage(defender);
+        int magicDmg = GetMagicDamage(defender);
         bool attackHigher = attackDmg > magicDmg;
 
         WeaponClass hitterEffective = UnitManager.instance.strongAgainst[this.weaponClass];
-        WeaponClass defenderEffective = UnitManager.instance.strongAgainst[otherUnit.weaponClass];
+        WeaponClass defenderEffective = UnitManager.instance.strongAgainst[defender.weaponClass];
+
+        Debug.Log(hitterEffective);
+        Debug.Log(defenderEffective);
 
         if (attackEffect == AttackEffect.Duality){
-            return attackHigher ? attackDmg : magicDmg;
+            attackDmg = attackHigher ? attackDmg : magicDmg;
+            magicDmg = attackHigher ? attackDmg : magicDmg;
         }
         if (attackEffect == AttackEffect.Confusion){
-            return !attackHigher ? attackDmg : magicDmg;
+            attackDmg = !attackHigher ? attackDmg : magicDmg;
+            magicDmg = !attackHigher ? attackDmg : magicDmg;
         }
-        if (weaponClass == WeaponClass.Magic){
-            if (hitterEffective == otherUnit.weaponClass){
+        if (this.weaponClass == WeaponClass.Magic){
+            if (hitterEffective == defender.weaponClass){
                 Debug.Log("Effective hit!");
-                return (int)(magicDmg * 1.2f);
+                damage = (int)(magicDmg * 1.2f);
             }else if (defenderEffective == this.weaponClass){
                 Debug.Log("Weak hit!");
-                return (int)(magicDmg * 0.8f);
+                damage = (int)(magicDmg * 0.8f);
+            }else{
+                damage = magicDmg;
             }
-            return magicDmg;
-        }
-        float value = 1;
-        if (BattleSceneManager.instance.prediction == null){
-            if (hitterEffective == otherUnit.weaponClass){
-                Debug.Log("Effective hit!");
-                return (int)(attackDmg * 1.2f);
-            }else if (defenderEffective == this.weaponClass){
-                Debug.Log("Weak hit!");
-                return (int)(attackDmg * 0.8f);
-            }
-            return attackDmg;
-        }
-        if (BattleSceneManager.instance.prediction.attacker == this){
-            foreach (UnitStatMultiplier multi in BattleSceneManager.instance.prediction.attackerStatMultipliers){
-                if (multi.statType == UnitStatType.Attack){
-                    value *= multi.multiplier;
+        }else{
+            float value = 1;
+            if (BattleSceneManager.instance.prediction == null){
+                if (hitterEffective == defender.weaponClass){
+                    Debug.Log("Effective hit!");
+                    damage = (int)(attackDmg * 1.2f);
+                }else if (defenderEffective == this.weaponClass){
+                    Debug.Log("Weak hit!");
+                    damage = (int)(attackDmg * 0.8f);
+                }else{
+                    damage = attackDmg;
+                }
+            } else {
+                if (this.tempStatMultipliers != null){
+                    foreach (UnitStatMultiplier multi in tempStatMultipliers){
+                        if (multi.statType == UnitStatType.Attack){
+                            value *= multi.multiplier;
+                        }
+                    }
+                }
+                if (hitterEffective == defender.weaponClass){
+                    Debug.Log("Effective hit!");
+                    damage = (int)(attack * 1.2f * value);
+                }else if (defenderEffective == this.weaponClass){
+                    Debug.Log("Weak hit!");
+                    damage = (int)(attackDmg * 0.8f * value);
+                }else{
+                    damage = (int)(attackDmg * value);
                 }
             }
         }
-        else if (BattleSceneManager.instance.prediction.defender == this){
-            foreach (UnitStatMultiplier multi in BattleSceneManager.instance.prediction.defenderStatMultiplers){
-                if (multi.statType == UnitStatType.Attack){
-                    value *= multi.multiplier;
-                }
+        //CRIT CHANCE
+        if (canCrit){
+            int critChance = GetLuck().total * 2;
+            int critRoll = UnityEngine.Random.Range(1, 101);
+            if (critChance >= critRoll){
+                return (int)(damage * (1.2f + 0.02f * (float)GetAttuenment().total));
             }
         }
-        if (hitterEffective == otherUnit.weaponClass){
-            Debug.Log("Effective hit!");
-            return (int)(attack * 1.2f * value);
-        }else if (defenderEffective == this.weaponClass){
-            Debug.Log("Weak hit!");
-            return (int)(attackDmg * 0.8f * value);
-        }
-        return (int)(attackDmg * value);
+        return damage;
         //return (int)((float)attackDmg * value);
     }
     private int GetAttackDamage(BaseUnit otherUnit){
         int damage = this.GetAttack().total - otherUnit.GetDefense().total;
         if (damage <= 0){
-            return 0;
+            return 1;
         }
-        if (tempStatChanges != null){
-            foreach (UnitStatMultiplier mult in tempStatChanges){
+        if (tempStatMultipliers != null){
+            foreach (UnitStatMultiplier mult in tempStatMultipliers){
                 if (mult.statType == UnitStatType.Attack){
                     damage = (int)((float)damage * mult.multiplier);
                 }
@@ -206,12 +239,12 @@ public class BaseUnit : MonoBehaviour
         return damage;
     }
     private int GetMagicDamage(BaseUnit otherUnit){
-        int damage = this.GetAttuenment().total - otherUnit.GetForesight().total;
+        int damage = this.GetAttack().total - otherUnit.GetForesight().total;
         if (damage <= 0){
-            return 0;
+            return 1;
         }
-        if (tempStatChanges != null){
-            foreach (UnitStatMultiplier mult in tempStatChanges){
+        if (tempStatMultipliers != null){
+            foreach (UnitStatMultiplier mult in tempStatMultipliers){
                 if (mult.statType == UnitStatType.Attunment){
                     damage = (int)((float)damage * mult.multiplier);
                 }
@@ -220,7 +253,7 @@ public class BaseUnit : MonoBehaviour
         return damage;
     }
     public void ReceiveDamage(BaseUnit otherUnit){
-        health -= otherUnit.GetDamage(this);;
+        health -= otherUnit.GetDamageDone(this, true);;
     }
     public void ReceiveDamage(int damage){
         health -= damage;
@@ -260,6 +293,7 @@ public class BaseUnit : MonoBehaviour
         //healthBar.RenderHealth();
     }
     public void ResetMovment(){
+        flightTurns--;
         InitializeFaction();
         ResetUIDot();
         moveAmount = maxMoveAmount;
@@ -273,9 +307,9 @@ public class BaseUnit : MonoBehaviour
         }
         if (faction == UnitFaction.Hero){
 //            Debug.Log(uiDot);
-            uiDot.SetColor(Color.cyan);
+            uiDot.SetColor(GameManager.instance.heroColor);
         }else{
-            uiDot.SetColor(Color.red);
+            uiDot.SetColor(GameManager.instance.enemyColor);
         }
     }
 
@@ -297,7 +331,7 @@ public class BaseUnit : MonoBehaviour
     }
     public void FinishTurn(){
         // moveAmount = 0;
-        spriteRenderer.color = new Color(1.0f, 1.0f, 1.0f);
+        spriteRenderer.color = new Color(0.5f, 0.5f, 0.5f);
         
         if (uiDot != null){
             uiDot.SetColor(new Color(1.0f, 1.0f, 1.0f));
@@ -459,6 +493,14 @@ public class BaseUnit : MonoBehaviour
                 aSkills.Add(s as ActiveSkill);
             }
         }
+        if (paragonSkillProgression != null){
+            ParagonSP paragonSP = GetPargaonSkills();
+            foreach (BaseSkill s in paragonSP.skills){
+                if (s is ActiveSkill){
+                    aSkills.Add(s as ActiveSkill);
+                }
+            }
+        }
         return aSkills;
     }
     public List<PassiveSkill> GetPassiveSkills(){
@@ -468,13 +510,32 @@ public class BaseUnit : MonoBehaviour
                 pSkills.Add(s as PassiveSkill);
             }
         }
+        if (paragonSkillProgression != null){
+            ParagonSP paragonSP = GetPargaonSkills();
+            foreach (BaseSkill s in paragonSP.skills){
+                if (s is PassiveSkill){
+                    pSkills.Add(s as PassiveSkill);
+                }
+            }
+        }
         return pSkills;
     }
-
+    private ParagonSP GetPargaonSkills(){
+        if (paragonSkillProgression == null){
+            return null;
+        }
+        ParagonSP finalSP = null;
+        foreach (ParagonSP sp in paragonSkillProgression.skillProgression){
+            if (this.level >= sp.levelUp){
+                finalSP = sp;
+            }
+        }
+        return finalSP;
+    }
 
     public List<CombatPassiveSkill> GetBattleSkills(){
         List<CombatPassiveSkill> pSkills = new();
-        foreach (BaseSkill s in skills){
+        foreach (BaseSkill s in GetPassiveSkills()){
             if (s is CombatPassiveSkill){
                 pSkills.Add(s as CombatPassiveSkill);
             }
@@ -582,7 +643,7 @@ public class BaseUnit : MonoBehaviour
         foreach (string statName in skillStatChanges.Keys){
             var stat = skillStatChanges[statName];
             stat.cooldown -= 1;
-            if (stat.cooldown == 0){
+            if (stat.cooldown == 0 || (HasPassiveSkill("Optimist") && stat.cooldown == -1)){
                 doneStatNames.Add(statName);
             }
         }
@@ -641,9 +702,12 @@ public class BaseUnit : MonoBehaviour
         if (NumValidAttacks() > 0){
             return true;
         }
-        foreach (int i in activeSkillCooldowns){
-            if (i <= 0){
-                return true;
+        for (int i = 0; i < activeSkillCooldowns.Count; i++){
+            BaseSkill skill = GetSkill(i);
+            if (skill != null && skill is ActiveSkill){
+                if (activeSkillCooldowns[i] <= 0){
+                    return true;
+                }   
             }
         }
         return false;
@@ -741,6 +805,87 @@ public class BaseUnit : MonoBehaviour
                 return;
             }
         }
+    }
+    public bool HasPassiveSkill(string name){
+        foreach (BaseSkill skill in GetPassiveSkills()){
+            if (skill == null){
+                continue;
+            }
+            if (skill.skillName == name){
+                return true;
+            }
+        }
+        return false;
+    }
+    internal void Reset()
+    {
+        flightTurns = 0;
+        health = maxHealth;
+        Cleanse();
+        attackEffect = AttackEffect.None;
+        buffs = new();
+        usedSkills = new();
+        tempStatMultipliers = new();
+        ResetCooldowns();
+        ResetCombatStats();
+        ResetCooldowns();
+    }
+
+    public void ClearSkills()
+    {
+//        Debug.Log("Cleared skills!");
+        skills = new(){null, null, null};
+    }
+
+    internal void SetLeviation(int turns)
+    {
+        this.flightTurns = turns;
+        this.spriteRenderer.color = new (1f, 1f, 1f, 0.6f);
+    }
+
+    public bool IsBuffed()
+    {
+        foreach (SkillStatChange statChange in skillStatChanges.Values){
+            if (statChange.currentAmount > 0){
+                return true;
+            }
+        }
+        foreach (Buff buff in buffs){
+            if (buff.positive){
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool IsDebuffed()
+    {
+        foreach (SkillStatChange statChange in skillStatChanges.Values){
+            if (statChange.currentAmount < 0){
+                return true;
+            }
+        }
+        foreach (Buff buff in buffs){
+            if (!buff.positive){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void RemoveBuffs()
+    {
+        foreach (SkillStatChange statChange in skillStatChanges.Values){
+            if (statChange.currentAmount > 0){
+                statChange.currentAmount = 0;
+                statChange.maxAmount = 0;
+            }
+        }
+        // var buffsToRemove = new List<Buff>();
+        // foreach (Buff buff in buffs){
+        //     if (buff.positive){
+                
+        //     }
+        // }
     }
 }
 

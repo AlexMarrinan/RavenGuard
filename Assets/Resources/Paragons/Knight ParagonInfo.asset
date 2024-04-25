@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d34b209cd84aeba7552c8da89679c9, type: 3}
   m_Name: Knight ParagonInfo
   m_EditorClassIdentifier: 
-  sprite: {fileID: -1027908560, guid: f47efac6f611b4742be02e02c50dfe85, type: 3}
+  sprite: {fileID: 21300000, guid: d2a26848226006343ba1bb770a58458f, type: 3}
   speakerData: {fileID: 11400000, guid: 5aa6a03a97547ce49b8546f5e8dda109, type: 2}
   unitClass: 2
+  cost: 0

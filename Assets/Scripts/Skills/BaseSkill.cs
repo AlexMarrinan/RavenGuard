@@ -67,13 +67,17 @@ public class BaseSkill : BaseItem
     {   
         //range 1 is radius
         //range 2 is distance away from unit, if not centered
+        int range = range1;
+        if (user.HasPassiveSkill("PotentMagic")){
+            range++;
+        }
         BaseTile t = user.occupiedTile;
         if (centered){
             Debug.Log("radius centered!");
-            return GetRadiusTiles(t, range1);
+            return GetRadiusTiles(t, range);
         }
         BaseTile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + range2*SkillManager.instance.useDirection);
-        return GetRadiusTiles(newT, range1);
+        return GetRadiusTiles(newT, range);
     }
     private List<BaseTile> GetRadiusTiles(BaseTile t, int maxDepth){
         var visited = new Dictionary<BaseTile, int>();
@@ -102,15 +106,19 @@ public class BaseSkill : BaseItem
     private List<BaseTile> GetRectangleTiles(BaseUnit user)
     {
         BaseTile t = user.occupiedTile;
+        int range = range1;
+        if (user.HasPassiveSkill("PotentMagic")){
+            range++;
+        }
         if (centered){
             Debug.Log("centered!");
-            return GridManager.instance.GetRectangleTiles(t, range1, range2);
+            return GridManager.instance.GetRectangleTiles(t, range, range2);
         }
         BaseTile newT = GridManager.instance.GetTileAtPosition(t.coordiantes + SkillManager.instance.useDirection);
-        List<BaseTile> potentialTiles = GridManager.instance.GetRectangleTiles(newT, range1, range2);
+        List<BaseTile> potentialTiles = GridManager.instance.GetRectangleTiles(newT, range, range2);
         while (potentialTiles.Contains(user.occupiedTile)){
             newT = GridManager.instance.GetTileAtPosition(newT.coordiantes + SkillManager.instance.useDirection);
-            potentialTiles = GridManager.instance.GetRectangleTiles(newT, range1, range2);
+            potentialTiles = GridManager.instance.GetRectangleTiles(newT, range, range2);
         }
         return potentialTiles;
     }

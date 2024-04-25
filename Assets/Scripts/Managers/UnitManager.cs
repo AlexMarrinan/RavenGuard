@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -17,26 +18,19 @@ public class UnitManager : MonoBehaviour
     private bool team1heros = false;
     public int heroCount = 5; 
     public int enemyCount = 5;
-    public Dictionary<WeaponClass, WeaponClass> strongAgainst;
-    public Dictionary<WeaponClass, WeaponClass> weakTo;
+    public SerializedDictionary<WeaponClass, WeaponClass> strongAgainst;
+    public List<BaseUnit> easyUnits, mediumUnits, hardUnits, experUnits, bossUnits;
     void Awake(){
         instance = this;
         units = new List<BaseUnit>();
         unitPrefabs = Resources.LoadAll<ScriptableUnit>("Units/C Term/Player Units").ToList();
-
-        strongAgainst = new();
-        weakTo = new();
-
-        strongAgainst.Add(WeaponClass.SideArms, WeaponClass.Archer);
-        strongAgainst.Add(WeaponClass.Archer, WeaponClass.Magic);
-        strongAgainst.Add(WeaponClass.Magic, WeaponClass.LongArms);
-        strongAgainst.Add(WeaponClass.LongArms, WeaponClass.SideArms);
     }
 
     public void SpawnHeroes(){
         //returns 0 or 1
+        Debug.Log("Spawning heroes");
         team1heros = true;
-        if (GetAllHeroes().Count <= 0){
+        if (GetAllHeroes().Count <= 1){
             for (int i = 0; i < heroCount; i++){
                 var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
                 var randomPrefab = GetRandomUnit(UnitFaction.Hero, randomSpawnTile.Item2);
@@ -44,13 +38,13 @@ public class UnitManager : MonoBehaviour
                 units.Add(spawnedHero);
                 randomSpawnTile.Item1.SetUnitStart(spawnedHero);
                 spawnedHero.SetSkillMethods();
-                SetDot(spawnedHero, i, UnitFaction.Hero);
             }
         }else{
             foreach (BaseUnit hero in GetAllHeroes()){
                 var randomSpawnTile = GridManager.instance.GetSpawnTile(team1heros);
 //                Debug.Log(randomSpawnTile.Item1.transform.position);
                 randomSpawnTile.Item1.SetUnitStart(hero);
+                hero.SetSkillMethods();
                 hero.transform.position = randomSpawnTile.Item1.transform.position;
             }
         }
@@ -58,7 +52,9 @@ public class UnitManager : MonoBehaviour
     }
 
     public void SpawnEnemies(){
+        Debug.Log("Spawning enemies");
         int numEnemy = GameManager.instance.levelData.numberOfEnemies;
+        //spawn normal enemies
         for (int i = 0; i < numEnemy; i++){
             var randomSpawnTile = GridManager.instance.GetSpawnTile(!team1heros);
             var randomPrefab = GetRandomUnit(UnitFaction.Enemy, randomSpawnTile.Item2);
@@ -66,8 +62,18 @@ public class UnitManager : MonoBehaviour
             units.Add(spawnedEnemy);
             randomSpawnTile.Item1.SetUnitStart(spawnedEnemy);
             spawnedEnemy.SetSkillMethods();
-            SetDot(spawnedEnemy, i, UnitFaction.Enemy);
         }
+
+        //spawn boss units (ALL BOSSES ARE REQUIRED)
+        foreach (Vector2 pos in GridManager.instance.bossSpawns.Keys){
+            BaseTile tile = GridManager.instance.GetTileAtPosition(pos);
+            var randomBoss = GetRandomBossUnit();
+            var spawnedBoss = Instantiate(randomBoss);
+            units.Add(spawnedBoss);
+            tile.SetUnitStart(spawnedBoss);
+            spawnedBoss.SetSkillMethods();
+        }
+        SetDots();
         GameManager.instance.ChangeState(GameState.HeroesTurn);
     }
     private BaseUnit GetRandomUnit(UnitFaction faction, UnitSpawnType spawnType)
@@ -87,7 +93,8 @@ public class UnitManager : MonoBehaviour
         }else{
             List<BaseUnit> units;
             //choses units that are allowed on this level
-            units = GameManager.instance.levelData.possibleEnemies.OrderBy(o => Random.value).ToList();
+            units = UnitsOfDifficulty(GameManager.instance.levelNumber);
+            units = units.OrderBy(o => Random.value).ToList();
             unit = units.First();
             if (spawnType == UnitSpawnType.Ranged){
                 unit = units.Where(u => u is RangedUnit).First();
@@ -102,6 +109,28 @@ public class UnitManager : MonoBehaviour
         unit.faction = faction;
         return unit;
     }
+    private BaseUnit GetRandomBossUnit(){
+        var bosses = bossUnits.OrderBy(o => Random.value).ToList();
+        return bosses.First();
+    }
+
+    private List<BaseUnit> UnitsOfDifficulty(int levelNumber)
+    {
+        if (0 <= levelNumber && levelNumber <= 2){
+            return easyUnits;
+        }
+        if (3 <= levelNumber && levelNumber <= 4){
+            return mediumUnits;
+        }
+        if (5 <= levelNumber && levelNumber <= 6){
+            return hardUnits;
+        }
+        if (7 <= levelNumber && levelNumber <= 8){
+            return experUnits;
+        }
+        return null;
+    }
+
     public void DeleteUnit(BaseUnit unit, bool killed = true){
         units.Remove(unit);
         if (unit.uiDot != null){
@@ -154,7 +183,7 @@ public class UnitManager : MonoBehaviour
         }
         RemoveAllValidMoves();
     }
-    private List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
+    public List<BaseUnit> GetAllUnitsOfFaction(UnitFaction faction){
         var wantedUnits = units.Where(u => u.faction == faction).ToList();
         // Debug.Log(faction + ": " + wantedUnits.Count);
         return wantedUnits;
@@ -194,7 +223,7 @@ public class UnitManager : MonoBehaviour
         return validMoves;
     }
 
-    public List<BaseTile> GetPotentialValidMoves(BaseUnit unit,BaseTile newTile){
+    public List<BaseTile> GetPotentialValidMoves(BaseUnit unit, BaseTile newTile){
         int max = unit.MaxTileRange();
         var visited = new Dictionary<BaseTile, int>();
 
@@ -213,6 +242,11 @@ public class UnitManager : MonoBehaviour
         var next = tile.GetAdjacentTiles();
         next.ForEach(t => GVMHelper(1, max, t, visited, t, unit));
         var validMoves = visited.Keys.ToList();
+        // foreach (BaseTile t in validMoves){
+        //     if (t.occupiedUnit != null && t.occupiedUnit.faction == unit.faction){
+        //         t.moveType = TileMoveType.InAttackRange;
+        //     }
+        // }
         return validMoves;
     }
 
@@ -221,10 +255,20 @@ public class UnitManager : MonoBehaviour
             return;
         }
         //if tile is not valid, continue
-        if (tile == null || !tile.walkable || (visited.ContainsKey(tile) && visited[tile] == depth)){
+        if (tile == null || (visited.ContainsKey(tile) && visited[tile] == depth)){
             return;
         }
-
+        if (tile.occupiedUnit != null && tile.occupiedUnit.faction == startUnit.faction){
+            return;
+        }
+        if (!tile.walkable){
+            if (startUnit.flightTurns <= 0){
+                return;
+            }
+            if (tile.editorType == TileEditorType.Mountain){
+                return;
+            }
+        }
         //enemy's are valid moves but block movement
         if (tile.occupiedUnit != null && tile.occupiedUnit.faction != startUnit.faction){
             visited[tile] = depth;
@@ -236,8 +280,11 @@ public class UnitManager : MonoBehaviour
             if (startUnit.unitClass == UnitClass.Cavalry){
                 return;
             }
-            visited[tile] = max;
-            return;
+            if (startUnit.flightTurns <= 0){
+                visited[tile] = max;
+                return;
+            }
+            Debug.Log("forest lev");
         }
 
         //if tile is valid, add it to the list of visited tiles and continue
@@ -269,11 +316,14 @@ public class UnitManager : MonoBehaviour
         }
     }
     public IEnumerator AnimateUnitMove(BaseUnit unit, List<BaseTile> path, bool moveOver){
+        path[0].PlayMoveParticles(); // Play particles on current tile; a bit scuffed
+
         if (unit == null){
             Debug.Log(unit);
             Debug.Log(path.Count); 
             yield return null;
-        }        
+        }
+
         else if (path.Count > 0){
 //            Debug.Log(path);
             BaseTile nextTile = path[0];
@@ -281,7 +331,7 @@ public class UnitManager : MonoBehaviour
             Vector3 nextPos = nextTile.transform.position;
             float elapsedTime = 0;
             while (unit.transform.position != nextPos){
-                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime/unitMoveSpeed);
+                unit.transform.position = Vector3.Lerp(unit.transform.position, nextPos, elapsedTime*unitMoveSpeed);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -322,15 +372,32 @@ public class UnitManager : MonoBehaviour
             u.DecrementBuffs();
         }
     }
-
-    internal void SetDot(BaseUnit unit, int index, UnitFaction unitFaction)
+    public void SetDots(){
+        int heroIndex = 0;
+        int enemyIndex = 0;
+        heroDots.ForEach(hd => hd.gameObject.SetActive(false));
+        enemyDots.ForEach(ed => ed.gameObject.SetActive(false));
+        foreach (BaseUnit unit in GetAllUnits()){
+            if (unit.faction == UnitFaction.Hero){
+                SetDot(unit, heroIndex);
+                heroIndex++;
+            }else{
+                SetDot(unit, enemyIndex);
+                enemyIndex++;
+            }
+        }
+    }
+    internal void SetDot(BaseUnit unit, int index)
     {
-        if (unitFaction == UnitFaction.Hero){
+//        Debug.Log("Set dot");
+        if (unit.faction == UnitFaction.Hero){
+            heroDots[index].gameObject.SetActive(true);
             unit.uiDot = heroDots[index];
             heroDots[index].unit = unit;
         }else{
-            // unit.uiDot = enemyDots[index];
-            // enemyDots[index].unit = unit;
+            enemyDots[index].gameObject.SetActive(true);
+            unit.uiDot = enemyDots[index];
+            enemyDots[index].unit = unit;
         }
     }
 
@@ -340,5 +407,26 @@ public class UnitManager : MonoBehaviour
             return;
         }
         heroDotHighlight.transform.position = uiDot.transform.position;
+    }
+
+    public BaseUnit GetParagonUnit()
+    {
+        foreach (BaseUnit unit in GetAllUnits()){
+            if (unit.paragonSkillProgression != null){
+                return unit;
+            }
+        }
+        return null;
+    }
+    public ParagonSP GetPargonSkills()
+    {
+        var paragon = GetParagonUnit();
+        ParagonSP finalSP = null;
+        foreach (ParagonSP sp in paragon.paragonSkillProgression.skillProgression){
+            if (sp.levelUp <= paragon.level){
+                finalSP = sp;
+            }
+        }
+        return finalSP;
     }
 }

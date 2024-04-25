@@ -65,5 +65,6 @@ public class MeleeUnit : BaseUnit
         }else{
             this.weaponClass = WeaponClass.SideArms;
         }
+        this.weapon = this.meleeWeapon;
     }
 }

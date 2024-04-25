@@ -102,7 +102,7 @@ public class LevelupMenu : BaseMenu
         buttons.ForEach(b => b.SetOn(false));
         highlighImage.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.1f);
 
         atk += atk2;
         def += def2; 
@@ -139,7 +139,7 @@ public class LevelupMenu : BaseMenu
 
         unit.maxXP += xpIncrease;
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.1f);
         MenuManager.instance.CloseMenus();
         BattleSceneManager.instance.CloseBattleScene();
     }

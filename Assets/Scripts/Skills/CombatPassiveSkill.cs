@@ -64,7 +64,12 @@ public enum CombatPSVariable {
     AttackFirst,
     
     AlwaysTrue,
-    AlwaysFalse
+    AlwaysFalse,
+
+    Buffed,
+    OppBuffed,
+    Debuffed,
+    OppDebuffed
 }
 
 public enum CombatPSActionType {
@@ -88,4 +93,14 @@ public enum CombatPSActionType {
 
     BuffAllStats,
     OppBuffAllStats,
+    BuffATK,
+    BuffDEF,
+    BuffAGL,
+    BuffATU,
+    BuffFOR,
+    BuffLCK,
+    RemoveBuffs,
+    OppRemoveBuffs,
+    RemoveDebuffs,
+    OppRemoveDebuffs
 }

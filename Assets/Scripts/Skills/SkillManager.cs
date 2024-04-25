@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -15,6 +14,7 @@ public class SkillManager : MonoBehaviour
     public List<BaseTile> currentTiles;
     public BaseUnit user;
     public ActiveSkill currentActiveSkill;
+    public PassiveSkill currentPassiveSkill;
     public BaseTile selectedTile;
     public Color activeSkillColor, passiveSkillColor;
     public void Awake(){
@@ -53,6 +53,7 @@ public class SkillManager : MonoBehaviour
         }
     }
     public BaseSkill GetRandomSkill(){
+//        Debug.Log(allSkills.Count);
         int index = UnityEngine.Random.Range(0, allSkills.Count);
         return allSkills[index];
     }
@@ -325,6 +326,117 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+
+    //KNIGHT PARAGON SKILLS
+    public void SecondWindPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        if (u.usedSkills.ContainsKey("SecondWind")){
+            return;
+        }
+        if (u.health <= u.maxHealth * 1 / 4){
+            u.health += u.maxHealth * 4 / 10;
+            u.usedSkills["SecondWind"] = 1;
+        }
+    }
+    public void DefensiveRallyPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("DefensiveRally", UnitStatType.Defense, 3, 3, 3, 1);
+            }
+        }
+    }
+    public void KnightsTestudoPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        int knights = 0;
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 3 && unit.unitClass == UnitClass.Knight){
+                knights++;
+            }
+        }
+        if (knights >= 2){
+            foreach (BaseUnit unit in units){
+                if (u == unit){
+                    continue;
+                }
+                float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+                if (distance <= 3){
+                    if (unit.unitClass != UnitClass.Knight){
+                        unit.AddStatsChange("TestudoDEF", UnitStatType.Defense, 5, 5, 5, 1);
+                        unit.AddStatsChange("TestudoFOR", UnitStatType.Foresight, 3, 3, 3, 1);
+                    }else{
+                        unit.AddStatsChange("TestudoDEF", UnitStatType.Defense, 6, 6, 6, 1);
+                        unit.AddStatsChange("TestudoFOR", UnitStatType.Foresight, 4, 4, 4, 1);
+                        unit.AddStatsChange("TestudoLCK", UnitStatType.Luck, 5, 5, 5, 1);
+                    }
+                }
+            }
+        }
+    }
+    public void HonorBoundPS(BaseUnit u){
+        foreach (BaseUnit unit in  u.GetAdjacentUnits() ){
+            if (unit.unitClass == UnitClass.Knight){
+                unit.RecoverHealth(3);
+            }
+        }
+    }
+
+    //CAV PARAGON SKILLS
+    public void MomentumPS(BaseUnit u){
+        if (u.moveAmount >= 2){
+            u.AddStatsChange("MomentumDEF", UnitStatType.Defense, 2, 2, 2, 2);
+            u.AddStatsChange("MomentumFOR", UnitStatType.Foresight, 2, 2, 2, 2);
+        }else{
+            u.RemoveStatChange("MomentumDEF");
+            u.RemoveStatChange("MomentumFOR");
+        }
+    }
+    //MAGE PARAGON SKILLS
+    public void FlightPS(BaseUnit u){
+        int found = 0;
+        foreach (BaseUnit unit in u.GetAdjacentUnits()){
+            if (unit.unitClass == UnitClass.Cavalry){
+                continue;
+            }
+            unit.SetLeviation(currentPassiveSkill.skillParam1);
+            if (currentPassiveSkill.skillLevel > 1){
+                
+                unit.AddStatsChange("FlightATK", UnitStatType.Attack, 3, 3, 3, 1);
+            }
+            found++;
+        }
+        if (currentPassiveSkill.skillLevel > 1 && found > 0){
+            u.SetLeviation(currentPassiveSkill.skillParam1);
+        }
+    }
+    public void HeadStartPS(BaseUnit u){
+        foreach (BaseUnit unit in UnitManager.instance.GetAllUnitsOfFaction(u.faction)){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 3 && unit.unitClass == UnitClass.Knight){
+                unit.ReduceCooldown();
+            }
+        }
+    }
+    public void OptimistPS(BaseUnit u){
+        //look in BaseUnit.DecrementBuffs() for skill logic
+    }
+    public void PotentMagicPS(BaseUnit u){
+        //look in BaseUnit.DecrementBuffs() for skill logic
+    }
+    //MENU CODE
     internal void Move(Vector2 moveVector)
     {
         AudioManager.instance.PlayMove();

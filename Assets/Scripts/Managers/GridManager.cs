@@ -19,13 +19,17 @@ public class GridManager : MonoBehaviour
     private Dictionary<Vector2, TileEditorType> tileTypes;
 
     //true if melee, false if ranged
-    public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns;
+    public Dictionary<Vector2, UnitSpawnType> team1spawns, team2spawns, bossSpawns;
     public List<Vector2> chestSpawns;
     public BaseTile hoveredTile;
     private const int NOUSE_MAP_SIZE = 500;
     public List<LevelBase> bases;
     [Range(0.0f, 1.0f)]
     public float chestSpawnRate = 0.3f;
+    public Vector2 minPos;
+    public Vector2 maxPos;
+    private bool marginsSet = true;
+
     void Awake(){
         instance = this;
     }
@@ -42,10 +46,13 @@ public class GridManager : MonoBehaviour
         
         team1spawns = new();
         team2spawns = new();
+        bossSpawns = new();
         chestSpawns = new();
-
+        marginsSet = false;
+        
         foreach (BaseTile bt in foundTiles){
             var pos = bt.transform.position;
+            SetMinMaxPos(pos);
             bt.coordiantes = pos;
             var spawn = bt.spawnTeam;
             if (tiles.ContainsKey(pos)){
@@ -66,6 +73,8 @@ public class GridManager : MonoBehaviour
                 team2spawns.Add(pos, UnitSpawnType.Ranged);
             }else if (spawn == SpawnFaction.OrangeEither){
                 team2spawns.Add(pos, UnitSpawnType.Both);
+            }else if (spawn == SpawnFaction.OrangeBoss){
+                bossSpawns.Add(pos, UnitSpawnType.Boss);
             }
 
             if (bt.spawnChest){
@@ -84,7 +93,25 @@ public class GridManager : MonoBehaviour
         }
         GameManager.instance.ChangeState(GameState.SapwnHeroes);
     }
-   
+    private void SetMinMaxPos(Vector2 pos){
+        if (!marginsSet){
+            minPos = pos;
+            maxPos = pos;
+            marginsSet = true;
+        }
+        if (minPos.x > pos.x){
+            minPos.x = pos.x;
+        }
+        if (minPos.y > pos.y){
+            minPos.y = pos.y;
+        }
+        if (maxPos.x < pos.x){
+            maxPos.x = pos.x;
+        }
+        if (maxPos.y < pos.y){
+            maxPos.y = pos.y;
+        }
+    }
     public BaseTile GetTileAtPosition(Vector2 pos){
         if (tiles.TryGetValue(pos, out var tile)){
             return tile;
@@ -135,7 +162,10 @@ public class GridManager : MonoBehaviour
         if (!team1){
             spawnPositions = team2spawns;
         }
+        Debug.Log(spawnPositions.Count);
         int randomIndex = UnityEngine.Random.Range(0, spawnPositions.Count);
+        Debug.Log(randomIndex);
+
         Vector2 pos = spawnPositions.Keys.ToList()[randomIndex];
         UnitSpawnType spawnType = spawnPositions[pos];
         var tile = GetTileAtPosition(pos);
@@ -145,8 +175,6 @@ public class GridManager : MonoBehaviour
     public List<BaseTile> GetAllTiles(){
         return tiles.Values.ToList();
     }
-    
-
     public void SetHoveredTile(BaseTile newTile){
         hoveredTile = newTile;
         hoveredTile.OnHover();
@@ -267,25 +295,27 @@ public class GridManager : MonoBehaviour
         {
             return new();
         }
-
-        //tiles that were visted
-        List<BaseTile> visited = new();
-
-        //tiles that need adj tiles visited
-        Queue<BaseTile> toVisitAdj = new();
-
         BaseUnit startUnit = start.occupiedUnit;
 
         //Dictionary describing possible paths to the end position
         Dictionary<BaseTile, BaseTile> previousTiles = new();
 
         BaseTile current = start;
+
+        //tiles that were visted
+        List<BaseTile> visited = new();
+
+        //tiles that need adj tiles visited
+        List<BaseTile> toVisitAdj = new()
+        {
+            current
+        };
+
         previousTiles.Add(current, null);
         do
         {
-            var adjTiles = current.GetAdjacentTiles();
-            //iterate through tiles to look through, and add to queue if is a valid tile
-            foreach (BaseTile tile in adjTiles)
+            //iterate through tiles to visit, and add to queue if is a valid tile
+            foreach (BaseTile tile in current.GetAdjacentTiles())
             {
                 if (tile == null)
                 {
@@ -296,6 +326,9 @@ public class GridManager : MonoBehaviour
                 {
                     continue;
                 }
+                //tile is now visited
+                visited.Add(tile);
+                
                 if (withPathLine)
                 {
                     //if path line is being drawn DO NOT add the last tile if it is an attack tile, 
@@ -313,42 +346,46 @@ public class GridManager : MonoBehaviour
                         continue;
                     }
                 }
+                
+                //add to list to check its adj tiles
+                toVisitAdj.Add(tile);
 
-                //tile did not fail, add it to 
-                visited.Add(tile);
-                toVisitAdj.Enqueue(tile);
+                //valid tile, add it to map
                 if (!previousTiles.ContainsKey(tile))
                 {
                     previousTiles.Add(tile, current);
                 }
             }
-            //if no more adjTiles to check, remove current from adj tile list
+
+            //no longer need to check currents adj tiles
+            toVisitAdj.Remove(current);
+
+            //if no more adjTiles to check, dequeue current from adj tile list to
             if (toVisitAdj.Count > 0)
             {
-                current = toVisitAdj.Dequeue();
+                //if there are more tiles to check, set first to current
+                current = toVisitAdj.First();
             }
 
-            //if we have reached the end tile succesfully
-            if (current == end || toVisitAdj.Count == 0)
-            {
-                List<BaseTile> finalTiles = new();
-                var finalCurr = current;
-                //trace back through the tile history to get our shortest path
-                while (finalCurr != null)
-                {
-                    finalTiles.Add(finalCurr);
-                    finalCurr = previousTiles[finalCurr];
-                }
-                return finalTiles;
-            }
-            //if there are more tiles to visit, keep looping
-        } while (toVisitAdj.Count > 0);
-        return null;
+        //if there are more tiles to visit, keep looping
+        } while (current != end && toVisitAdj.Count > 0);
+
+        //if we have reached the end tile succesfully
+        List<BaseTile> finalTiles = new();
+        var finalCurr = current;
+        //trace back through the tile history to get our shortest path
+        while (finalCurr != null)
+        {
+            finalTiles.Add(finalCurr);
+            finalCurr = previousTiles[finalCurr];
+        }
+        return finalTiles;
     }
 }
 
 public enum UnitSpawnType {
     Both,
     Melee,
-    Ranged
+    Ranged,
+    Boss
 }

@@ -27,8 +27,7 @@ public class LevelEndMenu : BaseMenu
     public override void Select()
     {
         InventoryManager.instance.AddItem(itemButtons[buttonIndex].item);
-        MenuManager.instance.ToggleInventoryMenu();
         MenuManager.instance.EnableInventorySwapping();
-        //GameManager.instance.LoadNextLevel();
+        GameManager.instance.LoadOverworldMap();
     }
 }

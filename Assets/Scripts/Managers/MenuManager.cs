@@ -20,6 +20,7 @@ public class MenuManager : MonoBehaviour
     public LevelEndMenu levelEndMenu;
     private Dictionary<MenuState, BaseMenu> menuMap;
     public UnitStatsMenu unitStatsMenu, otherUnitStatsMenu;
+    public ShopMenu shopMenu;
     public UnitSelectionMenu unitSelectionMenu;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
@@ -38,7 +39,8 @@ public class MenuManager : MonoBehaviour
             { MenuState.UnitAction, unitActionMenu },
             { MenuState.Battle, levelupMenu },
             { MenuState.LevelEnd, levelEndMenu },
-            { MenuState.UnitSelection, unitSelectionMenu }
+            { MenuState.UnitSelection, unitSelectionMenu },
+            { MenuState.Shop, shopMenu }
         };
     }
     private void FixedUpdate() {
@@ -118,7 +120,7 @@ public class MenuManager : MonoBehaviour
         selectedObject.SetActive(false);
     }
 
-    public void ShowStartText(string text, bool forever){
+    public void ShowStartText(string text, bool forever=false){
         turnStartText.transform.SetAsLastSibling();
         turnStartText.text = text;
         turnStartText.alpha = 1.0f;
@@ -197,11 +199,9 @@ public class MenuManager : MonoBehaviour
     }
     public void EnableInventorySwapping(){
         inventoryMenu.swapping = true;
-        inventoryMenu.continutePrompt.SetActive(true);
     }
     public void DisableInventorySwapping(){
         inventoryMenu.swapping = false;
-        inventoryMenu.continutePrompt.SetActive(false);
     }
     public void ToggleLevelEndMenu()
     {
@@ -219,13 +219,28 @@ public class MenuManager : MonoBehaviour
         levelEndMenu.transform.SetAsLastSibling();
         menuState = MenuState.LevelEnd;
     }
-    public void CloseMenus(){
+    public void ToggleShopMenu()
+    {
+        if (menuState == MenuState.Shop){
+            CloseMenus();
+            GameManager.instance.LoadOverworldMap();
+            return;
+        }
+        shopMenu.Reset();
+        //if the unit action menu is shown, hide it
         unitActionMenu.gameObject.SetActive(false);
         pauseMenu.gameObject.SetActive(false);
         inventoryMenu.gameObject.SetActive(false);
-        levelupMenu.gameObject.SetActive(false);
-        levelEndMenu.gameObject.SetActive(false);
-        unitSelectionMenu.gameObject.SetActive(false);
+        
+        shopMenu.gameObject.SetActive(true);
+        shopMenu.transform.SetAsLastSibling();
+        menuState = MenuState.Shop;
+    }
+    public void CloseMenus(){
+        foreach (BaseMenu menu in menuMap.Values){
+            menu.gameObject.SetActive(false);
+        }
+    
         UnitManager.instance.UnselectUnit();
         menuState = MenuState.None;
     }
@@ -234,6 +249,7 @@ public class MenuManager : MonoBehaviour
         if (menuState == MenuState.None){
             return;
         }
+        
         if (menuMap[menuState].gameObject.activeSelf){
             menuMap[menuState].Move(direction);
         }
@@ -277,5 +293,6 @@ public enum MenuState{
     Inventory,
     Battle,
     LevelEnd,
-    UnitSelection
+    UnitSelection,
+    Shop,
 }

@@ -16,12 +16,14 @@ public class SaveManager: MonoBehaviour{
     private readonly int PARAGON_COUNT = 4;
 
     void Start(){
-        savePath = Application.dataPath + Path.AltDirectorySeparatorChar + "/Saves/SaveData.json";
+        savePath = Application.persistentDataPath + "/SaveData.json";
         playerData = PlayerData.Instance;
         instance = this;
         LoadData();
         PlayerCharacter pc = FindObjectOfType<PlayerCharacter>();
-        pc.SetParagonInfo(playerData.currentParagon);
+        if (pc != null){
+            pc.SetParagonInfo(playerData.currentParagon);
+        }
         
         List<ParagonInfo> paragonsOwned = playerData.paragonsOwned;
         int paragonIndex = 0;
@@ -29,6 +31,9 @@ public class SaveManager: MonoBehaviour{
         fountainParagons.ForEach(p => p.gameObject.SetActive(false));
         shopParagons.ForEach(p => p.gameObject.SetActive(true));
 
+        if (fountainParagons.Count <= 0){
+            return;
+        }
         foreach (ParagonInfo pInfo in paragonsOwned){
             Debug.Log(pInfo);
             Debug.Log(playerData.currentParagon);
@@ -40,7 +45,6 @@ public class SaveManager: MonoBehaviour{
                 }
             }
             if (pInfo == playerData.currentParagon){
-                Debug.Log("Found owned paragon unit!");
                 continue;
             }
             Paragon p = fountainParagons[paragonIndex];

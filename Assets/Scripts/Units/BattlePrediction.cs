@@ -47,8 +47,8 @@ public class BattlePrediction
 
 //            Debug.Log(this.attacker.unitClass.ToString() + " " + this.defender.unitClass.ToString());
             if (tempAttacker == null || tempAttacker == attacker || swappedAttackers){
-                attacker.tempStatChanges = attackerStatMultipliers;
-                defender.tempStatChanges = defenderStatMultiplers;
+                attacker.tempStatMultipliers = attackerStatMultipliers;
+                defender.tempStatMultipliers = defenderStatMultiplers;
                 break;
             }
             swappedAttackers = true;
@@ -76,7 +76,7 @@ public class BattlePrediction
         atkHealth = attacker.health;
         defHealth = defender.health;
 
-        defHealth -= attacker.GetDamage(defender);
+        defHealth -= attacker.GetDamageDone(defender);
         if (defHealth <= 0){
             return;
         }
@@ -90,20 +90,20 @@ public class BattlePrediction
 
 //        Debug.Log("Counter: " + defenderCounterAttack);
         if (defenderCounterAttack){
-            atkHealth -= defender.GetDamage(attacker);
+            atkHealth -= defender.GetDamageDone(attacker);
             if (atkHealth <= 0){
                 return;
             }
         }
         if (attackerSecondAttack){
-            defHealth -= attacker.GetDamage(defender);
+            defHealth -= attacker.GetDamageDone(defender);
             if (defHealth <= 0){
                 return;
             }
         }
         //TODO: ADD BACK ONCE AI IS FIGURED OUT BETTER OHNO !!!
         else if (defenderSecondAttack){
-            atkHealth -= defender.GetDamage(attacker);
+            atkHealth -= defender.GetDamageDone(attacker);
             if (atkHealth <= 0){
                 return;
             }
@@ -160,7 +160,10 @@ public class BattlePrediction
                 variableValue = otherUnit.health;
                 compareVariableValue = otherUnit.maxHealth;
                 break;
-
+            case CombatPSVariable.Buffed:
+                return unit.IsBuffed() == boolValue;
+            case CombatPSVariable.OppBuffed:
+                return otherUnit.IsBuffed() == boolValue;
         }
         switch(cond.comparator){
             case Comparator.EqualTo:
@@ -168,8 +171,6 @@ public class BattlePrediction
             case Comparator.LessThan:
                 return variableValue < compareVariableValue*cond.value;
             case Comparator.LessThanEqualTo:
-//                Debug.Log("less than equal...");
-//                Debug.Log(variableValue + " " + compareVariableValue*cond.value);
                 return variableValue <= compareVariableValue*cond.value;
             case Comparator.GreaterThan:
                 return variableValue > compareVariableValue*cond.value;
@@ -271,6 +272,30 @@ public class BattlePrediction
                 break;
             case CombatPSActionType.OppBuffAllStats:
                 otherUnit.BuffAllCombatStats((int)action.value);
+                break;
+            case CombatPSActionType.BuffATK:
+                unit.BuffCombatStat(UnitStatType.Attack, (int)action.value);
+                break;
+            case CombatPSActionType.BuffDEF:
+                unit.BuffCombatStat(UnitStatType.Defense, (int)action.value);
+                break;
+            case CombatPSActionType.BuffAGL:
+                unit.BuffCombatStat(UnitStatType.Agility, (int)action.value);
+                break;
+            case CombatPSActionType.BuffATU:
+                unit.BuffCombatStat(UnitStatType.Attunment, (int)action.value);
+                break;
+            case CombatPSActionType.BuffFOR:
+                unit.BuffCombatStat(UnitStatType.Foresight, (int)action.value);
+                break;
+            case CombatPSActionType.BuffLCK:
+                unit.BuffCombatStat(UnitStatType.Luck, (int)action.value);
+                break;
+            case CombatPSActionType.RemoveBuffs:
+                unit.RemoveBuffs();
+                break;
+            case CombatPSActionType.OppRemoveBuffs:
+                otherUnit.RemoveBuffs();
                 break;
         }
     }

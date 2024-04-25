@@ -74,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
-  m_Sprite: {fileID: -1384425207, guid: b676c42e3811d5848a80148320d4c4e9, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 731d9c87310fee14cab67418bbff926e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -123,13 +123,19 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 6ca97e7ba4fc56c4cac7e97f9ec16dee, type: 2}
   - {fileID: 11400000, guid: 9a8c6c22404623146a836a44782422d5, type: 2}
   - {fileID: 0}
-  weapon: {fileID: 0}
+  weapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: e3cb1fd9918b37743be82b3ab1ef5fba, type: 2}
+  optionalAnimatorController: {fileID: 0}
+  idleBattleSprite: {fileID: -1384425207, guid: b676c42e3811d5848a80148320d4c4e9, type: 3}
+  optionalIdleBattleSprite: {fileID: 0}
+  useOptionalAnimation: 0
   buffs: []
   audioSource: {fileID: 1194301016362721627}
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
+  paragonSkillProgression: {fileID: 0}
+  flightTurns: 0
   rangedWeapon: {fileID: 11400000, guid: a91e2d7c6cd955949b3473002d928304, type: 2}
   rangedWeaponClass: 1
 --- !u!82 &1194301016362721627

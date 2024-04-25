@@ -34,9 +34,9 @@ public class HealthBarMenu : MonoBehaviour
         tempHealth = -1000;
         this.unit = unit;
         if (unit.faction == UnitFaction.Hero){
-            factionColorBG.color = Color.cyan;
+            factionColorBG.color = GameManager.instance.heroColor;
         }else{
-            factionColorBG.color = Color.red;
+            factionColorBG.color = GameManager.instance.enemyColor;
         }
     }
     public void SetHealth(int value){

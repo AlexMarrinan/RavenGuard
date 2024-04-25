@@ -22,6 +22,11 @@ public class BattleSceneManager : MonoBehaviour
     [HideInInspector] public BattleSceneState state = BattleSceneState.FirstAttack;
     public BattlePrediction prediction;
     public bool waitForXP = false;
+
+    public int normalHitParticleRate = 400;
+    public int bigHitParticleRate;
+    public int fatalHitParticleRate;
+
     void Awake()
     {
         instance = this;
@@ -35,6 +40,7 @@ public class BattleSceneManager : MonoBehaviour
     }
 
     public void StartBattle(BaseUnit first, BaseUnit second){
+        MusicManager.instance.StartBattle();
         MenuManager.instance.menuState = MenuState.Battle;
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
         MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
@@ -104,7 +110,8 @@ public class BattleSceneManager : MonoBehaviour
             AudioManager.instance.PlayMelee();
         }else if (hitterUnit.weapon.weaponClass == WeaponClass.Archer){
             AudioManager.instance.PlayArcher();
-        }else{
+        }
+        else{
             AudioManager.instance.PlayMagic();
         }
     }
@@ -113,7 +120,9 @@ public class BattleSceneManager : MonoBehaviour
         if (hitter == leftBU){
             damaged = rightBU;
         }
-                        
+
+        hitter.StopCastParticles();
+
         damaged.assignedUnit.ReduceCooldown();
         hitter.assignedUnit.ReduceCooldown();
 
@@ -122,24 +131,33 @@ public class BattleSceneManager : MonoBehaviour
         int newHealth = damaged.assignedUnit.health;
         hitter.damageDealt += health - newHealth;
 
+        int hitType = 0;
+        if (hitter.assignedUnit is not MeleeUnit && hitter.assignedUnit.weapon.weaponClass != WeaponClass.Archer) {
+            hitType += 3; // Increment to magic hit particles
+        }
+
         if (newHealth == health){
             //No damage done
             HitRecoil(damaged, 0.5f);
         }
         else if (newHealth <= 0){
             //fatal blow
-            HitRecoil(damaged, 4f);
+            HitRecoil(damaged, 2.5f);
             damaged.spriteRenderer.color = new Color(1f, 0.15f, 0.15f);
+            damaged.PlayHitParticles(hitType + 2);
         }
         else if (newHealth < health){
             if (newHealth*1.5 < health){
                 //Big Hit
                 HitRecoil(damaged, 2f);
                 StartCoroutine(HitColor(damaged, 2.5f));
-            }else{
+                damaged.PlayHitParticles(hitType + 1);
+            }
+            else{
                 //Normal hit
                 HitRecoil(damaged, 1f);
                 StartCoroutine(HitColor(damaged, 1.25f));
+                damaged.PlayHitParticles(hitType + 0);
             }
         }
     }
@@ -204,6 +222,20 @@ public class BattleSceneManager : MonoBehaviour
     }
     IEnumerator EndAnimationDeath(BattleUnit killed, float v){
         //TODO: ACTUAL KILL ANIMATION
+        SpriteRenderer unitSprite = killed.spriteRenderer;
+
+        killed.PlayDeathParticles();
+        while (true) { // Death fade-out
+            Color spriteColor = unitSprite.color;
+            float alpha = spriteColor.a - 0.1f;
+            unitSprite.color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, alpha);
+
+            if (alpha <= 0) {
+                break;
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
+        killed.StopDeathParticles();
         killed.Hide();        
         yield return new WaitForSeconds(v);
         OnBattlEnd();
@@ -214,8 +246,8 @@ public class BattleSceneManager : MonoBehaviour
         OnBattlEnd();
     }
     private void OnBattlEnd(){
-        leftBU.assignedUnit.tempStatChanges = null;
-        rightBU.assignedUnit.tempStatChanges = null;
+        leftBU.assignedUnit.tempStatMultipliers = null;
+        rightBU.assignedUnit.tempStatMultipliers = null;
         waitForXP = false;
         // if (startingUnit.faction == TurnManager.instance.currentFaction){
         //     //startingUnit.moveAmount = 0;
@@ -258,6 +290,7 @@ public class BattleSceneManager : MonoBehaviour
     }
 
     public void CloseBattleScene(){
+        MusicManager.instance.StopBattle();
         MenuManager.instance.menuState = MenuState.None;
         UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();

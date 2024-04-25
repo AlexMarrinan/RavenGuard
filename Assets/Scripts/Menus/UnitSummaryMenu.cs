@@ -17,6 +17,7 @@ public class UnitSummaryMenu : BaseMenu
     public void SetUnit(BaseUnit unit){
         this.unit = unit;
         xpBar.SetUnit(unit);
+        unit.ApplyWeapon();
         unitIcon.sprite = unit.GetSprite();
         //unitIcon.color = unit.GetColor();
         if (unitHighlightImage != null){
@@ -24,9 +25,9 @@ public class UnitSummaryMenu : BaseMenu
         }
         healthBarTop.fillAmount = (float)unit.health / (float)unit.maxHealth;
         healthText.text = unit.health + " / " + unit.maxHealth;
-        weaponClassText.text = unit.weaponClass.ToString();
-        unitClassText.text = unit.unitClass.ToString();
-
+        // weaponClassText.text = unit.weaponClass.ToString();
+        // unitClassText.text = unit.unitClass.ToString();
+//        Debug.Log(unit.weapon);
         weaponButton.SetItem(unit.weapon, 0);
         weaponButton.SetUnit(unit);
         itemButtons[0].SetItem(unit.GetSkill(0), 0);
@@ -39,7 +40,7 @@ public class UnitSummaryMenu : BaseMenu
         var atk = unit.GetAttack();
         atkT.text = atk.total.ToString();
         if (atk.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            atkT.color = Color.red;
+            atkT.color = GameManager.instance.enemyColor;
         }else if (atk.GetStatIncreaseType() == StatIncreaseType.UP){
             atkT.color = Color.green;
         }else{
@@ -49,7 +50,7 @@ public class UnitSummaryMenu : BaseMenu
         var def = unit.GetDefense();
         defT.text = def.total.ToString();
         if (def.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            defT.color = Color.red;
+            defT.color = GameManager.instance.enemyColor;
         }else if (def.GetStatIncreaseType() == StatIncreaseType.UP){
             defT.color = Color.green;
         }else{
@@ -59,7 +60,7 @@ public class UnitSummaryMenu : BaseMenu
        var agi = unit.GetAgility();
         aglT.text = agi.total.ToString();
         if (agi.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            aglT.color = Color.red;
+            aglT.color = GameManager.instance.enemyColor;
         }else if (agi.GetStatIncreaseType() == StatIncreaseType.UP){
             aglT.color = Color.green;
         }else{
@@ -70,7 +71,7 @@ public class UnitSummaryMenu : BaseMenu
        var atu = unit.GetAttuenment();
         atuT.text = atu.total.ToString();
         if (atu.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            atuT.color = Color.red;
+            atuT.color = GameManager.instance.enemyColor;
         }else if (atu.GetStatIncreaseType() == StatIncreaseType.UP){
             atuT.color = Color.green;
         }else{
@@ -80,7 +81,7 @@ public class UnitSummaryMenu : BaseMenu
         var frs = unit.GetForesight();
         frsT.text = frs.total.ToString();
         if (frs.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            frsT.color = Color.red;
+            frsT.color = GameManager.instance.enemyColor;
         }else if (frs.GetStatIncreaseType() == StatIncreaseType.UP){
             frsT.color = Color.green;
         }else{
@@ -90,7 +91,7 @@ public class UnitSummaryMenu : BaseMenu
         var lck = unit.GetLuck();
         lckT.text = lck.total.ToString();
         if (lck.GetStatIncreaseType() == StatIncreaseType.DOWN){
-            lckT.color = Color.red;
+            lckT.color = GameManager.instance.enemyColor;
         }else if (lck.GetStatIncreaseType() == StatIncreaseType.UP){
             lckT.color = Color.green;
         }else{

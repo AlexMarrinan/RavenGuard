@@ -20,6 +20,13 @@ public class GameManager : MonoBehaviour
     public GameState startState;
     public LevelData levelData;
     public bool levelFinished = false;
+    public List<string> levelNames;
+    public List<string> bossLevelNames;
+    public int cameraMarginX = 4;
+    public int cameraMarginY = 1;
+    public int levelNumber;
+    public Color heroColor;
+    public Color enemyColor;
     // Start is called before the first frame update
     void Awake(){
         if (instance != null){
@@ -86,22 +93,46 @@ public class GameManager : MonoBehaviour
     }
 
     public void PanCamera(Vector2 v){
-        if (MenuManager.instance.InPauseMenu() || MenuManager.instance.menuState == MenuState.Battle){
+        if (MenuManager.instance.InMenu() || MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
         newCameraPos = (Vector3)v + new Vector3(0, 0, -10);
     }
     public void PanCameraInDirection(Vector2 v){
-        if (MenuManager.instance.InPauseMenu() || MenuManager.instance.menuState == MenuState.Battle){
+        if (MenuManager.instance.InMenu() || MenuManager.instance.menuState == MenuState.Battle){
             return;
         }
         newCameraPos = (Vector3)v*cameraSensitivity + mainCamera.transform.position;
     }
-
+    public void SetCameraPos(Vector2 newPos){
+        newCameraPos = newPos;
+        mainCamera.transform.position = newCameraPos;
+    }
     public void LookCameraAtHighlight(){
         GameObject highlightObject = MenuManager.instance.highlightObject.gameObject;
+
         if (highlightObject.activeSelf && !usingMouse ){
-           PanCamera(highlightObject.transform.position);
+            Vector2 movePoint = highlightObject.transform.position;
+            Vector2 cameraPos = mainCamera.transform.position;
+            Vector2 min = GridManager.instance.minPos;
+            Vector2 max = GridManager.instance.maxPos;
+
+            //CLAMP X AXIS OF CAMERA; 
+            if (movePoint.x - cameraMarginX < min.x){
+                movePoint.x = min.x + cameraMarginX;
+            }
+            if (movePoint.x + cameraMarginX >= max.x){
+                movePoint.x = max.x - cameraMarginX;
+            }
+
+            //CLAMP X AXIS OF CAMERA; 
+            if (movePoint.y - cameraMarginY < min.y){
+                movePoint.y = min.y + cameraMarginY;
+            }
+            if (movePoint.y + cameraMarginY >= max.y){
+                movePoint.y = max.y - cameraMarginY;
+            }
+            PanCamera(movePoint);
         }
     }
 
@@ -115,29 +146,67 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private IEnumerator LoadNextLevelAsync(){
-        MenuManager.instance.ShowStartText("Loading level...", true);
-        yield return new WaitForSeconds(0.25f);
-        yield return SceneManager.LoadSceneAsync(levelData.nextLevelName);
-        levelData = FindObjectOfType<LevelData>();
-        // ChangeState(GameState.HeroesTurn);
-        GridManager.instance.GenerateGrid();
-        TurnManager.instance.BeginHeroTurn();
+    private IEnumerator LoadLevelAsync(string newScene){
+        levelFinished = false;
+        Debug.Log(newScene);
+        MenuManager.instance.CloseMenus();
+        MenuManager.instance.ShowStartText("Loading...", true);
+        yield return new WaitForSeconds(0.1f);
+        yield return SceneManager.LoadSceneAsync(newScene);
+        if (newScene != "OverworldMap"){
+            levelData = FindObjectOfType<LevelData>();
+            GridManager.instance.GenerateGrid();
+            TurnManager.instance.BeginHeroTurn();
+            MusicManager.instance.StartMusic(levelData);
+            yield return null;
+        }
         yield return null;
         //mainCamera = FindObjectOfType<Camera>();
     }
 
-    public void LoadNextLevel()
+    public void LoadOverworldMap()
     {
-        levelFinished = false;
-        MenuManager.instance.CloseMenus();
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);
         }
         foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
-            unit.health = unit.maxHealth;
+            unit.Reset();
         }
-        StartCoroutine(LoadNextLevelAsync());
+        UnitManager.instance.ShowUnitHealthbars(false);
+        MenuManager.instance.CloseMenus();
+        OverworldMapManager.instance.ShowMap();
+        MenuManager.instance.EnableInventorySwapping();
+
+    }
+    public void LoadCombatLevel()
+    {
+        levelNumber++;
+        MenuManager.instance.DisableInventorySwapping();
+        OverworldMapManager.instance.ShowMap(false);
+        string levelName = "";
+        if (levelNumber == 8){
+            levelName = GetRandomBossLevelName();
+        }else{
+            levelName = GetRandomLevelName();
+        }
+        StartCoroutine(LoadLevelAsync(levelName));
+    }
+    public void LoadShopLevel()
+    {
+        levelNumber++;
+        OverworldMapManager.instance.ShowMap(false);
+        MenuManager.instance.ToggleShopMenu();
+    }
+
+    private string GetRandomLevelName(){
+//        Debug.Log(levelNames.Count);
+        int index = UnityEngine.Random.Range(0, levelNames.Count);
+        return levelNames[index];
+    }
+     private string GetRandomBossLevelName(){
+        //Debug.Log(levelNames.Count);
+        int index = UnityEngine.Random.Range(0, bossLevelNames.Count);
+        return bossLevelNames[index];
     }
 }
 

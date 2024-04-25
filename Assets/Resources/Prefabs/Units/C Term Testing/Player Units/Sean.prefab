@@ -74,8 +74,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
-  m_Sprite: {fileID: -1066349898, guid: 39b78213d7db03540b5e0e2f22872894, type: 3}
+  m_SortingOrder: 10
+  m_Sprite: {fileID: 21300000, guid: 1d908f53e9153d54d89669dc588078dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -108,12 +108,13 @@ MonoBehaviour:
   maxHealth: 9
   currentXP: 0
   maxXP: 100
+  droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 2
+  attack: 5
   defense: 4
   agility: 5
-  attunment: 7
+  attunment: 2
   foresight: 5
   luck: 5
   healthBar: {fileID: 0}
@@ -125,9 +126,16 @@ MonoBehaviour:
   weapon: {fileID: 0}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: 1c2e04f6ecc083c4899695966a7f7c5e, type: 2}
+  optionalAnimatorController: {fileID: 0}
+  idleBattleSprite: {fileID: -1066349898, guid: 39b78213d7db03540b5e0e2f22872894, type: 3}
+  optionalIdleBattleSprite: {fileID: 0}
+  useOptionalAnimation: 0
   buffs: []
   audioSource: {fileID: 1194301016362721627}
   uiDot: {fileID: 0}
+  activeSkillCooldowns: 
+  paragonSkillProgression: {fileID: 0}
+  flightTurns: 0
   rangedWeapon: {fileID: 11400000, guid: afc0c184c7b039448b7846c594278768, type: 2}
   rangedWeaponClass: 1
 --- !u!82 &1194301016362721627

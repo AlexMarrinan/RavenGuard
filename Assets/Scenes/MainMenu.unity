@@ -455,6 +455,13 @@ MonoBehaviour:
   startState: 0
   levelData: {fileID: 0}
   levelFinished: 0
+  levelNames: []
+  bossLevelNames: []
+  cameraMarginX: 4
+  cameraMarginY: 1
+  levelNumber: 0
+  heroColor: {r: 0, g: 0, b: 0, a: 0}
+  enemyColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &630792556
 Transform:
   m_ObjectHideFlags: 0
@@ -838,9 +845,153 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: block
+      value: 
+      objectReference: {fileID: 8300000, guid: 6acd63bacfaf404439f77965e5e41598, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: runWin
+      value: 
+      objectReference: {fileID: 8300000, guid: 35236c47199104e4a91b084bbc3f2ac8, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: runLose
+      value: 
+      objectReference: {fileID: 8300000, guid: 44b8d170b39c1b74f93623580943b766, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: uiEquip
+      value: 
+      objectReference: {fileID: 8300000, guid: 656f7c2b5ea891d448f836c4c0cc6646, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: levelWin
+      value: 
+      objectReference: {fileID: 8300000, guid: a73a94443e4215249afb9373f884ef02, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: magicHit
+      value: 
+      objectReference: {fileID: 8300000, guid: b502bc7a714fdb643827966e92ea3ba9, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: meleeHit
+      value: 
+      objectReference: {fileID: 8300000, guid: bd76fd7ed72fdfb45a344cf6c17a17af, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: boardMove
+      value: 
+      objectReference: {fileID: 8300000, guid: 2bdb6635a62e133498c522ce30a284a0, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: chestOpen
+      value: 
+      objectReference: {fileID: 8300000, guid: 0e10e00acf2232640ba3295fedb7c350, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: magicCrit
+      value: 
+      objectReference: {fileID: 8300000, guid: 0f824ee19fee30249a50422b693a6e70, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: meleeCrit
+      value: 
+      objectReference: {fileID: 8300000, guid: af1c5651f8d6f5047a54cfedcbb1731a, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: rangedHit
+      value: 
+      objectReference: {fileID: 8300000, guid: 9c3f60700ac5fb749abf8f63cef465ff, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: skillHeal
+      value: 
+      objectReference: {fileID: 8300000, guid: 253ca4ef82260464182d320a2b51d247, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: skillMove
+      value: 
+      objectReference: {fileID: 8300000, guid: d2901882747b0f445bd296e7b73d4ea7, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: uiUnequip
+      value: 
+      objectReference: {fileID: 8300000, guid: 41d8d0384538a814ca85446cee461ca8, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: rangedCrit
+      value: 
+      objectReference: {fileID: 8300000, guid: e284c95060af4ec4888526d5091eef9e, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
       propertyPath: audioVolume
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: battleDeath
+      value: 
+      objectReference: {fileID: 8300000, guid: 6d747ce7c5f2b4e40bb0a69f433932a9, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: battleIntro
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e7f5ac49e830d94fa65434da4b8ec9f, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: boardSelect
+      value: 
+      objectReference: {fileID: 8300000, guid: 7647e1008b6052e47966196202fb8b23, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: moveUISound
+      value: 
+      objectReference: {fileID: 8300000, guid: a7939eae151643f49b54a90d3fe88ecb, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: recieveGold
+      value: 
+      objectReference: {fileID: 8300000, guid: dd32adc6752f58a4cad1a73563595a81, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: skillAttack
+      value: 
+      objectReference: {fileID: 8300000, guid: 13ec90ac6cc71934a86309627cacfac9, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: uiOpenPause
+      value: 
+      objectReference: {fileID: 8300000, guid: 5f9ec75262c881c439498261100f1c9d, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: boardConfirm
+      value: 
+      objectReference: {fileID: 8300000, guid: 7647e1008b6052e47966196202fb8b23, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: chestItemGet
+      value: 
+      objectReference: {fileID: 8300000, guid: c22ae7f5bfe912b4c992cfc97ced389b, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: uiBuyParagon
+      value: 
+      objectReference: {fileID: 8300000, guid: d11f705f09c3607458b9a1326a7d26f3, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: battleLevelUp
+      value: 
+      objectReference: {fileID: 8300000, guid: 72698b1b8a8c2c64399bb5d69ff4a33c, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: boardUnitMove
+      value: 
+      objectReference: {fileID: 8300000, guid: a5482b903fa49194e8774ddf59246ea8, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: boardUnselect
+      value: 
+      objectReference: {fileID: 8300000, guid: 42333de87a1aa224a9b779ebd4b3baf2, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: cancelUISound
+      value: 
+      objectReference: {fileID: 8300000, guid: c62caa51b2548e64a991fe99385fab18, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: selectUISound
+      value: 
+      objectReference: {fileID: 8300000, guid: fab3d3f8805999f46aa6a4bf948624a6, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: skillActivate
+      value: 
+      objectReference: {fileID: 8300000, guid: f54cd2c12bab95941929e09155b5b6a6, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: confirmUISound
+      value: 
+      objectReference: {fileID: 8300000, guid: fab3d3f8805999f46aa6a4bf948624a6, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: mapMoveToStage
+      value: 
+      objectReference: {fileID: 8300000, guid: 0ce6ce62fc227434d9c14c88f5ec43aa, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: uiUpgradeSkill
+      value: 
+      objectReference: {fileID: 8300000, guid: aa1e71031146fb24796f0195391b9e0f, type: 3}
+    - target: {fileID: 4369215815965255302, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
+      propertyPath: uiOpenInventory
+      value: 
+      objectReference: {fileID: 8300000, guid: 16ac64b6f148b78408cff57a7d3cfc97, type: 3}
     - target: {fileID: 7782066086763661835, guid: 9b438af922cc1c14e96ec85e0170e9e4, type: 3}
       propertyPath: m_RootOrder
       value: 5

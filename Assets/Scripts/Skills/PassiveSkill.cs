@@ -20,6 +20,7 @@ public class PassiveSkill : BaseSkill {
     /// </summary>
     /// <param name="user">unit that is using the skill</param>
     public override void OnUse(BaseUnit user){
+        SkillManager.instance.currentPassiveSkill = this;
         var mng = SkillManager.instance;
         var param = new object[1];
         param[0] = user;

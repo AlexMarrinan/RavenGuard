@@ -35,6 +35,7 @@ public class InputManager : MonoBehaviour
         }
     }
     private void Move(){
+
         if (TurnManager.instance.currentFaction == UnitFaction.Enemy){
             return;
         }
@@ -52,7 +53,10 @@ public class InputManager : MonoBehaviour
             MenuManager.instance.Move(moveVector);
             return;
         }
-
+        if (OverworldMapManager.instance.InOverworldMap()){
+            OverworldMapManager.instance.Move(moveVector);
+            return;
+        }
         GridManager.instance.MoveHoveredTile(moveVector);
     }
     private void OnEnable() {
@@ -147,17 +151,21 @@ public class InputManager : MonoBehaviour
         input.Player.SkipTurn.performed -= OnSkipTurnPerformed;
         input.Player.SkipTurn.canceled -= OnSkipTurnCanceled;
     }
-
-    private void OnSkipTurnCanceled(InputAction.CallbackContext context)
-    {
-        TurnManager.instance.SkipTurn();
-    }
-
     private void OnSkipTurnPerformed(InputAction.CallbackContext context)
     {
-
+        if (MenuManager.instance.menuState == MenuState.Inventory){
+            MenuManager.instance.inventoryMenu.ToggleParagonSkills();
+            return;
+        }
+        if (MenuManager.instance.InMenu()){
+            return;
+        }
+        TurnManager.instance.SkipTurn();
     }
-
+    private void OnSkipTurnCanceled(InputAction.CallbackContext context)
+    {
+        
+    }
     private void OnMovePerformed(InputAction.CallbackContext value){
         GameManager.instance.SetUsingMouse(false);
         //TODO: FIX CHOPPY ANALOGUE STICK MOVEMENT !!!
@@ -177,6 +185,10 @@ public class InputManager : MonoBehaviour
             MenuManager.instance.Select();
             return;
         }
+        if (OverworldMapManager.instance.InOverworldMap()){
+            OverworldMapManager.instance.Select();
+            return;
+        }
         if (GridManager.instance.hoveredTile.occupiedUnit != null 
         && GridManager.instance.hoveredTile.occupiedUnit.hasMoved 
         && MenuManager.instance.menuState != MenuState.UnitAction
@@ -188,7 +200,6 @@ public class InputManager : MonoBehaviour
             SkillManager.instance.Select();
             return;
         }
-
         GameManager.instance.SetUsingMouse(false);
         GridManager.instance.SelectHoveredTile();
     }
@@ -221,6 +232,9 @@ public class InputManager : MonoBehaviour
                     MenuManager.instance.inventoryMenu.ChangeInventoryScreen();
                     return;
                 }
+            }
+            if (MenuManager.instance.menuState == MenuState.Shop){
+                return;
             }
             MenuManager.instance.CloseMenus();
             return;
@@ -255,6 +269,9 @@ public class InputManager : MonoBehaviour
     }
 
     private void OnPausePerformed(InputAction.CallbackContext value){
+        if (MenuManager.instance.menuState == MenuState.Shop){
+            return;
+        }
         if (MenuManager.instance.menuState == MenuState.UnitSelection){
             MenuManager.instance.unitSelectionMenu.ConfirmUnits();
             return;
@@ -262,7 +279,7 @@ public class InputManager : MonoBehaviour
         if (MenuManager.instance.menuState == MenuState.Inventory && MenuManager.instance.inventoryMenu.swapping){
             MenuManager.instance.DisableInventorySwapping();
             MenuManager.instance.CloseMenus();
-            GameManager.instance.LoadNextLevel();
+            GameManager.instance.LoadOverworldMap();
             return;
         }
         if (MenuManager.instance.menuState == MenuState.LevelEnd){
@@ -339,10 +356,6 @@ public class InputManager : MonoBehaviour
     }
     private void OnInventoryMenuPerformed(InputAction.CallbackContext context)
     {
-        if (MenuManager.instance.inventoryMenu.swapping){
-            //DSIABLED AT END OF LEVEL, CAN ONLY TOGGLE DURING NORMAL GAMEPLAY
-            return;
-        }
         if (MenuManager.instance.menuState == MenuState.Battle){
             return;
         }

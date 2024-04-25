@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 10
   m_Sprite: {fileID: 1277641916, guid: 08ab84da308839f4e84823b301593644, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -108,6 +108,7 @@ MonoBehaviour:
   maxHealth: 12
   currentXP: 0
   maxXP: 100
+  droppedXP: 100
   level: 2
   hasMoved: 0
   attack: 3
@@ -125,9 +126,15 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: fdd73432e66e2bc45808310d1afc9f9b, type: 2}
   weaponClass: 0
   animatorController: {fileID: 9100000, guid: 597ace6dc73f377469b3cba35cdd950e, type: 2}
+  optionalAnimatorController: {fileID: 0}
+  idleBattleSprite: {fileID: 0}
+  optionalIdleBattleSprite: {fileID: 0}
+  useOptionalAnimation: 0
   buffs: []
   audioSource: {fileID: 3989182894958730718}
   uiDot: {fileID: 0}
+  activeSkillCooldowns: 
+  paragonSkillProgression: {fileID: 0}
   meleeWeapon: {fileID: 11400000, guid: b5d6015600904fc44b759d7e01f001bd, type: 2}
   meleeWeaponClass: 1
 --- !u!82 &3989182894958730718
