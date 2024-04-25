@@ -99,38 +99,60 @@ public abstract class BaseTile : MonoBehaviour
         }
  //       Debug.Log("3");
         //current pressed tile is occupied
-        if (occupiedUnit != null){
-            //if the unit is not awaiting orders, do not allow selection
-            if (!TurnManager.instance.unitsAwaitingOrders.Contains(occupiedUnit) && occupiedUnit.faction == TurnManager.instance.currentFaction){
-                return;
-            }
-            //current unit is a hero, set as selected
-            if (occupiedUnit.faction == UnitFaction.Hero){
-                UnitManager.instance.SetSelectedUnit(occupiedUnit);
-                return;
-            }
-            //current unit is enemy, AND selected is enemy,
-            else if (occupiedUnit.faction == UnitFaction.Enemy){
- //               Debug.Log("Selected unit is enemy!");
-                if (UnitManager.instance.selectedUnit == null){
-                  return;
-                }
-                if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero){
-                    //move hero to enemy, kill enemy
-                    AudioManager.instance.PlayConfirm();
-                    UnitManager.instance.selectedUnit.Attack(occupiedUnit);
-                }
-            }
-        
+        if (occupiedUnit != null)
+        {
+            SelectValidTile(this.occupiedUnit);
+        }
         //current pressed tile is NOT occupied
-        }else{
+        else
+        {
             if (UnitManager.instance.selectedUnit != null){
                 AudioManager.instance.PlayConfirm();
                 MoveToSelectedTile();
+
+            }
+            else {
+                foreach (BaseUnit unit in UnitManager.instance.GetAllUnits()){
+                    if (unit.occupiedTile == this && unit.faction == UnitFaction.Hero){
+                        SelectValidTile(unit);
+                        break;
+                    }
+                }
             }
         }
         PathLine.instance.Reset();
     }
+
+    private void SelectValidTile(BaseUnit unit)
+    {
+        //if the unit is not awaiting orders, do not allow selection
+        if (!TurnManager.instance.unitsAwaitingOrders.Contains(unit) && unit.faction == TurnManager.instance.currentFaction)
+        {
+            return;
+        }
+        //current unit is a hero, set as selected
+        if (occupiedUnit.faction == UnitFaction.Hero)
+        {
+            UnitManager.instance.SetSelectedUnit(unit);
+            return;
+        }
+        //current unit is enemy, AND selected is enemy,
+        else if (unit.faction == UnitFaction.Enemy)
+        {
+            //               Debug.Log("Selected unit is enemy!");
+            if (UnitManager.instance.selectedUnit == null)
+            {
+                return;
+            }
+            if (UnitManager.instance.selectedUnit.faction == UnitFaction.Hero)
+            {
+                //move hero to enemy, kill enemy
+                AudioManager.instance.PlayConfirm();
+                UnitManager.instance.selectedUnit.Attack(unit);
+            }
+        }
+    }
+
     public void MoveToSelectedTile(){
         BaseUnit oldSelectedUnit = UnitManager.instance.selectedUnit;
         UnitManager.instance.SetSelectedUnit(null);
