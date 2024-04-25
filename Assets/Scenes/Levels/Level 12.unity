@@ -28080,12 +28080,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startLevel: 0
   numberOfEnemies: 16
-  possibleEnemies:
-  - {fileID: 2450522220589349630, guid: 6bc36c386901d3542b5661b30bb45881, type: 3}
-  - {fileID: 1602817899114489199, guid: 47a6d53c78ae6ab41ae850264fd56ee6, type: 3}
-  - {fileID: -4372316466427370903, guid: ea51cb7e9b5680941b6df9646fcda645, type: 3}
-  - {fileID: 2450522220589349630, guid: 9b769ee7f2c75fd4997eb35db846cbb3, type: 3}
-  - {fileID: 2450522220589349630, guid: f71374a7734cd1243b8251356f3c79ce, type: 3}
+  levelTheme: 1
 --- !u!1001 &1116252960
 PrefabInstance:
   m_ObjectHideFlags: 0

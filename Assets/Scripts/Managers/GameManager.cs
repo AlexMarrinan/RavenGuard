@@ -157,6 +157,7 @@ public class GameManager : MonoBehaviour
             levelData = FindObjectOfType<LevelData>();
             GridManager.instance.GenerateGrid();
             TurnManager.instance.BeginHeroTurn();
+            MusicManager.instance.StartMusic(levelData);
             yield return null;
         }
         yield return null;

@@ -6,8 +6,8 @@ public class LevelData: MonoBehaviour {
     //public int nextSceneID;
     public bool startLevel;
     public int numberOfEnemies;
+    public LevelTheme levelTheme;
     public static bool hasStarted = false;
-    public List<BaseUnit> possibleEnemies;
     public void Awake(){
         if (!startLevel && !hasStarted){
             SceneManager.LoadScene("StartScene");
@@ -16,3 +16,8 @@ public class LevelData: MonoBehaviour {
         }
     }
 }
+
+public enum LevelTheme {
+    MountainRange,
+    Castle
+} 

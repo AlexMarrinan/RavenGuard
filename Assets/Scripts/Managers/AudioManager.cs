@@ -46,8 +46,6 @@ public class AudioManager : MonoBehaviour
     private AudioClip mapOpen;
     [SerializeField]
     private AudioClip mapClose, mapCursor, mapSelectStage, mapMoveToStage;
-
-
     [SerializeField]
     private AudioSource source;
     [Range(0.0f, 1.0f)]
