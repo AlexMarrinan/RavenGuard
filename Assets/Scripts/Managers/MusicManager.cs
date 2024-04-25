@@ -23,7 +23,7 @@ public class MusicManager : MonoBehaviour
     private AudioClip castleBGM; 
     [SerializeField]
     private AudioClip castleBattleBGM;
-    public AudioSource musicSource;
+    public AudioSource musicSource, musicSourceBattle;
     [Range(0.0f, 1.0f)]
     public float musicVolume = 1f;
     void Awake()
@@ -34,9 +34,25 @@ public class MusicManager : MonoBehaviour
         LevelTheme levelTheme = levelData.levelTheme;
         if (levelTheme == LevelTheme.MountainRange){
             musicSource.clip = mountRangeBGM;
+            musicSourceBattle.clip = mountRangeBattleBGM;
         }else{
             musicSource.clip = castleBGM;
+            musicSourceBattle.clip = castleBattleBGM;
         }
+        musicSource.volume = musicVolume;
         musicSource.Play();
+
+        musicSourceBattle.volume = 0f;
+        musicSourceBattle.Play();
+    }
+
+    public void StartBattle(){
+        musicSource.volume = 0f;
+        musicSourceBattle.volume = musicVolume;
+    }
+
+    public void StopBattle(){
+        musicSource.volume = musicVolume;
+        musicSourceBattle.volume = 0f;
     }
 }

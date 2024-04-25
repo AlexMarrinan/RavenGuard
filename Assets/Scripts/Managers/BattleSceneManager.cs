@@ -40,6 +40,7 @@ public class BattleSceneManager : MonoBehaviour
     }
 
     public void StartBattle(BaseUnit first, BaseUnit second){
+        MusicManager.instance.StartBattle();
         MenuManager.instance.menuState = MenuState.Battle;
         MenuManager.instance.unitStatsMenu.gameObject.SetActive(false);
         MenuManager.instance.otherUnitStatsMenu.gameObject.SetActive(false);
@@ -289,6 +290,7 @@ public class BattleSceneManager : MonoBehaviour
     }
 
     public void CloseBattleScene(){
+        MusicManager.instance.StopBattle();
         MenuManager.instance.menuState = MenuState.None;
         UnitManager.instance.ShowUnitHealthbars(true);
         ResetBattleUnitsPos();
