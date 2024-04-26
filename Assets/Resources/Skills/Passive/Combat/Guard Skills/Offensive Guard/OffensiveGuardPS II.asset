@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
   m_Name: OffensiveGuardPS II
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: -43003510, guid: 7e5fcc12118b5df43b87d24dea9b7a71, type: 3}
   skillName: Offensive Guard
   skillLevel: 2
   description: If foe initiates combat, unit gains +4 to ATK during combat.

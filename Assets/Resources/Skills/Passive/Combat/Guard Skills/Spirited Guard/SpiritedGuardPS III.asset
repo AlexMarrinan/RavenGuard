@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
   m_Name: SpiritedGuardPS III
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 1124502506, guid: 7e5fcc12118b5df43b87d24dea9b7a71, type: 3}
   skillName: Spirited Guard
   skillLevel: 3
   description: If foe initiates combat, unit gains +9 to LCK during combat.
