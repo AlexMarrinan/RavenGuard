@@ -22,6 +22,7 @@ public class MenuManager : MonoBehaviour
     public UnitStatsMenu unitStatsMenu, otherUnitStatsMenu;
     public ShopMenu shopMenu;
     public UnitSelectionMenu unitSelectionMenu;
+    public HowToPlayMenu howToPlayMenu;
     private int textFrames = 0;
     //public int textFramesBeginFadeout = 30;
     public int textFramesMax = 120;
@@ -40,7 +41,8 @@ public class MenuManager : MonoBehaviour
             { MenuState.Battle, levelupMenu },
             { MenuState.LevelEnd, levelEndMenu },
             { MenuState.UnitSelection, unitSelectionMenu },
-            { MenuState.Shop, shopMenu }
+            { MenuState.Shop, shopMenu },
+            {MenuState.HowToPlay, howToPlayMenu}
         };
     }
     private void FixedUpdate() {
@@ -236,6 +238,17 @@ public class MenuManager : MonoBehaviour
         shopMenu.transform.SetAsLastSibling();
         menuState = MenuState.Shop;
     }
+    public void ToggleHowToPlayMenu()
+    {
+        CloseMenus();
+        if (menuState == MenuState.HowToPlay){
+            return;
+        }
+
+        howToPlayMenu.gameObject.SetActive(true);
+        howToPlayMenu.transform.SetAsLastSibling();
+        menuState = MenuState.HowToPlay;
+    }
     public void CloseMenus(){
         foreach (BaseMenu menu in menuMap.Values){
             menu.gameObject.SetActive(false);
@@ -283,6 +296,11 @@ public class MenuManager : MonoBehaviour
         }
         inventoryMenu.ShowItems();
     }
+
+    internal void toggleHTPMenu()
+    {
+        throw new NotImplementedException();
+    }
 }
 
 
@@ -295,4 +313,5 @@ public enum MenuState{
     LevelEnd,
     UnitSelection,
     Shop,
+    HowToPlay,
 }

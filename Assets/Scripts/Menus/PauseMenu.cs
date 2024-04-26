@@ -10,22 +10,15 @@ public class PauseMenu : BaseMenu
     {
         switch(buttonIndex){
             case 0: Resume(); break;
-            case 1: SkipeTurn(); break;
+            case 1: HowToPlay(); break;
             case 2: Quit(); break;
         }
     }
     private void Resume(){
         MenuManager.instance.TogglePauseMenu();
     }
-    private void SkipeTurn(){
-        TurnManager.instance.OnStageClear();
-        return;
-        MenuManager.instance.TogglePauseMenu();
-        if (GameManager.instance.gameState == GameState.EnemiesTurn){
-            GameManager.instance.ChangeState(GameState.HeroesTurn);
-        }else{
-            GameManager.instance.ChangeState(GameState.EnemiesTurn);
-        }
+    private void HowToPlay(){
+        MenuManager.instance.ToggleHowToPlayMenu();
     }
     private void Quit(){
         Debug.Log("Quitting...");
