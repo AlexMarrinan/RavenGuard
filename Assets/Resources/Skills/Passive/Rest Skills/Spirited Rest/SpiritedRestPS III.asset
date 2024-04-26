@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
+  m_Name: SpiritedRestPS III
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -2013139662, guid: 5def659322f24e44b8788331cab7ff52, type: 3}
+  skillName: SpiritedRest
+  skillLevel: 3
+  description: If unit ends turn without moving, grants unit a +7 buff to LCK until
+    the unit's next turn.
+  menuIcon: {fileID: 0}
+  skillIcons: []
+  rarity: 0
+  skillType: 0
+  skillRestrictions: 0
+  progressionGroup: {fileID: 11400000, guid: 2565e8e985737c7498c52b90482e578d, type: 2}
+  unitClass: 0
+  weaponClass: 0
+  centered: 0
+  shape: 0
+  range1: 1
+  range2: 1
+  skillParam1: 7
+  skillParam2: 0
+  tileMoveType: 0
+  passiveSkillType: 4

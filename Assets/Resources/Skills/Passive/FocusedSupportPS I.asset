@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
+  m_Name: FocusedSupportPS I
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 856646351, guid: ee79f710ff5691a4ca3b944e23ea10b8, type: 3}
+  skillName: FocusedSupport
+  skillLevel: 1
+  description: Units within 2 spaces of unit recieve +2 Attunement during combat
+  menuIcon: {fileID: 0}
+  skillIcons: []
+  rarity: 0
+  skillType: 0
+  skillRestrictions: 0
+  progressionGroup: {fileID: 11400000, guid: dcbfb406c6b0d60408480bbd3e23adb4, type: 2}
+  unitClass: 4
+  weaponClass: 0
+  centered: 0
+  shape: 0
+  range1: 1
+  range2: 1
+  skillParam1: 2
+  skillParam2: 0
+  tileMoveType: 0
+  passiveSkillType: 4

@@ -104,18 +104,18 @@ MonoBehaviour:
   unitClass: 2
   moveAmount: 4
   maxMoveAmount: 4
-  health: 17
-  maxHealth: 17
+  health: 22
+  maxHealth: 22
   currentXP: 0
   maxXP: 100
   droppedXP: 125
   level: 1
   hasMoved: 0
-  attack: 7
-  defense: 6
+  attack: 8
+  defense: 7
   agility: 3
-  attunment: 2
-  foresight: 3
+  attunment: 8
+  foresight: 2
   luck: 3
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}

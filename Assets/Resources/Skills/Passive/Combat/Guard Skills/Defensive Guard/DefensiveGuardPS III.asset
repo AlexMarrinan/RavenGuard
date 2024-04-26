@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
+  m_Name: DefensiveGuardPS III
+  m_EditorClassIdentifier: 
+  sprite: {fileID: -1228053859, guid: 7e5fcc12118b5df43b87d24dea9b7a71, type: 3}
+  skillName: Defensive Guard
+  skillLevel: 3
+  description: If foe initiates combat, unit gains +6 to DEF during combat.
+  menuIcon: {fileID: 0}
+  skillIcons: []
+  rarity: 0
+  skillType: 0
+  skillRestrictions: 0
+  progressionGroup: {fileID: 11400000, guid: b488f9acfacfa8c42a9576cb66c4cbc8, type: 2}
+  unitClass: 0
+  weaponClass: 0
+  centered: 0
+  shape: 0
+  range1: 1
+  range2: 1
+  skillParam1: 0
+  skillParam2: 0
+  tileMoveType: 0
+  passiveSkillType: 1
+  atributes:
+  - condition:
+      variable: 14
+      comparator: 0
+      value: 0
+    action:
+      type: 13
+      value: 6

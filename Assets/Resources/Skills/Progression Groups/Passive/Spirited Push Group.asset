@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
+  m_Name: Spirited Push Group
+  m_EditorClassIdentifier: 
+  paragonSkill: 0
+  skillProgression:
+  - skill: {fileID: 11400000, guid: 82cf8ea204147824e9f6a0df1bf74301, type: 2}
+    cost: 0
+  - skill: {fileID: 11400000, guid: 3642c87be97d6694ea4d2c6fa367f2e0, type: 2}
+    cost: 150
+  - skill: {fileID: 11400000, guid: 33c61f95dd966374a943c3f843b97509, type: 2}
+    cost: 250

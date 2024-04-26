@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
+  m_Name: Resilient Dash Group
+  m_EditorClassIdentifier: 
+  paragonSkill: 0
+  skillProgression:
+  - skill: {fileID: 11400000, guid: 5db278d7bfc4516409f63ceff67baef0, type: 2}
+    cost: 0
+  - skill: {fileID: 11400000, guid: 53b1e2b51e960a8428ad346f5faa5970, type: 2}
+    cost: 150
+  - skill: {fileID: 11400000, guid: 7b91ad4001d6ce64d9d75421404c7d1a, type: 2}
+    cost: 250
