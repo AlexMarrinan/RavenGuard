@@ -47,12 +47,27 @@ public class MusicManager : MonoBehaviour
     }
 
     public void StartBattle(){
-        musicSource.volume = 0f;
-        musicSourceBattle.volume = musicVolume;
+        StartCoroutine(FadeTracks(musicSourceBattle, musicSource));
+        // musicSource.volume = 0f;
+        // musicSourceBattle.volume = musicVolume;
     }
 
     public void StopBattle(){
-        musicSource.volume = musicVolume;
-        musicSourceBattle.volume = 0f;
+        StartCoroutine(FadeTracks(musicSource, musicSourceBattle));
+        // musicSource.volume = musicVolume;
+        // musicSourceBattle.volume = 0f;
+    }
+
+    public IEnumerator FadeTracks(AudioSource fadeIn, AudioSource fadeOut){
+
+        float duration = 0.08f;
+        float currentTime = 0;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            fadeIn.volume = Mathf.Lerp(0f, musicVolume, currentTime / duration);
+            fadeOut.volume = Mathf.Lerp(musicVolume, 0f, currentTime / duration);
+            yield return null;
+        }
     }
 }
