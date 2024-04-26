@@ -62,9 +62,9 @@ public class AudioManager : MonoBehaviour
     private void PlaySound(AudioClip clip){
         PlaySound(clip, 0.75f * audioVolume);
     }
-    private void PlaySound(AudioClip clip, float pitch){
+    private void PlaySound(AudioClip clip, float volume){
         source.pitch = 1.0f;
-        source.PlayOneShot(clip, pitch);
+        source.PlayOneShot(clip, volume);
     }
     public void PlayConfirm(){
         PlaySound(confirmUISound, 0.55f * audioVolume);
@@ -132,5 +132,8 @@ public class AudioManager : MonoBehaviour
         source.PlayOneShot(magicHit, 0.75f * audioVolume);
     }
 
-
+    internal void PlayDeath()
+    {
+        PlaySound(battleDeath);
+    }
 }

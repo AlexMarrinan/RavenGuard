@@ -225,6 +225,7 @@ public class BattleSceneManager : MonoBehaviour
         SpriteRenderer unitSprite = killed.spriteRenderer;
 
         killed.PlayDeathParticles();
+        AudioManager.instance.PlayDeath();
         while (true) { // Death fade-out
             Color spriteColor = unitSprite.color;
             float alpha = spriteColor.a - 0.1f;

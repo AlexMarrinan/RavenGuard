@@ -103,17 +103,11 @@ public enum CombatPSActionType {
     RemoveBuffs,
     OppRemoveBuffs,
     RemoveDebuffs,
-    OppRemoveDebuffs
-
+    OppRemoveDebuffs,
     BuffAttackStat,
-
     BuffDefenseStat,
-
     BuffAgilityStat,
-
     BuffAttunmentStat,
-
     BuffForesightStat,
-
     BuffLuckStat,
 }
