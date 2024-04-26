@@ -297,6 +297,29 @@ public class BattlePrediction
             case CombatPSActionType.OppRemoveBuffs:
                 otherUnit.RemoveBuffs();
                 break;
+            case CombatPSActionType.BuffAttackStat:
+                unit.BuffCombatStat(UnitStatType.Attack, (int)action.value);
+                break;
+
+            case CombatPSActionType.BuffDefenseStat:
+                unit.BuffCombatStat(UnitStatType.Defense, (int)action.value);
+                break;
+
+            case CombatPSActionType.BuffAgilityStat:
+                unit.BuffCombatStat(UnitStatType.Agility, (int)action.value); 
+                break;
+
+            case CombatPSActionType.BuffAttunmentStat:
+                unit.BuffCombatStat(UnitStatType.Attunment, (int)action.value);
+                break;
+
+            case CombatPSActionType.BuffForesightStat:
+                unit.BuffCombatStat(UnitStatType.Foresight, (int)action.value);
+                break;
+
+            case CombatPSActionType.BuffLuckStat:
+                unit.BuffCombatStat(UnitStatType.Luck, (int)action.value);
+                break;
         }
     }
 }

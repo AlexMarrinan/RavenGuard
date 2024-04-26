@@ -92,6 +92,7 @@ public enum CombatPSActionType {
     OppDamageMultiplier,
 
     BuffAllStats,
+    //New Stuff Here too
     OppBuffAllStats,
     BuffATK,
     BuffDEF,
@@ -103,4 +104,16 @@ public enum CombatPSActionType {
     OppRemoveBuffs,
     RemoveDebuffs,
     OppRemoveDebuffs
+
+    BuffAttackStat,
+
+    BuffDefenseStat,
+
+    BuffAgilityStat,
+
+    BuffAttunmentStat,
+
+    BuffForesightStat,
+
+    BuffLuckStat,
 }
