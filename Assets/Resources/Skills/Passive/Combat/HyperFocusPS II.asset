@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
   m_Name: HyperFocusPS II
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
+  sprite: {fileID: -981862307, guid: d3262270fc5412a4fa092515315ef643, type: 3}
   skillName: HyperFocus
   skillLevel: 1
   description: If unit's HP is above 75%, unit gets +2 to all stats during combat

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
   m_Name: EnforceAS II
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 62e4965cd7ae9ed46a1f034669d53311, type: 3}
+  sprite: {fileID: 21300000, guid: 05e182f44cc345942a4f28cafa02f908, type: 3}
   skillName: Enforce
   skillLevel: 2
   description: Unit grants target ally a +4 buff to defense and foresight for the

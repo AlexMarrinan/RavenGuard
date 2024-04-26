@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
   m_Name: CoverAS
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: ce0722d3efb3eef42bf84f2f4eee12d3, type: 3}
+  sprite: {fileID: 1521184320, guid: 5def659322f24e44b8788331cab7ff52, type: 3}
   skillName: Cover
   skillLevel: 1
   description: Unit moves target ally to opposite side of unit.
