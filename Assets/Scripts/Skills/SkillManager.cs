@@ -436,6 +436,54 @@ public class SkillManager : MonoBehaviour
     public void PotentMagicPS(BaseUnit u){
         //look in BaseUnit.DecrementBuffs() for skill logic
     }
+
+    //INFANTRY PARAGON SKILLS
+    public void RavensCallPS(BaseUnit u){
+        var otherUnit = BattleSceneManager.instance.GetOtherBattleUnit(u).assignedUnit;
+        int amount = 2;
+        if (u.health <= u.maxHealth / 2){
+            amount = 4;
+        }
+        int infs = 0;
+        int cavs = 0;
+        int knights = 0;
+        int mages = 0;
+        foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
+            if (unit == u){
+                continue;
+            }
+            switch (unit.unitClass){
+                case UnitClass.Infantry: infs++; break;
+                case UnitClass.Cavalry: cavs++; break;
+                case UnitClass.Knight: knights++; break;
+                case UnitClass.Mage: mages++; break;
+            }
+        }
+        if (infs >= 1){
+            u.AddStatsChange("RavensCallATK", UnitStatType.Attack, amount, amount, amount, 1);
+            if (otherUnit != null){
+                otherUnit.AddStatsChange("RavensCallAGL", UnitStatType.Attack, -2*infs, -2*infs, -2*infs, 1);
+            }
+        }
+        if (cavs >= 1){
+            u.AddStatsChange("RavensCallAGL", UnitStatType.Agility, amount, amount, amount, 1);
+            if (otherUnit != null){
+                otherUnit.ReduceNextMovemnt(cavs);
+            }
+        }
+        if (knights >= 1){
+            u.AddStatsChange("RavensCallDEF", UnitStatType.Defense, amount, amount, amount, 1);
+            if (otherUnit != null){
+                otherUnit.AddStatsChange("RavensCallDEF", UnitStatType.Defense, -2*knights, -2*knights, -2*knights, 1);
+            }
+        }
+        if (mages >= 1){
+            u.AddStatsChange("RavensCallFOR", UnitStatType.Foresight, amount, amount, amount, 1);
+            if (otherUnit != null){
+                otherUnit.AddStatsChange("RavensCallFOR", UnitStatType.Foresight, -2*mages, -2*mages, -2*mages, 1);
+            }
+        }
+    }
     //MENU CODE
     internal void Move(Vector2 moveVector)
     {

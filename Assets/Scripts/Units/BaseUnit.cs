@@ -442,7 +442,8 @@ public class BaseUnit : MonoBehaviour
         if (!duringCombatStats.ContainsKey(type)){
             return newAmount;
         }
-        return newAmount + duringCombatStats[type];
+        int value = newAmount + duringCombatStats[type];
+        return value;
     }
     public SkillStatChange GetStatChange(string name){
         if (skillStatChanges.ContainsKey(name)){

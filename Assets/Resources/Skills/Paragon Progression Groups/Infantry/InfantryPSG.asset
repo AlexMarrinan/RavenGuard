@@ -19,19 +19,26 @@ MonoBehaviour:
     description: 'Forced Neutrality: Neutralizes any stat buffs active on foe before
       the beginning of combat.
 
-      
 
-      Underdog: If unit is affected by
-      a negative buff/status effect, unit makes a guaranteed follow-up during combat.'
+
+      Underdog: If unit is affected by a negative
+      buff/status effect, unit makes a guaranteed follow-up during combat.'
     levelUp: 0
   - skills:
     - {fileID: 11400000, guid: a9c72dd8f3536d74a9d2fd8ba067404e, type: 2}
     - {fileID: 11400000, guid: 3625d5b9060978e4db15989c41a12246, type: 2}
-    description: 'Forced Neutrality: Neutralizes any stat buffs active on foe before
-      the beginning of combat.
-
-      
-
-      Underdog: If unit is affected by
-      a negative buff/status effect, unit makes a guaranteed follow-up during combat.'
+    - {fileID: 11400000, guid: 1b4e1fa15054e09428f0ac2b8c25bff3, type: 2}
+    description: "Forced Neutrality: Neutralizes any stat buffs active on foe before
+      the beginning of combat.\n\nUnderdog: If unit is affected by a negative buff/status
+      effect, unit makes a guaranteed follow-up during combat.\n\nRaven's Call: After
+      combat, debuffs foe based on the following conditions.\r\nAllied units only
+      count if they are alive and not the paragon unit. \r\n\r\nFor each Infantry
+      present: - 2 Agility\r\nFor each Knight present: - 2 Defense\r\nFor each Mage
+      present: - 2 Foresight\r\nFor each Cavalry present: -1 move distance\r\n\r\nIf
+      unit is not adjacent to any allies at the start of turn, buffs self based on
+      the following conditions:\r\nThese conditions do not stack.\r\n\r\nIf an Infantry
+      is present: + 2 Attack\r\nIf a Knight is present: +2 Defense\r\nIf a Mage is
+      present: +2 Foresight\r\nIf a Cavalry is present: +2 Agility.\r\n\r\nDesperate
+      Measures: When below 50% HP, unit doubles the effects of all stat buffs on
+      self."
     levelUp: 10

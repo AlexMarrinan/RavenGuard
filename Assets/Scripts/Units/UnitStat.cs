@@ -23,6 +23,9 @@ public class UnitStat {
             statIncreaseType = StatIncreaseType.UP;
         }
         total = baseAmount + change;
+        if (total < 0){
+            total = 0;
+        }
     }
 
     public StatIncreaseType GetStatIncreaseType(){
