@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
   m_Name: BashAS I
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: d94ede5b738769947bff778a53c03a68, type: 3}
+  sprite: {fileID: -607191198, guid: 5def659322f24e44b8788331cab7ff52, type: 3}
   skillName: Bash
   skillLevel: 1
   description: Unit Deals 35% of its defense stat as damage to target, calculations

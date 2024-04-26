@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac04daaffb4a4ac4ea98aa9aea968def, type: 3}
   m_Name: PhantomSlashAS III
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
+  sprite: {fileID: 1562868283, guid: d3262270fc5412a4fa092515315ef643, type: 3}
   skillName: PhantomSlash
   skillLevel: 3
   description: Unit Deals 35% of its foreisght stat as damage to target, calculations
