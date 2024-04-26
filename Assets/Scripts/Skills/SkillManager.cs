@@ -296,6 +296,103 @@ public class SkillManager : MonoBehaviour
     }   
 
 
+    //DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHHHHHH skills
+    public void OffensiveDashPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount > 0){
+            u.AddStatsChange("OffensiveDash", UnitStatType.Attack, 2, 2, 2, 1);
+            u.SetStatChange("OffensiveDash", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void DefensiveDashPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount > 0){
+            u.AddStatsChange("DefensiveDash", UnitStatType.Defense, 2, 2, 2, 1);
+            u.SetStatChange("DefensiveDash", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void AgileDashPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount > 0){
+            u.AddStatsChange("AgileDash", UnitStatType.Agility, 2, 2, 2, 1);
+            u.SetStatChange("AgileDash", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void FocusedDashPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount > 0){
+            u.AddStatsChange("FocusedDash", UnitStatType.Attunment, 2, 2, 2, 1);
+            u.SetStatChange("FocusedDash", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void ResilientDashPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount > 0){
+            u.AddStatsChange("ResilientDash", UnitStatType.Foresight, 2, 2, 2, 1);
+            u.SetStatChange("ResilientDash", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void SpiritedDashPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount > 0){
+            u.AddStatsChange("SpiritedDash", UnitStatType.Luck, 2, 2, 2, 1);
+            u.SetStatChange("SpiritedDash", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void OffensiveRestPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount == 0){
+            u.AddStatsChange("OffensiveRest", UnitStatType.Attack, 2, 2, 2, 1);
+            u.SetStatChange("OffensiveRest", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void DefensiveRestPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount == 0){
+            u.AddStatsChange("DefensiveRest", UnitStatType.Defense, 2, 2, 2, 1);
+            u.SetStatChange("DefensiveRest", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void AgileRestPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount == 0){
+            u.AddStatsChange("AgileRest", UnitStatType.Agility, 2, 2, 2, 1);
+            u.SetStatChange("AgileRest", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void FocusedRestPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount == 0){
+            u.AddStatsChange("FocusedRest", UnitStatType.Attunment, 2, 2, 2, 1);
+            u.SetStatChange("FocusedRest", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void ResilientRestPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount == 0){
+            u.AddStatsChange("ResilientRest", UnitStatType.Foresight, 2, 2, 2, 1);
+            u.SetStatChange("ResilientRest", currentPassiveSkill.skillParam1);
+        }
+    }
+
+    public void SpiritedRestPS(BaseUnit u){
+        //Called after movement
+        if (u.moveAmount == 0){
+            u.AddStatsChange("SpiritedRest", UnitStatType.Luck, 2, 2, 2, 1);
+            u.SetStatChange("SpiritedRest", currentPassiveSkill.skillParam1);
+        }
+    }
+
     //Unit heals 7 HP after combat if unit attacked.
     public void RecoveryPS(BaseUnit u){
         int healing = 4;

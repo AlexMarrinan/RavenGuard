@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
+  m_Name: Agile Guard Group
+  m_EditorClassIdentifier: 
+  paragonSkill: 0
+  skillProgression:
+  - skill: {fileID: 11400000, guid: 9ff098b0dec97db45a7921eae3eeb735, type: 2}
+    cost: 0
+  - skill: {fileID: 11400000, guid: d551bfb08680ac545a44186075a00857, type: 2}
+    cost: 150
+  - skill: {fileID: 11400000, guid: b77a1c65ade05ba41b4acc2e6a8863c5, type: 2}
+    cost: 250

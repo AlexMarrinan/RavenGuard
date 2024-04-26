@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
+  m_Name: Spirited Guard Group
+  m_EditorClassIdentifier: 
+  paragonSkill: 0
+  skillProgression:
+  - skill: {fileID: 11400000, guid: b7d7067bc3f33934ea5b1acce64aafed, type: 2}
+    cost: 0
+  - skill: {fileID: 11400000, guid: eb469cb6367ecc04c9907e22caefe917, type: 2}
+    cost: 150
+  - skill: {fileID: 11400000, guid: af92effa54aa9fd44913da60e20b0931, type: 2}
+    cost: 250

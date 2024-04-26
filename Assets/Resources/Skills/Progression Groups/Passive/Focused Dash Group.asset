@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
+  m_Name: Focused Dash Group
+  m_EditorClassIdentifier: 
+  paragonSkill: 0
+  skillProgression:
+  - skill: {fileID: 11400000, guid: 68e776d139b5d1a48bf824eecc5c3268, type: 2}
+    cost: 0
+  - skill: {fileID: 11400000, guid: c36c479009c14214f9f06b45d609fca4, type: 2}
+    cost: 150
+  - skill: {fileID: 11400000, guid: 8855c307c1a2bd44682fbf3b6e0882a3, type: 2}
+    cost: 250
