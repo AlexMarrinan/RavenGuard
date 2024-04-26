@@ -40,8 +40,8 @@ public class OverworldMapManager : MonoBehaviour {
     // Setup nodes, node selector, & position node map
     public void StartMap() {
         MenuManager.instance.ToggleUnitSelectionMenu();
+        MusicManager.instance.StartMapMusic();
         ShowMap();
-        
         InitializeNodes(); // Initialize all nodes
         NodeSelector.instance.Initialize(currentNode); // Initialize node selector
     }

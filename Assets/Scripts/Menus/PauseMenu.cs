@@ -18,11 +18,14 @@ public class PauseMenu : BaseMenu
         MenuManager.instance.TogglePauseMenu();
     }
     private void HowToPlay(){
+        // MenuManager.instance.TogglePauseMenu();
+        // MenuManager.instance.ToggleLevelEndMenu();
+        // return;
         MenuManager.instance.ToggleHowToPlayMenu();
     }
     private void Quit(){
         Debug.Log("Quitting...");
-        Application.Quit();
+        SceneManager.LoadScene("Town");
         // SceneManager.LoadScene("MainMenu");
     }
 }

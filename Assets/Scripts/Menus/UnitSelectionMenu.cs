@@ -88,6 +88,7 @@ public class UnitSelectionMenu : BaseMenu
             newUnit.ClearSkills();
             UnitManager.instance.units.Add(newUnit);
         }
+        MusicManager.instance.SetUpMusic();
         OverworldMapManager.instance.StartMap();
     }
 }

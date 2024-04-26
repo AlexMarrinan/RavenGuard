@@ -157,20 +157,23 @@ public class GameManager : MonoBehaviour
             levelData = FindObjectOfType<LevelData>();
             GridManager.instance.GenerateGrid();
             TurnManager.instance.BeginHeroTurn();
-            MusicManager.instance.StartMusic(levelData);
+            MusicManager.instance.StartLevelMusic(levelData);
             yield return null;
         }
         yield return null;
         //mainCamera = FindObjectOfType<Camera>();
     }
 
-    public void LoadOverworldMap()
+    public void LoadOverworldMap(bool startMusic = true)
     {
         foreach (BaseUnit unit in UnitManager.instance.GetAllEnemies()){
             UnitManager.instance.DeleteUnit(unit, false);
         }
         foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
             unit.Reset();
+        }
+        if (startMusic){
+            MusicManager.instance.StartMapMusic();
         }
         UnitManager.instance.ShowUnitHealthbars(false);
         MenuManager.instance.CloseMenus();

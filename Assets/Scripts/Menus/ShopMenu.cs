@@ -32,7 +32,7 @@ public class ShopMenu : BaseMenu
         InventoryManager.instance.AddItem(itemButtons[buttonIndex].item);
         boughtItems++;
         if (boughtItems >= 2){
-            GameManager.instance.LoadOverworldMap();
+            GameManager.instance.LoadOverworldMap(false);
             return;
         }
         buttons[buttonIndex].SetOn(false);

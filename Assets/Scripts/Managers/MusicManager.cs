@@ -12,7 +12,8 @@ public class MusicManager : MonoBehaviour
     [Header("Town Music")]
     [SerializeField]
     private AudioClip townBGM;
-
+    [SerializeField]
+    private AudioClip mapBGM;
     [Header("Mountain Range Music")]
     [SerializeField]
     private AudioClip mountRangeBGM; 
@@ -23,14 +24,31 @@ public class MusicManager : MonoBehaviour
     private AudioClip castleBGM; 
     [SerializeField]
     private AudioClip castleBattleBGM;
-    public AudioSource musicSource, musicSourceBattle;
+    public AudioSource musicSource, musicSourceBattle, musicSourceMap;
+
+    private AudioSource currentSource;
     [Range(0.0f, 1.0f)]
     public float musicVolume = 1f;
     void Awake()
     {
         instance = this;
     }
-    public void StartMusic(LevelData levelData){
+    public void SetUpMusic(){  
+        musicSource.clip = mountRangeBGM;
+        musicSource.volume = 0f;
+        musicSource.Play();
+
+        musicSource.clip = mountRangeBattleBGM;
+        musicSourceBattle.volume = 0f;
+        musicSourceBattle.Play();
+
+        musicSourceMap.clip = mapBGM;
+        musicSourceMap.volume = 0f;
+        musicSourceMap.Play();
+    }
+
+    public void StartLevelMusic(LevelData levelData){
+        Debug.Log("Starting level music");
         LevelTheme levelTheme = levelData.levelTheme;
         if (levelTheme == LevelTheme.MountainRange){
             musicSource.clip = mountRangeBGM;
@@ -39,35 +57,33 @@ public class MusicManager : MonoBehaviour
             musicSource.clip = castleBGM;
             musicSourceBattle.clip = castleBattleBGM;
         }
-        musicSource.volume = musicVolume;
         musicSource.Play();
-
-        musicSourceBattle.volume = 0f;
         musicSourceBattle.Play();
+        // Debug.Log(levelTheme);
+        StartCoroutine(FadeTracks(musicSource, 0.5f));
     }
-
-    public void StartBattle(){
-        StartCoroutine(FadeTracks(musicSourceBattle, musicSource));
-        // musicSource.volume = 0f;
-        // musicSourceBattle.volume = musicVolume;
+    public void StartBattleMusic(){
+        StartCoroutine(FadeTracks(musicSourceBattle));
     }
-
-    public void StopBattle(){
-        StartCoroutine(FadeTracks(musicSource, musicSourceBattle));
-        // musicSource.volume = musicVolume;
-        // musicSourceBattle.volume = 0f;
+    public void StopBattleMusic(){
+        StartCoroutine(FadeTracks(musicSource));
     }
-
-    public IEnumerator FadeTracks(AudioSource fadeIn, AudioSource fadeOut){
-
-        float duration = 0.08f;
+    public void StartMapMusic(){
+        StartCoroutine(FadeTracks(musicSourceMap, 0.5f));
+    }
+    public IEnumerator FadeTracks(AudioSource fadeIn, float duration = 0.08f){
+        Debug.Log("Tracks fading...");
         float currentTime = 0;
         while (currentTime < duration)
         {
             currentTime += Time.deltaTime;
             fadeIn.volume = Mathf.Lerp(0f, musicVolume, currentTime / duration);
-            fadeOut.volume = Mathf.Lerp(musicVolume, 0f, currentTime / duration);
+            if (currentSource != null){
+                currentSource.volume = Mathf.Lerp(musicVolume, 0f, currentTime / duration);
+            }
             yield return null;
         }
+        currentSource = fadeIn;
+        yield return null;
     }
 }

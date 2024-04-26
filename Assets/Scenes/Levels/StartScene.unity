@@ -123,6 +123,134 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &98275022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98275023}
+  - component: {fileID: 98275024}
+  m_Layer: 0
+  m_Name: MapSource
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &98275023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98275022}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.7607684, y: -21.227379, z: 9.679145}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1352546714}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &98275024
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98275022}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &103730073 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8682198267902332254, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
@@ -2955,6 +3083,7 @@ Transform:
   m_Children:
   - {fileID: 1985034481}
   - {fileID: 1160559764}
+  - {fileID: 98275023}
   m_Father: {fileID: 103730073}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2971,12 +3100,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   townBGM: {fileID: 8300000, guid: 3c7cfa1886bd7594e8e4ef6f4f994680, type: 3}
+  mapBGM: {fileID: 8300000, guid: af974271740a9e04b83819bdb2778b55, type: 3}
   mountRangeBGM: {fileID: 8300000, guid: 4fdeeff4293e5bd40be36e5c16f7fd5e, type: 3}
   mountRangeBattleBGM: {fileID: 8300000, guid: 7b9f6fc3d1915884ca5dbcb9c38a32c2, type: 3}
-  castleBGM: {fileID: 8300000, guid: 93d0d024488193249bb552569a6982fc, type: 3}
-  castleBattleBGM: {fileID: 8300000, guid: 1f3b47d3fa54e9b409b40b382c2d5ef1, type: 3}
+  castleBGM: {fileID: 8300000, guid: 39378b55674b8f340a0c6f123e866245, type: 3}
+  castleBattleBGM: {fileID: 8300000, guid: 4074d52038f4cb7428480e1db067b26e, type: 3}
   musicSource: {fileID: 1985034482}
   musicSourceBattle: {fileID: 1160559765}
+  musicSourceMap: {fileID: 98275024}
   musicVolume: 0.227
 --- !u!1 &1550906362
 GameObject:
@@ -5441,7 +5572,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: cce6c983a00d54b48a3099919fe1c993, type: 2}
     - target: {fileID: 8682198267829754830, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8682198267874890415, guid: 434d7a9c418073540b0c02f38cc33685, type: 3}
       propertyPath: m_LocalPosition.y
