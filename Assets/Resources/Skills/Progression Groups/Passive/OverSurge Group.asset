@@ -10,13 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
-  m_Name: Recovery Group
+  m_Name: OverSurge Group
   m_EditorClassIdentifier: 
   paragonSkill: 0
   skillProgression:
-  - skill: {fileID: 11400000, guid: 72da6607b66d99e498903293fe49d165, type: 2}
+  - skill: {fileID: 11400000, guid: 4cf234f548aea4541b70c76e0dedacf0, type: 2}
     cost: 0
-  - skill: {fileID: 11400000, guid: 2408e1ac4defeb94ab6797ce916f45b8, type: 2}
-    cost: 150
-  - skill: {fileID: 11400000, guid: 42fb94c782a86d8428fc6c7d4545c52f, type: 2}
+  - skill: {fileID: 11400000, guid: 35e4cdc80061e4249911b29d8089e4da, type: 2}
     cost: 250

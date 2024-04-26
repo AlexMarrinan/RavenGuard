@@ -16,3 +16,5 @@ MonoBehaviour:
   skillProgression:
   - skill: {fileID: 11400000, guid: a2b6312a16ddd7c47b59049e3b062d68, type: 2}
     cost: 0
+  - skill: {fileID: 11400000, guid: a735a23899bfca2498251e9702811843, type: 2}
+    cost: 250

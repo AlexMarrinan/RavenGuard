@@ -104,19 +104,19 @@ MonoBehaviour:
   unitClass: 1
   moveAmount: 5
   maxMoveAmount: 5
-  health: 13
-  maxHealth: 13
+  health: 15
+  maxHealth: 15
   currentXP: 0
   maxXP: 100
   droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 4
+  attack: 6
   defense: 5
-  agility: 7
+  agility: 9
   attunment: 6
   foresight: 4
-  luck: 3
+  luck: 7
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills:
@@ -135,6 +135,7 @@ MonoBehaviour:
   uiDot: {fileID: 0}
   activeSkillCooldowns: 
   paragonSkillProgression: {fileID: 11400000, guid: fe7867ae969a3b140835474871a9acd3, type: 2}
+  flightTurns: 0
   meleeWeapon: {fileID: 11400000, guid: ff4a1d911b4794846a4cec33f8c0a1ad, type: 2}
   meleeWeaponClass: 0
 --- !u!82 &1194301016362721627

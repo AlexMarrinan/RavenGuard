@@ -268,6 +268,14 @@ public class SkillManager : MonoBehaviour
             u.ReceiveDamage(2);
         }
     }
+
+    public void OverSurgePS(BaseUnit u){
+        if (u.health <= currentPassiveSkill.skillParam1){
+            u.health = 1;
+        }else{
+            u.ReceiveDamage(currentPassiveSkill.skillParam1);
+        }
+    }
     public void PoisonArrowsPS(BaseUnit u){
         BattleUnit otherbu = BattleSceneManager.instance.GetOtherBattleUnit(u);
         otherbu.assignedUnit.AddBuff(new PoisonBuff(u, otherbu.assignedUnit, 2));
@@ -395,12 +403,20 @@ public class SkillManager : MonoBehaviour
 
     //Unit heals 7 HP after combat if unit attacked.
     public void RecoveryPS(BaseUnit u){
-        int healing = 4;
+        int healing = currentPassiveSkill.skillParam1;
         //Called After Movment
         if (BattleSceneManager.instance.UnitAttacked(u)){
             u.RecoverHealth(healing);
         }
     }   
+
+    public void WalkItOffPS(BaseUnit u){
+        int healing = currentActiveSkill.skillParam1;
+        if (u.moveAmount > 0){
+            u.RecoverHealth(healing);
+        }
+
+    }
     public void CripplingJealousyPS (BaseUnit u){
         var units = UnitManager.instance.GetAllUnits();
         var coords = u.occupiedTile.coordiantes;
@@ -436,6 +452,17 @@ public class SkillManager : MonoBehaviour
             u.usedSkills["SecondWind"] = 1;
         }
     }
+
+        public void ReinvigoratePS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        if (u.usedSkills.ContainsKey("Reinvigorate")){
+            return;
+        }
+        if (u.health <= u.maxHealth * currentPassiveSkill.skillParam1 / 100){
+            u.health += u.maxHealth * currentPassiveSkill.skillParam2 / 100;
+            u.usedSkills["Reinvigorate"] = 1;
+        }
+    }
     public void DefensiveRallyPS(BaseUnit u){
         //ONLY USE SKILL ONCE PER STAGE
         var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
@@ -449,6 +476,144 @@ public class SkillManager : MonoBehaviour
             }
         }
     }
+
+    public void HealingPulsePS(BaseUnit u){
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        int healing = currentPassiveSkill.skillParam1;
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.RecoverHealth(healing);
+            }
+        }
+    }
+
+    public void DefensiveSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("DefensiveSupport", UnitStatType.Defense, buff, buff, buff, 1);
+            }
+        }
+    }
+
+    public void AgressiveSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("AgressiveSupport1", UnitStatType.Defense, buff, buff, buff, 1);
+                unit.AddStatsChange("AgressiveSupport2", UnitStatType.Attack, buff, buff, buff, 1);
+            }
+        }
+    }
+
+    public void AgileSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("AgileSupport", UnitStatType.Agility, buff, buff, buff, 1);
+            }
+        }
+    }
+
+    public void GamblersSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("GamblersSupport1", UnitStatType.Attunment, buff, buff, buff, 1);
+                unit.AddStatsChange("GamblersSupport2", UnitStatType.Luck, buff, buff, buff, 1);
+            }
+        }
+    }
+    public void FocusedSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("FocusedSupport", UnitStatType.Attunment, buff, buff, buff, 1);
+            }
+        }
+    }
+
+    public void FluidSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("FluidSupport1", UnitStatType.Agility, buff, buff, buff, 1);
+                unit.AddStatsChange("FluidSupport2", UnitStatType.Foresight, buff, buff, buff, 1);
+            }
+        }
+    }
+
+    public void ChargedSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("ChargedSupport1", UnitStatType.Defense, buff, buff, buff, 1);
+                unit.AddStatsChange("ChargedSupport2", UnitStatType.Agility, buff, buff, buff, 1);
+            }
+        }
+    }
+
+    public void OffensiveSupportPS(BaseUnit u){
+        //ONLY USE SKILL ONCE PER STAGE
+        int buff = currentPassiveSkill.skillParam1;
+        var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);
+        foreach (BaseUnit unit in units){
+            if (u == unit){
+                continue;
+            }
+            float distance = (int)(u.occupiedTile.coordiantes - unit.occupiedTile.coordiantes).magnitude;
+            if (distance <= 2){
+                unit.AddStatsChange("AgileSupport", UnitStatType.Attack, buff, buff, buff, 1);
+            }
+        }
+    }
+
     public void KnightsTestudoPS(BaseUnit u){
         //ONLY USE SKILL ONCE PER STAGE
         var units = UnitManager.instance.GetAllUnitsOfFaction(u.faction);

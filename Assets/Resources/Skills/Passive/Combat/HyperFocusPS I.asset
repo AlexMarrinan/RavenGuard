@@ -10,24 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c97c4264b21dc4e4f975b160f9b7e64a, type: 3}
-  m_Name: AdrenalineBurstPS
+  m_Name: HyperFocusPS I
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
-  skillName: AdrenalineBurst
+  skillName: HyperFocus
   skillLevel: 1
-  description: If unit's HP is below 25%, unit gets +3 to all stats during combat,
-    and unit makes a guaranteed follow-up attack.   Unit takes 2 damage after combat.
-  menuIcon: {fileID: 21300000, guid: cb56d6fb559380341bc20e181d200eeb, type: 3}
+  description: If unit's HP is above 75%, unit gets +2 to all stats during combat
+    and foe cannot make a follow-up attack.
+  menuIcon: {fileID: 21300000, guid: b566fc1f9fd05814ba0e36b08667b89c, type: 3}
   skillIcons:
   - {fileID: -682129567, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   - {fileID: -108577501, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   - {fileID: -824462777, guid: e0919b6edeea44e4192b22fff9e76a8a, type: 3}
   rarity: 0
-  skillType: 2
+  skillType: 0
   skillRestrictions: 0
-  progressionGroup: {fileID: 11400000, guid: 88973dc30bf664a4989dfe5634573178, type: 2}
+  progressionGroup: {fileID: 11400000, guid: 6acbf164b40816c468afa26b3c336377, type: 2}
   unitClass: 0
-  weaponClass: 2
+  weaponClass: 1
   centered: 0
   shape: 0
   range1: 1
@@ -35,12 +35,19 @@ MonoBehaviour:
   skillParam1: 0
   skillParam2: 0
   tileMoveType: 0
-  passiveSkillType: 3
+  passiveSkillType: 1
   atributes:
   - condition:
       variable: 0
-      comparator: 2
-      value: 0.3
+      comparator: 3
+      value: 0.75
     action:
       type: 10
-      value: 3
+      value: 2
+  - condition:
+      variable: 0
+      comparator: 3
+      value: 0.75
+    action:
+      type: 3
+      value: 0

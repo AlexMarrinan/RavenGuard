@@ -153,7 +153,7 @@ public class BaseUnit : MonoBehaviour
 
     }
     public int GetDamageDone(BaseUnit defender, bool canCrit=false){
-        int damage = 0;
+        int damage = 1;
         int attackDmg = GetAttackDamage(defender);
         int magicDmg = GetMagicDamage(defender);
         bool attackHigher = attackDmg > magicDmg;

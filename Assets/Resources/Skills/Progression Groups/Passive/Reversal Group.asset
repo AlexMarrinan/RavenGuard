@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
-  m_Name: AdrenalineBurst Group
+  m_Name: Reversal Group
   m_EditorClassIdentifier: 
   paragonSkill: 0
   skillProgression:
-  - skill: {fileID: 11400000, guid: b12dbad82c607df4e873d438379409b9, type: 2}
+  - skill: {fileID: 11400000, guid: b05191ff527359d4fad248f54ebdda19, type: 2}
     cost: 0
+  - skill: {fileID: 11400000, guid: 07cc60857bd685f469ff5b1f32a79835, type: 2}
+    cost: 250

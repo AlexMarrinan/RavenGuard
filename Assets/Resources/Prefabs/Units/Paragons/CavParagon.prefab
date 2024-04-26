@@ -104,19 +104,19 @@ MonoBehaviour:
   unitClass: 6
   moveAmount: 6
   maxMoveAmount: 6
-  health: 9
-  maxHealth: 9
+  health: 14
+  maxHealth: 14
   currentXP: 0
   maxXP: 100
   droppedXP: 100
   level: 1
   hasMoved: 0
-  attack: 6
+  attack: 7
   defense: 4
-  agility: 4
-  attunment: 1
+  agility: 6
+  attunment: 4
   foresight: 3
-  luck: 1
+  luck: 2
   healthBar: {fileID: 0}
   spriteRenderer: {fileID: 6896802453669631958}
   skills: []

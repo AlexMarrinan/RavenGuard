@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
-  m_Name: RecoveryPS
+  m_Name: RecoveryPS I
   m_EditorClassIdentifier: 
   sprite: {fileID: 21300000, guid: ce0722d3efb3eef42bf84f2f4eee12d3, type: 3}
   skillName: Recovery
+  skillLevel: 1
   description: Unit heals 4 HP after combat if unit attacked.
   menuIcon: {fileID: 21300000, guid: ce0722d3efb3eef42bf84f2f4eee12d3, type: 3}
   skillIcons:
@@ -23,12 +24,14 @@ MonoBehaviour:
   rarity: 0
   skillType: 1
   skillRestrictions: 0
-  progressionGroup: {fileID: 0}
+  progressionGroup: {fileID: 11400000, guid: f82131da0dd23324886c22ea494c72f6, type: 2}
   unitClass: 0
   weaponClass: 0
   centered: 0
   shape: 0
   range1: 1
   range2: 1
+  skillParam1: 4
+  skillParam2: 0
   tileMoveType: 0
   passiveSkillType: 3

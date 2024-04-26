@@ -10,9 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
-  m_Name: CondensedFlow Group
+  m_Name: Condensed Flow Group
   m_EditorClassIdentifier: 
   paragonSkill: 0
   skillProgression:
-  - skill: {fileID: 11400000, guid: b12dbad82c607df4e873d438379409b9, type: 2}
+  - skill: {fileID: 11400000, guid: db6025ea8a701e64d96dfb30b83e7e5b, type: 2}
     cost: 0
+  - skill: {fileID: 11400000, guid: 438606fdbd2100e45be0f984a5747bfa, type: 2}
+    cost: 250

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 91f0cccb589f1784e8100b21119bf486, type: 3}
-  m_Name: Recovery Group
+  m_Name: Reinvigorate Group
   m_EditorClassIdentifier: 
   paragonSkill: 0
   skillProgression:
-  - skill: {fileID: 11400000, guid: 72da6607b66d99e498903293fe49d165, type: 2}
+  - skill: {fileID: 11400000, guid: 5a3ba0d3c35b6614098c93f174692059, type: 2}
     cost: 0
-  - skill: {fileID: 11400000, guid: 2408e1ac4defeb94ab6797ce916f45b8, type: 2}
+  - skill: {fileID: 11400000, guid: db0d10e0e2650ad4bb0f2e3cdd758bf2, type: 2}
     cost: 150
-  - skill: {fileID: 11400000, guid: 42fb94c782a86d8428fc6c7d4545c52f, type: 2}
-    cost: 250
+  - skill: {fileID: 11400000, guid: a8cda4ea608de6644bdd583f9085d04f, type: 2}
+    cost: 300
