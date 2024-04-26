@@ -93,7 +93,7 @@ public class BaseUnit : MonoBehaviour
     }
     public void BuffAllCombatStats(int amount){
         foreach (UnitStatType ust in Enum.GetValues(typeof(UnitStatType))){
-            duringCombatStats[ust] = amount;
+            duringCombatStats[ust] += amount;
         }
     }
     public void BuffCombatStat(UnitStatType type, int amount){

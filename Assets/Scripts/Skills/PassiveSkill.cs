@@ -14,6 +14,7 @@ public class PassiveSkill : BaseSkill {
     public override void SetMethod(){
         var mng = SkillManager.instance;
         methodInfo = mng.GetType().GetMethod(base.skillName + "PS");
+        Debug.Log(methodInfo);
     }
     /// <summary>
     /// If the passive conditions are met, calls the active skills backend method to perform the skill
@@ -24,7 +25,7 @@ public class PassiveSkill : BaseSkill {
         var mng = SkillManager.instance;
         var param = new object[1];
         param[0] = user;
-//        Debug.Log(methodInfo);
+        //Debug.Log(methodInfo);
         methodInfo.Invoke(mng, param);
     }
 }

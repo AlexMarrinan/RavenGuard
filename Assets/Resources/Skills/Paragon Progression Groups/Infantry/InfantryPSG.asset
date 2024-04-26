@@ -20,7 +20,6 @@ MonoBehaviour:
       the beginning of combat.
 
 
-
       Underdog: If unit is affected by a negative
       buff/status effect, unit makes a guaranteed follow-up during combat.'
     levelUp: 0

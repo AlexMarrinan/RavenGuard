@@ -17,6 +17,7 @@ public class SkillManager : MonoBehaviour
     public PassiveSkill currentPassiveSkill;
     public BaseTile selectedTile;
     public Color activeSkillColor, passiveSkillColor;
+    private int rallyUpCounter = 0;
     public void Awake(){
         instance = this;
         LoadSkills();
@@ -399,6 +400,27 @@ public class SkillManager : MonoBehaviour
         }else{
             u.RemoveStatChange("MomentumDEF");
             u.RemoveStatChange("MomentumFOR");
+        }
+    }
+    public void RallyUpPS(BaseUnit u){
+        if (u.moveAmount >= 4){
+            rallyUpCounter++;
+            if (rallyUpCounter > 3){
+                rallyUpCounter = 3;
+            }
+        }else{
+            rallyUpCounter = 0;
+        }
+        Debug.Log("rally up: " + rallyUpCounter);
+        foreach (BaseUnit unit in UnitManager.instance.GetAllHeroes()){
+            if (unit.unitClass == UnitClass.Cavalry){
+                unit.AddStatsChange("RallyUpATK", UnitStatType.Attack, rallyUpCounter, rallyUpCounter, rallyUpCounter);
+                unit.AddStatsChange("RallyUpDEF", UnitStatType.Defense, rallyUpCounter, rallyUpCounter, rallyUpCounter);
+                unit.AddStatsChange("RallyUpAGL", UnitStatType.Agility, rallyUpCounter, rallyUpCounter, rallyUpCounter);
+                unit.AddStatsChange("RallyUpATU", UnitStatType.Attunment, rallyUpCounter, rallyUpCounter, rallyUpCounter);
+                unit.AddStatsChange("RallyUpFOR", UnitStatType.Foresight, rallyUpCounter, rallyUpCounter, rallyUpCounter);
+                unit.AddStatsChange("RallyUpLCK", UnitStatType.Luck, rallyUpCounter, rallyUpCounter, rallyUpCounter);
+            }
         }
     }
     //MAGE PARAGON SKILLS

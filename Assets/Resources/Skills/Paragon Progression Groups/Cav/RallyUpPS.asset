@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1b23c88d46570ea4f9700820aeba8c84, type: 3}
-  m_Name: FuriousRiderPS
+  m_Name: RallyUpPS
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  skillName: FuriousRider
+  skillName: RallyUp
   skillLevel: 1
   description: 
   menuIcon: {fileID: 0}
