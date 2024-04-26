@@ -17,7 +17,7 @@ public class SkillManager : MonoBehaviour
     public PassiveSkill currentPassiveSkill;
     public BaseTile selectedTile;
     public Color activeSkillColor, passiveSkillColor;
-    private int rallyUpCounter = 0;
+    public int rallyUpCounter = 0;
     public void Awake(){
         instance = this;
         LoadSkills();

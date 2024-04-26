@@ -182,6 +182,7 @@ public class GameManager : MonoBehaviour
     {
         levelNumber++;
         MenuManager.instance.DisableInventorySwapping();
+        SkillManager.instance.rallyUpCounter = 0;
         OverworldMapManager.instance.ShowMap(false);
         string levelName = "";
         if (levelNumber == 8){
