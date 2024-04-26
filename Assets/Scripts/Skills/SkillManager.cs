@@ -460,27 +460,27 @@ public class SkillManager : MonoBehaviour
             }
         }
         if (infs >= 1){
-            u.AddStatsChange("RavensCallATK", UnitStatType.Attack, amount, amount, amount, 1);
+            u.AddStatsChange("RavensCallATK", UnitStatType.Attack, amount, amount, amount, 2);
             if (otherUnit != null){
-                otherUnit.AddStatsChange("RavensCallAGL", UnitStatType.Attack, -2*infs, -2*infs, -2*infs, 1);
+                otherUnit.AddStatsChange("RavensCallAGL", UnitStatType.Attack, -2*infs, -2*infs, -2*infs, 2);
             }
         }
         if (cavs >= 1){
-            u.AddStatsChange("RavensCallAGL", UnitStatType.Agility, amount, amount, amount, 1);
+            u.AddStatsChange("RavensCallAGL", UnitStatType.Agility, amount, amount, amount, 2);
             if (otherUnit != null){
                 otherUnit.ReduceNextMovemnt(cavs);
             }
         }
         if (knights >= 1){
-            u.AddStatsChange("RavensCallDEF", UnitStatType.Defense, amount, amount, amount, 1);
+            u.AddStatsChange("RavensCallDEF", UnitStatType.Defense, amount, amount, amount, 2);
             if (otherUnit != null){
-                otherUnit.AddStatsChange("RavensCallDEF", UnitStatType.Defense, -2*knights, -2*knights, -2*knights, 1);
+                otherUnit.AddStatsChange("RavensCallDEF", UnitStatType.Defense, -2*knights, -2*knights, -2*knights, 2);
             }
         }
         if (mages >= 1){
-            u.AddStatsChange("RavensCallFOR", UnitStatType.Foresight, amount, amount, amount, 1);
+            u.AddStatsChange("RavensCallFOR", UnitStatType.Foresight, amount, amount, amount, 2);
             if (otherUnit != null){
-                otherUnit.AddStatsChange("RavensCallFOR", UnitStatType.Foresight, -2*mages, -2*mages, -2*mages, 1);
+                otherUnit.AddStatsChange("RavensCallFOR", UnitStatType.Foresight, -2*mages, -2*mages, -2*mages, 2);
             }
         }
     }
